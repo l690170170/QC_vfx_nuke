@@ -1,0 +1,203 @@
+#! C:/Program Files/Nuke6.3v7/Nuke6.3.exe -nx
+version 6.3 v7
+Gizmo {
+ inputs 3
+ help "Connect before reformats\nInput3 for lip location roto"
+ addUserKnob {20 User}
+ addUserKnob {26 txt l "" +STARTLINE T "Input 1 = MaskPass\nInput 2 = Tree\n\nMask goes in Input3 if needed."}
+ addUserKnob {41 which l "Mask needed?" T Switch1.which}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 SpecAlphaChannel T Shuffle17.alpha}
+ addUserKnob {41 LipSpecAmount T SPECLEVEL.mix}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 LipGrade l "" +STARTLINE T LipGrade}
+ addUserKnob {41 alpha l lipMaskChannel T Shuffle17.alpha}
+ addUserKnob {41 blackpoint T Grade17.blackpoint}
+ addUserKnob {41 whitepoint T Grade17.whitepoint}
+ addUserKnob {41 white l gain T Grade17.white}
+ addUserKnob {41 multiply T Grade17.multiply}
+ addUserKnob {41 gamma T Grade17.gamma}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 462
+  ypos 71
+ }
+add_layer {Mask_lipMask Mask_lipMask.red Mask_lipMask.green Mask_lipMask.blue}
+ Shuffle {
+  in Mask_lipMask
+  alpha red
+  name Shuffle17
+  xpos 462
+  ypos 122
+ }
+set N22362cd0 [stack 0]
+ Input {
+  inputs 0
+  name Input3
+  xpos 127
+  ypos 122
+  number 2
+ }
+set N2286caf0 [stack 0]
+ Reformat {
+  name Reformat3
+  xpos 128
+  ypos 53
+ }
+push $N2286caf0
+ Switch {
+  inputs 2
+  which {{LipFixGizmo.switchMask.which i}}
+  name switchRotoRef
+  xpos 237
+  ypos 122
+ }
+ Merge2 {
+  inputs 2
+  operation in
+  name In
+  xpos 372
+  ypos 122
+ }
+push $N22362cd0
+ Switch {
+  inputs 2
+  which 1
+  name Switch1
+  xpos 462
+  ypos 161
+ }
+set N20ef29f0 [stack 0]
+ Dot {
+  name Dot3
+  xpos 496
+  ypos 468
+ }
+ Input {
+  inputs 0
+  name Input2
+  xpos 587
+  ypos 47
+  number 1
+ }
+set N22363660 [stack 0]
+ Dot {
+  name Dot4
+  xpos 363
+  ypos 50
+ }
+set N228684d0 [stack 0]
+ Dot {
+  name Dot1
+  xpos 245
+  ypos 424
+ }
+push $N22363660
+add_layer {Beauty_Specular Beauty_Specular.red Beauty_Specular.green Beauty_Specular.blue}
+ Shuffle {
+  in Beauty_Specular
+  alpha red
+  name SpecShuff
+  xpos 587
+  ypos 203
+ }
+set N22868800 [stack 0]
+push $N20ef29f0
+ Dot {
+  name Dot7
+  xpos 729
+  ypos 164
+ }
+ Dot {
+  name Dot8
+  xpos 729
+  ypos 361
+ }
+ Merge2 {
+  inputs 2
+  operation in
+  name In1
+  xpos 587
+  ypos 358
+ }
+push $N22868800
+ Dot {
+  name Dot2
+  xpos 94
+  ypos 206
+ }
+push $N20ef29f0
+ Dot {
+  name Dot5
+  xpos 32
+  ypos 164
+ }
+ Dot {
+  name Dot6
+  xpos 32
+  ypos 319
+ }
+ Merge2 {
+  inputs 2
+  operation out
+  name Out
+  xpos 60
+  ypos 316
+ }
+push $N228684d0
+push $N22868800
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge1
+  xpos 329
+  ypos 283
+ }
+ Merge2 {
+  inputs 2
+  name Merge2
+  selected true
+  xpos 329
+  ypos 316
+ }
+ Merge2 {
+  inputs 2
+  mix 0.5
+  name SPECLEVEL
+  xpos 329
+  ypos 358
+ }
+set N22867b40 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos 329
+  ypos 415
+ }
+ Grade {
+  inputs 1+1
+  white {1 1.71 1.5 1}
+  name Grade17
+  xpos 329
+  ypos 465
+ }
+ Output {
+  name Output1
+  xpos 329
+  ypos 496
+ }
+push $N22868800
+push $N22867b40
+ Viewer {
+  inputs 2
+  frame 671
+  input_process false
+  name Viewer1
+  xpos 789
+  ypos -53
+ }
+end_group

@@ -1,0 +1,30 @@
+#! C:/Program Files/Nuke5.1v3/Nuke5.1.exe -nx
+version 5.1300
+Gizmo {
+ addUserKnob {20 AntiAlias_Settings}
+ addUserKnob {41 mix T Matrix1.mix}
+}
+ Input {
+  inputs 0
+  name Input1
+  selected true
+  xpos 234
+  ypos -130
+ }
+ Matrix {
+  matrix {
+      {1 2 1}
+      {2 4 2}
+      {1 2 1}
+    }
+  normalize true
+  name Matrix1
+  xpos 234
+  ypos -65
+ }
+ Output {
+  name Output1
+  xpos 234
+  ypos 10
+ }
+end_group

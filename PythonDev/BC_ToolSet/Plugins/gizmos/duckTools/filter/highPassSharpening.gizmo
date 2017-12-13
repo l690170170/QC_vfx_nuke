@@ -1,0 +1,86 @@
+#! C:/ghostRedist/nuke6.2v2wx64/Nuke6.2.exe -nx
+version 6.2 v2
+Gizmo {
+ inputs 2
+ postage_stamp true
+ addUserKnob {20 User}
+ addUserKnob {41 Radius T Blur4.size}
+ addUserKnob {41 Strength T Merge3.mix}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -319
+  ypos -544
+ }
+ Colorspace {
+  colorspace_out Cineon
+  name Colorspace1
+  xpos -319
+  ypos -504
+ }
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos -319
+  ypos -434
+ }
+set Ne27002f0 [stack 0]
+push $Ne27002f0
+ Invert {
+  channels rgba
+  name Invert2
+  xpos -436
+  ypos -434
+ }
+ Blur {
+  filter quadratic
+  name Blur4
+  xpos -436
+  ypos -203
+ }
+ Merge2 {
+  inputs 2
+  mix 0.505
+  name Merge2
+  xpos -319
+  ypos -196
+ }
+ Input {
+  inputs 0
+  name Input2
+  xpos -460
+  ypos -116
+  number 1
+ }
+ Colorspace {
+  colorspace_out Cineon
+  name Colorspace2
+  xpos -460
+  ypos -76
+ }
+ Shuffle {
+  alpha white
+  name Shuffle10
+  xpos -460
+  ypos -44
+ }
+ Merge2 {
+  inputs 2
+  operation overlay
+  name Merge3
+  xpos -319
+  ypos -44
+ }
+ Colorspace {
+  colorspace_in Cineon
+  name Colorspace3
+  xpos -319
+  ypos -1
+ }
+ Output {
+  name Output1
+  xpos -319
+  ypos 99
+ }
+end_group

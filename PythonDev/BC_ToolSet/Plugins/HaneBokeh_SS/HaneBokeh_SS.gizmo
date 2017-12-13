@@ -1,0 +1,91 @@
+Gizmo {
+ inputs 2
+ addUserKnob {20 haneBokeh}
+ addUserKnob {41 size T NoOp1.size}
+ addUserKnob {41 rotate T Transform1.rotate}
+ addUserKnob {26 ""}
+ addUserKnob {41 boost T NoOp1.boost}
+ addUserKnob {26 info l "" +STARTLINE T "\nFilter evaluates alpha channel."}
+}
+ Input {
+  inputs 0
+  name source
+  xpos -192
+  ypos -174
+ }
+ NoOp {
+  name NoOp1
+  xpos -192
+  ypos -150
+  addUserKnob {20 User}
+  addUserKnob {7 size R 0 10}
+  addUserKnob {7 boost R 0.0005 4}
+  boost 1
+ }
+set N1a5478f0 [stack 0]
+ Input {
+  inputs 0
+  name filter
+  label alpha
+  selected true
+  xpos -82
+  ypos -174
+  number 1
+ }
+ Transform {
+  scale {{parent.NoOp1.size}}
+  center {16.5 16.5}
+  filter Parzen
+  name Transform1
+  xpos -82
+  ypos -150
+ }
+push $N1a5478f0
+ Multiply {
+  value {{parent.NoOp1.boost}}
+  inject true
+  name Multiply1
+  xpos -192
+  ypos -126
+ }
+ Log2Lin {
+  gamma 1
+  name Log2Lin1
+  xpos -192
+  ypos -92
+ }
+ Convolve2 {
+  inputs 2
+  serializeKnob ""
+  name Convolve1
+  xpos -82
+  ypos -97
+ }
+ Log2Lin {
+  operation lin2log
+  black {{parent.Log2Lin1.black}}
+  white {{parent.Log2Lin1.white}}
+  gamma {{parent.Log2Lin1.gamma}}
+  name Log2Lin2
+  xpos -82
+  ypos -63
+ }
+ Multiply {
+  value {{1/parent.Multiply1.value}}
+  name Multiply2
+  xpos -82
+  ypos -39
+ }
+ Switch {
+  inputs 2
+  which {{(parent.Transform1.scale==0)?1:0}}
+  name Switch1
+  xpos -82
+  ypos -5
+ }
+ Output {
+  name Output1
+  xpos -82
+  ypos 39
+ }
+end_group

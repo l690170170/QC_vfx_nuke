@@ -1,0 +1,85 @@
+###
+### dg ©2006
+### diogogirondi@gmail.com
+### LM_2DMV to Nuke v1.0.1
+### Nuke 4.5.27
+###
+version 4.5027
+Gizmo {
+ inputs 2
+ tile_color 0xd68c1000
+ name LM_2DMV
+ help "Use \"Reader\" when getting the MV from a file Reader, use \"From UV\" when your MV are already available at your UV channels.\n\"Linearize MV\" applies a linear LUT when you have built-in MV into your UV channels that are set to sRGB\nCase your MV are not unpremultiplied check \"Unpremultiply Motion Vectors\"\n"
+ addUserKnob {20 "" User}
+ addUserKnob {26 "" "@b;LM_2DMV (ReelSmart) to Nuke"}
+ addUserKnob {4 getfrom "Get MV from:" M {Reader "UV Channels"}}
+ addUserKnob {6 unpre "Unpremultiply Motion Vectors"}
+ unpre true
+ addUserKnob {6 linear "Linearize MV"}
+}
+ Input {
+  inputs 0
+  name MV
+  xpos 130
+  ypos 56
+  number 1
+ }
+ Shuffle {
+  in uv
+  blue black
+  alpha black
+  out rgb
+  name UV_to_RGB
+  xpos 130
+  ypos 82
+  disable {{!parent.getfrom}}
+ }
+ ColorLookup {
+  lut {master {to_sRGB(x)/255 L 0 0.99}
+    red {curve C 0 1}
+    green {curve C 0 1}
+    blue {curve C 0 1}
+    alpha {curve C 0 1}}
+  name Linearize
+  selected true
+  xpos 130
+  ypos 108
+  disable {{!parent.linear}}
+ }
+ Unpremult {
+  name Unpremult5
+  xpos 130
+  ypos 151
+  disable {{!parent.unpre}}
+ }
+ Expression {
+  channel0 {rgba.red -rgba.green -rgba.blue}
+  expr0 ((r-0.5)*width)/2
+  channel1 {-rgba.red rgba.green -rgba.blue}
+  expr1 ((g-0.5)*height)/2
+  channel2 {-rgba.red -rgba.green rgba.blue}
+  name Expression5
+  xpos 130
+  ypos 177
+ }
+ Input {
+  inputs 0
+  name Pipe
+  xpos 247
+  ypos 57
+ }
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  out uv
+  name ShuffleCopy5
+  xpos 247
+  ypos 177
+ }
+ Output {
+  name Output1
+  xpos 247
+  ypos 271
+ }
+end_group

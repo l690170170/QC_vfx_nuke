@@ -1,0 +1,224 @@
+#! C:/Program Files/Nuke8.0v5/nuke-8.0.v5.dll -nx
+version 8.0 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="2623" y="22" w="1680" h="1024" screen="0">
+        <splitter orientation="1">
+            <split size="1052"/>
+            <splitter orientation="1">
+                <split size="40"/>
+                <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                    <page id="Toolbar.1"/>
+                </dock>
+                <split size="1008"/>
+                <splitter orientation="2">
+                    <split size="563"/>
+                    <dock id="" activePageId="Viewer.1">
+                        <page id="Viewer.1"/>
+                    </dock>
+                    <split size="396"/>
+                    <dock id="" activePageId="DAG.1">
+                        <page id="DAG.1"/>
+                        <page id="Curve Editor.1"/>
+                        <page id="DopeSheet.1"/>
+                    </dock>
+                </splitter>
+            </splitter>
+            <split size="608"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name R:/filmServe/RnD/matchmove/98_pipeline/distortion_syth_export/Matchmove/nuke/synth_template.nk
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode9
+ tile_color 0xe9ff55ff
+ label Distort
+ note_font_size 22
+ xpos -149
+ ypos -305
+ bdwidth 230
+ bdheight 152
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode10
+ tile_color 0x55bfffff
+ label unDis
+ note_font_size 22
+ xpos -434
+ ypos -306
+ bdwidth 237
+ bdheight 153
+}
+StickyNote {
+ inputs 0
+ name StickyNote3
+ tile_color 0xff0000ff
+ gl_color 0xff0000ff
+ label "check \nPath\nNaming"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 20
+ xpos -238
+ ypos -32
+}
+Read {
+ inputs 0
+ file R:/filmServe/1023_JA_KQS/VFX/rawPlates/Train/VFX_0494/BG01/2880x1519_JPG/D024_C012_0101S4_001.%04d.JPG
+ format "2880 1519 0 0 2880 1519 1 "
+ first 1001
+ last 1125
+ origfirst 1001
+ origlast 1125
+ origset true
+ name Read13
+ xpos -330
+ ypos -460
+}
+set N12112690 [stack 0]
+SyLens {
+ k -0.00714
+ filter Lanczos6
+ name SyLens1
+ xpos -330
+ ypos -250
+}
+Reformat {
+ type scale
+ scale 1.1
+ resize none
+ filter Lanczos6
+ pbb true
+ name Reformat31
+ xpos -330
+ ypos -214
+}
+set N12112d70 [stack 0]
+Transform {
+ center {1584 835.5}
+ filter Lanczos6
+ name Transform6
+ xpos -330
+ ypos -44
+ postage_stamp true
+}
+Write {
+ file_type jpeg
+ _jpeg_quality 1
+ checkHashOnRead false
+ beforeRender "\nimport re\nif nuke.thisNode().knob('Path Fragments'):\n    nnas_root = nuke.thisNode().knob('nas_root').evaluate()\n    nproject = nuke.thisNode().knob('project').evaluate()\n    nseq = nuke.thisNode().knob('seq').evaluate()\n    nshot_head = nuke.thisNode().knob('shot_head').evaluate()\n    nshot_tail = nuke.thisNode().knob('shot_tail').evaluate()\n    script = nuke.thisNode().knob('file').value()\n    newfile = re.sub(\"\\\[value nas_root\\]\",nnas_root,script)\n    newfile = re.sub(\"\\\[value project\\]\",nproject,newfile)\n    newfile = re.sub(\"\\\[value seq\\]\",nseq,newfile)\n    newfile = re.sub(\"\\\[value shot_head\\]\",nshot_head,newfile) \n    newfile = re.sub(\"\\\[value shot_tail\\]\",nshot_tail,newfile) \nelse:\n    newfile =  nuke.thisNode().knob('file').value()\nprint newfile   \ndirname = os.path.dirname(newfile)\nif dirname.find('%V') >= 0:\n    dirname_R = dirname.replace('%V','right')\n    dirname_L = dirname.replace('%V','left')\n    if not os.path.exists(dirname_R):\n        os.makedirs(dirname_R)\n    if not os.path.exists(dirname_L):\n        os.makedirs(dirname_L)\nelse:\n    if os.path.exists(dirname) == True:\n        pass\n    else:\n        os.makedirs(dirname)"
+ afterRender "\nimport re\nif nuke.thisNode().knob('Path Fragments'):\n    nnas_root = nuke.thisNode().knob('nas_root').evaluate()\n    nproject = nuke.thisNode().knob('project').evaluate()\n    nseq = nuke.thisNode().knob('seq').evaluate()\n    nshot_head = nuke.thisNode().knob('shot_head').evaluate()\n    nshot_tail = nuke.thisNode().knob('shot_tail').evaluate()\n    script = nuke.thisNode().knob('file').value()\n    newfile = re.sub(\"\\\[value nas_root\\]\",nnas_root,script)\n    newfile = re.sub(\"\\\[value project\\]\",nproject,newfile)\n    newfile = re.sub(\"\\\[value seq\\]\",nseq,newfile)\n    newfile = re.sub(\"\\\[value shot_head\\]\",nshot_head,newfile) \n    newfile = re.sub(\"\\\[value shot_tail\\]\",nshot_tail,newfile) \nelse:\n    newfile =  nuke.thisNode().knob('file').value()\nif newfile.find('%V') >= 0:\n    filename_R = newfile.replace('%V','right')\n    filename_L = newfile.replace('%V','left')\n    filenameList   = \[filename_R,filename_L]\n    if _CURRENTEYE == 'main':\n        _CURRENTEYE = 'right'\nelse:\n    filenameList = \[newfile]\n    _CURRENTEYE = 'main'\ninputx = int(nuke.thisNode()\['xpos'].value())\ninputy = int(nuke.thisNode()\['ypos'].value())\nprint _CURRENTEYE\nif _CURRENTEYE == 'right':\n    filepath = filename_R\n    for target in nuke.getFileNameList(os.path.dirname(filepath)):\n        match = re.match(r'(\\S+) (\\d+-\\d+)',target)\n        if match:\n            if match.group(1).split('.')\[0] == os.path.basename(filepath).split('.')\[0] and target.find(_CURRENTEYE) != -1:\n                firstframe = int(match.group(2).split('-')\[0])\n                lastframe = int(match.group(2).split('-')\[1])\n                node = nuke.nodes.Read(file = filepath,first=firstframe,last=lastframe)\n                node.setXYpos(inputx + 110,inputy+50)\n        else:\n            try:\n                filepath_temp = os.path.basename(filepath).split('.')\[0]\n                target_temp   = target.split('.')\[0]\n            except:\n                filepath_temp = os.path.basename(filepath)\n                target_temp   = target\n            if filepath_temp == target_temp:\n                firstframe = os.path.basename(target).split('.')\[-2]\n                lastframe  = firstframe\n                node = nuke.nodes.Read(file = filepath,first=firstframe,last=lastframe)\n                node.setXYpos(inputx + 110,inputy+50)\n    _CURRENTEYE = 'left'\nelif _CURRENTEYE == 'left':\n    filepath = filename_L\n    for target in nuke.getFileNameList(os.path.dirname(filepath)):\n        match = re.match(r'(\\S+) (\\d+-\\d+)',target)\n        if match:\n            if match.group(1).split('.')\[0] == os.path.basename(filepath).split('.')\[0] and target.find(_CURRENTEYE) != -1:\n                firstframe = int(match.group(2).split('-')\[0])\n                lastframe = int(match.group(2).split('-')\[1])\n                node = nuke.nodes.Read(file = filepath,first=firstframe,last=lastframe)\n                node.setXYpos(inputx,inputy+50)\n        else:\n            try:\n                filepath_temp = os.path.basename(filepath).split('.')\[0]\n                target_temp   = target.split('.')\[0]\n            except:\n                filepath_temp = os.path.basename(filepath)\n                target_temp   = target\n            if filepath_temp == target_temp:\n                firstframe = os.path.basename(target).split('.')\[-2]\n                lastframe  = firstframe\n                node = nuke.nodes.Read(file = filepath,first=firstframe,last=lastframe)\n                node.setXYpos(inputx,inputy+50)\n    _CURRENTEYE = 'main'\nelif _CURRENTEYE == 'main':\n    filepath = filenameList\[0]\n    for target in nuke.getFileNameList(os.path.dirname(filepath)):\n        match = re.match(r'(\\S+) (\\d+-\\d+)',target)\n        if match:\n            if match.group(1).split('.')\[0] == os.path.basename(filepath).split('.')\[0]:\n                firstframe = int(match.group(2).split('-')\[0])\n                lastframe = int(match.group(2).split('-')\[1])\n                node = nuke.nodes.Read(file = filepath,first=firstframe,last=lastframe)\n                node.setXYpos(inputx,inputy+50)\n        else:\n            try:\n                filepath_temp = os.path.basename(filepath).split('.')\[0]\n                target_temp   = target.split('.')\[0]\n            except:\n                filepath_temp = os.path.basename(filepath)\n                target_temp   = target\n            if filepath_temp == target_temp:\n                firstframe = os.path.basename(target).split('.')\[-2]\n                lastframe  = firstframe\n                node = nuke.nodes.Read(file = filepath,first=firstframe,last=lastframe)\n                node.setXYpos(inputx,inputy+50)\n    _CURRENTEYE = 'main'\n    "
+ name Write5
+ xpos -330
+ ypos 28
+ addUserKnob {20 User l RenderInBackground}
+ addUserKnob {26 information l Info: T "More simple,more useful!Please make sure your setting didn't overflow available memory."}
+ addUserKnob {3 firstframe_1 l FirstFrame t "entry first frame of render range"}
+ firstframe_1 1001
+ addUserKnob {3 lastframe_1 l LastFrame t "entry last frame of render range"}
+ lastframe_1 1100
+ addUserKnob {3 splitNum t "entry number of splited framerange"}
+ splitNum 2
+ addUserKnob {3 maxThreads}
+ maxThreads 4
+ addUserKnob {3 maxCache}
+ maxCache 2000
+ addUserKnob {26 unnamed l "" +STARTLINE}
+ addUserKnob {22 renderinbackground l RenderInBackground -STARTLINE T "import time\nif nuke.thisNode().knob('file').value().find(':/') == -1:\n    nuke.message('file is empty')\nelse:\n    if os.path.exists(os.path.dirname(nuke.thisNode().knob('file').value()))==True:\n        print nuke.thisNode().knob('file').value()\n    else:\n        os.makedirs(os.path.dirname(nuke.thisNode().knob('file').value()))\n\n    firstframe_2 = int(nuke.thisNode().knob('firstframe_1').value())\n    lastframe_2 = int(nuke.thisNode().knob('lastframe_1').value())\n    splitnum_2 = int(nuke.thisNode().knob('splitNum').value())\n\n    subrange = int((lastframe_2 + 1 - firstframe_2)/splitnum_2)\n\n    maxthreads = nuke.thisNode().knob('maxThreads').value()\n    maxcache = nuke.thisNode().knob('maxCache').value()\n    view = nuke.views()\n    limits = \{'maxThreads':maxthreads,'maxCache':'%dM'%maxcache\}\n\n    for i in range(splitnum_2+1):\n        framerange = nuke.FrameRange()\n        frameranges = nuke.FrameRanges()\n\n        if firstframe_2 - 1 + subrange * (i+1) >= lastframe_2:\n            framerange.setLast(lastframe_2)\n        else:\n            framerange.setLast(firstframe_2 - 1 + subrange * (i+1))\n        if lastframe_2 >= firstframe_2 + subrange * i:\n            framerange.setFirst(firstframe_2 + subrange * i)\n            framerange.setIncrement(1)\n            frameranges.add(framerange)\n            time.sleep(0.1)\n            print frameranges\n            nuke.executeBackgroundNuke(nuke.EXE_PATH,\[nuke.thisNode()],frameranges,view,limits)\n        else:\n            pass"}
+}
+StickyNote {
+ inputs 0
+ name StickyNote6
+ tile_color 0xff0000ff
+ gl_color 0xff0000ff
+ label "Replace\nPlate\nCheck\nFormat"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 20
+ xpos -421
+ ypos -475
+}
+StickyNote {
+ inputs 0
+ name StickyNote2
+ tile_color 0xff0000ff
+ gl_color 0xff0000ff
+ label k
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 20
+ xpos -414
+ ypos -248
+}
+StickyNote {
+ inputs 0
+ name StickyNote1
+ tile_color 0xff0000ff
+ gl_color 0xff0000ff
+ label k
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 20
+ xpos -120
+ ypos -220
+}
+push $N12112d70
+Dot {
+ name Dot17
+ xpos -178
+ ypos -211
+}
+Dot {
+ name Dot16
+ xpos -178
+ ypos -243
+}
+Reformat {
+ type scale
+ format "2880 1519 0 0 2880 1519 1 "
+ scale 0.909090909
+ resize none
+ filter Lanczos6
+ pbb true
+ name Reformat32
+ xpos -36
+ ypos -246
+}
+SyLens {
+ output "apply disto"
+ k -0.00714
+ filter Lanczos6
+ trim true
+ name SyLens7
+ xpos -36
+ ypos -222
+}
+Dot {
+ name Dot15
+ xpos 110
+ ypos -213
+}
+push $N12112690
+Merge2 {
+ inputs 2
+ operation difference
+ name Merge13
+ xpos 76
+ ypos -454
+ postage_stamp true
+}
+Viewer {
+ inputs 0
+ frame 1
+ input_process false
+ name Viewer1
+ xpos -40
+ ypos -9
+}

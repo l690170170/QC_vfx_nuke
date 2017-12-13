@@ -1,0 +1,105 @@
+#! C:/Program Files (x86)/Nuke5.0v2/nuke5.0.exe -nx
+version 5.0200
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {41 channels T CustomGrade.channels}
+ addUserKnob {41 layer l "knob channels \$value" T CustomGrade.layer}
+ addUserKnob {41 blackpoint T CustomGrade.blackpoint}
+ addUserKnob {41 whitepoint T CustomGrade.whitepoint}
+ addUserKnob {41 black l lift T CustomGrade.black}
+ addUserKnob {41 white l gain T CustomGrade.white}
+ addUserKnob {41 multiply T CustomGrade.multiply}
+ addUserKnob {41 add l offset T CustomGrade.add}
+ addUserKnob {41 gamma T CustomGrade.gamma}
+ addUserKnob {26 "" l "  "}
+ addUserKnob {41 reverse T CustomGrade.reverse}
+ addUserKnob {41 black_clamp l "black clamp" T CustomGrade.black_clamp}
+ addUserKnob {41 white_clamp l "white clamp" T CustomGrade.white_clamp}
+ addUserKnob {41 Mask T CustomGrade.Mask}
+ addUserKnob {41 maskChannel l mask T CustomGrade.maskChannel}
+ addUserKnob {41 maskFrom l from T CustomGrade.maskFrom}
+ addUserKnob {41 invert_mask l invert T CustomGrade.invert_mask}
+ addUserKnob {41 fringe T CustomGrade.fringe}
+ addUserKnob {41 mask l "knob maskChannel \$value; knob maskFrom 1" T CustomGrade.mask}
+ addUserKnob {41 process_mask l "if \[numvalue maskFrom] \{knob maskFrom 2\}" T CustomGrade.process_mask}
+ addUserKnob {41 unpremult l "(un)premult by" T CustomGrade.unpremult}
+ addUserKnob {41 invert_unpremult l invert T CustomGrade.invert_unpremult}
+ addUserKnob {41 mix T CustomGrade.mix}
+ addUserKnob {41 enable l "knob mix \$value" T CustomGrade.enable}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -576
+  ypos -392
+ }
+set N19559298 [stack 0]
+push 0
+push $N19559298
+ ShuffleCopy {
+  inputs 2
+  alpha white
+  name removeAlpha
+  xpos -695
+  ypos -310
+ }
+ Gamma {
+  value 0.5
+  name GammaDown1
+  xpos -695
+  ypos -273
+ }
+push 0
+push $N19559298
+ ShuffleCopy {
+  inputs 2
+  red alpha2
+  green alpha2
+  blue alpha2
+  alpha white
+  name AlphaToRgb
+  xpos -576
+  ypos -305
+ }
+set N1a1acef8 [stack 0]
+ Merge2 {
+  inputs 2
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  operation divide
+  Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge5
+  xpos -628
+  ypos -214
+ }
+ Gamma {
+  value 2
+  name GammaUp1
+  xpos -628
+  ypos -176
+ }
+ Grade {
+  name CustomGrade
+  xpos -628
+  ypos -128
+ }
+push $N1a1acef8
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge6
+  xpos -556
+  ypos -75
+ }
+ ShuffleCopy {
+  inputs 2
+  name restoreAlpha
+  xpos -439
+  ypos -25
+ }
+ Output {
+  name Output1
+  xpos -439
+  ypos 75
+ }
+end_group

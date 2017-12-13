@@ -1,0 +1,53 @@
+#! C:/Program Files/Nuke4.8v1b13/nuke4.8.exe -nx
+version 4.8100
+Gizmo {
+ inputs 1
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -210
+  ypos 88
+ }
+set N4e09538 [stack 0]
+ FieldSelect {
+  name FieldSelect2
+  xpos -90
+  ypos 124
+ }
+ Reformat {
+  full_format "720 486 0 0 720 486 0.9 NTSC_video"
+  resize distort
+  filter Mitchell
+  name Reformat2
+  xpos -90
+  ypos 160
+ }
+push $N4e09538
+ FieldSelect {
+  field Even
+  name FieldSelect3
+  xpos -210
+  ypos 124
+ }
+ Reformat {
+  full_format "720 486 0 0 720 486 0.9 NTSC_video"
+  resize distort
+  filter Mitchell
+  name Reformat1
+  xpos -210
+  ypos 160
+ }
+ Dissolve {
+  inputs 2
+  which 0.5
+  name Dissolve1
+  xpos -210
+  ypos 196
+ }
+ Output {
+  name Output1
+  xpos -210
+  ypos 296
+ }
+end_group

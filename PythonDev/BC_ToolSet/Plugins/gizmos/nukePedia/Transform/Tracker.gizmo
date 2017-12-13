@@ -1,0 +1,75 @@
+# Emulation of the pre-Nuke4.5 Tracker so that scripts using it can be
+# loaded. All this does is provide the knobs to hold the animation,
+# it cannot be used for tracking. The modern tracker is Tracker3.
+
+# addUserKnob numbers:
+# 7 = 1 float
+# 12 = 2 floats
+# 15 = 4 floats
+# 0 = obsolete / ignore
+
+Gizmo {
+  addUserKnob {0 t1}
+  addUserKnob {0 t2}
+  addUserKnob {0 t3}
+  addUserKnob {0 t4}
+  addUserKnob {0 type}
+  addUserKnob {0 useOffset}
+  addUserKnob {0 helper}
+
+  addUserKnob {12 tracker1}
+  addUserKnob {0 search1}
+  addUserKnob {0 pattern1}
+  addUserKnob {12 tracker1off}
+
+  addUserKnob {12 tracker2}
+  addUserKnob {0 search2}
+  addUserKnob {0 pattern2}
+  addUserKnob {12 tracker2off}
+
+  addUserKnob {12 tracker3}
+  addUserKnob {0 search3}
+  addUserKnob {0 pattern3}
+  addUserKnob {12 tracker3off}
+
+  addUserKnob {12 tracker4}
+  addUserKnob {0 search4}
+  addUserKnob {0 pattern4}
+  addUserKnob {12 tracker4off}
+
+  addUserKnob {12 avg12}
+  addUserKnob {12 avg123}
+  addUserKnob {12 avg34}
+  addUserKnob {12 avg1234}
+  addUserKnob {7 angle12}
+  addUserKnob {7 angle34}
+  addUserKnob {7 angle123}
+  addUserKnob {7 dist12}
+  addUserKnob {7 dist13}
+  addUserKnob {7 dist14}
+  addUserKnob {7 dist23}
+  addUserKnob {7 dist24}
+  addUserKnob {7 dist34}
+
+  addUserKnob {0 max_iter}
+  addUserKnob {0 can_rotate}
+  addUserKnob {0 can_scale}
+  addUserKnob {0 method}
+
+  addUserKnob {7 refframe}
+  addUserKnob {12 offpos1}
+  addUserKnob {7 rot12}
+  addUserKnob {7 scale12}
+  addUserKnob {12 centpos}
+  addUserKnob {12 offpos2}
+
+  help
+"Emulation of the pre-Nuke4.5 Tracker so that scripts using it can be \
+loaded. All this does is provide the knobs to hold the animation, \
+it cannot be used for tracking. The modern tracker is Tracker3."
+}
+push 0
+Input {}
+Output {}
+end_group
+

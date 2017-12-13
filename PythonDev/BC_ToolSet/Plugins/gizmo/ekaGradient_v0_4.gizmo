@@ -1,0 +1,529 @@
+#! /usr/local/Nuke10.0v6/libnuke-10.0.6.so -nx
+version 10.0 v6
+Gizmo {
+ inputs 2
+ tile_color 0x3e003eff
+ note_font "Bitstream Vera Sans Bold"
+ note_font_color 0xffff00ff
+ addUserKnob {20 User}
+ addUserKnob {26 Version l ":: ekaGradient 0.4 :: by Edu Leon :: Ekaiadesign.com ::"}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 lookRamp l "Show Gradient Map Viewport" T lookRampCTRL.lookRamp}
+ addUserKnob {41 original l "Switch result / source on viewport" T colorCtrl.original}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 operation l Operation T MergeOperation.operation}
+ addUserKnob {41 size l "Blur size" T Blur1.size}
+ addUserKnob {41 mix l Mix T MergeOperation.mix}
+ addUserKnob {41 reverse l "Reverse direction" T reverseCTRL.reverse}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 titleSpectrum l "Color Spectrum"}
+ addUserKnob {20 backgroundColorGroup l "Background color" n 1}
+ addUserKnob {41 backgroundColor l "Color value" T colorCtrl.backgroundColor}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {20 color1group l "Color 1" n 1}
+ addUserKnob {41 color1On l "Activate color 1" T colorCtrl.color1On}
+ addUserKnob {41 color1rgba l "Color value" T colorCtrl.color1rgba}
+ addUserKnob {41 color1Start l Start T colorCtrl.color1Start}
+ addUserKnob {41 color1End l End T colorCtrl.color1End}
+ addUserKnob {41 type l Type T Ramp1.type}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {20 color2group l "Color 2" n 1}
+ color2group 0
+ addUserKnob {41 color2On l "Activate color 2" T colorCtrl.color2On}
+ addUserKnob {41 color2rgba l "Color value" T colorCtrl.color2rgba}
+ addUserKnob {41 color2Start l Start T colorCtrl.color2Start}
+ addUserKnob {41 color2End l End T colorCtrl.color2End}
+ addUserKnob {41 type_1 l Type T Ramp2.type}
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {20 color3group l "Color 3" n 1}
+ color3group 0
+ addUserKnob {41 color3On l "Activate color 3" T colorCtrl.color3On}
+ addUserKnob {41 color3rgba l "Color value" T colorCtrl.color3rgba}
+ addUserKnob {41 color3Start l Start T colorCtrl.color3Start}
+ addUserKnob {41 color3End l End T colorCtrl.color3End}
+ addUserKnob {41 type_2 l Type T Ramp3.type}
+ addUserKnob {20 endGroup_3 l endGroup n -1}
+}
+ NoOp {
+  inputs 0
+  name reverseCTRL
+  xpos 726
+  ypos -669
+  addUserKnob {20 User}
+  addUserKnob {6 reverse +STARTLINE}
+ }
+ NoOp {
+  inputs 0
+  name colorCtrl
+  xpos 714
+  ypos -944
+  addUserKnob {20 User}
+  addUserKnob {6 original +STARTLINE}
+  addUserKnob {19 backgroundColor}
+  backgroundColor {0 0 0 0}
+  addUserKnob {6 backgroundColor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  backgroundColor_panelDropped true
+  addUserKnob {26 ""}
+  addUserKnob {6 color1On +STARTLINE}
+  color1On true
+  addUserKnob {19 color1rgba}
+  color1rgba {1 1 1 0}
+  addUserKnob {6 color1rgba_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  color1rgba_panelDropped true
+  addUserKnob {7 color1Start R 0 100}
+  addUserKnob {7 color1End R 0 100}
+  color1End 100
+  addUserKnob {26 ""}
+  addUserKnob {6 color2On +STARTLINE}
+  addUserKnob {19 color2rgba}
+  color2rgba {0 0 0 0}
+  addUserKnob {6 color2rgba_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  color2rgba_panelDropped true
+  addUserKnob {7 color2Start R 0 100}
+  addUserKnob {7 color2End R 0 100}
+  addUserKnob {26 ""}
+  addUserKnob {6 color3On +STARTLINE}
+  addUserKnob {7 color3Start R 0 100}
+  addUserKnob {19 color3rgba}
+  color3rgba {0 0 0 0}
+  addUserKnob {6 color3rgba_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  color3rgba_panelDropped true
+  addUserKnob {7 color3End R 0 100}
+ }
+ NoOp {
+  inputs 0
+  name lookRampCTRL
+  xpos 2067
+  ypos 23
+  addUserKnob {20 User}
+  addUserKnob {6 lookRamp l "Look Ramp" +STARTLINE}
+ }
+ Input {
+  inputs 0
+  name Input
+  xpos 1738
+  ypos -1303
+ }
+set N807e040 [stack 0]
+ Dot {
+  name Dot4
+  xpos 2097
+  ypos -1302
+ }
+ NoOp {
+  name resolution
+  help Dot4
+  xpos 2066
+  ypos -166
+  addUserKnob {20 User}
+  addUserKnob {12 res l "original resolution"}
+  res {{"\[python nuke.thisNode().width()\\n]"} {"\[python nuke.thisNode().height()]"}}
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {{parent.colorCtrl.backgroundColor.r} {parent.colorCtrl.backgroundColor.g} {parent.colorCtrl.backgroundColor.b} {parent.colorCtrl.backgroundColor.a}}
+  color_panelDropped true
+  format "1920 1080 0 0 1920 1080 1 Output Resolution"
+  name backgroundColor
+  xpos 917
+  ypos -1226
+  postage_stamp false
+ }
+ Ramp {
+  p0 {1000 0}
+  p1 {1920 0}
+  color {1 1 1 1}
+  color_panelDropped true
+  name Ramp10
+  xpos 917
+  ypos -1116
+  disable true
+ }
+ Ramp {
+  p0 {1000 0}
+  p1 {1920 0}
+  color {1 1 1 1}
+  color_panelDropped true
+  name Ramp9
+  xpos 917
+  ypos -1090
+  disable true
+ }
+ Ramp {
+  p0 {1000 0}
+  p1 {1920 0}
+  color {1 1 1 1}
+  color_panelDropped true
+  name Ramp8
+  xpos 917
+  ypos -1064
+  disable true
+ }
+ Ramp {
+  p0 {1000 0}
+  p1 {1920 0}
+  color {1 1 1 1}
+  color_panelDropped true
+  name Ramp7
+  xpos 917
+  ypos -1038
+  disable true
+ }
+ Ramp {
+  p0 {1000 0}
+  p1 {1920 0}
+  color {1 1 1 1}
+  color_panelDropped true
+  name Ramp6
+  xpos 917
+  ypos -1012
+  disable true
+ }
+ Ramp {
+  p0 {1000 0}
+  p1 {1920 0}
+  color {1 1 1 1}
+  color_panelDropped true
+  name Ramp5
+  xpos 917
+  ypos -986
+  disable true
+ }
+ Ramp {
+  p0 {1000 0}
+  p1 {1920 0}
+  color {1 1 1 1}
+  color_panelDropped true
+  name Ramp4
+  xpos 917
+  ypos -937
+  disable true
+ }
+ Ramp {
+  p0 {{(parent.colorCtrl.color3Start*1920)/100} 0}
+  p1 {{(parent.colorCtrl.color3End*1920)/100} 0}
+  color {{parent.colorCtrl.color3rgba.r} {parent.colorCtrl.color3rgba.g} {parent.colorCtrl.color3rgba.b} {parent.colorCtrl.color3rgba.a}}
+  color_panelDropped true
+  name Ramp3
+  xpos 917
+  ypos -877
+  disable {{"(parent.colorCtrl.color3On)==0? 1:Ramp3.disable"}}
+ }
+ Ramp {
+  p0 {{(parent.colorCtrl.color2Start*1920)/100} 0}
+  p1 {{(parent.colorCtrl.color2End*1920)/100} 0}
+  color {{parent.colorCtrl.color2rgba.r} {parent.colorCtrl.color2rgba.g} {parent.colorCtrl.color2rgba.b} {parent.colorCtrl.color2rgba.a}}
+  color_panelDropped true
+  name Ramp2
+  xpos 917
+  ypos -829
+  disable {{"(parent.colorCtrl.color2On)==0? 1:Ramp2.disable"}}
+ }
+ Ramp {
+  p0 {{(parent.colorCtrl.color1Start*1920)/100} 0}
+  p1 {{(parent.colorCtrl.color1End*1920)/100} 0}
+  color {{parent.colorCtrl.color1rgba.r} {parent.colorCtrl.color1rgba.g} {parent.colorCtrl.color1rgba.b} {parent.colorCtrl.color1rgba.a}}
+  color_panelDropped true
+  name Ramp1
+  tile_color 0xffffff00
+  xpos 917
+  ypos -787
+  disable {{"(parent.colorCtrl.color1On)==0? 1:Ramp1.disable"}}
+  addUserKnob {20 User}
+ }
+ Blur {
+  size {0 0}
+  name Blur1
+  xpos 917
+  ypos -761
+ }
+ Crop {
+  box {0 0 1920 1080}
+  name Crop1
+  xpos 917
+  ypos -717
+ }
+ Transform {
+  scale {{"(parent.reverseCTRL.reverse)==1? (-1):Transform1.scale"} 1}
+  center {960 540}
+  shutteroffset centred
+  name Transform1
+  xpos 917
+  ypos -669
+ }
+set N8150ce0 [stack 0]
+push $N807e040
+ Dot {
+  name Dot2
+  xpos 1773
+  ypos -881
+ }
+set N80832b0 [stack 0]
+ Dot {
+  name Dot1
+  xpos 1773
+  ypos -668
+ }
+set N815f470 [stack 0]
+ MergeExpression {
+  inputs 2
+  expr0 Ar(Br*width,Ar)
+  expr1 Ag(Br*width,Ag)
+  expr2 Ab(Br*width,Ab)
+  name MergeExpression1
+  xpos 1568
+  ypos -669
+ }
+set N8164800 [stack 0]
+push $N8164800
+ Shuffle {
+  alpha white
+  name Shuffle2
+  xpos 1568
+  ypos -562
+ }
+set N8172860 [stack 0]
+ Viewer {
+  inputs 2
+  frame_range 1001-1245
+  name Viewer1
+  xpos 1824
+  ypos -724
+ }
+push $N80832b0
+ Dot {
+  name Dot7
+  xpos 1401
+  ypos -881
+ }
+ Reformat {
+  format "1920 1080 0 0 1920 1080 1 Output Resolution"
+  resize fit
+  black_outside true
+  name Reformat1
+  xpos 1370
+  ypos -505
+ }
+ Input {
+  inputs 0
+  name Mask
+  label "\n"
+  xpos 1954
+  ypos -435
+  number 1
+ }
+push $N8172860
+ Dot {
+  name Dot3
+  xpos 1599
+  ypos -495
+ }
+push $N815f470
+ Merge2 {
+  inputs 2+1
+  operation overlay
+  name MergeOperation
+  xpos 1742
+  ypos -435
+ }
+set N8187810 [stack 0]
+ Dot {
+  name Dot6
+  xpos 1667
+  ypos -434
+ }
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos 1538
+  ypos -435
+ }
+ Reformat {
+  format "1920 1080 0 0 1920 1080 1 Output Resolution"
+  resize fit
+  black_outside true
+  name Reformat3
+  xpos 1380
+  ypos -441
+ }
+ Switch {
+  inputs 2
+  which {{colorCtrl.original}}
+  name original
+  xpos 1226
+  ypos -435
+ }
+push $N8150ce0
+ Dot {
+  name Dot5
+  xpos 948
+  ypos -434
+ }
+add_layer {colorGradient colorGradient.red colorGradient.green colorGradient.blue colorGradient.alpha}
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  alpha white
+  green2 white
+  out2 colorGradient
+  name ShuffleCopy1
+  xpos 1099
+  ypos -435
+ }
+ LayerContactSheet {
+  width 1920
+  height 1080
+  rows 1
+  columns 2
+  autodims false
+  gap 10
+  center true
+  name LayerContactSheet1
+  xpos 1099
+  ypos -292
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color 0.04
+  format "1920 1080 0 0 1920 1080 1 Output Resolution"
+  name Constant1
+  xpos 1219
+  ypos -106
+  postage_stamp false
+ }
+ Ramp {
+  p0 {0 1078}
+  p1 {0 0}
+  color {0 0 0 1}
+  color_panelDropped true
+  name Ramp11
+  xpos 1219
+  ypos -80
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 1099
+  ypos -80
+ }
+set N86c12f0 [stack 0]
+ Text2 {
+  font_size_toolbar 30
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message SOURCE
+  old_message {{83 79 85 82 67 69}
+    }
+  box {13.5 815.5 129.5 846.5}
+  transforms {{0 2}
+    }
+  font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30}
+    }
+  cursor_position 6
+  font {{ Bitstream Charter : Regular : BitstreamCharter.pfb : 0 }}
+  font_size 30
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{13.5 846.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 982 554 0 0 1 1 0 0 0 0}
+    }
+  color 0.4
+  name Text1
+  xpos 1170
+  ypos -30
+ }
+push $N86c12f0
+ Text2 {
+  font_size_toolbar 30
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message RESULT
+  old_message {{82 69 83 85 76 84}
+    }
+  box {13.5 815.5 120.5 846.5}
+  transforms {{0 2}
+    }
+  font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30}
+    }
+  cursor_position 6
+  font {{ Bitstream Charter : Regular : BitstreamCharter.pfb : 0 }}
+  font_size 30
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{13.5 846.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 982 554 0 0 1 1 0 0 0 0}
+    }
+  color 0.4
+  name Text2
+  xpos 1018
+  ypos -28
+ }
+ Switch {
+  inputs 2
+  which {{colorCtrl.original}}
+  name Switch3
+  xpos 1092
+  ypos 21
+ }
+ Text2 {
+  font_size_toolbar 30
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message GRADIENT
+  old_message {{71 82 65 68 73 69 78 84}
+    }
+  box {965.5 814.5 1112.5 845.5}
+  transforms {{0 2}
+    }
+  font_size_values {{0 30 1 30 2 30 3 30 4 30 5 30 6 30 7 30 0 50}
+    }
+  font {{ Bitstream Charter : Regular : BitstreamCharter.pfb : 0 }}
+  font_size 30
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{965.5 845.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 982 554 0 0 1 1 0 0 0 0}
+    }
+  color 0.4
+  name Text4
+  xpos 1222
+  ypos 21
+ }
+push $N8187810
+ Crop {
+  box {0 0 {resolution.res.x} {resolution.res.y}}
+  reformat true
+  crop false
+  name Crop2
+  xpos 1742
+  ypos -166
+ }
+ Switch {
+  inputs 2
+  which {{parent.lookRampCTRL.lookRamp}}
+  name Switch1
+  xpos 1742
+  ypos 21
+ }
+ Remove {
+  channels colorGradient
+  name Remove1
+  xpos 1742
+  ypos 100
+ }
+ Output {
+  name Output1
+  xpos 1742
+  ypos 291
+ }
+end_group

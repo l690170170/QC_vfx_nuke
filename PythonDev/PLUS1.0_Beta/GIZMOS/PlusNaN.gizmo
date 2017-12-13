@@ -1,0 +1,115 @@
+#! /Volumes/production/colony/2D/nuke/osx/9.0v5/Nuke9.0v5.app/Contents/MacOS//libnuke-9.0.5.dylib -nx
+version 9.0 v5
+Gizmo {
+ addUserKnob {20 Plus}
+ addUserKnob {6 Output l "Matte Output" +STARTLINE}
+ addUserKnob {41 size l "Median Size" T Median1.size}
+ addUserKnob {41 time_offset l "Time Offset" T TimeOffset1.time_offset}
+ addUserKnob {41 translate l "Position Offset" T Transform1.translate}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 17
+  ypos 74
+ }
+ Dot {
+  name Dot2
+  xpos 51
+  ypos 165
+ }
+set N3b058280 [stack 0]
+ Dot {
+  name Dot3
+  xpos 246
+  ypos 165
+ }
+ Expression {
+  temp_name0 replaceR
+  temp_expr0 0
+  temp_name1 replaceG
+  temp_expr1 0
+  temp_name2 replaceB
+  temp_expr2 0
+  expr0 "isnan(r) ? replaceR : 1"
+  expr1 "isnan(g) ? replaceG : 1"
+  expr2 "isnan(b) ? replaceB : 1"
+  name Expression1
+  label "NaN Matte"
+  xpos 212
+  ypos 236
+ }
+set N3b05bc90 [stack 0]
+ Dot {
+  name Dot1
+  xpos 246
+  ypos 294
+ }
+push $N3b05bc90
+push $N3b058280
+ Expression {
+  temp_name0 replaceR
+  temp_expr0 0
+  temp_name1 replaceG
+  temp_expr1 0
+  temp_name2 replaceB
+  temp_expr2 0
+  expr0 "isnan(r) ? replaceR : R"
+  expr1 "isnan(g) ? replaceG : G"
+  expr2 "isnan(b) ? replaceB : B"
+  name Expression3
+  label "Zeroing NaN pixels"
+  xpos -133
+  ypos 158
+ }
+ Median {
+  size 1.125
+  ignore_top_line false
+  name Median1
+  xpos -133
+  ypos 188
+ }
+ TimeOffset {
+  time ""
+  name TimeOffset1
+  xpos -133
+  ypos 215
+ }
+ Transform {
+  center {1024 778}
+  black_outside false
+  name Transform1
+  xpos -133
+  ypos 240
+ }
+push $N3b058280
+ Merge2 {
+  inputs 2+1
+  maskChannelMask rgba.red
+  invert_mask true
+  name Merge1
+  xpos 17
+  ypos 240
+ }
+ Switch {
+  inputs 2
+  which {{parent.Output}}
+  name Switch1
+  selected true
+  xpos 17
+  ypos 291
+ }
+set N1c25c20 [stack 0]
+ Output {
+  name Output1
+  xpos 17
+  ypos 420
+ }
+push $N1c25c20
+ Viewer {
+  frame_range 1-100
+  name Viewer1
+  xpos -306
+  ypos 410
+ }
+end_group

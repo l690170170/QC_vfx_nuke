@@ -1,0 +1,385 @@
+#! C:/Program Files/Nuke10.0v4/nuke-10.0.4.dll -nx
+version 10.0 v4
+Gizmo {
+knobChanged "
+ \nn = nuke.thisNode()
+ \nk = nuke.thisKnob()
+ \nnochangeKnobs = [\"Name\",\"Input\",\"zsc\",\"ScreenColour\",\"Color\",\"white\",\"gamma\",\"Lum\",\"Output\",\"MaskPremult\",\"zuozhe\",\"mingzi\",\"label\",\"hide_input\",\"cached\",\"disable\",\"dope_sheet\",\"bookmark\",\"postage_stamp\"]
+ \nfor k in n.allKnobs() :
+ \n
+ \n    if k.name() in nochangeKnobs:
+ \n        k.setVisible(True)
+ \n    else:
+ \n        k.setVisible(False)
+ \n
+ \n"
+ inputs 2
+ tile_color 0x152dff
+ gl_color 0xff
+ addUserKnob {20 ColorSuppress}
+ addUserKnob {26 Name l "" +STARTLINE T "<b><font color=#70EE70>ColorSuppress_v1.0</font><b>"}
+ addUserKnob {26 Input l "<b><span style=\"color:#ef4e3d;\">Input"}
+ addUserKnob {4 zsc l Channels M {rgb rgba "" "" "" "" "" ""}}
+ addUserKnob {26 ScreenColour l "<b><span style=\"color:#ef4e3d;\">Screen Colour"}
+ addUserKnob {41 Color T Keylight1.screenColour}
+ addUserKnob {41 white l gain T Grade1.white}
+ addUserKnob {41 gamma T Grade1.gamma}
+ addUserKnob {41 Lum T Merge3.mix}
+ addUserKnob {26 Output l "<b><span style=\"color:#ef4e3d;\">Output"}
+ addUserKnob {6 MaskPremult l "Mask Premult" +STARTLINE}
+ addUserKnob {26 zuozhe l "" +STARTLINE}
+ addUserKnob {26 mingzi l 乔治-周士诚 T "微信：w750330304  QQ群：398588186"}
+}
+ StickyNote {
+  inputs 0
+  name StickyNote1
+  label rgb
+  xpos 860
+  ypos -659
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote2
+  label rgba
+  xpos 1460
+  ypos -659
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos 1160
+  ypos -209
+  number 1
+ }
+set N3a4c400 [stack 0]
+ Dot {
+  name Dot7
+  xpos 1344
+  ypos -206
+ }
+set N3a4d400 [stack 0]
+ Input {
+  inputs 0
+  name Source
+  xpos 1160
+  ypos -609
+ }
+set N3a4d000 [stack 0]
+ Dot {
+  name Dot15
+  xpos 1494
+  ypos -606
+ }
+set N3a4cc00 [stack 0]
+ Dot {
+  name Dot12
+  xpos 1794
+  ypos -606
+ }
+ Dot {
+  name Dot13
+  xpos 1794
+  ypos -106
+ }
+push $N3a4d400
+push $N3a4cc00
+ Unpremult {
+  name Unpremult1
+  xpos 1460
+  ypos -559
+ }
+ Shuffle {
+  alpha white
+  name Shuffle2
+  xpos 1460
+  ypos -507
+ }
+set N3a62c00 [stack 0]
+ Dot {
+  name Dot8
+  xpos 1344
+  ypos -504
+ }
+push $N3a62c00
+ Dot {
+  name Dot9
+  xpos 1644
+  ypos -504
+ }
+ Dot {
+  name Dot10
+  xpos 1644
+  ypos -404
+ }
+set N3a62000 [stack 0]
+push $N3a62c00
+ OFXuk.co.thefoundry.keylight.keylight_v201 {
+  inputs 2
+  show "Final Result"
+  unPreMultiply false
+  screenColour {0 1 0}
+  screenGain 1
+  screenBalance 0.5
+  alphaBias {0.5 0.5 0.5}
+  despillBias {0.5 0.5 0.5}
+  gangBiases true
+  preBlur 0
+  "Screen Matte" 0
+  screenClipMin 0
+  screenClipMax 1
+  screenClipRollback 0
+  screenGrowShrink 0
+  screenSoftness 0
+  screenDespotBlack 0
+  screenDespotWhite 0
+  screenReplaceMethod "Soft Colour"
+  screenReplaceColour {0.5 0.5 0.5}
+  Tuning 0
+  midPoint 0.5
+  lowGain 1
+  midGain 1
+  highGain 1
+  "Inside Mask" 0
+  sourceAlphaHandling Ignore
+  insideReplaceMethod "Soft Colour"
+  insideReplaceColour {0.5 0.5 0.5}
+  Crops 0
+  SourceXMethod Colour
+  SourceYMethod Colour
+  SourceEdgeColour 0
+  SourceCropL 0
+  SourceCropR 1
+  SourceCropB 0
+  SourceCropT 1
+  balanceSet false
+  insideComponent Alpha
+  outsideComponent None
+  cacheBreaker true
+  name Keylight1
+  xpos 1460
+  ypos -407
+ }
+ set C3a63c00 [stack 0]
+set N3a63c00 [stack 0]
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge4
+  xpos 1310
+  ypos -407
+ }
+ Saturation {
+  saturation 0
+  name Saturation2
+  xpos 1310
+  ypos -357
+ }
+ Grade {
+  name Grade1
+  xpos 1310
+  ypos -309
+ }
+ set C3aa3800 [stack 0]
+push $N3a63c00
+ Merge2 {
+  inputs 2
+  operation plus
+  maskChannelMask none
+  name Merge3
+  xpos 1460
+  ypos -259
+ }
+ set C3aa3400 [stack 0]
+push $N3a62000
+ Dot {
+  name Dot11
+  xpos 1644
+  ypos -206
+ }
+ Merge2 {
+  inputs 2+1
+  name Merge6
+  xpos 1460
+  ypos -209
+ }
+set N3aa2c00 [stack 0]
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy1
+  xpos 1460
+  ypos -109
+ }
+set N3aa2800 [stack 0]
+ Merge2 {
+  inputs 2
+  operation in
+  name Merge7
+  xpos 1310
+  ypos -109
+ }
+push $N3aa2c00
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy3
+  xpos 1310
+  ypos -19
+ }
+ Premult {
+  name Premult3
+  xpos 1310
+  ypos 41
+ }
+push $N3aa2800
+ Premult {
+  name Premult2
+  xpos 1460
+  ypos -59
+ }
+ Switch {
+  inputs 2
+  which {{MaskPremult}}
+  name Switch2
+  xpos 1460
+  ypos 41
+ }
+ Dot {
+  name Dot16
+  xpos 1494
+  ypos 194
+ }
+push $N3a4c400
+ Dot {
+  name Dot5
+  xpos 1044
+  ypos -206
+ }
+set N1e305400 [stack 0]
+push $N1e305400
+push $N3a4d000
+ Dot {
+  name Dot14
+  xpos 894
+  ypos -606
+ }
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos 860
+  ypos -507
+ }
+set N1e304c00 [stack 0]
+ Dot {
+  name Dot6
+  xpos 1044
+  ypos -504
+ }
+push $N1e304c00
+ Dot {
+  name Dot4
+  xpos 744
+  ypos -504
+ }
+ Dot {
+  name Dot3
+  xpos 744
+  ypos -404
+ }
+set N1e304000 [stack 0]
+push $N1e304c00
+clone $C3a63c00 {
+  inputs 2
+  xpos 860
+  ypos -407
+  selected false
+ }
+set N1e32bc00 [stack 0]
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge2
+  xpos 1010
+  ypos -407
+ }
+ Saturation {
+  saturation 0
+  name Saturation1
+  xpos 1010
+  ypos -357
+ }
+clone $C3aa3800 {
+  xpos 1010
+  ypos -309
+  selected false
+ }
+push $N1e32bc00
+clone $C3aa3400 {
+  inputs 2
+  xpos 860
+  ypos -259
+  selected false
+ }
+push $N1e304000
+ Dot {
+  name Dot1
+  xpos 744
+  ypos -206
+ }
+ Merge2 {
+  inputs 2+1
+  name Merge1
+  xpos 860
+  ypos -209
+ }
+ Dot {
+  name Dot2
+  xpos 894
+  ypos -106
+ }
+set N1e32a000 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos 1010
+  ypos -114
+ }
+ Premult {
+  name Premult1
+  xpos 1010
+  ypos -59
+ }
+push $N1e32a000
+ Switch {
+  inputs 2
+  which {{MaskPremult}}
+  name Switch1
+  xpos 860
+  ypos -59
+ }
+ Dot {
+  name Dot17
+  xpos 894
+  ypos 194
+ }
+ Switch {
+  inputs 2
+  which {{zsc}}
+  name Switch3
+  xpos 1160
+  ypos 191
+ }
+ Output {
+  name Output1
+  xpos 1160
+  ypos 291
+ }
+ Viewer {
+  frame_range 1-24
+  name Viewer1
+  xpos 1160
+  ypos 441
+ }
+end_group

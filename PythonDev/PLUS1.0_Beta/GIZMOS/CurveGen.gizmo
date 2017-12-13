@@ -1,0 +1,75 @@
+#! /Applications/Nuke10.0v1/Nuke10.0v1.app/Contents/MacOS//libnuke-10.0.1.dylib -nx
+version 10.0 v1
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {7 frequency l Frequency R 0 10}
+ frequency 1
+ addUserKnob {7 magnitude l Magnitude R -100 100}
+ magnitude 100
+ addUserKnob {7 var l Channel t "XYZ Variation Values" R -10 10}
+ var 1
+ addUserKnob {7 horOffset l OffsetX R -100 100}
+ addUserKnob {7 verOffset l OffsetY R -500 500}
+ addUserKnob {14 clamp l Clamp R 0 100}
+ clamp {-100 100}
+ addUserKnob {7 randomness l Randomness R 0 10}
+ randomness 10
+ addUserKnob {7 channel l "Rand Seed" R 0 10}
+ channel 5
+ addUserKnob {7 randfreq l "Rand Frequency" R 1 10}
+ randfreq 5
+ addUserKnob {20 Noise n 1}
+ addUserKnob {6 noiseapply l Noise +STARTLINE}
+ addUserKnob {6 clampnoise l "Clamp Noise" -STARTLINE}
+ addUserKnob {7 amount R -10 10}
+ amount 10
+ addUserKnob {7 vnoise l Frequency R 0 10}
+ vnoise 100
+ addUserKnob {7 seed R 1 100}
+ seed 1
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 Output}
+ addUserKnob {68 OutputType l Output t "use the output of this gizmo as transform2D or 3D Axis" M {Axis Transform2D ""}}
+ OutputType Transform2D
+ addUserKnob {13 CURVE t "expression curve\n\n\n\n "}
+ CURVE {{"clamp(clamp((sin( (t+horOffset)   *frequency   +     (noise(t/randfreq+horOffset, channel)*randomness)        )   *magnitude  +verOffset), clamp.w,clamp.h)+\n(random((t+horOffset)*vnoise, seed)   *noiseapply *amount), clamp.w-(100-(100*clampnoise)),(100-(100*clampnoise))+clamp.h)\n\n" i} {"clamp(clamp((sin( (t+horOffset+var)   *frequency   +     (noise(t/randfreq+horOffset, channel+var)*randomness)        )   *magnitude  +verOffset), clamp.w,clamp.h)+\n(random((t+horOffset)*vnoise, seed)   *noiseapply *amount), clamp.w-(100-(100*clampnoise)),(100-(100*clampnoise))+clamp.h)\n\n" i} {"clamp(clamp((sin( (t+horOffset+(var*2))   *frequency   +     (noise(t/randfreq+horOffset, channel+(var*2))*randomness)        )   *magnitude  +verOffset), clamp.w,clamp.h)+\n(random((t+horOffset)*vnoise, seed)   *noiseapply *amount), clamp.w-(100-(100*clampnoise)),(100-(100*clampnoise))+clamp.h)\n\n" i}}
+ addUserKnob {22 Axis t "High Frequency changes will not be baked in unless you use \"generate keys\" option from the edit knob menu and choose low increment value" -STARTLINE T curveGenBakeAxis()}
+ addUserKnob {22 Transform2D t "High Frequency changes will not be baked in unless you use \"generate keys\" option from the edit knob menu and choose low increment value" -STARTLINE T curveGenBakeTransform()}
+ addUserKnob {13 Baked t "hit bake button after each adjustement to show the right values"}
+ Baked {0 0 0}
+ addUserKnob {22 Bake t "High Frequency changes will not be baked in unless you use \"generate keys\" option from the edit knob menu and choose low increment value" -STARTLINE T curveGenBake()}
+}
+ Input {
+  inputs 0
+  name Input1
+  selected true
+  xpos 64
+  ypos 200
+ }
+ Transform {
+  translate {{parent.CURVE.x} {parent.CURVE.y}}
+  center {1024 778}
+  name Transform1
+  xpos 64
+  ypos 237
+ }
+ Axis2 {
+  inputs 0
+  translate {{parent.CURVE.x} {parent.CURVE.y} {parent.CURVE.z}}
+  name Axis1
+  xpos -76
+  ypos 212
+ }
+ Switch {
+  inputs 2
+  which {{parent.OutputType}}
+  name Switch1
+  xpos -4
+  ypos 336
+ }
+ Output {
+  name Output1
+  xpos -4
+  ypos 397
+ }
+end_group

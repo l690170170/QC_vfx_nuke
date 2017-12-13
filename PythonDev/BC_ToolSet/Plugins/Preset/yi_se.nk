@@ -1,0 +1,158 @@
+set cut_paste_input [stack 0]
+version 9.0 v3
+BackdropNode {
+inputs 0
+name BackdropNode17
+tile_color 0x71c67100
+label 溢色
+note_font_size 42
+selected true
+xpos 40554
+ypos -3806
+bdwidth 432
+bdheight 371
+}
+push $cut_paste_input
+Dot {
+name Dot5
+selected true
+xpos 40756
+ypos -3786
+}
+set N126bec00 [stack 0]
+Denoise2 {
+output Noise
+analysisRegion {530 1006 630 1106}
+needsAnalyzing false
+profileCurve {profile {curve x0.1000000015 0 x0.1333521456 0 x0.1778279394 0 x0.2371373773 0 x0.3162277639 0 x0.4216965139 0 x0.5623413324 0 x0.7498942018 0 x1 0}}
+serializeKnob "0.499245 0.549938 0.530555
+0.00166357 0.00407951 0.00133784
+0.00166357 0.00407951 0.00133784
+0.00139897 0.0031396 0.0010291
+0 0 0
+0.000905746 0.00183997 0.000682539
+0.000905746 0.00183997 0.000682539
+0.000484237 0.00129616 0.000443624
+0 0 0
+0.00072966 0.000979478 0.000403403
+0.00072966 0.000979478 0.000403403
+0.000150324 0.000244186 0.000118788
+0 0 0
+0.000282338 0.000442108 0.000292942
+0.000282338 0.000442108 0.000292942
+2.76152e-008 2.76152e-008 2.76152e-008
+0 0 0 0 0 0 0 0 0 
+13328477413035765600"
+name Denoise2
+selected true
+xpos 40567
+ypos -3516
+}
+push $N126bec00
+Denoise2 {
+analysisRegion {530 1006 630 1106}
+needsAnalyzing false
+profileCurve {profile {curve x0.1000000015 0 x0.1333521456 0 x0.1778279394 0 x0.2371373773 0 x0.3162277639 0 x0.4216965139 0 x0.5623413324 0 x0.7498942018 0 x1 0}}
+serializeKnob "0.499245 0.549938 0.530555
+0.00166357 0.00407951 0.00133784
+0.00166357 0.00407951 0.00133784
+0.00139897 0.0031396 0.0010291
+0 0 0
+0.000905746 0.00183997 0.000682539
+0.000905746 0.00183997 0.000682539
+0.000484237 0.00129616 0.000443624
+0 0 0
+0.00072966 0.000979478 0.000403403
+0.00072966 0.000979478 0.000403403
+0.000150324 0.000244186 0.000118788
+0 0 0
+0.000282338 0.000442108 0.000292942
+0.000282338 0.000442108 0.000292942
+2.76152e-008 2.76152e-008 2.76152e-008
+0 0 0 0 0 0 0 0 0 
+13328477413035765600"
+name Denoise4
+selected true
+xpos 40722
+ypos -3732
+}
+set N126be400 [stack 0]
+push $N126be400
+OFXuk.co.thefoundry.keylight.keylight_v201 {
+show "Final Result"
+unPreMultiply false
+screenColour {0 1 0}
+screenGain 1
+screenBalance 0.5
+alphaBias {0.5 0.5 0.5}
+despillBias {0.5 0.5 0.5}
+gangBiases true
+preBlur 0
+"Screen Matte" 0
+screenClipMin 0
+screenClipMax 1
+screenClipRollback 0
+screenGrowShrink 0
+screenSoftness 0
+screenDespotBlack 0
+screenDespotWhite 0
+screenReplaceMethod "Soft Colour"
+screenReplaceColour {0.5 0.5 0.5}
+Tuning 0
+midPoint 0.5
+lowGain 1
+midGain 1
+highGain 1
+"Inside Mask" 0
+sourceAlphaHandling Ignore
+insideReplaceMethod "Soft Colour"
+insideReplaceColour {0.5 0.5 0.5}
+Crops 0
+SourceXMethod Colour
+SourceYMethod Colour
+SourceEdgeColour 0
+SourceCropL 0
+SourceCropR 1
+SourceCropB 0
+SourceCropT 1
+balanceSet false
+insideComponent None
+outsideComponent None
+cacheBreaker true
+name Keylight2
+selected true
+xpos 40722
+ypos -3646
+}
+set N126be000 [stack 0]
+Merge2 {
+inputs 2
+operation minus
+name Merge54
+selected true
+xpos 40882
+ypos -3646
+}
+Saturation {
+saturation 0
+name Saturation2
+selected true
+xpos 40882
+ypos -3582
+}
+push $N126be000
+Merge2 {
+inputs 2
+name Merge55
+selected true
+xpos 40722
+ypos -3582
+}
+Merge2 {
+inputs 2
+operation plus
+name Merge56
+selected true
+xpos 40722
+ypos -3510
+}

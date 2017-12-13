@@ -1,0 +1,170 @@
+Group {
+ tile_color 0x1f4eaa00
+ addUserKnob {20 "" l Global}
+ addUserKnob {1 operation l INVISIBLE}
+ operation Particles2
+ addUserKnob {4 output l INVISIBLE M {live baked frozen "" "" ""}}
+ addUserKnob {7 normCurve l INVISIBLE t "need this to create a normalized curve that can be referenced at any x value" -STARTLINE}
+ normCurve {{mix(frame,smoothstep(0,drag_falloff,frame),drag/50) i}}
+ addUserKnob {32 knob l "Generate Particles " t "hit this button to regenerate the particles.\nyou will have to do this every time you change the parameters on this tab except for the \"resolution\" knob" -STARTLINE T "switch \[value emitter_mode] \{\n\"face\" \{set mode \"f\"\}\n\"vertex\" \{set mode \"v\"\}\n\}\nGenerateParticles2 \$mode"}
+ addUserKnob {32 knob_2 l "Delete Particles" -STARTLINE T "\t\tforeach cur_node \[nodes] \{\n\t\t\tif \{\[knob \$cur_node.label] == \"auto generated\"\} \{\n\t\t\t\tdelete \$cur_node\n\t\t\t\t\}\n\t\t\t\}"}
+ addUserKnob {26 "" T "Re-generate the particles every time you change a knob in the \"Global\" tab"}
+ addUserKnob {26 "" l Emitter}
+ addUserKnob {4 emitter_mode l mode M {vertex face}}
+ emitter_mode face
+ addUserKnob {3 start l "start emission" t "Sets the first frame at which a particle is emitted"}
+ start 1
+ addUserKnob {3 stop l "stop emission" t "Sets the frame at which no particles are emitted anymore.\nTherefore \"stop-1\" should be the last emission frame"}
+ stop 20
+ addUserKnob {7 emission_rate l "emission rate" t "The rate at which particles are emitted per frame.\n1 will emit one particle per frame\n5 will emit five particles per frame\n.5 will emit a particle every other frame\netc..."}
+ emission_rate 1
+ addUserKnob {3 life_span l "life span" t "Sets the number of frames that a particle lives for after it is emitted"}
+ life_span 40
+ addUserKnob {32 bake l "Bake Expressions" t "Bake all internal expressions into animation curves.\nThis should speed up the script a little but the UI won't effect the particle motion any more.\nTo restore full functionality just re-generate the particles." T "foreach curNode \[nodes] \{\n\tif \{\[value \$curNode.label] != \"auto generated\"\} \{continue\}\n\t\tforeach curKnob \[knobs -d \$curNode] \{\n\t\t\tin \$curNode.\$curKnob \{\n\t\t\t\tif \[value has_expression ] \{\n\t\t\t\tforeach curAnim \[animations] \{\n\t\t\t\t\tanimation \$curAnim generate \[value root.first_frame] \[value root.last_frame] 1 y y\n\t\t\t\t\tanimation \$curAnim expression curve\n\t\t\t\t\t\}\n\t\t\t\t\}\n\t\t\t\}\n\t\t\}\n\t\}\nknob output \"baked\"" +STARTLINE}
+ addUserKnob {32 knob_1 l "Freeze Particles" t "freeze all particles at the current frame to create static clouds" -STARTLINE T "foreach curNode \[nodes] \{\n\tif \{\[value \$curNode.label] != \"auto generated\"\} \{continue\}\n\t\tforeach curKnob \[knobs -d \$curNode] \{\n\t\t\tin \$curNode.\$curKnob \{\n\t\t\t\t\tknob \$curNode.\$curKnob \[value \$curKnob]\n\t\t\t\t\t\}\n\t\t\t\}\n\t\}\nknob output \"frozen\""}
+ addUserKnob {20 Textures}
+ addUserKnob {3 sp_seed l "distribution seed"}
+ sp_seed 100009
+ addUserKnob {26 ""}
+ addUserKnob {7 time_var l "time variation"}
+ addUserKnob {3 time_seed}
+ time_seed 99999
+ addUserKnob {3 fade_in_for l "fade in for" t "Number of frames that a particle fades in for after it is born\n"}
+ addUserKnob {3 fade_out_for l "fade out for" t "Number of frames that a particle fades out for before it dies\n"}
+ addUserKnob {20 "" l Size}
+ addUserKnob {7 size t "Each particles size" R 0.1 10}
+ size 1.3
+ addUserKnob {7 size_var l "size variation" t "Randomizes the particle size for each particle.\nThis is a percentage so a value of 1 should randomly scale by +- 100% of what is set as particle size"}
+ addUserKnob {3 size_seed l seed t "Changes the appearance of the size randomness"}
+ size_seed 9999999
+ addUserKnob {7 pre_scale l "pre scale texture"}
+ pre_scale 1
+ addUserKnob {26 ""}
+ addUserKnob {3 grow_for l "grow for" t "Number of frames that a particle grows for after it is born before it reachs the set particle size"}
+ grow_for 5
+ addUserKnob {3 shrink_for l "shrink for" t "Number of frames that a particle shrinks for before it dies\n"}
+ addUserKnob {20 "" l Motion}
+ addUserKnob {7 speed t "How fast they go" R 1 100}
+ speed 1.02
+ addUserKnob {7 speed_var l "speed variation" t "Randomizes the speed for each particle.\nThis is a percentage so a value of 1 should randomly scale the set speed by +- 100%"}
+ speed_var 0.53
+ addUserKnob {3 speed_seed l seed t "Changes the appearance of the speed randomness"}
+ speed_seed 99999
+ addUserKnob {7 inherit_velocity l "inherit velocity" t "Picks up the emitter's animation.\n0 will make the particles independant of the emitter right after they are born.\n1 will make the particles stick to the emitters motion even all the time.\n"}
+ addUserKnob {26 ""}
+ addUserKnob {13 orientation t "Initial orientation of the particles."}
+ addUserKnob {13 local_rot l rotation t "Speed at which each particle rotates over one frame (this is in degrees/frame)"}
+ local_rot {10 10 10}
+ addUserKnob {7 rotation_var l "rotation variation" t "Randomizes the rotation for each particle.\nThis is a percentage so a value of 1 should randomly scale the set rotational speed by +- 100%"}
+ rotation_var 0.84
+ addUserKnob {3 rotation_seed l seed t "Changes the appearance of the rotational speed randomness"}
+ rotation_seed 99999
+ addUserKnob {26 ""}
+ addUserKnob {7 spread_xz l "spread xz" t "Randomizes the partciles' direction effectively spreading out the particle stream over x and z plane.\nThis is in degrees, a value of 180 will spread out 180 degrees into both directions" R 0 180}
+ spread_xz 31
+ addUserKnob {7 spread_yz l "spread yz" t "Randomizes the partciles' direction effectively spreading out the particle stream over y and z plane.\nThis is in degrees, a value of 180 will spread out 180 degrees into both directions" R 0 180}
+ spread_yz 64
+ addUserKnob {3 spread_seed l seed t "Changes the appearance of the spread randomness"}
+ spread_seed 100000
+ addUserKnob {20 "" l Forces}
+ addUserKnob {7 gravity t "uses an exponential curve to simulate gravity" R 0 10}
+ gravity 3
+ addUserKnob {13 wind t "uses an exponential curve to fake wind.\nsame as gravity but with control over the three axes.\nKinda cheap but I have no idea of the proper math"}
+ addUserKnob {7 drag t "This doesn't work yet but this is what it should do:\nForces the particles to slow down over time" R 0 50}
+ addUserKnob {7 drag_falloff l "drag falloff" t "This doesn't work yet but this is what it should do:\nForces the particles to slow down over time" R 1 10}
+ drag_falloff 1
+}
+ Input {
+  inputs 0
+  name lookAt
+  label "\[value number]"
+  xpos 5535
+  ypos -5945
+  number 2
+ }
+ Input {
+  inputs 0
+  name img2
+  label "\[value number]"
+  xpos 5398
+  ypos -6133
+  number 4
+ }
+ Input {
+  inputs 0
+  name img5
+  label "\[value number]"
+  xpos 5748
+  ypos -6110
+  number 7
+ }
+ Input {
+  inputs 0
+  name img1
+  label "\[value number]"
+  xpos 5276
+  ypos -6138
+  number 3
+ }
+ Input {
+  inputs 0
+  name img4
+  label "\[value number]"
+  xpos 5637
+  ypos -6114
+  number 6
+ }
+ Input {
+  inputs 0
+  name img3
+  label "\[value number]"
+  xpos 5516
+  ypos -6123
+  number 5
+ }
+ Input {
+  inputs 0
+  name particleGeo
+  label "\[value number]"
+  xpos 4784
+  ypos -6151
+ }
+ Scene {
+  name MasterScene
+  xpos 5360
+  ypos -4126
+ }
+ Output {
+  name Output1
+  xpos 5350
+  ypos -2416
+ }
+ Dot {
+  inputs 0
+  name Dot1
+  xpos 6291
+  ypos -5685
+ }
+ Input {
+  inputs 0
+  name Emitter
+  label "\[value number]"
+  xpos 5541
+  ypos -5785
+  number 1
+ }
+ WriteGeo {
+  file "\[if \[value envTest] \{join \[list \[value scratch1] \"ParticlesEmitter.obj\"] \"\"\} else \{join \[list \[value scratch2] \"ParticlesEmitter.obj\"] \"\"\}]"
+  name WriteEmitter
+  label "\[value file]"
+  xpos 5541
+  ypos -5695
+  addUserKnob {20 User}
+  addUserKnob {3 envTest}
+  envTest {{"\[catch \{getenv NUKE_CACHE_PATH\}]"}}
+  addUserKnob {1 scratch1}
+  scratch1 "\[value preferences.DiskCachePath]"
+  addUserKnob {1 scratch2}
+  scratch2 "\[if !\[catch \{getenv NUKE_CACHE_PATH\}] \{return \[getenv NUKE_CACHE_PATH]\}]"
+ }
+end_group

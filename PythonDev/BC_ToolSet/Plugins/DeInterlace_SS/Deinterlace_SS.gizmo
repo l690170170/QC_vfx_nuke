@@ -1,0 +1,207 @@
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {26 main_comment l "" +STARTLINE T フィールドを分解します。尺は倍になります。}
+ addUserKnob {26 ""}
+ addUserKnob {41 invert l FieldOrder_Invert t 優先フィールドを逆にします。 T Output.invert}
+ addUserKnob {26 FieldOredr_comment l "" +STARTLINE T "     奇数優先がデフォルトです。\n     逆転しているときはチェックしてください。"}
+ addUserKnob {26 ""}
+ addUserKnob {41 ReInterlace T Switch2.ReInterlace}
+ addUserKnob {26 ReInterlace_comment l "" +STARTLINE T "     分解したシーケンスを元に戻します。\n     尺は半分に戻ります。"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 389
+  ypos -269
+ }
+ ViewMetaData {
+  name input
+  xpos 389
+  ypos -229
+ }
+set N1ecebf80 [stack 0]
+ Retime {
+  input.last 963
+  output.last 482
+  speed 2
+  filter none
+  name Retime3
+  xpos 576
+  ypos -207
+ }
+set N21623950 [stack 0]
+ Multiply {
+  value 0
+  name Multiply2
+  xpos 722
+  ypos -192
+ }
+ Grid {
+  number {{curve} {input.height*.5}}
+  size {1 1}
+  translate {0 {input.height}}
+  name Grid2
+  xpos 705
+  ypos -117
+ }
+set N1ecd7ac0 [stack 0]
+push $N21623950
+push $N1ecebf80
+ TimeOffset {
+  time_offset -1
+  name TimeOffset2
+  xpos 435
+  ypos -164
+ }
+ Retime {
+  input.first 0
+  input.last 962
+  output.first 0
+  output.last 481
+  speed 2
+  filter none
+  name Retime4
+  xpos 435
+  ypos -110
+ }
+set N21631770 [stack 0]
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  invertMask true
+  name Keymix1
+  xpos 815
+  ypos -93
+ }
+push $N1ecd7ac0
+push $N21623950
+push $N21631770
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  invertMask true
+  name Keymix
+  xpos 673
+  ypos -64
+ }
+ Switch {
+  inputs 2
+  which {{Output.invert}}
+  name Output1
+  xpos 815
+  ypos -59
+ }
+push $N1ecebf80
+ Retime {
+  input.last 963
+  output.last 1926
+  speed 0.5
+  filter none
+  name Retime1
+  selected true
+  xpos 148
+  ypos -212
+ }
+set N1eceabd0 [stack 0]
+ Multiply {
+  value 0
+  name Multiply1
+  xpos 148
+  ypos -124
+ }
+ Grid {
+  number {{curve i} {input.height*.5 i}}
+  size {1 1}
+  translate {{0 i} {input.height i}}
+  name Grid1
+  xpos 148
+  ypos -90
+ }
+set N216543a0 [stack 0]
+push $N1eceabd0
+push $N1eceabd0
+ Transform {
+  translate {0 -1}
+  rotate {{curve i}}
+  center {960 540}
+  filter Impulse
+  name Transform1
+  xpos 38
+  ypos -124
+ }
+ Crop {
+  box {0 0 1920 1080}
+  crop false
+  name Crop1
+  xpos 38
+  ypos -61
+ }
+set N2161e3d0 [stack 0]
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  invertMask true
+  name Keymix_odd
+  xpos 258
+  ypos -66
+ }
+set N216133a0 [stack 0]
+push $N216543a0
+push $N1eceabd0
+push $N2161e3d0
+ Keymix {
+  inputs 3
+  maskChannel rgba.red
+  name Keymix_even
+  xpos 148
+  ypos -37
+ }
+set N21635860 [stack 0]
+ Switch {
+  inputs 2
+  which {{"!(\[frame]%2)"}}
+  name Switch1_invert
+  xpos 258
+  ypos -2
+ }
+push $N216133a0
+push $N21635860
+ Switch {
+  inputs 2
+  which {{"\[frame]%2"}}
+  name Switch1
+  xpos 368
+  ypos -32
+ }
+ Switch {
+  inputs 2
+  which {{Output.invert i}}
+  name Output
+  xpos 368
+  ypos 30
+  addUserKnob {20 User}
+  addUserKnob {6 invert l FieldOrder_Invert +STARTLINE}
+ }
+ Switch {
+  inputs 2
+  which {{ReInterlace i}}
+  name Switch2
+  xpos 368
+  ypos 89
+  addUserKnob {20 User}
+  addUserKnob {6 ReInterlace +STARTLINE}
+ }
+ Output {
+  name Output2
+  xpos 373
+  ypos 142
+ }
+push $N1ecd7ac0
+ Viewer {
+  frame 178
+  input_process false
+  name Viewer1
+  xpos 758
+  ypos 33
+ }
+end_group

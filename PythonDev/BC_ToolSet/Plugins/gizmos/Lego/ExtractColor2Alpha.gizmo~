@@ -1,0 +1,33 @@
+#! C:/Program Files/Nuke6.0v7/Nuke6.0.exe -nx
+version 6.0 v7
+Gizmo {
+ addUserKnob {20 extractColor2Alpha}
+ addUserKnob {41 falloff T Expression1.falloff}
+ addUserKnob {41 color T Expression1.color}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 241
+  ypos -34
+ }
+ Expression {
+  expr0 r
+  expr1 g
+  expr2 b
+  channel3 alpha
+  expr3 "r<=(color.r + falloff) && r>=(color.r - falloff) && g<=(color.g + falloff) && g>=(color.g - falloff) && b<=(color.b + falloff) && b>=(color.b - falloff)?1:0"
+  name Expression1
+  xpos 241
+  ypos 6
+  addUserKnob {20 User}
+  addUserKnob {7 falloff}
+  addUserKnob {19 color}
+  color {0 0 0 0}
+ }
+ Output {
+  name Output1
+  xpos 241
+  ypos 106
+ }
+end_group

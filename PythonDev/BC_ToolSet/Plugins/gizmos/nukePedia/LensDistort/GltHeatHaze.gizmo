@@ -1,0 +1,191 @@
+#! /usr/local/Nuke5.2v2/Nuke5.2 -nx
+version 5.2200
+Gizmo {
+ inputs 0
+ help "Creator gizmo for heathaze. Copy the red and green channel to the main nodestream as extra channels (eg: distort.x and distort.y ), then apply an idistort node, and set the distorsion channels to those you created before. \nContains basicly a 2d noise mapped to 3d card, that is distorted by a 3d procedural noise. Upper controls set the 2d noise parameters, middle ones control the 3d noise, and the 3d/2d switch changes the mode (you can use it as simple 2d noise)\nTip: you can change to 3d mode to see the 3d camera and 3d noise distorted card, it's easier to control."
+ addUserKnob {20 HeatHazeTab l HeatHaze}
+ addUserKnob {41 size l "Noise 2d x/y size" T HHNoise2.size}
+ addUserKnob {41 NoiseSpeed l "Noise 2d Speed" T HeatHazeControl.NoiseSpeed}
+ addUserKnob {41 TranslateSpeed l "Vertical Speed" T HeatHazeControl.TranslateSpeed}
+ addUserKnob {41 Lacunarity l "Lacunarity 2d" T HHNoise2.lacunarity}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 DistanceFromCam T HeatHazeControl.DistanceFromCam}
+ addUserKnob {41 Speed_3d l "Noise 3d Speed" T HHProcGeo1.Speed}
+ addUserKnob {41 Gain l "Noise 3d Gain" T HHProcGeo1.Gain}
+ addUserKnob {41 Lacunarity_3d l "Lacunarity 3d" T HHProcGeo1.Lacunarity}
+ addUserKnob {41 x_offset l "3D x Offset" T HHProcGeo1.x_offset}
+ addUserKnob {41 y_offset l "3D y Offset" T HHProcGeo1.y_offset}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 Switch3d_2d l "Switch 3d/2d" T HH_MainSwitch.which}
+}
+ Constant {
+  inputs 0
+  channels rgb
+  format "1920 1080 0 0 1920 1080 1 HD"
+  name HHConstant3
+  xpos 254
+  ypos -113
+  postage_stamp false
+ }
+set N50c32110 [stack 0]
+ NoOp {
+  name HeatHazeControl
+  xpos 474
+  ypos -6
+  addUserKnob {20 User}
+  addUserKnob {7 DistanceFromCam t "3d distance, scales the effect\nBeware, with high distance camera can go out of the wavin 3d plane " R 0 10}
+  DistanceFromCam 5.5
+  addUserKnob {7 NoiseSpeed R 0 10}
+  NoiseSpeed 1
+  addUserKnob {7 TranslateSpeed R 0 10}
+  TranslateSpeed 1
+ }
+push $N50c32110
+ Noise {
+  cliptype none
+  size {10 18}
+  zoffset {{frame*(HeatHazeControl.NoiseSpeed/10) i x101 1}}
+  octaves 4
+  lacunarity 1
+  translate {0 {curve*HeatHazeControl.TranslateSpeed i C x1 0 x101 250}}
+  center {960 540}
+  name HHNoise2
+  xpos 254
+  ypos -17
+ }
+ Dot {
+  name Dot1
+  xpos 288
+  ypos 156
+ }
+set N50bb66e0 [stack 0]
+ Emboss {
+  Angle 90
+  name HHEmboss1_X
+  xpos 144
+  ypos 192
+ }
+ Add {
+  value -0.5
+  name HHAdd1
+  xpos 144
+  ypos 264
+ }
+push $N50bb66e0
+ Emboss {
+  name HHEmboss1_Y
+  xpos 254
+  ypos 192
+ }
+ Add {
+  value -0.5
+  name HHAdd2
+  xpos 254
+  ypos 264
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 rgba.red
+  name Copy1
+  xpos 254
+  ypos 336
+ }
+ Shuffle {
+  blue black
+  alpha black
+  name Shuffle3
+  xpos 254
+  ypos 391
+ }
+set N50b80940 [stack 0]
+ NoOp {
+  name HHOutput_2d
+  xpos 254
+  ypos 679
+ }
+ Camera2 {
+  inputs 0
+  name HHCamera1
+  selected true
+  xpos 374
+  ypos 540
+ }
+set N50d4f080 [stack 0]
+push $N50b80940
+ Card2 {
+  rows 50
+  columns 50
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.166667 0 0} 0 {0 0 0} 0 {0 0.166667 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.166667 0 0} 0 {-0.166667 0 0} 0 {0 0.166667 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.166667 0 0} 0 {0 0.166667 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.166667 0 0} 0 {0 0 0} 0 {0 0.166667 0} 0 {0 -0.166667 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.166667 0 0} 0 {-0.166667 0 0} 0 {0 0.166667 0} 0 {0 -0.166667 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.166667 0 0} 0 {0 0.166667 0} 0 {0 -0.166667 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.166667 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.166667 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.166667 0 0} 0 {-0.166667 0 0} 0 {0 0 0} 0 {0 -0.166667 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.166667 0 0} 0 {0 0 0} 0 {0 -0.166667 0} 0 {1 1 0} }
+  name HHCard3
+  xpos 474
+  ypos 391
+ }
+ ProcGeo {
+  x_size 1.5
+  x_offset 0.3
+  y_size 2
+  y_offset 0.1
+  Lacunarity 2.44
+  Gain 0.6
+  Speed 2.2
+  name HHProcGeo1
+  xpos 474
+  ypos 439
+ }
+ TransformGeo {
+  translate {0 0 {-parent.HeatHazeControl.DistanceFromCam.main-4 i}}
+  uniform_scale 7
+  name HHTransformGeo3
+  xpos 474
+  ypos 487
+ }
+push $N50d4f080
+ Scene {
+  inputs 2
+  name HHScene2
+  xpos 484
+  ypos 516
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name HHConstant1
+  xpos 584
+  ypos 511
+  postage_stamp false
+ }
+ ScanlineRender {
+  inputs 3
+  shutteroffset centred
+  name HHScanlineRender2
+  xpos 474
+  ypos 631
+ }
+ NoOp {
+  name HHOutput_3d
+  xpos 474
+  ypos 703
+ }
+ Switch {
+  inputs 2
+  name HH_MainSwitch
+  xpos 474
+  ypos 775
+ }
+ Output {
+  name Output1
+  xpos 474
+  ypos 901
+ }
+end_group

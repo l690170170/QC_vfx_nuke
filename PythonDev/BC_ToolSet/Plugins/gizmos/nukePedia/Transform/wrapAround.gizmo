@@ -1,0 +1,70 @@
+# Transform dTools
+#! C:/Program Files/Nuke5.2v2/Nuke5.2.exe -nx
+# Created by Diogo Girondi
+# diogogirondi@gmail.com
+version 5.2200
+Gizmo {
+ help "@b;wrapAround v2@n;\n\nwrapAround mimics the offset filter from Photoshop. Ideal to create seamless textures in Nuke.\n\nCreated by Diogo Girondi\ndiogogirondi@gmail.com\n\nThanks to Michael Garrett for the code that deals with negative values."
+ tile_color 0xa57aaaff
+ addUserKnob {20 wrapAround l "Wrap Around v2"}
+ addUserKnob {41 translate l Translate T Transform1.translate}
+ addUserKnob {7 offsetx l "Offset X" R -100 100}
+ addUserKnob {7 offsety l "Offset Y" R -100 100}
+ addUserKnob {41 filter l Filter T STMap1.filter}
+}
+ Input {
+  inputs 0
+  name Input
+  xpos 0
+  ypos -52
+ }
+set N134b6e78 [stack 0]
+ Transform {
+  rotate 360
+  center {{input.width/2 i} {input.height/2 i}}
+  name Transform1
+  xpos 62
+  ypos -1
+  disable true
+ }
+ Expression {
+  expr0 x/width
+  expr1 y/height
+  expr2 0
+  name SetUVs
+  xpos 62
+  ypos 28
+ }
+ Expression {
+  temp_name0 oX
+  temp_expr0 (parent.translate.x%width)+(width*(parent.offsetx/100))
+  temp_name1 oY
+  temp_expr1 (parent.translate.y%height)+(height*(parent.offsety/100))
+  expr0 oX<0?r-(oX/width)-1:r-1+(1-oX/width)
+  expr1 oY<0?g-(oY/height)-1:g-1+(1-oY/height)
+  name Offset
+  xpos 62
+  ypos 57
+ }
+ Expression {
+  temp_expr2 r<0?-(-1-r):r
+  expr0 r<0?(1+r):r
+  expr1 g<0?(1+g):g
+  name Repeat
+  xpos 62
+  ypos 86
+ }
+push $N134b6e78
+ STMap {
+  inputs 2
+  uv rgb
+  name STMap1
+  xpos 0
+  ypos 143
+ }
+ Output {
+  name Output1
+  xpos 0
+  ypos 269
+ }
+end_group

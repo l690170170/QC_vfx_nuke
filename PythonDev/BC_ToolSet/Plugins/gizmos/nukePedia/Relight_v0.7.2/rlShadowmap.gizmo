@@ -1,0 +1,62 @@
+#! C:/Program Files (x86)/Nuke4.7v3/nuke4.7.exe -nx
+version 4.7300
+Gizmo {
+ inputs 1
+ help "@b;rlShadowmap - shadowmap gizmo for rlLight@n;\n----------------------------------------------------------------------\n\nnothing here...\n\n----------------------------------------------------------------------\nrlShadowMap v0.7.0 (Oct 16 2007) - written by Marco Aliano - http://www.lowrez.net"
+ addUserKnob {20 User}
+ addUserKnob {7 shadowmap_size l "shadowmap size" R 128 8192}
+ shadowmap_size 1024
+}
+ rlLightCamera {
+  inputs 0
+  display off
+  selectable false
+  win_scale {1 1}
+  hash 486449675
+  hash2 -2065806582
+  name rlLightCamera
+  xpos -269
+  ypos -138
+  postage_stamp false
+ }
+ Input {
+  inputs 0
+  name scene
+  xpos -554
+  ypos -176
+ }
+ Scene {
+  name Scene1
+  xpos -544
+  ypos -119
+ }
+push 0
+ Reformat {
+  type "to box"
+  box_width {{shadowmap_size}}
+  box_height {{box_width.0}}
+  box_fixed true
+  resize none
+  filter Impulse
+  name ShadowmapResize
+  xpos -418
+  ypos -143
+ }
+ ScanlineRender {
+  inputs 3
+  transparency false
+  filter Impulse
+  output_velocity false
+  output_shader_vectors true
+  P_channel rgb
+  name ShadowmapRender
+  selected true
+  xpos -418
+  ypos -55
+ }
+ Output {
+  name shadowmap
+  xpos -418
+  ypos 45
+ }
+end_group

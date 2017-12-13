@@ -1,0 +1,342 @@
+#! /Applications/Nuke6.1v2/NukeX6.1v2.app/../Nuke6.1v2.app/Contents/MacOS/Nuke6.1v2 -nx
+version 6.1 v2
+Gizmo {
+ inputs 2
+ addUserKnob {20 Grain_CB}
+ addUserKnob {3 seed t "Change this value to make different instances of this operator produce different noise"}
+ seed 134
+ addUserKnob {35 presets -STARTLINE M {"presets/Kodak 5248" "knobs this \{gangSeed 0 rsize 3.30 gsize 2.90 bsize 2.5 redIr 0.60 greenIr 0.60 blueIr 0.60 redT 0.42 greenT 0.46 blueT 0.85 redSoft 0.5 greenSoft 0.5 blueSoft 0.5 label \{Kodak 5248\}\}" "presets/Kodak 5279" "knobs this \{gangSeed 0 rsize 2.70 gsize 2.60 bsize 2.40 redIr 1.00 greenIr 0.76 blueIr 0.65 redT 0.37 greenT 0.60 blueT 1.65 redSoft 0.5 greenSoft 0.5 blueSoft 0.5 label \{Kodak 5279\}\}" "presets/Kodak FX214" "knobs this \{gangSeed 0 rsize 1.87 gsize 2.60 bsize 2.44 redIr 1 greenIr 0.76 blueIr 0.79 redT 0.41 greenT 0.60 blueT 1.80 redSoft 0.5 greenSoft 0.5 blueSoft 0.5 label \{Kodak FX214\}\}" "presets/Kodak GT5274" "knobs this \{gangSeed 0 rsize 0.04 gsize 0.10 bsize 0.90 redIr 0.90 greenIr 0.76 blueIr 0.81 redT 0.49 greenT 0.50 blueT 1.55 redSoft 0.5 greenSoft 0.5 blueSoft 0.5 label \{Kodak GT5274\}\}" "presets/Kodak 5217" "knobs this \{gangSeed 0 rsize 0.23 gsize 1.20 bsize 1.40 redIr 0.60 greenIr 0.86 blueIr 0.60 redT 0.48 greenT 0.42 blueT 0.87 redSoft 0.5 greenSoft 0.5 blueSoft 0.5 label \{Kodak 5217\}\}" "presets/Kodak 5218" "knobs this \{gangSeed 0 rsize 0.10 gsize 1.60 bsize 1.91 redIr 0.60 greenIr 0.86 blueIr 0.73 redT 0.38 greenT 0.17 blueT 0.87 redSoft 0.5 greenSoft 0.5 blueSoft 0.5 label \{Kodak 5218\}\}" "presets/Digital Noise" "knobs this \{gangSeed 1 rsize 1.7 gsize 1.7 bsize 1.7 redIr 0.30 greenIr 0.30 blueIr 0.30 redT 0.15 greenT 0.15 blueT 0.15 redSoft 0.5 greenSoft 0.5 blueSoft 0.5 label \{Digital Noise\}\}"}}
+ addUserKnob {26 version l "                                       - " -STARTLINE T "by Chad Buehler       \nv1.0"}
+ addUserKnob {6 gangSeed l gang t "gangs the seed for Red, Green and Blue, so they're identical." +STARTLINE}
+ addUserKnob {26 "" l "@b;Size"}
+ addUserKnob {14 rsize l red R 0 100}
+ rsize 3.3
+ addUserKnob {14 gsize l green R 0 100}
+ gsize 2.9
+ addUserKnob {14 bsize l blue R 0 100}
+ bsize 2.5
+ addUserKnob {26 "" l "@b;Irregularity"}
+ addUserKnob {7 redIr l red}
+ redIr 0.6
+ addUserKnob {7 greenIr l green}
+ greenIr 0.6
+ addUserKnob {7 blueIr l blue}
+ blueIr 0.6
+ addUserKnob {26 "" l "@b;Intensity"}
+ addUserKnob {7 redT l red t "Amount of grain to add to a white pixel"}
+ redT 0.42
+ addUserKnob {7 greenT l green t "Amount of grain to add to a white pixel"}
+ greenT 0.46
+ addUserKnob {7 blueT l blue t "Amount of grain to add to a white pixel"}
+ blueT 0.85
+ addUserKnob {26 "" l "@b;Soften"}
+ addUserKnob {7 redSoft l red t "Fine adjustments"}
+ redSoft 0.5
+ addUserKnob {7 greenSoft l green t "Fine adjustments"}
+ greenSoft 0.5
+ addUserKnob {7 blueSoft l blue t "Fine adjustments"}
+ blueSoft 0.5
+ addUserKnob {26 blurorsharpen l "@b;Blur or Sharpen"}
+ addUserKnob {7 bsRGB l RGB t "blurs or sharpens the grain for Red, Green and Blue" R -1 1}
+ addUserKnob {20 RangeGroup l "@b;Range (Film Response)" t "Allows you to set a range, based on the image values, where grain will and won't appear.  A value of 1 is full grain and 0 is no grain." n 1}
+ RangeGroup 0
+ addUserKnob {6 userange l "Use Range" t "This toggles range on/off" +STARTLINE}
+ addUserKnob {6 LUM l Luminance t "Uses Luminance, instead of the individual RGB values to drive the key." -STARTLINE}
+ addUserKnob {6 preview t "Allows you to see what the range looks like.  For preview purposes only.  Disable to use grain." -STARTLINE}
+ addUserKnob {26 psets2 l presets}
+ addUserKnob {41 setP2 l "Master Only" t "Preset for using the Master LUT only" T ColorLookup1.setP2}
+ addUserKnob {41 setP1_1 l "RGB Separately" t "preset for using R, G & B separately" -STARTLINE T ColorLookup1.setP1}
+ addUserKnob {26 ""}
+ addUserKnob {41 lut_1 l "" -STARTLINE T ColorLookup1.lut}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 "" l "@b;Mask"}
+ addUserKnob {4 gSelection l mask t "Select whether you want want the grain driven by the B input or Mask Input.  If you want grain everywhere, uncheck the mask checkbox." M {"Obey Alpha" "Use Mask Input" "" "" ""}}
+ addUserKnob {41 maskChannelMask l "" +STARTLINE T Copy1.maskChannelMask}
+ addUserKnob {41 inject -STARTLINE T Copy1.inject}
+ addUserKnob {41 invert_mask l invert -STARTLINE T Copy1.invert_mask}
+ addUserKnob {41 fringe -STARTLINE T Copy1.fringe}
+ addUserKnob {26 "" l "@b;Mask Falloff"}
+ addUserKnob {7 Igrain l "Increase Grain" t "Increasing this value brings in more grain on the less dense areas of the mask."}
+ addUserKnob {26 ""}
+ addUserKnob {41 mix T Copy1.mix}
+ addUserKnob {20 BlackNoiseBoost l "Black Noise Boost"}
+ addUserKnob {6 Useboost l "Use Boost" t "Boost the brightness of the grain in the low end." +STARTLINE}
+ addUserKnob {6 prevKey l "Preview Key" t "Allows you to see what the range looks like.  For preview purposes only.  Disable to use grain." -STARTLINE}
+ addUserKnob {26 "" l "@b;Key"}
+ addUserKnob {41 blackpoint T Grade1.blackpoint}
+ addUserKnob {41 multiply T Grade1.multiply}
+ addUserKnob {41 gamma T Grade1.gamma}
+ addUserKnob {26 "" l "@b;CC"}
+ addUserKnob {18 times l multiply R 0 20}
+ times {5 13 13}
+ addUserKnob {18 GrOff l offset R -1 1}
+ GrOff -1
+ addUserKnob {20 LensDistortion l "Lens Distortion"}
+ addUserKnob {6 UseSTMapDistortion l " Use STMap Distortion" t "UV style Distortion\nWhen you have to work on undistorted footage" +STARTLINE}
+ addUserKnob {41 uv l "UV channels" T STMap1.uv}
+ addUserKnob {41 blur l "blur channel" T STMap1.blur}
+ addUserKnob {41 blur_scale l "blur scale" T STMap1.blur_scale}
+ addUserKnob {41 maskChannel l "mask channel" T STMap1.maskChannel}
+ addUserKnob {41 invert_mask_1 l invert -STARTLINE T STMap1.invert_mask}
+ addUserKnob {41 premultiplied -STARTLINE T STMap1.premultiplied}
+ addUserKnob {41 filter T STMap1.filter}
+}
+ Input {
+  inputs 0
+  name B
+  xpos 569
+  ypos 43
+ }
+ Dot {
+  name Dot4
+  xpos 603
+  ypos 101
+ }
+set N1b68c220 [stack 0]
+ Invert {
+  channels rgb
+  maskChannelMask -rgba.alpha
+  maskChannelInput -rgba.alpha
+  unpremult -rgba.alpha
+  name Invert1
+  xpos 905
+  ypos 135
+  disable {{!parent.Useboost.main i}}
+ }
+ Grade {
+  blackpoint {0.98 0.98 0.98 0}
+  multiply {1 1 1 0}
+  gamma {0.3 0.3 0.6 0}
+  white_clamp true
+  maskChannelMask -rgba.alpha
+  maskChannelInput -rgba.alpha
+  unpremult -rgba.alpha
+  name Grade1
+  xpos 905
+  ypos 286
+  disable {{!parent.Useboost.main i}}
+ }
+set N1b694f90 [stack 0]
+push $N1b68c220
+ Saturation {
+  saturation 0
+  maskChannelMask -rgba.alpha
+  maskChannelInput -rgba.alpha
+  unpremult -rgba.alpha
+  name Saturation
+  xpos 792
+  ypos 155
+  disable {{!parent.LUM.main i}}
+ }
+ ColorLookup {
+  lut {master {}
+    red {curve C 0 s0 u0 v0 x0.009999999776 1 s0 u0 v0 x0.9974259734 1 s0 u0 v0 x1.066179991 0 s0 u0 v0}
+    green {curve C 0 s0 u0 v0 x0.009999999776 1 s0 u0 v0 x0.9974259734 1 s0 u0 v0 x1.066179991 0 s0 u0 v0}
+    blue {curve C 0 s0 u0 v0 x0.009999999776 1 s0 u0 v0 x0.9974259734 1 s0 u0 v0 x1.066179991 0 s0 u0 v0}
+    alpha {}}
+  name ColorLookup1
+  xpos 792
+  ypos 205
+  disable {{!parent.userange i}}
+  addUserKnob {20 User}
+  addUserKnob {22 scanP1 l INVISIBLE +INVISIBLE T "x=nuke.selectedNode()\ncode=x\['lut'].toScript()\n\ny=nuke.thisNode()\ny\['storePresetValue1'].fromScript(code)" +STARTLINE}
+  addUserKnob {22 scanP2 l INVISIBLE +INVISIBLE T "x=nuke.selectedNode()\ncode=x\['lut'].toScript()\n\ny=nuke.thisNode()\ny\['storePresetValue2'].fromScript(code)" +STARTLINE}
+  addUserKnob {22 setP1 l "RGB Separately" T "y=nuke.thisNode()\ncode=y\['storePresetValue1'].toScript()\ny\['lut'].fromScript(code)\n" +STARTLINE}
+  addUserKnob {22 setP2 l "Master Only" -STARTLINE T "y=nuke.thisNode()\ncode=y\['storePresetValue2'].toScript()\ny\['lut'].fromScript(code)"}
+  addUserKnob {22 reset -STARTLINE T "x=nuke.thisNode()\n\ncode='master \{\}\\nred \{\}\\ngreen \{\}\\nblue \{\}\\nalpha \{\}'\n\nx\['lut'].fromScript(code)"}
+  addUserKnob {52 storePresetValue1 +STARTLINE}
+  storePresetValue1 "master \{\}\nred \{curve C 0 s0 u0 v0 x0.009999999776 1 s0 u0 v0 x0.9974259734 1 s0 u0 v0 x1.066179991 0 s0 u0 v0\}\ngreen \{curve C 0 s0 u0 v0 x0.009999999776 1 s0 u0 v0 x0.9974259734 1 s0 u0 v0 x1.066179991 0 s0 u0 v0\}\nblue \{curve C 0 s0 u0 v0 x0.009999999776 1 s0 u0 v0 x0.9974259734 1 s0 u0 v0 x1.066179991 0 s0 u0 v0\}\nalpha \{\}"
+  addUserKnob {52 storePresetValue2 +STARTLINE}
+  storePresetValue2 "master \{curve C 0 s0 u0 v0 x0.009999999776 1 s0 u0 v0 x0.9974259734 1 s0 u0 v0 x1.066179991 0 s0 u0 v0\}\nred \{\}\ngreen \{\}\nblue \{\}\nalpha \{\}"
+ }
+set N1b6a2a90 [stack 0]
+ Input {
+  inputs 0
+  name Mask
+  xpos 449
+  ypos 44
+  number 1
+ }
+push $N1b68c220
+ Switch {
+  inputs 2
+  which {{gSelection i}}
+  name Switch2
+  xpos 449
+  ypos 190
+ }
+ CCorrect {
+  channels alpha
+  gray 1
+  contrast {{1-parent.Igrain i}}
+  shadows 0
+  midtones 0
+  highlights 0
+  name CCorrect2
+  xpos 449
+  ypos 512
+  disable {{parent.Igrain==0||parent.Igrain<0?1:0 i}}
+ }
+ Dot {
+  name Dot3
+  xpos 483
+  ypos 640
+ }
+push $N1b6a2a90
+push $N1b694f90
+push $N1b694f90
+push $N1b694f90
+push $N1b68c220
+push $N1b68c220
+ Expression {
+  expr0 (clamp(fBm(x*1/rsize.w,y*1/rsize.h,frame+seed+redIr/2,2,2,softenRGB.x)*0.5+0.5))*2-1
+  expr1 (clamp(fBm(x*1/gsize.w,y*1/gsize.h,frame+gSeed*seed+greenIr/2,2,2,softenRGB.y)*0.5+0.5))*2-1
+  expr2 (clamp(fBm(x*1/bsize.w,y*1/bsize.h,frame+bSeed*seed+blueIr/2,2,2,softenRGB.z)*0.5+0.5))*2-1
+  name ExpressionGrain2
+  xpos 671
+  ypos 161
+  addUserKnob {20 User}
+  addUserKnob {3 seed}
+  seed {{parent.seed i}}
+  addUserKnob {26 "" l "@b;Size"}
+  addUserKnob {14 rsize l red R 0 100}
+  rsize {{parent.rsize i}}
+  addUserKnob {14 gsize l green R 0 100}
+  gsize {{parent.gsize i}}
+  addUserKnob {14 bsize l blue R 0 100}
+  bsize {{parent.bsize i}}
+  addUserKnob {26 "" l "@b;Irregularity"}
+  addUserKnob {7 redIr l red}
+  redIr {{parent.redIr i}}
+  addUserKnob {7 greenIr l green}
+  greenIr {{parent.greenIr i}}
+  addUserKnob {7 blueIr l blue}
+  blueIr {{parent.blueIr i}}
+  addUserKnob {26 "" l "Blur / Sharpen"}
+  addUserKnob {13 softenRGB}
+  softenRGB {{-parent.redSoft+1 i} {-parent.greenSoft+1 i} {-parent.blueSoft+1 i}}
+  addUserKnob {7 gSeed}
+  gSeed {{parent.gangSeed==1?1:2 i}}
+  addUserKnob {7 bSeed}
+  bSeed {{parent.gangSeed==1?1:3 i}}
+ }
+ STMap {
+  inputs 2
+  channels rgb
+  name STMap1
+  xpos 671
+  ypos 234
+  disable {{!parent.UseSTMapDistortion.main i}}
+ }
+ Grade {
+  inputs 1+1
+  channels {rgba.red -rgba.green -rgba.blue}
+  multiply {{parent.times.main.r i}}
+  add {{parent.GrOff.main.r i}}
+  black_clamp false
+  maskChannelMask rgba.red
+  maskChannelInput -rgba.alpha
+  unpremult -rgba.alpha
+  name Grade2
+  xpos 671
+  ypos 278
+  disable {{!parent.Useboost.main i}}
+ }
+ Grade {
+  inputs 1+1
+  channels {-rgba.red rgba.green -rgba.blue}
+  multiply {{parent.times.main.g i}}
+  add {{parent.GrOff.main.g i}}
+  black_clamp false
+  maskChannelMask rgba.green
+  maskChannelInput -rgba.alpha
+  unpremult -rgba.alpha
+  name Grade3
+  xpos 671
+  ypos 322
+  disable {{!parent.Useboost.main i}}
+ }
+ Grade {
+  inputs 1+1
+  channels {-rgba.red -rgba.green rgba.blue}
+  multiply {{parent.times.main.b i}}
+  add {{parent.GrOff.main.b i}}
+  black_clamp false
+  maskChannelMask rgba.blue
+  maskChannelInput -rgba.alpha
+  unpremult -rgba.alpha
+  name Grade4
+  xpos 671
+  ypos 366
+  disable {{!parent.Useboost.main i}}
+ }
+ MergeExpression {
+  inputs 2
+  expr0 (HL>0?1:Ar)*Br
+  expr1 (HL>0?1:Ag)*Bg
+  expr2 (HL>0?1:Ab)*Bb
+  name MergeExpressionMask2
+  xpos 715
+  ypos 442
+  addUserKnob {20 User l INVISIBLE +INVISIBLE}
+  addUserKnob {6 HL l INVISIBLE +INVISIBLE +STARTLINE}
+  HL {{!parent.userange i}}
+ }
+ Sharpen {
+  channels rgb
+  minimum -1
+  amount {{parent.bsRGB i}}
+  name Sharpen3
+  xpos 715
+  ypos 485
+  disable {{parent.bsRGB==0||parent.bsRGB<0?1:0 i}}
+ }
+ Blur {
+  channels rgb
+  size {{-parent.bsRGB i}}
+  name Blur4
+  xpos 715
+  ypos 519
+  disable {{parent.bsRGB==0||parent.bsRGB>0?1:0 i}}
+ }
+push $N1b68c220
+ MergeExpression {
+  inputs 2
+  expr0 max(0,Br+Ar*(Br*redT))
+  expr1 max(0,Bg+Ag*(Bg*greenT))
+  expr2 max(0,Bb+Ab*(Bb*blueT))
+  name MergeExpression2
+  xpos 627
+  ypos 565
+  addUserKnob {20 User}
+  addUserKnob {26 "" l "@b;Intensity"}
+  addUserKnob {7 redT l red}
+  redT {{parent.redT i}}
+  addUserKnob {7 greenT l green}
+  greenT {{parent.greenT i}}
+  addUserKnob {7 blueT l blue}
+  blueT {{parent.blueT i}}
+ }
+push $N1b68c220
+ Copy {
+  inputs 2+1
+  channels rgb
+  maskChannelInput -mask.a
+  name Copy1
+  xpos 569
+  ypos 623
+ }
+ Switch {
+  inputs 3
+  which {{parent.prevKey>0?2:parent.preview i}}
+  name Switch1
+  xpos 792
+  ypos 710
+  disable {{"!\$gui"}}
+ }
+ Output {
+  name Output1
+  xpos 792
+  ypos 766
+ }
+end_group

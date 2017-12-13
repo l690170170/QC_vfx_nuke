@@ -1,0 +1,419 @@
+#! /Applications/Nuke10.5v2/Nuke10.5v2.app/Contents/MacOS/libnuke-10.5.2.dylib -nx
+version 10.5 v2
+Gizmo {
+ addUserKnob {20 upscale l Upscale}
+ addUserKnob {4 upscale_method l "Upscale method" M {"Method 1 (fast)" "Method 2 (slow)"}}
+ addUserKnob {26 ""}
+ addUserKnob {41 blu_blur l "Blue channel blur" T Blur10.size}
+ addUserKnob {26 ""}
+ addUserKnob {20 chrominance l Chrominance n 1}
+ addUserKnob {41 CbCr_blur l "Cb & Cr blur" T Blur11.size}
+ addUserKnob {41 size l "Cr sharpen" T Sharpen2.size}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 scale l Upscale n 1}
+ addUserKnob {41 Iterations T TVIscale4.Iterations}
+ addUserKnob {41 Lambda T TVIscale4.Lambda}
+ addUserKnob {41 A T TVIscale4.A}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 Antialiasing_filter l "Antialiasing filter" n 1}
+ addUserKnob {68 filter_size l "filter size" M {1 2}}
+ filter_size 2
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 alpha l "Alpha channel" n 1}
+ addUserKnob {4 alpha_channel l "alpha channel" M {0 1 original}}
+ alpha_channel original
+ addUserKnob {20 endGroup_4 l endGroup n -1}
+ addUserKnob {20 grain l Grain}
+ addUserKnob {20 remove_noise l "Remove Noise" n 2}
+ remove_noise 1
+ addUserKnob {6 allow_denoise l "Allow denoise" +STARTLINE}
+ allow_denoise true
+ addUserKnob {41 analysisRegion l "Analysis Region" T Denoise1.analysisRegion}
+ addUserKnob {41 analysisFrame l "Analysis Frame" T Denoise1.analysisFrame}
+ addUserKnob {41 analyze l "Analyze Noise" T Denoise1.analyze}
+ addUserKnob {41 analysisFile l "Analysis File" T Denoise1.analysisFile}
+ addUserKnob {41 import l Import -STARTLINE T Denoise1.import}
+ addUserKnob {41 export l Export -STARTLINE T Denoise1.export}
+ addUserKnob {20 "" n -1}
+ addUserKnob {20 format_1 l Format}
+ addUserKnob {20 input l "input format" n 1}
+ input 0
+ addUserKnob {6 reformat_input l "Allow Reformat" t "Allow if you want to reformat your plate in input" +STARTLINE}
+ addUserKnob {26 message_01 l "" +STARTLINE T "Reformat of the original input\n"}
+ addUserKnob {41 format T Reformat1.format}
+ addUserKnob {26 ""}
+ addUserKnob {20 endGroup_3 l endGroup n -1}
+ addUserKnob {20 output_2 l "output format" n 1}
+ addUserKnob {4 output_format l "output format" M {"upscale 200%" "custom reformat"}}
+ addUserKnob {26 ""}
+ addUserKnob {41 format_2 l format T Reformat2.format}
+ addUserKnob {41 resize l "resize type" T Reformat2.resize}
+ addUserKnob {41 center -STARTLINE T Reformat2.center}
+ addUserKnob {41 flip -STARTLINE T Reformat2.flip}
+ addUserKnob {41 flop -STARTLINE T Reformat2.flop}
+ addUserKnob {41 turn -STARTLINE T Reformat2.turn}
+ addUserKnob {41 filter T Reformat2.filter}
+ addUserKnob {41 clamp -STARTLINE T Reformat2.clamp}
+ addUserKnob {41 black_outside l "black outside" -STARTLINE T Reformat2.black_outside}
+ addUserKnob {41 pbb l "preserve bounding box" -STARTLINE T Reformat2.pbb}
+ addUserKnob {20 email l @}
+ addUserKnob {26 message02 l "" +STARTLINE T "Andrea Geremia\n-----------------------------------\nwww.andreageremia.it\nandrea.geremia89@gmail.com"}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0x2169c9ff
+  label 1
+  note_font_size 42
+  xpos -415
+  ypos -81
+  bdwidth 272
+  bdheight 506
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x47ff47ff
+  label 2
+  note_font_size 42
+  xpos -15
+  ypos -81
+  bdwidth 280
+  bdheight 564
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  tile_color 0xd97307ff
+  label ALPHA
+  note_font_size 42
+  xpos -262
+  ypos 610
+  bdwidth 334
+  bdheight 282
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode4
+  tile_color 0xff5156ff
+  label "REFORMAT OUT"
+  note_font_size 42
+  xpos -155
+  ypos 919
+  bdwidth 216
+  bdheight 238
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos 84
+  ypos -376
+ }
+ Dot {
+  name Dot2
+  xpos 118
+  ypos -329
+ }
+set N244c5b00 [stack 0]
+ Denoise2 {
+  "Noise Analysis" 1
+  lockNoiseAnalysis true
+  analysisRegion {650 384 750 484}
+  needsAnalyzing false
+  profileCurve {profile {curve x0.1000000015 0 x0.1333521456 0 x0.1778279394 0 x0.2371373773 0 x0.3162277639 0 x0.4216965139 0 x0.5623413324 0 x0.7498942018 0 x1 0}}
+  serializeKnob "0.608257 0.533532 0.483792
+0.00377458 0.00129149 0.000806452
+0.00377458 0.00129149 0.000806452
+0.00298433 0.000594426 0.000308812
+0 0 0
+0.00202669 0.00150792 0.000862045
+0.00202669 0.00150792 0.000862045
+0.000741591 0.000768324 0.000390355
+0 0 0
+0.00114694 0.00089703 0.000610804
+0.00114694 0.00089703 0.000610804
+0.000302037 0.000265265 0.000137121
+0 0 0
+0.000584028 0.000352149 0.000461108
+0.000584028 0.000352149 0.000461108
+0.000176709 7.76882e-05 4.17239e-05
+0 0 0 0 0 0 0 0 0 
+11187720673372486034"
+  name Denoise1
+  xpos 84
+  ypos -287
+  disable {{!parent.allow_denoise x1 1}}
+ }
+ Reformat {
+  name Reformat1
+  xpos 84
+  ypos -185
+  disable {{!parent.reformat_input}}
+ }
+ Dot {
+  name Dot13
+  xpos 118
+  ypos -1
+ }
+set N244e2600 [stack 0]
+ Blur {
+  channels {-rgba.red -rgba.green rgba.blue none}
+  size {{UPSCALE.Blur10.size}}
+  name Blur8
+  label "\[value size]"
+  xpos 84
+  ypos 86
+ }
+ Colorspace {
+  colorspace_out YCbCr
+  name Colorspace1
+  label "\[value colorspace_in] >> \[value colorspace_out]"
+  xpos 84
+  ypos 124
+ }
+ Blur {
+  channels {-rgba.red rgba.green rgba.blue none}
+  size {{UPSCALE.Blur11.size}}
+  name Blur9
+  label "\[value size]"
+  xpos 84
+  ypos 162
+ }
+ Colorspace {
+  colorspace_in YCbCr
+  name Colorspace2
+  label "\[value colorspace_in] >> \[value colorspace_out]"
+  xpos 84
+  ypos 200
+ }
+ TVIscale {
+  channels rgba
+  name TVIscale4
+  xpos 84
+  ypos 238
+ }
+ set C54bf7aa0 [stack 0]
+set N54bf7aa0 [stack 0]
+ Matrix {
+  channels rgb
+  matrix {
+      {1 2 1}
+      {2 4 2}
+      {1 2 1}
+    }
+  normalize true
+  name Matrix1
+  label "size 2"
+  xpos 175
+  ypos 269
+ }
+push $N54bf7aa0
+ Matrix {
+  channels rgb
+  matrix {
+      {0 1 0}
+      {1 2 1}
+      {0 1 0}
+    }
+  normalize true
+  name Matrix2
+  label "size 1"
+  xpos -5
+  ypos 266
+ }
+ Switch {
+  inputs 2
+  which {{parent.filter_size}}
+  name Switch3
+  label "\[value which]"
+  xpos 84
+  ypos 318
+ }
+ Colorspace {
+  colorspace_out YCbCr
+  name Colorspace3
+  label "\[value colorspace_in] >> \[value colorspace_out]"
+  xpos 84
+  ypos 365
+ }
+ Sharpen {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  size {{UPSCALE.Sharpen2.size}}
+  name Sharpen1
+  xpos 84
+  ypos 403
+ }
+ Colorspace {
+  colorspace_in YCbCr
+  name Colorspace4
+  label "\[value colorspace_in] >> \[value colorspace_out]"
+  xpos 84
+  ypos 441
+ }
+push $N244e2600
+ Dot {
+  name Dot14
+  xpos -303
+  ypos -1
+ }
+ Blur {
+  channels {-rgba.red -rgba.green rgba.blue none}
+  size 0.3
+  name Blur10
+  label "\[value size]"
+  xpos -337
+  ypos 81
+ }
+ Colorspace {
+  colorspace_out YCbCr
+  name Colorspace5
+  label "\[value colorspace_in] >> \[value colorspace_out]"
+  xpos -337
+  ypos 119
+ }
+ Blur {
+  channels {-rgba.red rgba.green rgba.blue -rgba.alpha}
+  size 0.3
+  name Blur11
+  label "\[value size]"
+  xpos -337
+  ypos 159
+ }
+ Sharpen {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  size 5
+  name Sharpen2
+  xpos -337
+  ypos 198
+ }
+ Colorspace {
+  colorspace_in YCbCr
+  name Colorspace6
+  label "\[value colorspace_in] >> \[value colorspace_out]"
+  xpos -337
+  ypos 236
+ }
+clone $C54bf7aa0 {
+  xpos -337
+  ypos 274
+  selected false
+ }
+set N123b3550 [stack 0]
+ Matrix {
+  channels rgb
+  matrix {
+      {1 2 1}
+      {2 4 2}
+      {1 2 1}
+    }
+  normalize true
+  name Matrix3
+  label "size 2"
+  xpos -233
+  ypos 329
+ }
+push $N123b3550
+ Matrix {
+  channels rgb
+  matrix {
+      {0 1 0}
+      {1 2 1}
+      {0 1 0}
+    }
+  normalize true
+  name Matrix4
+  label "size 1"
+  xpos -405
+  ypos 325
+ }
+ Switch {
+  inputs 2
+  which {{parent.filter_size}}
+  name Switch4
+  label "\[value which]"
+  xpos -325
+  ypos 383
+ }
+ Switch {
+  inputs 2
+  which {{parent.upscale_method}}
+  name Switch1
+  label "\[value which]"
+  xpos -145
+  ypos 543
+ }
+set N123964f0 [stack 0]
+ Shuffle {
+  name Shuffle3
+  label original
+  xpos -18
+  ypos 691
+ }
+push $N123964f0
+ Shuffle {
+  alpha white
+  name Shuffle2
+  label 1
+  xpos -145
+  ypos 690
+ }
+push $N123964f0
+ Shuffle {
+  alpha black
+  name Shuffle1
+  label 0
+  xpos -252
+  ypos 692
+ }
+ Switch {
+  inputs 3
+  which {{parent.alpha_channel}}
+  name Switch2
+  label "\[value which]"
+  xpos -145
+  ypos 850
+ }
+set N12383ad0 [stack 0]
+ Reformat {
+  format "4096 3112 0 0 4096 3112 1 4K_Super_35(full-ap)"
+  name Reformat2
+  xpos -29
+  ypos 999
+ }
+push $N12383ad0
+ Switch {
+  inputs 2
+  which {{parent.output_format}}
+  name Switch5
+  label "\[value which]"
+  xpos -145
+  ypos 1115
+ }
+set N1236fdf0 [stack 0]
+ Output {
+  name Output1
+  xpos -145
+  ypos 1315
+ }
+push $N244c5b00
+ Dot {
+  name Dot1
+  xpos 374
+  ypos -329
+ }
+ Dot {
+  name Dot3
+  xpos 374
+  ypos 1229
+ }
+push $N1236fdf0
+ Viewer {
+  frame_range 1-120
+  name Viewer1
+  xpos -12
+  ypos 1315
+ }
+end_group

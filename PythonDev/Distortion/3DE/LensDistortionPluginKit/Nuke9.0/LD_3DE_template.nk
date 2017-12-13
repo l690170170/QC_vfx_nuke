@@ -1,0 +1,516 @@
+#! D:/Program Files/Nuke9.0v3/nuke-9.0.3.dll -nx
+version 9.0 v3
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="-8" y="-8" w="1936" h="1056" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="1916"/>
+            <splitter orientation="1">
+                <split size="0"/>
+                <dock id="" hideTitles="1"/>
+                <split size="1912"/>
+                <splitter orientation="2">
+                    <split size="64"/>
+                    <dock id="" activePageId="Toolbar.1">
+                        <page id="Toolbar.1"/>
+                    </dock>
+                    <split size="919"/>
+                    <splitter orientation="1">
+                        <split size="1290"/>
+                        <dock id="" activePageId="Viewer.1">
+                            <page id="Viewer.1"/>
+                        </dock>
+                        <split size="618"/>
+                        <splitter orientation="2">
+                            <split size="458"/>
+                            <dock id="" activePageId="Properties.1">
+                                <page id="Properties.1"/>
+                            </dock>
+                            <split size="457"/>
+                            <dock id="" activePageId="DAG.1" focus="true">
+                                <page id="DAG.1"/>
+                                <page id="DopeSheet.1"/>
+                                <page id="Curve Editor.1"/>
+                            </dock>
+                        </splitter>
+                    </splitter>
+                    <split size="0"/>
+                    <dock id=""/>
+                    <split size="0"/>
+                    <dock id=""/>
+                </splitter>
+            </splitter>
+            <split size="0"/>
+            <dock id="" hideTitles="1"/>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name C:/Users/litianbo/.nuke/3DE/LensDistortionPluginKit/Nuke9.0/LD_3DE_template.nk
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode10
+ tile_color 0xaadfffff
+ label unDis
+ note_font_size 27
+ xpos -114
+ ypos -445
+ bdwidth 339
+ bdheight 385
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode11
+ tile_color 0xe9ff55ff
+ label Dis
+ note_font_size 27
+ xpos 345
+ ypos -447
+ bdwidth 374
+ bdheight 390
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode9
+ tile_color 0xd4aaffff
+ label "STMap And Plate"
+ note_font_size 27
+ xpos -718
+ ypos -799
+ bdwidth 433
+ bdheight 574
+}
+Read {
+ inputs 0
+ file R:/filmServe/1016_MH_ThreeLives/VFX/rawPlates/QQ/QQ0130/BG_right_v02/2048x1080_JPG/TL_QQ0130_bgplate_Right_v02_V001.%04d.jpg
+ format "2048 1080 0 0 2048 1080 1 THREE_LIVES_KQS_RED"
+ first 977
+ last 1084
+ origfirst 977
+ origlast 1084
+ origset true
+ name Read8
+ xpos -517
+ ypos -623
+}
+Dot {
+ name Dot13
+ xpos -483
+ ypos -521
+}
+set N3ae7400 [stack 0]
+LD_3DE_Classic_LD_Model {
+ mode STMap
+ filter Lanczos6
+ tde4_focal_length_cm 2.4692801
+ tde4_custom_focus_distance_cm 91.44
+ tde4_filmback_width_cm 2.212
+ tde4_filmback_height_cm 1.1664844
+ Distortion 0.033904
+ Curvature_X -0.013871
+ Curvature_Y 0.0071665
+ name LD_3DE4_TL_QQ0130_bgPlate_Right_V1
+ xpos -517
+ ypos -391
+}
+Reformat {
+ type scale
+ format "2253 1188 0 0 2253 1188 1 unDis"
+ scale 1.1
+ resize none
+ filter Lanczos6
+ pbb true
+ name Reformat12
+ xpos -517
+ ypos -302
+ postage_stamp true
+}
+Dot {
+ name Dot7
+ xpos -483
+ ypos -181
+}
+set N3ae6400 [stack 0]
+Write {
+ file R:/filmServe/1016_MH_ThreeLives/VFX/sequences/QQ/QQ0130/CG/Matchmove/publish/toComp/TL_QQ0130_trk_stMap/TL_QQ0130_trk_unDistort.exr
+ raw true
+ file_type exr
+ datatype "32 bit float"
+ version 8
+ beforeRender "\nimport re\nif nuke.thisNode().knob('Path Fragments'):\n    nnas_root = nuke.thisNode().knob('nas_root').evaluate()\n    nproject = nuke.thisNode().knob('project').evaluate()\n    nseq = nuke.thisNode().knob('seq').evaluate()\n    nshot_head = nuke.thisNode().knob('shot_head').evaluate()\n    nshot_tail = nuke.thisNode().knob('shot_tail').evaluate()\n    script = nuke.thisNode().knob('file').value()\n    newfile = re.sub(\"\\\[value nas_root\\]\",nnas_root,script)\n    newfile = re.sub(\"\\\[value project\\]\",nproject,newfile)\n    newfile = re.sub(\"\\\[value seq\\]\",nseq,newfile)\n    newfile = re.sub(\"\\\[value shot_head\\]\",nshot_head,newfile) \n    newfile = re.sub(\"\\\[value shot_tail\\]\",nshot_tail,newfile) \nelse:\n    newfile =  nuke.thisNode().knob('file').value()\nprint newfile   \ndirname = os.path.dirname(newfile)\nif dirname.find('%V') >= 0:\n    dirname_R = dirname.replace('%V','right')\n    dirname_L = dirname.replace('%V','left')\n    if not os.path.exists(dirname_R):\n        os.makedirs(dirname_R)\n    if not os.path.exists(dirname_L):\n        os.makedirs(dirname_L)\nelse:\n    if os.path.exists(dirname) == True:\n        pass\n    else:\n        os.makedirs(dirname)"
+ afterRender "\nimport re\nif nuke.thisNode().knob('Path Fragments'):\n    nnas_root = nuke.thisNode().knob('nas_root').evaluate()\n    nproject = nuke.thisNode().knob('project').evaluate()\n    nseq = nuke.thisNode().knob('seq').evaluate()\n    nshot_head = nuke.thisNode().knob('shot_head').evaluate()\n    nshot_tail = nuke.thisNode().knob('shot_tail').evaluate()\n    script = nuke.thisNode().knob('file').value()\n    newfile = re.sub(\"\\\[value nas_root\\]\",nnas_root,script)\n    newfile = re.sub(\"\\\[value project\\]\",nproject,newfile)\n    newfile = re.sub(\"\\\[value seq\\]\",nseq,newfile)\n    newfile = re.sub(\"\\\[value shot_head\\]\",nshot_head,newfile) \n    newfile = re.sub(\"\\\[value shot_tail\\]\",nshot_tail,newfile) \nelse:\n    newfile =  nuke.thisNode().knob('file').value()\nif newfile.find('%V') >= 0:\n    filename_R = newfile.replace('%V','right')\n    filename_L = newfile.replace('%V','left')\n    filenameList   = \[filename_R,filename_L]\nelse:\n    filenameList = \[newfile]\ninputx = int(nuke.thisNode()\['xpos'].value())\ninputy = int(nuke.thisNode()\['ypos'].value())\nfor filepath in filenameList:\n    for target in nuke.getFileNameList(os.path.dirname(filepath)):\n        match = re.match(r'(\\S+) (\\d+-\\d+)',target)\n        if match:\n            if match.group(1).split('.')\[0] == os.path.basename(filepath).split('.')\[0]:\n                firstframe = int(match.group(2).split('-')\[0])\n                lastframe = int(match.group(2).split('-')\[1])\n                node = nuke.nodes.Read(file = filepath,first=firstframe,last=lastframe)\n                node.setXYpos(inputx,inputy+50)\n        else:\n            try:\n                filepath_temp = os.path.basename(filepath).split('.')\[0]\n                target_temp   = target.split('.')\[0]\n            except:\n                filepath_temp = os.path.basename(filepath)\n                target_temp   = target\n            if filepath_temp == target_temp:\n                firstframe = os.path.basename(target).split('.')\[-2]\n                lastframe  = firstframe\n                node = nuke.nodes.Read(file = filepath,first=firstframe,last=lastframe)\n                node.setXYpos(inputx,inputy+50)\n    inputx += 110"
+ name Write9
+ xpos -517
+ ypos 31
+ addUserKnob {20 User l RenderInBackground}
+ addUserKnob {26 information l Info: T "More simple,more useful!Please make sure your setting didn't overflow available memory."}
+ addUserKnob {3 firstframe_1 l FirstFrame t "entry first frame of render range"}
+ firstframe_1 1001
+ addUserKnob {3 lastframe_1 l LastFrame t "entry last frame of render range"}
+ lastframe_1 1100
+ addUserKnob {3 splitNum t "entry number of splited framerange"}
+ splitNum 2
+ addUserKnob {3 maxThreads}
+ maxThreads 4
+ addUserKnob {3 maxCache}
+ maxCache 2000
+ addUserKnob {26 unnamed l "" +STARTLINE}
+ addUserKnob {22 renderinbackground l RenderInBackground -STARTLINE T "import time\nif nuke.thisNode().knob('file').value().find(':/') == -1:\n    nuke.message('file is empty')\nelse:\n    if os.path.exists(os.path.dirname(nuke.thisNode().knob('file').value()))==True:\n        print nuke.thisNode().knob('file').value()\n    else:\n        os.makedirs(os.path.dirname(nuke.thisNode().knob('file').value()))\n\n    firstframe_2 = int(nuke.thisNode().knob('firstframe_1').value())\n    lastframe_2 = int(nuke.thisNode().knob('lastframe_1').value())\n    splitnum_2 = int(nuke.thisNode().knob('splitNum').value())\n\n    subrange = int((lastframe_2 + 1 - firstframe_2)/splitnum_2)\n\n    maxthreads = nuke.thisNode().knob('maxThreads').value()\n    maxcache = nuke.thisNode().knob('maxCache').value()\n    view = nuke.views()\n    limits = \{'maxThreads':maxthreads,'maxCache':'%dM'%maxcache\}\n\n    for i in range(splitnum_2+1):\n        framerange = nuke.FrameRange()\n        frameranges = nuke.FrameRanges()\n\n        if firstframe_2 - 1 + subrange * (i+1) >= lastframe_2:\n            framerange.setLast(lastframe_2)\n        else:\n            framerange.setLast(firstframe_2 - 1 + subrange * (i+1))\n        if lastframe_2 >= firstframe_2 + subrange * i:\n            framerange.setFirst(firstframe_2 + subrange * i)\n            framerange.setIncrement(1)\n            frameranges.add(framerange)\n            time.sleep(0.1)\n            print frameranges\n            nuke.executeBackgroundNuke(nuke.EXE_PATH,\[nuke.thisNode()],frameranges,view,limits)\n        else:\n            pass"}
+}
+push $N3ae7400
+Dot {
+ name Dot15
+ xpos -343
+ ypos -521
+}
+set N3ae7c00 [stack 0]
+LD_3DE_Classic_LD_Model {
+ direction distort
+ mode STMap
+ filter Lanczos6
+ tde4_focal_length_cm 2.4692801
+ tde4_custom_focus_distance_cm 91.44
+ tde4_filmback_width_cm 2.212
+ tde4_filmback_height_cm 1.1664844
+ Distortion 0.033904
+ Curvature_X -0.013871
+ Curvature_Y 0.0071665
+ name LD_3DE4_TL_QQ0130_bgPlate_Right_V001
+ xpos -377
+ ypos -422
+}
+Reformat {
+ type scale
+ format "2253 1188 0 0 2253 1188 1 unDis"
+ scale 1.1
+ resize none
+ filter Lanczos6
+ pbb true
+ name Reformat13
+ xpos -377
+ ypos -302
+ postage_stamp true
+}
+Dot {
+ name Dot8
+ xpos -343
+ ypos -212
+}
+set N4188b000 [stack 0]
+Write {
+ file R:/filmServe/1016_MH_ThreeLives/VFX/sequences/QQ/QQ0130/CG/Matchmove/publish/toComp/TL_QQ0130_trk_stMap/TL_QQ0130_trk_distort.exr
+ raw true
+ file_type exr
+ datatype "32 bit float"
+ version 4
+ beforeRender "\nimport re\nif nuke.thisNode().knob('Path Fragments'):\n    nnas_root = nuke.thisNode().knob('nas_root').evaluate()\n    nproject = nuke.thisNode().knob('project').evaluate()\n    nseq = nuke.thisNode().knob('seq').evaluate()\n    nshot_head = nuke.thisNode().knob('shot_head').evaluate()\n    nshot_tail = nuke.thisNode().knob('shot_tail').evaluate()\n    script = nuke.thisNode().knob('file').value()\n    newfile = re.sub(\"\\\[value nas_root\\]\",nnas_root,script)\n    newfile = re.sub(\"\\\[value project\\]\",nproject,newfile)\n    newfile = re.sub(\"\\\[value seq\\]\",nseq,newfile)\n    newfile = re.sub(\"\\\[value shot_head\\]\",nshot_head,newfile) \n    newfile = re.sub(\"\\\[value shot_tail\\]\",nshot_tail,newfile) \nelse:\n    newfile =  nuke.thisNode().knob('file').value()\nprint newfile   \ndirname = os.path.dirname(newfile)\nif dirname.find('%V') >= 0:\n    dirname_R = dirname.replace('%V','right')\n    dirname_L = dirname.replace('%V','left')\n    if not os.path.exists(dirname_R):\n        os.makedirs(dirname_R)\n    if not os.path.exists(dirname_L):\n        os.makedirs(dirname_L)\nelse:\n    if os.path.exists(dirname) == True:\n        pass\n    else:\n        os.makedirs(dirname)"
+ afterRender "\nimport re\nif nuke.thisNode().knob('Path Fragments'):\n    nnas_root = nuke.thisNode().knob('nas_root').evaluate()\n    nproject = nuke.thisNode().knob('project').evaluate()\n    nseq = nuke.thisNode().knob('seq').evaluate()\n    nshot_head = nuke.thisNode().knob('shot_head').evaluate()\n    nshot_tail = nuke.thisNode().knob('shot_tail').evaluate()\n    script = nuke.thisNode().knob('file').value()\n    newfile = re.sub(\"\\\[value nas_root\\]\",nnas_root,script)\n    newfile = re.sub(\"\\\[value project\\]\",nproject,newfile)\n    newfile = re.sub(\"\\\[value seq\\]\",nseq,newfile)\n    newfile = re.sub(\"\\\[value shot_head\\]\",nshot_head,newfile) \n    newfile = re.sub(\"\\\[value shot_tail\\]\",nshot_tail,newfile) \nelse:\n    newfile =  nuke.thisNode().knob('file').value()\nif newfile.find('%V') >= 0:\n    filename_R = newfile.replace('%V','right')\n    filename_L = newfile.replace('%V','left')\n    filenameList   = \[filename_R,filename_L]\nelse:\n    filenameList = \[newfile]\ninputx = int(nuke.thisNode()\['xpos'].value())\ninputy = int(nuke.thisNode()\['ypos'].value())\nfor filepath in filenameList:\n    for target in nuke.getFileNameList(os.path.dirname(filepath)):\n        match = re.match(r'(\\S+) (\\d+-\\d+)',target)\n        if match:\n            if match.group(1).split('.')\[0] == os.path.basename(filepath).split('.')\[0]:\n                firstframe = int(match.group(2).split('-')\[0])\n                lastframe = int(match.group(2).split('-')\[1])\n                node = nuke.nodes.Read(file = filepath,first=firstframe,last=lastframe)\n                node.setXYpos(inputx,inputy+50)\n        else:\n            try:\n                filepath_temp = os.path.basename(filepath).split('.')\[0]\n                target_temp   = target.split('.')\[0]\n            except:\n                filepath_temp = os.path.basename(filepath)\n                target_temp   = target\n            if filepath_temp == target_temp:\n                firstframe = os.path.basename(target).split('.')\[-2]\n                lastframe  = firstframe\n                node = nuke.nodes.Read(file = filepath,first=firstframe,last=lastframe)\n                node.setXYpos(inputx,inputy+50)\n    inputx += 110"
+ name Write10
+ xpos -377
+ ypos 31
+ addUserKnob {20 User l RenderInBackground}
+ addUserKnob {26 information l Info: T "More simple,more useful!Please make sure your setting didn't overflow available memory."}
+ addUserKnob {3 firstframe_1 l FirstFrame t "entry first frame of render range"}
+ firstframe_1 1001
+ addUserKnob {3 lastframe_1 l LastFrame t "entry last frame of render range"}
+ lastframe_1 1100
+ addUserKnob {3 splitNum t "entry number of splited framerange"}
+ splitNum 2
+ addUserKnob {3 maxThreads}
+ maxThreads 4
+ addUserKnob {3 maxCache}
+ maxCache 2000
+ addUserKnob {26 unnamed l "" +STARTLINE}
+ addUserKnob {22 renderinbackground l RenderInBackground -STARTLINE T "import time\nif nuke.thisNode().knob('file').value().find(':/') == -1:\n    nuke.message('file is empty')\nelse:\n    if os.path.exists(os.path.dirname(nuke.thisNode().knob('file').value()))==True:\n        print nuke.thisNode().knob('file').value()\n    else:\n        os.makedirs(os.path.dirname(nuke.thisNode().knob('file').value()))\n\n    firstframe_2 = int(nuke.thisNode().knob('firstframe_1').value())\n    lastframe_2 = int(nuke.thisNode().knob('lastframe_1').value())\n    splitnum_2 = int(nuke.thisNode().knob('splitNum').value())\n\n    subrange = int((lastframe_2 + 1 - firstframe_2)/splitnum_2)\n\n    maxthreads = nuke.thisNode().knob('maxThreads').value()\n    maxcache = nuke.thisNode().knob('maxCache').value()\n    view = nuke.views()\n    limits = \{'maxThreads':maxthreads,'maxCache':'%dM'%maxcache\}\n\n    for i in range(splitnum_2+1):\n        framerange = nuke.FrameRange()\n        frameranges = nuke.FrameRanges()\n\n        if firstframe_2 - 1 + subrange * (i+1) >= lastframe_2:\n            framerange.setLast(lastframe_2)\n        else:\n            framerange.setLast(firstframe_2 - 1 + subrange * (i+1))\n        if lastframe_2 >= firstframe_2 + subrange * i:\n            framerange.setFirst(firstframe_2 + subrange * i)\n            framerange.setIncrement(1)\n            frameranges.add(framerange)\n            time.sleep(0.1)\n            print frameranges\n            nuke.executeBackgroundNuke(nuke.EXE_PATH,\[nuke.thisNode()],frameranges,view,limits)\n        else:\n            pass"}
+}
+StickyNote {
+ inputs 0
+ name StickyNote3
+ tile_color 0xff0000ff
+ gl_color 0xff0000ff
+ label "check \nPath\nNaming"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 20
+ xpos -377
+ ypos 83
+}
+StickyNote {
+ inputs 0
+ name StickyNote2
+ tile_color 0xff0000ff
+ gl_color 0xff0000ff
+ label "check \nPath\nNaming"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 20
+ xpos -521
+ ypos 81
+}
+StickyNote {
+ inputs 0
+ name StickyNote1
+ tile_color 0xff0000ff
+ gl_color 0xff0000ff
+ label "check \nPath\nNaming"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 20
+ xpos -686
+ ypos 74
+}
+push $N3ae7400
+Dot {
+ name Dot16
+ xpos -644
+ ypos -521
+}
+LD_3DE_Classic_LD_Model {
+ filter Lanczos6
+ tde4_focal_length_cm 2.4692801
+ tde4_custom_focus_distance_cm 91.44
+ tde4_filmback_width_cm 2.212
+ tde4_filmback_height_cm 1.1664844
+ Distortion 0.033904
+ Curvature_X -0.013871
+ Curvature_Y 0.0071665
+ name LD_3DE4_TL_QQ0130_bgPlate_Right_V2
+ xpos -678
+ ypos -421
+}
+Reformat {
+ type scale
+ format "2253 1188 0 0 2253 1188 1 unDis"
+ scale 1.1
+ resize none
+ filter Lanczos6
+ pbb true
+ name Reformat1
+ xpos -678
+ ypos -327
+}
+Transform {
+ center {1126.5 594}
+ filter Lanczos6
+ name Transform2
+ xpos -678
+ ypos -301
+ postage_stamp true
+}
+Dot {
+ name Dot10
+ xpos -644
+ ypos -130
+}
+set N418b6800 [stack 0]
+Write {
+ file R:/filmServe/1016_MH_ThreeLives/VFX/rawPlates/QQ/QQ0130/BG_right_v02/f2048x1080_JPG/TL_QQ0130_bgplate_Right_v02_V001.####.jpg
+ file_type jpeg
+ _jpeg_quality 1
+ checkHashOnRead false
+ version 5
+ beforeRender "\nimport re\nif nuke.thisNode().knob('Path Fragments'):\n    nnas_root = nuke.thisNode().knob('nas_root').evaluate()\n    nproject = nuke.thisNode().knob('project').evaluate()\n    nseq = nuke.thisNode().knob('seq').evaluate()\n    nshot_head = nuke.thisNode().knob('shot_head').evaluate()\n    nshot_tail = nuke.thisNode().knob('shot_tail').evaluate()\n    script = nuke.thisNode().knob('file').value()\n    newfile = re.sub(\"\\\[value nas_root\\]\",nnas_root,script)\n    newfile = re.sub(\"\\\[value project\\]\",nproject,newfile)\n    newfile = re.sub(\"\\\[value seq\\]\",nseq,newfile)\n    newfile = re.sub(\"\\\[value shot_head\\]\",nshot_head,newfile) \n    newfile = re.sub(\"\\\[value shot_tail\\]\",nshot_tail,newfile) \nelse:\n    newfile =  nuke.thisNode().knob('file').value()\nprint newfile   \ndirname = os.path.dirname(newfile)\nif dirname.find('%V') >= 0:\n    dirname_R = dirname.replace('%V','right')\n    dirname_L = dirname.replace('%V','left')\n    if not os.path.exists(dirname_R):\n        os.makedirs(dirname_R)\n    if not os.path.exists(dirname_L):\n        os.makedirs(dirname_L)\nelse:\n    if os.path.exists(dirname) == True:\n        pass\n    else:\n        os.makedirs(dirname)"
+ afterRender "\nimport re\nif nuke.thisNode().knob('Path Fragments'):\n    nnas_root = nuke.thisNode().knob('nas_root').evaluate()\n    nproject = nuke.thisNode().knob('project').evaluate()\n    nseq = nuke.thisNode().knob('seq').evaluate()\n    nshot_head = nuke.thisNode().knob('shot_head').evaluate()\n    nshot_tail = nuke.thisNode().knob('shot_tail').evaluate()\n    script = nuke.thisNode().knob('file').value()\n    newfile = re.sub(\"\\\[value nas_root\\]\",nnas_root,script)\n    newfile = re.sub(\"\\\[value project\\]\",nproject,newfile)\n    newfile = re.sub(\"\\\[value seq\\]\",nseq,newfile)\n    newfile = re.sub(\"\\\[value shot_head\\]\",nshot_head,newfile) \n    newfile = re.sub(\"\\\[value shot_tail\\]\",nshot_tail,newfile) \nelse:\n    newfile =  nuke.thisNode().knob('file').value()\nif newfile.find('%V') >= 0:\n    filename_R = newfile.replace('%V','right')\n    filename_L = newfile.replace('%V','left')\n    filenameList   = \[filename_R,filename_L]\nelse:\n    filenameList = \[newfile]\ninputx = int(nuke.thisNode()\['xpos'].value())\ninputy = int(nuke.thisNode()\['ypos'].value())\nfor filepath in filenameList:\n    for target in nuke.getFileNameList(os.path.dirname(filepath)):\n        match = re.match(r'(\\S+) (\\d+-\\d+)',target)\n        if match:\n            if match.group(1).split('.')\[0] == os.path.basename(filepath).split('.')\[0]:\n                firstframe = int(match.group(2).split('-')\[0])\n                lastframe = int(match.group(2).split('-')\[1])\n                node = nuke.nodes.Read(file = filepath,first=firstframe,last=lastframe)\n                node.setXYpos(inputx,inputy+50)\n        else:\n            try:\n                filepath_temp = os.path.basename(filepath).split('.')\[0]\n                target_temp   = target.split('.')\[0]\n            except:\n                filepath_temp = os.path.basename(filepath)\n                target_temp   = target\n            if filepath_temp == target_temp:\n                firstframe = os.path.basename(target).split('.')\[-2]\n                lastframe  = firstframe\n                node = nuke.nodes.Read(file = filepath,first=firstframe,last=lastframe)\n                node.setXYpos(inputx,inputy+50)\n    inputx += 110"
+ name Write3
+ xpos -678
+ ypos 34
+ addUserKnob {20 User l RenderInBackground}
+ addUserKnob {26 information l Info: T "More simple,more useful!Please make sure your setting didn't overflow available memory."}
+ addUserKnob {3 firstframe_1 l FirstFrame t "entry first frame of render range"}
+ firstframe_1 1001
+ addUserKnob {3 lastframe_1 l LastFrame t "entry last frame of render range"}
+ lastframe_1 1100
+ addUserKnob {3 splitNum t "entry number of splited framerange"}
+ splitNum 2
+ addUserKnob {3 maxThreads}
+ maxThreads 4
+ addUserKnob {3 maxCache}
+ maxCache 2000
+ addUserKnob {26 unnamed l "" +STARTLINE}
+ addUserKnob {22 renderinbackground l RenderInBackground -STARTLINE T "import time\nif nuke.thisNode().knob('file').value().find(':/') == -1:\n    nuke.message('file is empty')\nelse:\n    if os.path.exists(os.path.dirname(nuke.thisNode().knob('file').value()))==True:\n        print nuke.thisNode().knob('file').value()\n    else:\n        os.makedirs(os.path.dirname(nuke.thisNode().knob('file').value()))\n\n    firstframe_2 = int(nuke.thisNode().knob('firstframe_1').value())\n    lastframe_2 = int(nuke.thisNode().knob('lastframe_1').value())\n    splitnum_2 = int(nuke.thisNode().knob('splitNum').value())\n\n    subrange = int((lastframe_2 + 1 - firstframe_2)/splitnum_2)\n\n    maxthreads = nuke.thisNode().knob('maxThreads').value()\n    maxcache = nuke.thisNode().knob('maxCache').value()\n    view = nuke.views()\n    limits = \{'maxThreads':maxthreads,'maxCache':'%dM'%maxcache\}\n\n    for i in range(splitnum_2+1):\n        framerange = nuke.FrameRange()\n        frameranges = nuke.FrameRanges()\n\n        if firstframe_2 - 1 + subrange * (i+1) >= lastframe_2:\n            framerange.setLast(lastframe_2)\n        else:\n            framerange.setLast(firstframe_2 - 1 + subrange * (i+1))\n        if lastframe_2 >= firstframe_2 + subrange * i:\n            framerange.setFirst(firstframe_2 + subrange * i)\n            framerange.setIncrement(1)\n            frameranges.add(framerange)\n            time.sleep(0.1)\n            print frameranges\n            nuke.executeBackgroundNuke(nuke.EXE_PATH,\[nuke.thisNode()],frameranges,view,limits)\n        else:\n            pass"}
+}
+push $N3ae6400
+Dot {
+ name Dot14
+ xpos 165
+ ypos -181
+}
+Reformat {
+ type scale
+ format "2880 1519 0 0 2880 1519 1 "
+ scale 0.909090909
+ resize none
+ filter Lanczos6
+ pbb true
+ name Reformat32
+ xpos 131
+ ypos -375
+}
+push $N3ae7c00
+Dot {
+ name Dot6
+ xpos 3
+ ypos -521
+}
+set N418e5400 [stack 0]
+STMap {
+ inputs 2
+ uv rgb
+ filter Lanczos6
+ name STMap1
+ xpos -31
+ ypos -381
+}
+Reformat {
+ type scale
+ format "2253 1188 0 0 2253 1188 1 unDis"
+ scale 1.1
+ resize none
+ filter Lanczos6
+ pbb true
+ name Reformat2
+ xpos -31
+ ypos -321
+}
+Transform {
+ center {1126.5 594}
+ filter Lanczos6
+ name Transform1
+ xpos -31
+ ypos -295
+ postage_stamp true
+}
+push $N418b6800
+Dot {
+ name Dot4
+ xpos -156
+ ypos -130
+}
+set N418e4000 [stack 0]
+Merge2 {
+ inputs 2
+ operation difference
+ name Merge1
+ xpos -31
+ ypos -157
+ postage_stamp true
+}
+StickyNote {
+ inputs 0
+ name StickyNote9
+ tile_color 0xff0000ff
+ gl_color 0xff0000ff
+ label "distort\nstMap\nLanczos6"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 15
+ xpos -377
+ ypos -488
+}
+StickyNote {
+ inputs 0
+ name StickyNote6
+ tile_color 0xff0000ff
+ gl_color 0xff0000ff
+ label "Replace\nPlate\nCheck\nFormat"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 20
+ xpos -519
+ ypos -722
+}
+StickyNote {
+ inputs 0
+ name StickyNote7
+ tile_color 0xff0000ff
+ gl_color 0xff0000ff
+ label "Undistort\nimage\nLanczos6"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 15
+ xpos -680
+ ypos -485
+}
+StickyNote {
+ inputs 0
+ name StickyNote8
+ tile_color 0xff0000ff
+ gl_color 0xff0000ff
+ label "Undistort\nstMap\nLanczos6"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 15
+ xpos -514
+ ypos -484
+}
+push $N4188b000
+Dot {
+ name Dot9
+ xpos 664
+ ypos -212
+}
+Reformat {
+ type scale
+ format "2880 1519 0 0 2880 1519 1 "
+ scale 0.909090909
+ resize none
+ filter Lanczos6
+ pbb true
+ name Reformat3
+ xpos 630
+ ypos -381
+}
+Dot {
+ name Dot3
+ xpos 569
+ ypos -377
+}
+push $N418e4000
+Dot {
+ name Dot2
+ xpos -156
+ ypos -483
+}
+Dot {
+ name Dot1
+ xpos 490
+ ypos -483
+}
+Reformat {
+ type scale
+ format "2880 1519 0 0 2880 1519 1 "
+ scale 0.909090909
+ resize none
+ filter Lanczos6
+ pbb true
+ name Reformat4
+ xpos 456
+ ypos -379
+}
+STMap {
+ inputs 2
+ uv rgb
+ filter Lanczos6
+ name STMap2
+ xpos 456
+ ypos -304
+ postage_stamp true
+}
+push $N418e5400
+Dot {
+ name Dot12
+ xpos 399
+ ypos -521
+}
+Dot {
+ name Dot11
+ xpos 399
+ ypos -130
+}
+Merge2 {
+ inputs 2
+ operation difference
+ name Merge2
+ xpos 456
+ ypos -157
+ postage_stamp true
+}

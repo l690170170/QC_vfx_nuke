@@ -1,0 +1,59 @@
+set cut_paste_input [stack 0]
+version 9.0 v8
+BackdropNode {
+ inputs 0
+ name BackdropNode2
+ tile_color 0x388e8e00
+ label Alpha_max
+ note_font_size 42
+ selected true
+ xpos -361
+ ypos 780
+ bdwidth 247
+ bdheight 344
+}
+push $cut_paste_input
+Unpremult {
+ name Unpremult1
+ selected true
+ xpos -351
+ ypos 866
+}
+set N943f9400 [stack 0]
+Grade {
+ channels alpha
+ whitepoint 0.76
+ name Grade1
+ selected true
+ xpos -204
+ ypos 860
+}
+FilterErode {
+ filter quadratic
+ name FilterErode3
+ selected true
+ xpos -204
+ ypos 934
+}
+Blur {
+ size 1.2
+ name Blur1
+ selected true
+ xpos -204
+ ypos 1014
+}
+push $N943f9400
+ChannelMerge {
+ inputs 2
+ operation max
+ name ChannelMerge1
+ selected true
+ xpos -351
+ ypos 1007
+}
+Premult {
+ name Premult1
+ selected true
+ xpos -351
+ ypos 1094
+}

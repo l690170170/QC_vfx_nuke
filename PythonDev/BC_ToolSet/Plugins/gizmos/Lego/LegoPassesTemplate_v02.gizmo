@@ -1,0 +1,296 @@
+#! /Applications/Nuke6.1v1-32/NukeX6.1v1.app/../Nuke6.1v1.app/Contents/MacOS/Nuke6.1v1 -nx
+version 6.1 v1
+Gizmo {
+ inputs 2
+}
+ Input {
+  inputs 0
+  name Input_AUX
+  xpos 255
+  ypos 392
+  number 1
+ }
+ Dot {
+  name Dot16
+  xpos 289
+  ypos 444
+ }
+set N1fea5d50 [stack 0]
+ Dot {
+  name Dot22
+  xpos -755
+  ypos 444
+ }
+set N1e9f2870 [stack 0]
+add_layer {customObjectID customObjectID.red customObjectID.green customObjectID.blue customObjectID.alpha}
+ Shuffle {
+  in customObjectID
+  alpha black
+  name CustomObjectID
+  xpos -888
+  ypos 614
+ }
+push $N1e9f2870
+add_layer {customShaderID customShaderID.red customShaderID.green customShaderID.blue customShaderID.alpha}
+ Shuffle {
+  in customShaderID
+  alpha black
+  name CustomShaderID
+  xpos -789
+  ypos 614
+ }
+push $N1e9f2870
+add_layer {facingRatio facingRatio.red facingRatio.green facingRatio.blue facingRatio.alpha}
+ Shuffle {
+  in facingRatio
+  name FacingRatio
+  xpos -696
+  ypos 616
+ }
+push $N1e9f2870
+add_layer {normalCamera normalCamera.red normalCamera.green normalCamera.blue normalCamera.alpha}
+ Shuffle {
+  in normalCamera
+  name Normals
+  xpos -986
+  ypos 610
+ }
+ Input {
+  inputs 0
+  name Input_Beauty
+  xpos 70
+  ypos 391
+ }
+ Dot {
+  name Dot1
+  xpos 104
+  ypos 481
+ }
+set N1e935d70 [stack 0]
+ Dot {
+  name Dot20
+  xpos -415
+  ypos 481
+ }
+add_layer {cameraDepth cameraDepth.Z}
+ Shuffle {
+  in cameraDepth
+  name Depth
+  xpos -449
+  ypos 548
+ }
+push $N1e935d70
+add_layer {incandescence incandescence.red incandescence.green incandescence.blue}
+ Shuffle {
+  in incandescence
+  name INCANDESCENCE
+  xpos -326
+  ypos 542
+ }
+ Dot {
+  name Dot5
+  xpos -292
+  ypos 1257
+ }
+push $N1e935d70
+add_layer {refraction refraction.red refraction.green refraction.blue refraction.alpha}
+ Shuffle {
+  in refraction
+  name REFRACTION
+  xpos -213
+  ypos 548
+ }
+ Dot {
+  name Dot2
+  xpos -179
+  ypos 1192
+ }
+push $N1e935d70
+add_layer {specular specular.red specular.green specular.blue specular.alpha}
+ Shuffle {
+  in {specular.red specular.green specular.blue -specular.alpha}
+  name SPECULAR
+  xpos -124
+  ypos 547
+ }
+ Dot {
+  name Dot9
+  xpos -90
+  ypos 1164
+ }
+push $N1e935d70
+add_layer {reflection reflection.red reflection.green reflection.blue reflection.alpha}
+ Shuffle {
+  in {reflection.red reflection.green reflection.blue -reflection.alpha}
+  name REFLECTION
+  xpos -28
+  ypos 549
+ }
+ Dot {
+  name Dot7
+  xpos 6
+  ypos 1126
+ }
+push $N1e935d70
+add_layer {rawShadow rawShadow.red rawShadow.green rawShadow.blue}
+ Shuffle {
+  in rawShadow
+  alpha black
+  name SHADOW
+  xpos 836
+  ypos 562
+ }
+push $N1e935d70
+ Shuffle {
+  in cameraDepth
+  name Depth1
+  xpos 984
+  ypos 560
+ }
+ Grade {
+  channels all
+  blackpoint 1790
+  name Grade1
+  xpos 984
+  ypos 862
+ }
+ Invert {
+  name Invert2
+  xpos 984
+  ypos 951
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge2
+  xpos 836
+  ypos 956
+ }
+ Invert {
+  name Invert1
+  xpos 724
+  ypos 951
+ }
+push $N1e935d70
+add_layer {bakedOcclusion bakedOcclusion.red bakedOcclusion.green bakedOcclusion.blue bakedOcclusion.alpha}
+ Shuffle {
+  in bakedOcclusion
+  name BAKEDOCCLUSION
+  xpos 427
+  ypos 561
+ }
+ Clamp {
+  minimum 0.01
+  name Clamp3
+  xpos 427
+  ypos 869
+ }
+push $N1fea5d50
+add_layer {contactOcclusion contactOcclusion.red contactOcclusion.green contactOcclusion.blue contactOcclusion.alpha}
+ Shuffle {
+  in contactOcclusion
+  alpha black
+  name OCCLUSION
+  xpos 255
+  ypos 562
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  mix 0.3
+  name Merge24
+  xpos 255
+  ypos 880
+  disable true
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  mix 0.6
+  name Merge9
+  xpos 255
+  ypos 950
+ }
+push $N1e935d70
+add_layer {directIrradiance directIrradiance.red directIrradiance.green directIrradiance.blue}
+ Shuffle {
+  in directIrradiance
+  alpha black
+  name DIRECT_IR
+  xpos 673
+  ypos 559
+ }
+push $N1e935d70
+add_layer {indirect indirect.red indirect.green indirect.blue}
+ Shuffle {
+  in indirect
+  alpha black
+  name INDIRECT
+  xpos 578
+  ypos 560
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge8
+  xpos 602
+  ypos 1074
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge3
+  xpos 255
+  ypos 1074
+ }
+push $N1e935d70
+add_layer {diffuseMaterialColor diffuseMaterialColor.red diffuseMaterialColor.green diffuseMaterialColor.blue}
+ Shuffle {
+  in diffuseMaterialColor
+  alpha black
+  name RGBA
+  xpos 70
+  ypos 542
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name shadow
+  xpos 70
+  ypos 1074
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  invert_mask true
+  name REFLECTIONS
+  xpos 70
+  ypos 1123
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name SPECC
+  xpos 70
+  ypos 1161
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name REFRACTIONS
+  xpos 70
+  ypos 1189
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge1
+  xpos 70
+  ypos 1250
+ }
+ Output {
+  name Output1
+  xpos 70
+  ypos 1350
+ }
+end_group

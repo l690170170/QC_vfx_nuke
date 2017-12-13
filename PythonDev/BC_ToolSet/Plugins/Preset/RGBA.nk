@@ -1,0 +1,91 @@
+set cut_paste_input [stack 0]
+version 10.0 v6
+push $cut_paste_input
+Group {
+name RGBA
+selected true
+xpos 19050
+ypos 3086
+}
+Input {
+inputs 0
+name A
+xpos 556
+ypos 487
+}
+Dot {
+name Dot11
+xpos 590
+ypos 525
+}
+Input {
+inputs 0
+name B
+xpos 482
+ypos 488
+number 1
+}
+Dot {
+name Dot10
+xpos 516
+ypos 528
+}
+Input {
+inputs 0
+name G
+xpos 404
+ypos 487
+number 2
+}
+Dot {
+name Dot9
+xpos 438
+ypos 526
+}
+Input {
+inputs 0
+name R
+xpos 322
+ypos 492
+number 3
+}
+Dot {
+name Dot8
+xpos 356
+ypos 530
+}
+Copy {
+inputs 2
+from0 rgba.green
+to0 rgba.green
+name Copy9
+xpos 360
+ypos 581
+}
+Copy {
+inputs 2
+from0 rgba.blue
+to0 rgba.blue
+name Copy10
+xpos 417
+ypos 634
+}
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 rgba.alpha
+name Copy12
+xpos 470
+ypos 693
+}
+Dot {
+name Dot12
+xpos 504
+ypos 752
+}
+Output {
+name Output1
+xpos 504
+ypos 852
+}
+end_group

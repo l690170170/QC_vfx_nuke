@@ -1,0 +1,173 @@
+#! /usr/local/Nuke6.2v2/Nuke6.2 -nx
+version 6.2 v2
+Gizmo {
+ note_font "Bitstream Vera Sans"
+ mapsize {0.15 0.15}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -560
+  ypos -246
+ }
+set N81acec0 [stack 0]
+ Dot {
+  name Dot11
+  xpos -779
+  ypos -241
+ }
+ Dot {
+  name Dot9
+  xpos -779
+  ypos 73
+ }
+push $N81acec0
+ Dot {
+  name Dot8
+  xpos -525
+  ypos -155
+ }
+set N81b4890 [stack 0]
+ Dot {
+  name Dot7
+  xpos -415
+  ypos -155
+ }
+set N81b71f0 [stack 0]
+ Dot {
+  name Dot6
+  xpos -305
+  ypos -155
+ }
+set N81b9ce0 [stack 0]
+ Dot {
+  name Dot5
+  xpos -195
+  ypos -155
+ }
+set N81bc990 [stack 0]
+ Dot {
+  name Dot4
+  xpos -85
+  ypos -155
+ }
+set N81bf680 [stack 0]
+ Dot {
+  name Dot3
+  xpos 25
+  ypos -155
+ }
+set N81c2340 [stack 0]
+ Dot {
+  name Dot2
+  xpos 135
+  ypos -155
+ }
+push $N81c2340
+push $N81bf680
+push $N81bc990
+push $N81b9ce0
+push $N81b71f0
+push $N81b4890
+push $N81b4890
+ Dot {
+  name Dot1
+  xpos -670
+  ypos -155
+ }
+push $N81b4890
+add_layer {diffuse diffuse.red diffuse.green diffuse.blue}
+add_layer {shadow shadow.red shadow.green shadow.blue}
+ Merge2 {
+  inputs 2
+  operation multiply
+  Achannels diffuse
+  Bchannels shadow
+  name merge
+  label "DIFFUSE * SHADOW"
+  xpos -704
+  ypos 6
+ }
+add_layer {indirect indirect.red indirect.green indirect.blue}
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels indirect
+  name Merge2
+  label "+ INDIRECT"
+  xpos -560
+  ypos 6
+ }
+add_layer {color color.red color.green color.blue}
+ Merge2 {
+  inputs 2
+  operation multiply
+  Achannels color
+  name Merge3
+  label "* COLOR"
+  xpos -449
+  ypos 7
+ }
+add_layer {specular specular.red specular.green specular.blue}
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels specular
+  name Merge4
+  label "+ SPECULAR"
+  xpos -339
+  ypos 7
+ }
+add_layer {reflection reflection.red reflection.green reflection.blue}
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels reflection
+  name Merge5
+  label "+ REFLECTION"
+  xpos -229
+  ypos 7
+ }
+add_layer {occlusion occlusion.red occlusion.green occlusion.blue occlusion.alpha}
+ Merge2 {
+  inputs 2
+  operation multiply
+  Achannels occlusion
+  name Merge6
+  label "* OCCLUSION"
+  xpos -119
+  ypos 7
+ }
+add_layer {incandescence incandescence.red incandescence.green incandescence.blue}
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels incandescence
+  name Merge7
+  label "+ INCANDESCENCE\n"
+  xpos -9
+  ypos 7
+ }
+add_layer {refraction refraction.red refraction.green refraction.blue}
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels refraction
+  name Merge8
+  label +REFRSCTION
+  xpos 101
+  ypos 7
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy1
+  selected true
+  xpos 101
+  ypos 68
+ }
+ Output {
+  name Output1
+  xpos 101
+  ypos 107
+ }
+end_group

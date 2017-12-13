@@ -1,0 +1,267 @@
+#! /vol/apps/nuke-4.5.27/nuke4.5 -nx
+version 4.5027
+Gizmo {
+ inputs 2
+ addUserKnob {20 "" Glass}
+ addUserKnob {7 displace Displace R 0 20}
+ displace 5
+ addUserKnob {7 abberation Abberation R 0 1}
+ addUserKnob {26 "" Defocus}
+ addUserKnob {6 useDef "Apply Defocus"}
+ addUserKnob {41 size size T ZBlur1.size}
+ addUserKnob {41 max_size maximum T ZBlur1.max_size}
+ addUserKnob {41 shape "filter shape" T ZBlur1.shape}
+}
+ Input {
+  inputs 0
+  name img
+  xpos -289
+  ypos 81
+ }
+set N86cd8c0 [stack 0]
+ Dot {
+  name Dot1
+  xpos -255
+  ypos 634
+ }
+ Input {
+  inputs 0
+  name control
+  xpos -64
+  ypos -388
+  number 1
+ }
+set N86cfc88 [stack 0]
+push $N86cfc88
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy6
+  xpos -64
+  ypos -354
+  disable {{error}}
+ }
+set N86d0540 [stack 0]
+ Dot {
+  name Dot2
+  xpos 94
+  ypos -343
+ }
+set N86d1878 [stack 0]
+ Transform {
+  translate {0 -1}
+  center {320 240}
+  name down
+  xpos 60
+  ypos -140
+ }
+push $N86d0540
+ Dot {
+  name Dot2
+  xpos -122
+  ypos -343
+ }
+ Dot {
+  name Dot3
+  xpos -207
+  ypos -343
+ }
+ Transform {
+  translate {0 1}
+  center {320 240}
+  name up
+  xpos -241
+  ypos -180
+ }
+push $N86d1878
+ Dot {
+  name Dot4
+  xpos 176
+  ypos -343
+ }
+ Transform {
+  translate {1 0}
+  center {320 240}
+  name right
+  xpos 142
+  ypos -221
+ }
+push $N86d0540
+add_layer {alpha rgba.alpha}
+ Shuffle {
+  in alpha
+  green black
+  blue black
+  out rgb
+  name Shuffle1
+  xpos -64
+  ypos -311
+ }
+ Transform {
+  translate {-1 0}
+  center {320 240}
+  name left
+  xpos -64
+  ypos -285
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.green
+  name Copy2
+  xpos -64
+  ypos -228
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.blue
+  name Copy3
+  xpos -64
+  ypos -187
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy4
+  xpos -64
+  ypos -147
+ }
+ Expression {
+  temp_name0 l
+  temp_expr0 red
+  temp_name1 r
+  temp_expr1 green
+  temp_name2 u
+  temp_expr2 blue
+  temp_name3 d
+  temp_expr3 alpha
+  channel0 {uv.u -uv.v}
+  expr0 (l-r)*width
+  channel1 {-uv.u uv.v}
+  expr1 (d-u)*width
+  channel2 depth
+  expr2 (abs(l-r)+abs(d-u))*width/2
+  name Expression1
+  selected true
+  xpos -64
+  ypos -3
+ }
+set N86dd3e8 [stack 0]
+ Dot {
+  name Dot6
+  xpos 89
+  ypos 1
+ }
+ Dot {
+  name Dot7
+  xpos 89
+  ypos 193
+ }
+push $N86dd3e8
+push $N86cd8c0
+ Copy {
+  inputs 2
+  from0 -rgba.alpha
+  to0 -rgba.alpha
+  channels uv
+  name Copy1
+  xpos -64
+  ypos 67
+ }
+ Copy {
+  inputs 2
+  from0 -rgba.alpha
+  to0 -rgba.alpha
+  channels depth
+  name Copy8
+  xpos -64
+  ypos 175
+ }
+ ZBlur {
+  channels rgba
+  math -linear
+  shape 1
+  name ZBlur1
+  xpos -64
+  ypos 229
+  disable {{!parent.useDef}}
+ }
+set Nb460e40 [stack 0]
+ IDistort {
+  channels {rgba.red rgba.green rgba.blue rgba.alpha}
+  uv uv
+  uv_scale {{parent.displace i}}
+  name IDistort4
+  xpos 98
+  ypos 491
+ }
+push $Nb460e40
+ IDistort {
+  channels {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  uv uv
+  uv_scale {{parent.displace/(1+parent.abberation/10)}}
+  name IDistort3
+  xpos 66
+  ypos 314
+ }
+push $Nb460e40
+ IDistort {
+  channels {rgba.red -rgba.green -rgba.blue rgba.alpha}
+  uv uv
+  uv_scale {{parent.displace/(1-parent.abberation/10)}}
+  name IDistort1
+  xpos -188
+  ypos 309
+ }
+push $Nb460e40
+ IDistort {
+  channels {-rgba.red rgba.green -rgba.blue rgba.alpha}
+  uv uv
+  uv_scale {{parent.displace i}}
+  name IDistort2
+  xpos -64
+  ypos 311
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 rgba.red
+  name Copy9
+  xpos -64
+  ypos 372
+ }
+ Copy {
+  inputs 2
+  from0 rgba.blue
+  to0 rgba.blue
+  name Copy10
+  xpos -64
+  ypos 412
+ }
+ Switch {
+  inputs 2
+  which {{parent.abberation==0}}
+  name Switch1
+  xpos -64
+  ypos 491
+  addUserKnob {20 "" Weta}
+  addUserKnob {32 "" "update input order" T " reconnectInputs" t "changes the input order according to the input nodes' horizontal order (left most node becomes input 0)"}
+ }
+ Copy {
+  inputs 2
+  from0 -rgba.alpha
+  to0 -rgba.alpha
+  channels depth
+  name Copy5
+  xpos -64
+  ypos 616
+ }
+ Output {
+  name Output1
+  xpos -59
+  ypos 747
+ }
+end_group

@@ -1,0 +1,161 @@
+#! /Applications/Nuke6.1v2/Nuke6.1v2.app/Contents/MacOS/Nuke6.1v2 -nx
+version 6.1 v2
+Gizmo {
+ inputs 2
+ help "Tracker3Dto2D takes 3D points and a camera (both usually calculated by a 3D tracker programme) and converts these to 2D tracking data (via Reconile3D) to allow for stabilising/ match moving\n\nNOTE this will error if no camera"
+ label "ref frame \[value knob.reference_frame]"
+ note_font Arial
+ mapsize {0.15 0.15}
+ addUserKnob {20 User l Tracks}
+ addUserKnob {22 createAll l "create ALL" T "p=nuke.Panel ('Set range')    \n_first = int(nuke.root().knob(\"first_frame\").value())\n_last = int(nuke.root().knob(\"last_frame\").value())    \n\np.addSingleLineInput('Start',_first)\np.addSingleLineInput('End',_last)\nresult=p.show()\n\nif result:\n fs=int(p.value('Start'))\n fe=int(p.value('End'))\n\n chk1=nuke.toNode('this')\['enable1'].value()\n chk2=nuke.toNode('this')\['enable2'].value()\n chk3=nuke.toNode('this')\['enable3'].value()\n chk4=nuke.toNode('this')\['enable4'].value()\n if chk1:\n   nuke.execute ('this.Reconcile3D1', fs , fe)\n   map=nuke.knob('map01')\n   matchTo=nuke.toNode('this.CornerPin2DMatchMove')\['to'+map]\n   ro=nuke.toNode('this.Reconcile3D1')\['output']\n   matchTo.copyAnimations(ro.animations())\n\n if chk2:\n   nuke.execute ('this.Reconcile3D2', fs , fe)\n   map=nuke.knob('map02')\n   matchTo=nuke.toNode('this.CornerPin2DMatchMove')\['to'+map]\n   ro=nuke.toNode('this.Reconcile3D2')\['output']\n   matchTo.copyAnimations(ro.animations())\n\n if chk3:\n   nuke.execute ('this.Reconcile3D3', fs , fe)\n   map=nuke.knob('map03')\n   matchTo=nuke.toNode('this.CornerPin2DMatchMove')\['to'+map]\n   ro=nuke.toNode('this.Reconcile3D3')\['output']\n   matchTo.copyAnimations(ro.animations())\n\n if chk4:\n   nuke.execute ('this.Reconcile3D4', fs , fe)\n   map=nuke.knob('map04')\n   matchTo=nuke.toNode('this.CornerPin2DMatchMove')\['to'+map]\n   ro=nuke.toNode('this.Reconcile3D4')\['output']\n   matchTo.copyAnimations(ro.animations())\n" +STARTLINE}
+ addUserKnob {26 Corner1 l "@b;CornerPin 1"}
+ addUserKnob {6 enable1 l enable -STARTLINE}
+ enable1 true
+ addUserKnob {4 map01 l "  map to " t "maps tracks to corner pins\ncornerpin runs \nBottom Left \[1]\nBottom Right \[2]\nTop Right \[3]\nTop Left \[4]" -STARTLINE M {1 2 3 4 "" "" "" "" "" "" "" "" "" ""}}
+ addUserKnob {22 create3DKeys01 l "create keys" -STARTLINE T "p=nuke.Panel ('Set range')    \n_first = int(nuke.root().knob(\"first_frame\").value())\n_last = int(nuke.root().knob(\"last_frame\").value())\n     \n\n\np.addSingleLineInput('Start',_first)\np.addSingleLineInput('End',_last)\nresult=p.show()\n\nif result:\n fs=int(p.value('Start'))\n fe=int(p.value('End'))\n nuke.execute ('this.Reconcile3D1', fs , fe)\n\n map=nuke.knob('map01')\n\n matchTo=nuke.toNode('this.CornerPin2DMatchMove')\['to'+map]\n #stabFrom=nuke.toNode('this.CornerPin2DStabilise')\['from'+map]\n\n refFrame=nuke.knob('reference_frame')\n nuke.message(str(refFrame))\n\n ro=nuke.toNode('this.Reconcile3D1')\['output']\n\n matchTo.copyAnimations(ro.animations())\n #stabFrom.copyAnimations(ro.animations())\n"}
+ addUserKnob {41 point l "3D point 01" T Reconcile3D1.point}
+ addUserKnob {26 Corner2 l "@b;CornerPin 2"}
+ addUserKnob {6 enable2 l enable +STARTLINE}
+ enable2 true
+ addUserKnob {4 map02 l "  map to" t "maps tracks to corner pins\ncornerpin runs \nBottom Left \[1]\nBottom Right \[2]\nTop Right \[3]\nTop Left \[4]" -STARTLINE M {1 2 3 4 "" "" "" ""}}
+ map02 2
+ addUserKnob {22 create3DKeys02 l "create keys" -STARTLINE T "p=nuke.Panel ('Set range')    \n_first = int(nuke.root().knob(\"first_frame\").value())\n_last = int(nuke.root().knob(\"last_frame\").value())\n     \n\n\np.addSingleLineInput('Start',_first)\np.addSingleLineInput('End',_last)\nresult=p.show()\n\nif result:\n fs=int(p.value('Start'))\n fe=int(p.value('End'))\n nuke.execute ('this.Reconcile3D2', fs , fe)\n\n map=nuke.knob('map02')\n matchTo=nuke.toNode('this.CornerPin2DMatchMove')\['to'+map]\n ro=nuke.toNode('this.Reconcile3D2')\['output']\n matchTo.copyAnimations(ro.animations())\n"}
+ addUserKnob {41 point_1 l "3D point 02" T Reconcile3D2.point}
+ addUserKnob {26 Corner3 l "@b;CornerPin 3"}
+ addUserKnob {6 enable3 l enable +STARTLINE}
+ enable3 true
+ addUserKnob {4 map03 l "  map to" t "maps tracks to corner pins\ncornerpin runs \nBottom Left \[1]\nBottom Right \[2]\nTop Right \[3]\nTop Left \[4]" -STARTLINE M {1 2 3 4 ""}}
+ map03 3
+ addUserKnob {22 create3DKeys03 l "create keys" -STARTLINE T "p=nuke.Panel ('Set range')    \n_first = int(nuke.root().knob(\"first_frame\").value())\n_last = int(nuke.root().knob(\"last_frame\").value())\n     \n\n\np.addSingleLineInput('Start',_first)\np.addSingleLineInput('End',_last)\nresult=p.show()\n\nif result:\n fs=int(p.value('Start'))\n fe=int(p.value('End'))\n nuke.execute ('this.Reconcile3D3', fs , fe)\n\n map=nuke.knob('map03')\n matchTo=nuke.toNode('this.CornerPin2DMatchMove')\['to'+map]\n ro=nuke.toNode('this.Reconcile3D3')\['output']\n matchTo.copyAnimations(ro.animations())\n"}
+ addUserKnob {41 point_2 l "3D point 03" T Reconcile3D3.point}
+ addUserKnob {26 Corner4 l "@b;CornerPin 4"}
+ addUserKnob {6 enable4 l enable +STARTLINE}
+ enable4 true
+ addUserKnob {4 map04 l "  map to" t "maps tracks to corner pins\ncornerpin runs \nBottom Left \[1]\nBottom Right \[2]\nTop Right \[3]\nTop Left \[4]" -STARTLINE M {1 2 3 4 "" ""}}
+ map04 4
+ addUserKnob {22 create3DKeys04 l "create keys" -STARTLINE T "p=nuke.Panel ('Set range')    \n_first = int(nuke.root().knob(\"first_frame\").value())\n_last = int(nuke.root().knob(\"last_frame\").value())\n     \n\n\np.addSingleLineInput('Start',_first)\np.addSingleLineInput('End',_last)\nresult=p.show()\n\nif result:\n fs=int(p.value('Start'))\n fe=int(p.value('End'))\n nuke.execute ('this.Reconcile3D4', fs , fe)\n\n map=nuke.knob('map04')\n matchTo=nuke.toNode('this.CornerPin2DMatchMove')\['to'+map]\n ro=nuke.toNode('this.Reconcile3D4')\['output']\n matchTo.copyAnimations(ro.animations())\n"}
+ addUserKnob {41 point_3 l "3D point 04" T Reconcile3D4.point}
+ addUserKnob {20 Transform}
+ addUserKnob {4 output l "" +STARTLINE M {"Match Move" Stabilise none "" "" "" "" "" ""}}
+ output Stabilise
+ addUserKnob {3 reference_frame l "ref frame"}
+ reference_frame 1
+ addUserKnob {32 setFrame l "set to this frame" -STARTLINE T "knob reference_frame \[knob frame]"}
+ addUserKnob {41 filter l "filter (match)" T CornerPin2DMatchMove.filter}
+ addUserKnob {41 filter_1 l "filter (stab.)" -STARTLINE T CornerPin2DStabilise.filter}
+ addUserKnob {41 clamp T CornerPin2DMatchMove.clamp}
+ addUserKnob {41 black_outside l "black outside" -STARTLINE T CornerPin2DMatchMove.black_outside}
+ addUserKnob {41 motionblur T CornerPin2DMatchMove.motionblur}
+ addUserKnob {41 shutter T CornerPin2DMatchMove.shutter}
+ addUserKnob {41 shutteroffset l "shutter (match)" T CornerPin2DMatchMove.shutteroffset}
+ addUserKnob {41 shutteroffset_1 l "shutter (stab.)" -STARTLINE T CornerPin2DStabilise.shutteroffset}
+ addUserKnob {41 shuttercustomoffset l "" -STARTLINE T CornerPin2DMatchMove.shuttercustomoffset}
+ addUserKnob {20 CornerPin_to l "CornerPin A"}
+ addUserKnob {41 to1 T CornerPin2DMatchMove.to1}
+ addUserKnob {41 enable1_1 l enable1 -STARTLINE T CornerPin2DMatchMove.enable1}
+ addUserKnob {41 to2 T CornerPin2DMatchMove.to2}
+ addUserKnob {41 enable2_1 l enable2 -STARTLINE T CornerPin2DMatchMove.enable2}
+ addUserKnob {41 to3 T CornerPin2DMatchMove.to3}
+ addUserKnob {41 enable3_1 l enable3 -STARTLINE T CornerPin2DMatchMove.enable3}
+ addUserKnob {41 to4 T CornerPin2DMatchMove.to4}
+ addUserKnob {41 enable4_1 l enable4 -STARTLINE T CornerPin2DMatchMove.enable4}
+ addUserKnob {20 CornerPin_from l "CornerPin B"}
+ addUserKnob {41 from1 T CornerPin2DMatchMove.from1}
+ addUserKnob {41 from2 T CornerPin2DMatchMove.from2}
+ addUserKnob {41 from3 T CornerPin2DMatchMove.from3}
+ addUserKnob {41 from4 T CornerPin2DMatchMove.from4}
+}
+ Input {
+  inputs 0
+  name Img
+  xpos -35
+  ypos -12
+ }
+set N2b34620 [stack 0]
+push $N2b34620
+ CornerPin2D {
+  to1 {{parent.CornerPin2DMatchMove.from1 i} {parent.CornerPin2DMatchMove.from1 i}}
+  to2 {{parent.CornerPin2DMatchMove.from2 i} {parent.CornerPin2DMatchMove.from2 i}}
+  to3 {{parent.CornerPin2DMatchMove.from3 i} {parent.CornerPin2DMatchMove.from3 i}}
+  to4 {{parent.CornerPin2DMatchMove.from4 i} {parent.CornerPin2DMatchMove.from4 i}}
+  clamp {{parent.CornerPin2DMatchMove.clamp i}}
+  black_outside {{parent.CornerPin2DMatchMove.black_outside i}}
+  motionblur {{parent.CornerPin2DMatchMove.motionblur i}}
+  shutter {{parent.CornerPin2DMatchMove.shutter i}}
+  shutteroffset centred
+  shuttercustomoffset {{parent.CornerPin2DMatchMove.shuttercustomoffset i}}
+  from1 {{parent.CornerPin2DMatchMove.to1 i} {parent.CornerPin2DMatchMove.to1 i}}
+  from2 {{parent.CornerPin2DMatchMove.to2 i} {parent.CornerPin2DMatchMove.to2 i}}
+  from3 {{parent.CornerPin2DMatchMove.to3 i} {parent.CornerPin2DMatchMove.to3 i}}
+  from4 {{parent.CornerPin2DMatchMove.to4 i} {parent.CornerPin2DMatchMove.to4 i}}
+  name CornerPin2DStabilise
+  xpos -89
+  ypos 241
+ }
+push $N2b34620
+ CornerPin2D {
+  to1 {0 0}
+  to2 {1920 0}
+  to3 {1920 1080}
+  to4 {0 1080}
+  shutteroffset centred
+  from1 {{to1(parent.reference_frame) i} {to1(parent.reference_frame) i}}
+  from2 {{to2(parent.reference_frame) i} {to2(parent.reference_frame) i}}
+  from3 {{to3(parent.reference_frame) i} {to3(parent.reference_frame) i}}
+  from4 {{to4(parent.reference_frame) i} {to4(parent.reference_frame) i}}
+  name CornerPin2DMatchMove
+  xpos -195
+  ypos 237
+ }
+ Switch {
+  inputs 3
+  which {{parent.output i}}
+  name Switch1
+  xpos -20
+  ypos 321
+ }
+ Output {
+  name Output1
+  xpos -20
+  ypos 386
+ }
+ Input {
+  inputs 0
+  name cam
+  xpos 172
+  ypos 5
+  number 1
+ }
+set N6b08280 [stack 0]
+push $N2b34620
+ Reconcile3D {
+  inputs 2
+  name Reconcile3D1
+  xpos 78
+  ypos 129
+ }
+push $N6b08280
+push $N2b34620
+ Reconcile3D {
+  inputs 2
+  name Reconcile3D2
+  xpos 226
+  ypos 135
+ }
+push $N6b08280
+push $N2b34620
+ Reconcile3D {
+  inputs 2
+  name Reconcile3D3
+  xpos 372
+  ypos 135
+ }
+push $N6b08280
+push $N2b34620
+ Reconcile3D {
+  inputs 2
+  name Reconcile3D4
+  xpos 515
+  ypos 134
+ }
+end_group

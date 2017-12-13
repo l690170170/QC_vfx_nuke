@@ -1,0 +1,716 @@
+#PerspectiveGuide. Nuke gizmo and python script written by Peter Farkas. Original Shake macro written by Adrian Banton and Matt Twyford. Special thanks to Gabor L. Toth.
+#Version 1.00 - Dec 2010
+
+#! /usr/bin/env nuke -nx
+Gizmo {
+ name PerspectiveGuide_v1_
+ tile_color 0x566d6dff
+ selected true
+ addUserKnob {20 options l Options}
+ addUserKnob {4 overlay l Overlay t "Choose layer operation." M {add over ""}}
+ addUserKnob {6 invertOver t "If you're using over operation, you can use the lines with the background image's inverted colour values." -STARTLINE}
+ addUserKnob {3 linesVisible t "Choose the amount of visible lines. (1-8)"}
+ linesVisible 8
+ addUserKnob {7 linesThickness R 0 10}
+ addUserKnob {18 lineColour}
+ lineColour {1 1 1}
+ addUserKnob {7 lineOpacity}
+ lineOpacity 1
+ addUserKnob {12 origin l Origin}
+ origin {1024 778}
+ addUserKnob {12 point1 l Point1}
+ point1 {0 1556}
+ addUserKnob {12 point2 l Point2}
+ point2 {1025 1556}
+ addUserKnob {12 point3 l Point3}
+ point3 {2048 1556}
+ addUserKnob {12 point4 l Point4}
+ point4 {0 779}
+ addUserKnob {12 point5 l Point5}
+ point5 {2048 779}
+ addUserKnob {12 point6 l Point6}
+ addUserKnob {12 point7 l Point7}
+ point7 {1025 0}
+ addUserKnob {12 point8 l Point8}
+ point8 {2048 0}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 version l "" +STARTLINE T "version 1.0.0"}
+ addUserKnob {26 Copyright l "" +STARTLINE T "Copyright 2010 Baseblack (London) Ltd."}
+}
+ RotoPaint {
+  inputs 0
+  curves {AnimTree: "" {
+ Version: 1.2
+ Flag: 0
+ RootNode: 1
+ Node: {
+  NodeName: "Root" {
+   Flag: 512
+   NodeType: 1
+   Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 1024 S 0 778 
+   NumOfAttributes: 10
+   "vis" S 0 1 "opc" S 0 1 "mbo" S 0 1 "mb" S 0 1 "mbs" S 0 0.5 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 
+  }
+  NumOfChildren: 1
+  Node: {
+   NodeName: "Bezier1" {
+    Flag: 1600
+    NodeType: 3
+    CurveGroup: "" {
+     Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 798.5 S 0 694 
+     Flag: 0
+     NumOfCubicCurves: 2
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "origin.x" 1 0 1653.6 L 0 4096 0.5 2 0 0 "origin.y" 1 0 1168.6 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "point1.x" 1 0 192 L 0 4096 0.5 2 0 0 "point1.y" 1 0 1174 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     NumOfAttributes: 43
+     "vis" S 0 1 "r" S 0 1 "g" S 0 1 "b" S 0 1 "a" S 0 1 "ro" S 0 0 "go" S 0 0 "bo" S 0 0 "ao" S 0 0 "opc" S 0 1 "bm" S 0 0 "inv" S 0 0 "mbo" S 0 0 "mb" S 0 1 "mbs" S 0 0.5 "mbsot" S 0 0 "mbso" S 0 0 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 "src" S 0 0 "stx" S 0 0 "sty" S 0 0 "str" S 0 0 "sr" S 0 0 "ssx" S 0 1 "ssy" S 0 1 "ss" S 0 0 "spx" S 0 1024 "spy" S 0 778 "stot" S 0 0 "sto" S 0 0 "sv" S 0 0 "sf" S 0 1 "sb" S 0 1 "nv" S 0 1 "view1" S 0 1 "ltn" S 0 1 "ltm" S 0 1 "ltt" S 0 0 "tt" S 0 4 
+    }
+   }
+   NumOfChildren: 0
+  }
+ }
+}
+}
+  toolbox {selectAll {
+  { createBezier tt 4 }
+  { createBSpline tt 5 }
+  { createEllipse tt 6 }
+  { createRectangle tt 7 }
+  { addPoints tt 8 }
+} }
+  toolbar_autokey false
+  toolbar_feather_link false
+  toolbar_show_transform_type false
+  toolbar_ripple_range_type "to end"
+  toolbar_ripple_range_from 1
+  toolbar_ripple_range_to 1
+  toolbar_brush_hardness 0.200000003
+  toolbar_lifetime_type all
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {320 240}
+  lifetime_type "all frames"
+  locked true
+  scale {1 1}
+  center {798.5 694}
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name RotoPaint1
+  xpos -590
+  ypos -563
+  disable {{"linesVisible < 1" i}}
+ }
+ RotoPaint {
+  curves {AnimTree: "" {
+ Version: 1.2
+ Flag: 0
+ RootNode: 1
+ Node: {
+  NodeName: "Root" {
+   Flag: 576
+   NodeType: 1
+   Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 1024 S 0 778 
+   NumOfAttributes: 10
+   "vis" S 0 1 "opc" S 0 1 "mbo" S 0 1 "mb" S 0 1 "mbs" S 0 0.5 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 
+  }
+  NumOfChildren: 1
+  Node: {
+   NodeName: "Bezier2" {
+    Flag: 1536
+    NodeType: 3
+    CurveGroup: "" {
+     Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 917 S 0 683.75 
+     Flag: 0
+     NumOfCubicCurves: 2
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "point2.x" 1 0 1704 L 0 4096 0.5 2 0 0 "point2.y" 1 0 1174.5 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "origin.x" 1 0 1148 L 0 4096 0.5 2 0 0 "origin.y" 1 0 102 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     NumOfAttributes: 43
+     "vis" S 0 1 "r" S 0 1 "g" S 0 1 "b" S 0 1 "a" S 0 1 "ro" S 0 0 "go" S 0 0 "bo" S 0 0 "ao" S 0 0 "opc" S 0 1 "bm" S 0 0 "inv" S 0 0 "mbo" S 0 0 "mb" S 0 1 "mbs" S 0 0.5 "mbsot" S 0 0 "mbso" S 0 0 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 "src" S 0 0 "stx" S 0 0 "sty" S 0 0 "str" S 0 0 "sr" S 0 0 "ssx" S 0 1 "ssy" S 0 1 "ss" S 0 0 "spx" S 0 0 "spy" S 0 0 "stot" S 0 0 "sto" S 0 0 "sv" S 0 0 "sf" S 0 1 "sb" S 0 1 "nv" S 0 1 "view1" S 0 1 "ltn" S 0 1 "ltm" S 0 1 "ltt" S 0 0 "tt" S 0 4 
+    }
+   }
+   NumOfChildren: 0
+  }
+ }
+}
+}
+  toolbox {selectAll {
+  { createBezier tt 4 }
+  { createBSpline tt 5 }
+  { createEllipse tt 6 }
+  { createRectangle tt 7 }
+  { addPoints tt 8 }
+} }
+  toolbar_autokey false
+  toolbar_feather_link false
+  toolbar_show_transform_type false
+  toolbar_ripple_range_type "to end"
+  toolbar_ripple_range_from 1
+  toolbar_ripple_range_to 1
+  toolbar_brush_hardness 0.200000003
+  toolbar_lifetime_type all
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {320 240}
+  lifetime_type "all frames"
+  view {}
+  scale {1 1}
+  center {1024 778}
+  motionblur_on true
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name RotoPaint2
+  xpos -590
+  ypos -515
+  disable {{"linesVisible < 2" i}}
+ }
+ RotoPaint {
+  curves {AnimTree: "" {
+ Version: 1.2
+ Flag: 0
+ RootNode: 1
+ Node: {
+  NodeName: "Root" {
+   Flag: 512
+   NodeType: 1
+   Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 1024 S 0 778 
+   NumOfAttributes: 10
+   "vis" S 0 1 "opc" S 0 1 "mbo" S 0 1 "mb" S 0 1 "mbs" S 0 0.5 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 
+  }
+  NumOfChildren: 1
+  Node: {
+   NodeName: "Bezier3" {
+    Flag: 1600
+    NodeType: 3
+    CurveGroup: "" {
+     Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 1477.5 S 0 993 
+     Flag: 0
+     NumOfCubicCurves: 2
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "origin.x" 1 0 1207 L 0 4096 0.5 2 0 0 "origin.y" 1 0 760 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "point3.x" 1 0 1748 L 0 4096 0.5 2 0 0 "point3.y" 1 0 1226 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     NumOfAttributes: 43
+     "vis" S 0 1 "r" S 0 1 "g" S 0 1 "b" S 0 1 "a" S 0 1 "ro" S 0 0 "go" S 0 0 "bo" S 0 0 "ao" S 0 0 "opc" S 0 1 "bm" S 0 0 "inv" S 0 0 "mbo" S 0 0 "mb" S 0 1 "mbs" S 0 0.5 "mbsot" S 0 0 "mbso" S 0 0 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 "src" S 0 0 "stx" S 0 0 "sty" S 0 0 "str" S 0 0 "sr" S 0 0 "ssx" S 0 1 "ssy" S 0 1 "ss" S 0 0 "spx" S 0 0 "spy" S 0 0 "stot" S 0 0 "sto" S 0 0 "sv" S 0 0 "sf" S 0 1 "sb" S 0 1 "nv" S 0 1 "view1" S 0 1 "ltn" S 0 1 "ltm" S 0 1 "ltt" S 0 0 "tt" S 0 4 
+    }
+   }
+   NumOfChildren: 0
+  }
+ }
+}
+}
+  toolbox {selectAll {
+  { createBezier tt 4 }
+  { createBSpline tt 5 }
+  { createEllipse tt 6 }
+  { createRectangle tt 7 }
+  { addPoints tt 8 }
+} }
+  toolbar_autokey false
+  toolbar_feather_link false
+  toolbar_show_transform_type false
+  toolbar_ripple_range_type "to end"
+  toolbar_ripple_range_from 1
+  toolbar_ripple_range_to 1
+  toolbar_brush_hardness 0.200000003
+  toolbar_lifetime_type all
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {320 240}
+  lifetime_type "all frames"
+  locked true
+  scale {1 1}
+  center {1477.5 993}
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name RotoPaint3
+  xpos -590
+  ypos -467
+  disable {{"linesVisible < 3" i}}
+ }
+ RotoPaint {
+  curves {AnimTree: "" {
+ Version: 1.2
+ Flag: 0
+ RootNode: 1
+ Node: {
+  NodeName: "Root" {
+   Flag: 512
+   NodeType: 1
+   Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 1024 S 0 778 
+   NumOfAttributes: 10
+   "vis" S 0 1 "opc" S 0 1 "mbo" S 0 1 "mb" S 0 1 "mbs" S 0 0.5 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 
+  }
+  NumOfChildren: 1
+  Node: {
+   NodeName: "Bezier4" {
+    Flag: 1600
+    NodeType: 3
+    CurveGroup: "" {
+     Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 767.5 S 0 523.5 
+     Flag: 0
+     NumOfCubicCurves: 2
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "origin.x" 1 0 979 L 0 4096 0.5 2 0 0 "origin.y" 1 0 690 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "point4.x" 1 0 556 L 0 4096 0.5 2 0 0 "point4.y" 1 0 357 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     NumOfAttributes: 43
+     "vis" S 0 1 "r" S 0 1 "g" S 0 1 "b" S 0 1 "a" S 0 1 "ro" S 0 0 "go" S 0 0 "bo" S 0 0 "ao" S 0 0 "opc" S 0 1 "bm" S 0 0 "inv" S 0 0 "mbo" S 0 0 "mb" S 0 1 "mbs" S 0 0.5 "mbsot" S 0 0 "mbso" S 0 0 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 "src" S 0 0 "stx" S 0 0 "sty" S 0 0 "str" S 0 0 "sr" S 0 0 "ssx" S 0 1 "ssy" S 0 1 "ss" S 0 0 "spx" S 0 0 "spy" S 0 0 "stot" S 0 0 "sto" S 0 0 "sv" S 0 0 "sf" S 0 1 "sb" S 0 1 "nv" S 0 1 "view1" S 0 1 "ltn" S 0 1 "ltm" S 0 1 "ltt" S 0 0 "tt" S 0 4 
+    }
+   }
+   NumOfChildren: 0
+  }
+ }
+}
+}
+  toolbox {selectAll {
+  { createBezier tt 4 }
+  { createBSpline tt 5 }
+  { createEllipse tt 6 }
+  { createRectangle tt 7 }
+  { addPoints tt 8 }
+} }
+  toolbar_autokey false
+  toolbar_feather_link false
+  toolbar_show_transform_type false
+  toolbar_ripple_range_type "to end"
+  toolbar_ripple_range_from 1
+  toolbar_ripple_range_to 1
+  toolbar_brush_hardness 0.200000003
+  toolbar_lifetime_type all
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {320 240}
+  lifetime_type "all frames"
+  locked true
+  scale {1 1}
+  center {767.5 523.5}
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name RotoPaint4
+  xpos -590
+  ypos -419
+  disable {{"linesVisible < 4" i}}
+ }
+ RotoPaint {
+  curves {AnimTree: "" {
+ Version: 1.2
+ Flag: 0
+ RootNode: 1
+ Node: {
+  NodeName: "Root" {
+   Flag: 512
+   NodeType: 1
+   Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 1024 S 0 778 
+   NumOfAttributes: 10
+   "vis" S 0 1 "opc" S 0 1 "mbo" S 0 1 "mb" S 0 1 "mbs" S 0 0.5 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 
+  }
+  NumOfChildren: 1
+  Node: {
+   NodeName: "Bezier5" {
+    Flag: 1600
+    NodeType: 3
+    CurveGroup: "" {
+     Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 1532 S 0 477 
+     Flag: 0
+     NumOfCubicCurves: 2
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "origin.x" 1 0 1139 L 0 4096 0.5 2 0 0 "origin.y" 1 0 468 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "point5.x" 1 0 1925 L 0 4096 0.5 2 0 0 "point5.y" 1 0 486 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     NumOfAttributes: 43
+     "vis" S 0 1 "r" S 0 1 "g" S 0 1 "b" S 0 1 "a" S 0 1 "ro" S 0 0 "go" S 0 0 "bo" S 0 0 "ao" S 0 0 "opc" S 0 1 "bm" S 0 0 "inv" S 0 0 "mbo" S 0 0 "mb" S 0 1 "mbs" S 0 0.5 "mbsot" S 0 0 "mbso" S 0 0 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 "src" S 0 0 "stx" S 0 0 "sty" S 0 0 "str" S 0 0 "sr" S 0 0 "ssx" S 0 1 "ssy" S 0 1 "ss" S 0 0 "spx" S 0 0 "spy" S 0 0 "stot" S 0 0 "sto" S 0 0 "sv" S 0 0 "sf" S 0 1 "sb" S 0 1 "nv" S 0 1 "view1" S 0 1 "ltn" S 0 1 "ltm" S 0 1 "ltt" S 0 0 "tt" S 0 4 
+    }
+   }
+   NumOfChildren: 0
+  }
+ }
+}
+}
+  toolbox {selectAll {
+  { createBezier tt 4 }
+  { createBSpline tt 5 }
+  { createEllipse tt 6 }
+  { createRectangle tt 7 }
+  { addPoints tt 8 }
+} }
+  toolbar_autokey false
+  toolbar_feather_link false
+  toolbar_show_transform_type false
+  toolbar_ripple_range_type "to end"
+  toolbar_ripple_range_from 1
+  toolbar_ripple_range_to 1
+  toolbar_brush_hardness 0.200000003
+  toolbar_lifetime_type all
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {320 240}
+  lifetime_type "all frames"
+  locked true
+  scale {1 1}
+  center {1532 477}
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name RotoPaint5
+  xpos -590
+  ypos -371
+  disable {{"linesVisible < 5" i}}
+ }
+ RotoPaint {
+  curves {AnimTree: "" {
+ Version: 1.2
+ Flag: 0
+ RootNode: 1
+ Node: {
+  NodeName: "Root" {
+   Flag: 512
+   NodeType: 1
+   Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 1024 S 0 778 
+   NumOfAttributes: 10
+   "vis" S 0 1 "opc" S 0 1 "mbo" S 0 1 "mb" S 0 1 "mbs" S 0 0.5 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 
+  }
+  NumOfChildren: 1
+  Node: {
+   NodeName: "Bezier6" {
+    Flag: 1600
+    NodeType: 3
+    CurveGroup: "" {
+     Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 695.5 S 0 434 
+     Flag: 0
+     NumOfCubicCurves: 2
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "origin.x" 1 0 992 L 0 4096 0.5 2 0 0 "origin.y" 1 0 619 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "point6.x" 1 0 399 L 0 4096 0.5 2 0 0 "point6.y" 1 0 249 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     NumOfAttributes: 43
+     "vis" S 0 1 "r" S 0 1 "g" S 0 1 "b" S 0 1 "a" S 0 1 "ro" S 0 0 "go" S 0 0 "bo" S 0 0 "ao" S 0 0 "opc" S 0 1 "bm" S 0 0 "inv" S 0 0 "mbo" S 0 0 "mb" S 0 1 "mbs" S 0 0.5 "mbsot" S 0 0 "mbso" S 0 0 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 "src" S 0 0 "stx" S 0 0 "sty" S 0 0 "str" S 0 0 "sr" S 0 0 "ssx" S 0 1 "ssy" S 0 1 "ss" S 0 0 "spx" S 0 0 "spy" S 0 0 "stot" S 0 0 "sto" S 0 0 "sv" S 0 0 "sf" S 0 1 "sb" S 0 1 "nv" S 0 1 "view1" S 0 1 "ltn" S 0 1 "ltm" S 0 1 "ltt" S 0 0 "tt" S 0 4 
+    }
+   }
+   NumOfChildren: 0
+  }
+ }
+}
+}
+  toolbox {selectAll {
+  { createBezier tt 4 }
+  { createBSpline tt 5 }
+  { createEllipse tt 6 }
+  { createRectangle tt 7 }
+  { addPoints tt 8 }
+} }
+  toolbar_autokey false
+  toolbar_feather_link false
+  toolbar_show_transform_type false
+  toolbar_ripple_range_type "to end"
+  toolbar_ripple_range_from 1
+  toolbar_ripple_range_to 1
+  toolbar_brush_hardness 0.200000003
+  toolbar_lifetime_type all
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {320 240}
+  lifetime_type "all frames"
+  locked true
+  scale {1 1}
+  center {695.5 434}
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name RotoPaint6
+  xpos -590
+  ypos -323
+  disable {{"linesVisible < 6" i}}
+ }
+ RotoPaint {
+  curves {AnimTree: "" {
+ Version: 1.2
+ Flag: 0
+ RootNode: 1
+ Node: {
+  NodeName: "Root" {
+   Flag: 512
+   NodeType: 1
+   Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 1024 S 0 778 
+   NumOfAttributes: 10
+   "vis" S 0 1 "opc" S 0 1 "mbo" S 0 1 "mb" S 0 1 "mbs" S 0 0.5 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 
+  }
+  NumOfChildren: 1
+  Node: {
+   NodeName: "Bezier7" {
+    Flag: 1600
+    NodeType: 3
+    CurveGroup: "" {
+     Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 1296 S 0 469 
+     Flag: 0
+     NumOfCubicCurves: 2
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "origin.x" 1 0 1078 L 0 4096 0.5 2 0 0 "origin.y" 1 0 616 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "point7.x" 1 0 1514 L 0 4096 0.5 2 0 0 "point7.y" 1 0 322 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     NumOfAttributes: 43
+     "vis" S 0 1 "r" S 0 1 "g" S 0 1 "b" S 0 1 "a" S 0 1 "ro" S 0 0 "go" S 0 0 "bo" S 0 0 "ao" S 0 0 "opc" S 0 1 "bm" S 0 0 "inv" S 0 0 "mbo" S 0 0 "mb" S 0 1 "mbs" S 0 0.5 "mbsot" S 0 0 "mbso" S 0 0 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 "src" S 0 0 "stx" S 0 0 "sty" S 0 0 "str" S 0 0 "sr" S 0 0 "ssx" S 0 1 "ssy" S 0 1 "ss" S 0 0 "spx" S 0 0 "spy" S 0 0 "stot" S 0 0 "sto" S 0 0 "sv" S 0 0 "sf" S 0 1 "sb" S 0 1 "nv" S 0 1 "view1" S 0 1 "ltn" S 0 1 "ltm" S 0 1 "ltt" S 0 0 "tt" S 0 4 
+    }
+   }
+   NumOfChildren: 0
+  }
+ }
+}
+}
+  toolbox {selectAll {
+  { createBezier tt 4 }
+  { createBSpline tt 5 }
+  { createEllipse tt 6 }
+  { createRectangle tt 7 }
+  { addPoints tt 8 }
+} }
+  toolbar_autokey false
+  toolbar_feather_link false
+  toolbar_show_transform_type false
+  toolbar_ripple_range_type "to end"
+  toolbar_ripple_range_from 1
+  toolbar_ripple_range_to 1
+  toolbar_brush_hardness 0.200000003
+  toolbar_lifetime_type all
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {320 240}
+  lifetime_type "all frames"
+  locked true
+  scale {1 1}
+  center {1296 469}
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name RotoPaint7
+  xpos -590
+  ypos -275
+  disable {{"linesVisible < 7" i}}
+ }
+ RotoPaint {
+  curves {AnimTree: "" {
+ Version: 1.2
+ Flag: 0
+ RootNode: 1
+ Node: {
+  NodeName: "Root" {
+   Flag: 512
+   NodeType: 1
+   Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 1024 S 0 778 
+   NumOfAttributes: 10
+   "vis" S 0 1 "opc" S 0 1 "mbo" S 0 1 "mb" S 0 1 "mbs" S 0 0.5 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 
+  }
+  NumOfChildren: 1
+  Node: {
+   NodeName: "Bezier8" {
+    Flag: 1600
+    NodeType: 3
+    CurveGroup: "" {
+     Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 1371.5 S 0 506.5 
+     Flag: 0
+     NumOfCubicCurves: 2
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "origin.x" 1 0 1103 L 0 4096 0.5 2 0 0 "origin.y" 1 0 673 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "point8.x" 1 0 1640 L 0 4096 0.5 2 0 0 "point8.y" 1 0 340 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     CubicCurve: "" {
+      Type: 0 Flag: 8192 Dim: 2
+      NumOfPoints: 6
+      0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 L 0 4096 0.5 2 0 0 "curve" 0 0 0 0 
+     }
+     NumOfAttributes: 43
+     "vis" S 0 1 "r" S 0 1 "g" S 0 1 "b" S 0 1 "a" S 0 1 "ro" S 0 0 "go" S 0 0 "bo" S 0 0 "ao" S 0 0 "opc" S 0 1 "bm" S 0 0 "inv" S 0 0 "mbo" S 0 0 "mb" S 0 1 "mbs" S 0 0.5 "mbsot" S 0 0 "mbso" S 0 0 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 "src" S 0 0 "stx" S 0 0 "sty" S 0 0 "str" S 0 0 "sr" S 0 0 "ssx" S 0 1 "ssy" S 0 1 "ss" S 0 0 "spx" S 0 0 "spy" S 0 0 "stot" S 0 0 "sto" S 0 0 "sv" S 0 0 "sf" S 0 1 "sb" S 0 1 "nv" S 0 1 "view1" S 0 1 "ltn" S 0 1 "ltm" S 0 1 "ltt" S 0 0 "tt" S 0 4 
+    }
+   }
+   NumOfChildren: 0
+  }
+ }
+}
+}
+  toolbox {selectAll {
+  { createBezier tt 4 }
+  { createBSpline tt 5 }
+  { createEllipse tt 6 }
+  { createRectangle tt 7 }
+  { addPoints tt 8 }
+} }
+  toolbar_autokey false
+  toolbar_feather_link false
+  toolbar_show_transform_type false
+  toolbar_ripple_range_type "to end"
+  toolbar_ripple_range_from 1
+  toolbar_ripple_range_to 1
+  toolbar_brush_hardness 0.200000003
+  toolbar_lifetime_type all
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {320 240}
+  lifetime_type "all frames"
+  locked true
+  scale {1 1}
+  center {1371.5 506.5}
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name RotoPaint8
+  xpos -590
+  ypos -227
+  disable {{"linesVisible < 8" i}}
+ }
+ Grade {
+  channels {rgba.red rgba.green rgba.blue rgba.alpha}
+  whitepoint 0
+  white_clamp true
+  name Grade1
+  xpos -590
+  ypos -179
+ }
+ Dilate {
+  size {{linesThickness i}}
+  name Dilate1
+  xpos -590
+  ypos -138
+ }
+set N7407850 [stack 0]
+ Grade {
+  multiply {{lineColour.r i} {lineColour.g i} {lineColour.b i} {1 i}}
+  white_clamp true
+  name Grade2
+  xpos -590
+  ypos -83
+ }
+ Multiply {
+  value {{lineOpacity i}}
+  name Multiply1
+  xpos -590
+  ypos -42
+ }
+ Clamp {
+  name Clamp1
+  xpos -590
+  ypos 6
+ }
+set N741d560 [stack 0]
+ Dot {
+  name Dot3
+  xpos -556
+  ypos 114
+ }
+push $N7407850
+ Input {
+  inputs 0
+  name Input1
+  xpos -370
+  ypos -611
+ }
+set N7dac640 [stack 0]
+ Dot {
+  name Dot2
+  xpos -226
+  ypos -606
+ }
+set Nc0656c0 [stack 0]
+ Dot {
+  name Dot1
+  xpos -6
+  ypos -606
+ }
+ Invert {
+  name Invert1
+  xpos -40
+  ypos -330
+ }
+ Blur {
+  size 3
+  name Blur1
+  label "\[value size]"
+  xpos -40
+  ypos -265
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy1
+  xpos -40
+  ypos -131
+ }
+ Premult {
+  name Premult1
+  xpos -40
+  ypos 61
+ }
+push $Nc0656c0
+ Merge2 {
+  inputs 2
+  name Merge3
+  xpos -260
+  ypos 61
+  disable {{"invertOver == 0 ? 1:0" i}}
+ }
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos -260
+  ypos 109
+  disable {{"invertOver == 1 ? 1:0" i}}
+ }
+ Dot {
+  name Dot4
+  xpos -226
+  ypos 186
+ }
+push $N741d560
+push $N7dac640
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge1
+  xpos -370
+  ypos 13
+ }
+ Dissolve {
+  inputs 2
+  which {{"overlay" i}}
+  name Dissolve1
+  xpos -370
+  ypos 174
+ }
+ Output {
+  name Output1
+  xpos -370
+  ypos 253
+ }
+end_group

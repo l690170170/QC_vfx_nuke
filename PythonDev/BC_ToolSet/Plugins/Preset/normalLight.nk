@@ -1,0 +1,55 @@
+set cut_paste_input [stack 0]
+version 10.0 v6
+push $cut_paste_input
+Group {
+ name Group1
+ selected true
+ xpos 945
+ ypos -1348
+ addUserKnob {20 User}
+ addUserKnob {41 in l "input channel" T input_channel.in}
+ addUserKnob {41 rX T Ctrl.rX}
+ addUserKnob {41 rY T Ctrl.rY}
+}
+ Input {
+  inputs 0
+  name normal_img
+  xpos -148
+  ypos -307
+ }
+ Shuffle {
+  name input_channel
+  xpos -148
+  ypos -278
+ }
+ NoOp {
+  name Ctrl
+  xpos -200
+  ypos -300
+  addUserKnob {20 User}
+  addUserKnob {7 rX R -180 180}
+  addUserKnob {7 rY R -180 180}
+  addUserKnob {7 lx}
+  lx {{rad*cos(radians(rX)) x1 0}}
+  addUserKnob {7 ly}
+  ly {{sin(radians(rY))}}
+  addUserKnob {7 lz}
+  lz {{rad*sin(radians(rX))}}
+  addUserKnob {7 rad}
+  rad {{cos(radians(rY))}}
+  addUserKnob {18 norm}
+  norm {{lx/sqrt(pow2(lx)+pow2(ly)+pow2(lz))} {ly/sqrt(pow2(lx)+pow2(ly)+pow2(lz))} {lz/sqrt(pow2(lx)+pow2(ly)+pow2(lz))}}
+  addUserKnob {6 norm_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ }
+ Expression {
+  expr3 max((r*Ctrl.norm.r)+(g*Ctrl.norm.g)+(b*Ctrl.norm.b),0)
+  name Expression4
+  xpos -148
+  ypos -170
+ }
+ Output {
+  name Output1
+  xpos -148
+  ypos -106
+ }
+end_group

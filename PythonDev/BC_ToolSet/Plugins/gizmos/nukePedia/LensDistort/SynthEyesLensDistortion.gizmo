@@ -1,0 +1,89 @@
+#! C:/Program Files/Nuke6.0v7/Nuke6.0.exe -nx
+version 6.0 v7
+Gizmo {
+ addUserKnob {20 SynthEyesLensDistortion}
+ addUserKnob {7 Distortion t "Syntheyes solved lens distortion amount" R 0 0.1}
+ addUserKnob {7 accuracy l Accuracy t "Accuracy of the un/distortion.\n1.5 should be fine for most usages\nbigger numbers will slow your scene down!" R 1 5}
+ accuracy 1.5
+ addUserKnob {6 invert l Un/Distort? t "Invert Distortion" +STARTLINE}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 432
+  ypos -127
+ }
+set N99d9ab0 [stack 0]
+ NoOp {
+  name NoOp1
+  xpos 432
+  ypos -87
+ }
+set N99d9d20 [stack 0]
+push $N99d9ab0
+ Camera2 {
+  focal 45
+  haperture 45
+  vaperture 24
+  focal_point 1
+  name UndistortCam
+  xpos 849
+  ypos 49
+ }
+push $N99d9d20
+ Card2 {
+  display textured+lines
+  rows {{9*parent.accuracy i}}
+  columns {{16*parent.accuracy i}}
+  z 1
+  lens_in_distortion {{"(-1 + ((parent.invert)*2)) * (parent.Distortion*30.7481752)" i}}
+  lens_in_power 2
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+  name Card1
+  selected true
+  xpos 535
+  ypos -1
+ }
+push 0
+ ScanlineRender {
+  inputs 3
+  filter Mitchell
+  max_tessellation 10
+  shutter 0
+  output_motion_vectors false
+  MB_channel {-forward.u -forward.v -backward.u}
+  output_shader_vectors true
+  name ScanlineRender1
+  xpos 535
+  ypos 69
+ }
+set N9d2b500 [stack 0]
+ Switch {
+  inputs 2
+  name Switch1
+  xpos 432
+  ypos 142
+ }
+ Output {
+  name Output1
+  xpos 432
+  ypos 242
+ }
+push $N9d2b500
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos 535
+  ypos 153
+ }
+end_group

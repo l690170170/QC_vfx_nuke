@@ -1,0 +1,243 @@
+# Color dTools
+#! C:/Program Files/Nuke5.2v1b17/Nuke5.2.exe -nx
+# Created by Diogo Girondi
+# diogogirondi@gmail.com
+version 5.2117
+Gizmo {
+ help "@b;MV2Nuke v1 \n@n; @i;for Nuke5.2v1 and greater\n@n;Diogo Girondi\n - diogogirondi@gmail.com\n\nThis will convert motion vectors from the currently supported\nformats to suite Nuke's taste. It expects your motion vectors \nto be present in the motion layer. If they are not, just shuffle,\nshuffle copy them to that layer.\n\nCurrently supported formats:\n\n- Mental Ray Raster Motion buffer\n- mip_Motion_Vector: Off\n- mip_Motion_Vector: Off with Blue is Magnitude checked\n- mip_Motion_Vector: Raw\n- mip_Motion_Vector: Toxik\n- Raster Space (Normalized)\n- Revision Effects ReelSmart Motion Blur (LMD2MV, etc)\n- Revision Effects SmoothKit (LMD2MV, etc)\n\nFor additional help check the tooltips."
+ knobChanged "\ncn = nuke.thisNode()\nk = nuke.thisKnob()\nbitdepth = cn.metadata('input/bitsperchannel')\nldr = \['8-bit fixed', '10-bit fixed', '16-bit fixed', '16-bit half float']\n\nformat = int(cn\['format'].vect().pop())\nif k.name() == 'format':\n    if format == 0:\n        # Mental Ray (Raster Motion)\n        cn\['maxd'].setValue(150)\n        cn\['mode'].setValue(1)\n        cn\['invertx'].setValue(0)\n        cn\['inverty'].setValue(0)\n    elif format == 1:\n        # MIP (Off)\n        cn\['maxd'].setValue(50)\n        cn\['mode'].setValue(1)\n        cn\['invertx'].setValue(0)\n        cn\['inverty'].setValue(0)\n    elif format == 2:\n        # MIP (Off - Blue is Mag)\n        cn\['maxd'].setValue(50)\n        cn\['mode'].setValue(1)\n        cn\['invertx'].setValue(0)\n        cn\['inverty'].setValue(0)\n    elif format == 3:\n        # MIP (Raw)\n        cn\['mode'].setValue(0)\n        cn\['invertx'].setValue(0)\n        cn\['inverty'].setValue(0)\n    elif format == 4:\n        # MIP (Toxik)\n        cn\['mode'].setValue(0)\n        cn\['invertx'].setValue(0)\n        cn\['inverty'].setValue(0)\n    elif format == 5:\n        # Raster Motion\n        cn\['maxd'].setValue(128)\n        cn\['mode'].setValue(1)\n        cn\['invertx'].setValue(0)\n        cn\['inverty'].setValue(0)\n    elif format == 6:\n        # RE: ReelSmart Motion Blur\n        cn\['maxd'].setValue(128)\n        cn\['mode'].setValue(1)\n        cn\['invertx'].setValue(0)\n        cn\['inverty'].setValue(0)\n    elif format == 7:\n        # RE: SmoothKit\n        cn\['maxd'].setValue(128)\n        cn\['mode'].setValue(1)\n        cn\['invertx'].setValue(0)\n        cn\['inverty'].setValue(0)\n        \n    if cn\['mode'].value() == 'RAW':\n        cn\['maxd'].setVisible(False)\n        cn\['guess_maxd'].setVisible(False)\n    else:\n        cn\['maxd'].setVisible(True)\n        cn\['guess_maxd'].setVisible(True)\n        \nif k.name() == 'mode':\n    if cn\['mode'].value() == 'RAW':\n        cn\['maxd'].setVisible(False)\n        cn\['guess_maxd'].setVisible(False)\n    else:\n        cn\['maxd'].setVisible(True)\n        cn\['guess_maxd'].setVisible(True)\n        \nif cn\['mode'].value() == 'RAW' and bitdepth in ldr:\n    cn\['warn'].setVisible(True)\nelse:\n    cn\['warn'].setVisible(False)\n"
+ tile_color 0xcc804eff
+ addUserKnob {20 MV2Nuke l "MV2Nuke v1"}
+ addUserKnob {26 logo l "@MV2Nuke_Icon.png"}
+ addUserKnob {4 colorspace l Colorspace t "@b;Do Nothing (Linear)@n;\nAssumes the motion vectors were lineary encoded and bypasses any colorspace conversion.\n\n@b;sRGB to Linear@n;\nOnly use this if you for some misterious reason is bringing sRGB encoded motion vectors that were read as Linear in Nuke.\n\n@b;Linear to sRGB@n;\nIf you need this one it's time to have a chat with the 3D staff. Only useful for double linearization scenarios." M {"Do Nothing (Linear)            " "sRGB to Linear" "Linear to sRGB" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""}}
+ addUserKnob {6 premult l Premultiplied t "Unpremultiplies the motion vectors by the rgba.alpha." -STARTLINE}
+ addUserKnob {6 fix_nan l "Fix NaNs" t "Set NaNs to 0" -STARTLINE}
+ addUserKnob {6 fix_inf l "Fix INFs" t "Set INFs to 0" -STARTLINE}
+ addUserKnob {4 format l Format t "List of supported formats" M {"MentalRay (Raster Motion) " "MIP (Off)" "MIP (Off - Blue is Mag)" "MIP (Raw)" "MIP (Toxik)" "Raster Space" "RE: ReelSmart Motion Blur" "RE: SmoothKit" ""}}
+ addUserKnob {6 invertx l "Invert X" t "Negates X vectors" -STARTLINE}
+ addUserKnob {6 inverty l "Invert Y" t "Negates Y vectors" -STARTLINE}
+ addUserKnob {4 mode l " " t "@b;@i;Raw:@n; Values are raw pixel displacement data and were not normalized by a value.\n@b;@i;Normalized:@n; Motion vectors were normalized by a value on the shader/renderer." M {RAW Normalized "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""}}
+ mode Normalized
+ addUserKnob {3 maxd l "" t "Maximum Displacement (Normalization value)\nUse the value set on the shader/renderer used\nto output these motion vectors.\n\nIf this value is unknown try:\n   32 - 50 or less for 8bit images.\n   2000 - 2048 or less for 16bit.\n   width*pixel_aspect or less as guess." -STARTLINE}
+ maxd 150
+ addUserKnob {22 guess_maxd l " Guess the normalization value  " t "Will attempt to best guess the normalization value based on the image bit depth or size." T "cn = nuke.thisNode()\nw = float(nuke.value('input.format.w'))\nh = float(nuke.value('input.format.h'))\np = float(nuke.value('input.format.pixel_aspect'))\nbitdepth = 'Unknon' if cn.metadata('input/bitsperchannel') == None else cn.metadata('input/bitsperchannel')\n\nif '8' in bitdepth:\n    val = 32\n    cn\['maxd'].setValue(val)\nelif '10' in bitdepth:\n    val = 256\n    cn\['maxd'].setValue(val)\nelif '16' in bitdepth:\n    val = 1024\n    cn\['maxd'].setValue(val)\nelif '32' in bitdepth:\n    val = 2048\n    cn\['maxd'].setValue(val)\nelse:\n    if w > h:\n        val = (w*p)/2\n        cn\['maxd'].setValue(val)\n    else:\n        val = h/2\n        cn\['maxd'].setValue(val)" +STARTLINE}
+ addUserKnob {26 warn l " " t "Disconsider this if you're copying Float motion vectors to a pipe where the bit depth isn't float." T "/// WARNING:\nThe image appears to be 16bit or less. \nUsing RAW mode might not yield correct results."}
+}
+ Input {
+  inputs 0
+  name Input
+  xpos 0
+  ypos -127
+ }
+ NoOp {
+  name FixKnobs
+  xpos 0
+  ypos -60
+  addUserKnob {20 User}
+  addUserKnob {3 norm l "normalization value"}
+  norm {{mode==0?1:maxd<1?1:maxd i}}
+ }
+ Unpremult {
+  channels motion
+  name Unpremult
+  xpos 0
+  ypos 11
+  disable {{!parent.premult i}}
+ }
+ Expression {
+  channel0 {forward.u -forward.v -backward.u -backward.v}
+  expr0 isnan(forward.u)?0:forward.u
+  channel1 {-forward.u forward.v -backward.u -backward.v}
+  expr1 isnan(forward.v)?0:forward.v
+  channel2 {-forward.u -forward.v backward.u -backward.v}
+  expr2 isnan(backward.u)?0:backward.u
+  channel3 {-forward.u -forward.v -backward.u backward.v}
+  expr3 isnan(backward.v)?0:backward.v
+  name Fix_NaNs
+  tile_color 0x7aa9ffff
+  xpos 0
+  ypos 56
+  disable {{!fix_nan i}}
+ }
+ Expression {
+  channel0 {forward.u -forward.v -backward.u -backward.v}
+  expr0 isinf(forward.u)?0:forward.u
+  channel1 {-forward.u forward.v -backward.u -backward.v}
+  expr1 isinf(forward.v)?0:forward.v
+  channel2 {-forward.u -forward.v backward.u -backward.v}
+  expr2 isinf(backward.u)?0:backward.u
+  channel3 {-forward.u -forward.v -backward.u backward.v}
+  expr3 isinf(backward.v)?0:backward.v
+  name Fix_INFs
+  tile_color 0x7aa9ffff
+  xpos 0
+  ypos 85
+  disable {{!fix_inf i}}
+ }
+ ColorLookup {
+  channels motion
+  lut {master {"x<.04045 ? x/12.92 : pow((x+.055)/1.055, 2.4)" L 0 0.99}
+    red {}
+    green {}
+    blue {}
+    alpha {}}
+  name to_Linear
+  xpos 0
+  ypos 114
+  disable {{parent.colorspace==1?0:1 i}}
+ }
+ ColorLookup {
+  channels motion
+  lut {master {to_sRGB(x)/256 L 0 0.99}
+    red {}
+    green {}
+    blue {}
+    alpha {}}
+  name to_sRGB
+  xpos 0
+  ypos 159
+  disable {{parent.colorspace==2?0:1 i}}
+ }
+set N10d26090 [stack 0]
+ Viewer {
+  channels motion
+  useGPUForViewer true
+  name Viewer1
+  xpos 299
+  ypos 417
+ }
+push $N10d26090
+ Expression {
+  temp_name0 norm
+  temp_expr0 FixKnobs.norm
+  channel0 {forward.u -forward.v -backward.u -backward.v}
+  expr0 -(((forward.u-0.5)*norm)*2)
+  channel1 {-forward.u forward.v -backward.u -backward.v}
+  expr1 -(((forward.v-0.5)*norm)*2)
+  channel2 {-forward.u -forward.v backward.u -backward.v}
+  expr2 0
+  channel3 {-forward.u -forward.v -backward.u backward.v}
+  expr3 0
+  name RasterMotion
+  xpos 0
+  ypos 245
+  disable {{format==0?0:1 i}}
+ }
+ Expression {
+  temp_name0 norm
+  temp_expr0 FixKnobs.norm
+  channel0 {forward.u -forward.v -backward.u -backward.v}
+  expr0 -(((forward.u==0?forward.u:forward.u-0.5)*norm)*2)
+  channel1 {-forward.u forward.v -backward.u -backward.v}
+  expr1 -(((forward.v==0?forward.v:forward.v-0.5)*norm)*2)
+  channel2 {-forward.u -forward.v backward.u -backward.v}
+  expr2 0
+  channel3 {-forward.u -forward.v -backward.u backward.v}
+  expr3 0
+  name MIP_Off
+  xpos 0
+  ypos 274
+  disable {{format==1?0:1 i}}
+ }
+ Expression {
+  temp_name0 norm
+  temp_expr0 FixKnobs.norm
+  channel0 {forward.u -forward.v -backward.u -backward.v}
+  expr0 -((((forward.u-0.5)*backward.u)*norm)*2)
+  channel1 {-forward.u forward.v -backward.u -backward.v}
+  expr1 -((((forward.v-0.5)*backward.u)*norm)*2)
+  channel2 {-forward.u -forward.v backward.u -backward.v}
+  expr2 0
+  channel3 {-forward.u -forward.v -backward.u backward.v}
+  expr3 0
+  name MIP_Off_Blue
+  xpos 0
+  ypos 303
+  disable {{format==2?0:1 i}}
+ }
+ Expression {
+  temp_name0 norm
+  temp_expr0 FixKnobs.norm
+  channel0 {forward.u -forward.v -backward.u -backward.v}
+  expr0 -(forward.u*norm)
+  channel1 {-forward.u forward.v -backward.u -backward.v}
+  expr1 -(forward.v*norm)
+  channel2 {-forward.u -forward.v backward.u -backward.v}
+  expr2 0
+  channel3 {-forward.u -forward.v -backward.u backward.v}
+  expr3 0
+  name RasterSpace
+  xpos 0
+  ypos 332
+  disable {{format==3||format==5?0:1 i}}
+ }
+ Expression {
+  temp_name0 norm
+  temp_expr0 FixKnobs.norm
+  channel0 {forward.u -forward.v -backward.u -backward.v}
+  expr0 -((forward.u/pixel_aspect)*norm)
+  channel1 {-forward.u forward.v -backward.u -backward.v}
+  expr1 -(forward.v*norm)
+  channel2 {-forward.u -forward.v backward.u -backward.v}
+  expr2 0
+  channel3 {-forward.u -forward.v -backward.u backward.v}
+  expr3 0
+  name MIP_Toxik
+  xpos 0
+  ypos 361
+  disable {{format==4?0:1 i}}
+ }
+ Expression {
+  temp_name0 norm
+  temp_expr0 FixKnobs.norm
+  channel0 {forward.u -forward.v -backward.u -backward.v}
+  expr0 ((forward.u==0?forward.u:forward.u-0.5)*norm)*2
+  channel1 {-forward.u forward.v -backward.u -backward.v}
+  expr1 ((forward.v==0?forward.v:forward.v-0.5)*norm)*2
+  channel2 {-forward.u -forward.v backward.u -backward.v}
+  expr2 0
+  channel3 {-forward.u -forward.v -backward.u backward.v}
+  expr3 0
+  name ReelSmart
+  xpos 0
+  ypos 390
+  disable {{format==6?0:1 i}}
+ }
+ Expression {
+  temp_name0 norm
+  temp_expr0 FixKnobs.norm
+  channel0 {forward.u -forward.v -backward.u -backward.v}
+  expr0 (((forward.u-0.5)*backward.u)*norm)*2
+  channel1 {-forward.u forward.v -backward.u -backward.v}
+  expr1 (((forward.v-0.5)*backward.u)*norm)*2
+  channel2 {-forward.u -forward.v backward.u -backward.v}
+  expr2 0
+  channel3 {-forward.u -forward.v -backward.u backward.v}
+  expr3 0
+  name SmoothKit
+  xpos 0
+  ypos 419
+  disable {{format==7?0:1 i}}
+ }
+ Expression {
+  temp_name0 iX
+  temp_expr0 parent.invertx
+  temp_name1 iY
+  temp_expr1 parent.inverty
+  channel0 {forward.u -forward.v -backward.u -backward.v}
+  expr0 iX==1?-forward.u:forward.u
+  channel1 {-forward.u forward.v -backward.u -backward.v}
+  expr1 iY==1?-forward.v:forward.v
+  channel2 none
+  channel3 none
+  name NegateXY
+  xpos 0
+  ypos 491
+  disable {{invertx==0&&inverty==0 i}}
+ }
+ Output {
+  name Output1
+  xpos 0
+  ypos 564
+ }
+end_group

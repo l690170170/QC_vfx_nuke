@@ -1,0 +1,56 @@
+Gizmo {
+ lock_connections true
+ addUserKnob {20 Position}
+ addUserKnob {12 translate}
+ translate {-2 0}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -480
+  ypos 159
+ }
+set N82683450 [stack 0]
+ Shuffle {
+  red black
+  green black
+  blue black
+  name Shuffle2
+  xpos -480
+  ypos 183
+ }
+set N82392d70 [stack 0]
+ Position {
+  translate {{parent.translate.x} {parent.translate.y}}
+  name Position
+  xpos -480
+  ypos 212
+ }
+push $N82392d70
+ Merge2 {
+  inputs 2
+  operation min
+  bbox B
+  Achannels alpha
+  Bchannels alpha
+  output alpha
+  name Merge2
+  xpos -370
+  ypos 207
+ }
+push $N82683450
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  bbox B
+  name Copy2
+  xpos -370
+  ypos 241
+ }
+ Output {
+  name Output1
+  xpos -370
+  ypos 275
+ }
+end_group

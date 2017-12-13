@@ -1,0 +1,70 @@
+#! /Applications/Nuke5.1v3/Nuke5.1v3.app/Contents/MacOS/Nuke5.1v3 -nx
+version 5.1300
+Gizmo {
+ inputs 2
+ addUserKnob {20 BG_PassThru}
+ addUserKnob {41 BlurBG l Tolerance t "Adjust to soften edges of passthru" T Blur7.size}
+ addUserKnob {41 Detail l "Restore Detail" T Multiply1.value}
+}
+ Input {
+  inputs 0
+  name FG
+  xpos -609
+  ypos -139
+  number 1
+ }
+set N1db48240 [stack 0]
+ Input {
+  inputs 0
+  name BG
+  selected true
+  xpos -326
+  ypos -323
+ }
+ Multiply {
+  channels rgba
+  value 0
+  name Multiply1
+  selected true
+  xpos -326
+  ypos -296
+ }
+ Invert {
+  name Invert3
+  xpos -326
+  ypos -269
+ }
+ Keyer {
+  operation "luminance key"
+  range {0.982714 1 1 1}
+  name Keyer1
+  xpos -326
+  ypos -230
+ }
+ Blur {
+  channels alpha
+  name Blur7
+  xpos -326
+  ypos -191
+ }
+push $N1db48240
+ Merge2 {
+  inputs 2
+  operation out
+  name Merge19
+  xpos -326
+  ypos -139
+ }
+ Merge2 {
+  inputs 2
+  operation out
+  name Merge18
+  xpos -326
+  ypos -90
+ }
+ Output {
+  name Output1
+  xpos -326
+  ypos -17
+ }
+end_group

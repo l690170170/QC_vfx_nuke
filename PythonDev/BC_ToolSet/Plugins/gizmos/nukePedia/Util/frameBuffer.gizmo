@@ -1,0 +1,148 @@
+#! C:/Program Files/Nuke5.1v2/Nuke5.1.exe -nx
+version 5.1200
+Gizmo {
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -492
+  ypos -280
+ }
+ Dot {
+  name Dot5
+  xpos -458
+  ypos -217
+ }
+set N604fb30 [stack 0]
+ Dot {
+  name Dot3
+  xpos -163
+  ypos -217
+ }
+set N158fa000 [stack 0]
+ Dot {
+  name Dot7
+  xpos 53
+  ypos -217
+ }
+set N158fa250 [stack 0]
+ Dot {
+  name Dot4
+  xpos 215
+  ypos -217
+ }
+set N158fa4a0 [stack 0]
+ Dot {
+  name Dot6
+  xpos 382
+  ypos -217
+ }
+set N158fa6f0 [stack 0]
+push $N158fa6f0
+push $N158fa4a0
+push $N158fa250
+push $N158fa250
+push $N158fa000
+push $N158fa000
+push $N604fb30
+push $N604fb30
+add_layer {diffuse diffuse.red diffuse.green diffuse.blue diffuse.alpha}
+add_layer {shadow shadow.red shadow.green shadow.blue shadow.alpha}
+ Merge2 {
+  inputs 2
+  operation multiply
+  Achannels diffuse
+  Bchannels shadow
+  name Merge1
+  label "Diffuse * Shadow"
+  xpos -492
+  ypos 27
+ }
+push $N604fb30
+add_layer {indirectDiffuse indirectDiffuse.red indirectDiffuse.green indirectDiffuse.blue indirectDiffuse.alpha}
+ Merge2 {
+  inputs 2
+  operation plus
+  Bchannels indirectDiffuse
+  name Merge3
+  label "+ IndirectDiffuse"
+  xpos -364
+  ypos 27
+ }
+add_layer {ambient ambient.red ambient.green ambient.blue ambient.alpha}
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels ambient
+  name Merge2
+  label "+ Ambient"
+  xpos -254
+  ypos 27
+ }
+add_layer {color color.red color.green color.blue color.alpha}
+ Merge2 {
+  inputs 2
+  operation multiply
+  Achannels color
+  name Merge4
+  label "* Color"
+  xpos -144
+  ypos 27
+ }
+add_layer {reflection reflection.red reflection.green reflection.blue reflection.alpha}
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels reflection
+  name Merge8
+  label "+ Reflection"
+  xpos -34
+  ypos 27
+ }
+add_layer {specular specular.red specular.green specular.blue specular.alpha}
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels specular
+  name Merge9
+  label "+ Specular"
+  xpos 71
+  ypos 27
+ }
+add_layer {occlusion occlusion.red occlusion.green occlusion.blue occlusion.alpha}
+ Merge2 {
+  inputs 2
+  operation multiply
+  Achannels occlusion
+  name Merge7
+  label "* AO"
+  xpos 181
+  ypos 27
+ }
+add_layer {refraction refraction.red refraction.green refraction.blue refraction.alpha}
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels refraction
+  name Merge6
+  label "+ Refraction"
+  xpos 296
+  ypos 27
+ }
+add_layer {incandescence incandescence.red incandescence.green incandescence.blue incandescence.alpha}
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels incandescence
+  name Merge5
+  label "+ Incandescence"
+  xpos 406
+  ypos 27
+ }
+ Output {
+  name Output1
+  selected true
+  xpos 406
+  ypos 127
+ }
+end_group

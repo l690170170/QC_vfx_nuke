@@ -1,0 +1,188 @@
+#! /Applications/Nuke6.2v1/NukeX6.2v1.app/../Nuke6.2v1.app/Contents/MacOS/Nuke6.2v1 -nx
+version 6.2 v1
+Gizmo {
+ inputs 2
+ addUserKnob {20 "" l Transform}
+ addUserKnob {41 matrix T Transform1.matrix}
+ addUserKnob {41 translate T Transform1.translate}
+ addUserKnob {41 rotate T Transform1.rotate}
+ addUserKnob {41 scale T Transform1.scale}
+ addUserKnob {41 skew T Transform1.skew}
+ addUserKnob {41 center T Transform1.center}
+ addUserKnob {41 filter T Transform1.filter}
+ addUserKnob {41 clamp T Transform1.clamp}
+ addUserKnob {41 crop l "black outside" +INVISIBLE T Transform1.crop}
+ addUserKnob {41 clip l "knob crop \$value" +INVISIBLE T Transform1.clip}
+ addUserKnob {6 cropResult l "crop result" -STARTLINE}
+ cropResult true
+ addUserKnob {14 AdjBBox1_numpixels l "Add Pixels" R 0 100}
+ AdjBBox1_numpixels 100
+}
+ Input {
+  inputs 0
+  name ctrlMask
+  xpos -40
+  ypos -51
+  number 1
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  alpha black
+  name Shuffle1
+  xpos -40
+  ypos -24
+ }
+ Input {
+  inputs 0
+  name img
+  xpos -385
+  ypos -227
+ }
+set N1bee2540 [stack 0]
+ Remove {
+  name Remove1
+  xpos -210
+  ypos -232
+ }
+ AdjBBox {
+  numpixels {{parent.AdjBBox1_numpixels.w i} {parent.AdjBBox1_numpixels.h i}}
+  name AdjBBox1
+  xpos -210
+  ypos -192
+ }
+ Expression {
+  expr0 x
+  expr1 y
+  name Expression1
+  xpos -210
+  ypos -140
+ }
+set N207f4160 [stack 0]
+ Dot {
+  name Dot2
+  xpos -286
+  ypos -136
+ }
+ Transform {
+  translate {{parent.Transform1.translate i} {parent.Transform1.translate i}}
+  rotate {{parent.Transform1.rotate i}}
+  scale {{parent.Transform1.scale i}}
+  skew {{parent.Transform1.skew i}}
+  center {{parent.Transform1.center i} {parent.Transform1.center i}}
+  filter {{Transform1.filter i}}
+  clamp {{parent.Transform1.clamp i}}
+  black_outside {{parent.Transform1.black_outside i}}
+  motionblur {{parent.Transform1.motionblur i}}
+  shutter {{parent.Transform1.shutter i}}
+  shutteroffset {{Transform1.shutteroffset i}}
+  shuttercustomoffset {{parent.Transform1.shuttercustomoffset i}}
+  name Transform2
+  xpos -320
+  ypos -72
+ }
+push $N207f4160
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge1
+  xpos -210
+  ypos -72
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge2
+  xpos -210
+  ypos -24
+ }
+set N207a9890 [stack 0]
+ Dot {
+  name Dot1
+  xpos -270
+  ypos -21
+ }
+ Dot {
+  name Dot3
+  xpos -270
+  ypos 162
+ }
+push $N1bee2540
+ Dot {
+  name Dot4
+  xpos -351
+  ypos 48
+ }
+set N207955e0 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 rgba.red
+  from1 rgba.green
+  to1 rgba.green
+  name Copy2
+  xpos -385
+  ypos 144
+ }
+ IDistort {
+  channels none
+  name IDistort1
+  xpos -385
+  ypos 182
+ }
+push $N207a9890
+push $N207955e0
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 forward.u
+  from1 rgba.green
+  to1 forward.v
+  name Copy1
+  xpos -210
+  ypos 30
+ }
+ IDistort {
+  uv forward
+  name IDistort2
+  xpos -210
+  ypos 86
+ }
+ Remove {
+  channels none
+  name Remove2
+  xpos -210
+  ypos 124
+ }
+ Copy {
+  inputs 2
+  from0 -rgba.alpha
+  to0 -rgba.alpha
+  name Copy3
+  xpos -210
+  ypos 182
+ }
+ Crop {
+  box {0 0 {input.width i} {input.height i}}
+  name Crop1
+  selected true
+  xpos -210
+  ypos 245
+  disable {{!parent.cropResult i}}
+ }
+ Output {
+  name Output1
+  xpos -210
+  ypos 299
+ }
+ Transform {
+  inputs 0
+  center {360 288}
+  black_outside false
+  name Transform1
+  label "expresison link this\nto avoid st map overlay"
+  xpos -82
+  ypos -111
+ }
+end_group

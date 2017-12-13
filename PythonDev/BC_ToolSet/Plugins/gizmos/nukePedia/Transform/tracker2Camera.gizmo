@@ -1,0 +1,61 @@
+# Written by Howard Jones c.2010
+# 
+
+
+
+version 5.2000
+Gizmo {
+ inputs 0
+ addUserKnob {20 CameraInfo l "Camera Info"}
+ addUserKnob {41 format T Constant1.format}
+ addUserKnob {26 ""}
+ addUserKnob {41 apertureCalc l "film back (mm)" T FOV.apertureCalc}
+ addUserKnob {41 focalLengthCalc l "focal length" T FOV.focalLengthCalc}
+ addUserKnob {41 fovCalc l FOV T FOV.fovCalc}
+ addUserKnob {7 apertureFocalRatio l "aperture : focal" R 0 10}
+ apertureFocalRatio {{apertureCalc.main.x/focalLengthCalc.main}}
+ addUserKnob {26 ""}
+ addUserKnob {12 Trax01 l "2D Track" t "copy your 2D track here"}
+ addUserKnob {13 solved3D l "3D rotation" t "copy this into the rotation of an axis, camera etc..."}
+ solved3D {{-(Trax01.main.y/height-0.5)*fovCalc.main.y} {(Trax01.main.x/width-0.5)*fovCalc.main.x} {curve}}
+ addUserKnob {13 solvedTranslate l "3D translate"}
+ solvedTranslate {{(Trax01.main.x-width/2)/width*apertureFocalRatio} {(Trax01.main.y-height/2)/width*apertureFocalRatio} {curve}}
+ addUserKnob {26 ""}
+ addUserKnob {7 rotationTrax l rotation t "copy the tracker rotation here if there is one" R -360 360}
+ addUserKnob {7 scaleTrax l scale t "copy the tracker scale here if there is one" R 0 2}
+ scaleTrax 1
+ addUserKnob {26 ""}
+ addUserKnob {26 nodal l "Nodal solves"}
+ addUserKnob {22 createNcamera l "create camera" T "sn=nuke.thisNode()\nnn=nuke.thisNode()\['name'].value()\nnuke.endGroup()\n\n#set camera\ncam=nuke.nodes.Camera2()\ncam\['haperture'].setExpression(nn+'.apertureCalc.main.x')\ncam\['vaperture'].setExpression(nn+'.apertureCalc.main.y')\ncam\['focal'].setExpression(nn+'.focalLengthCalc')\ncam\['rotate'].setExpression(nn+'.solved3D',0)\ncam\['rotate'].setExpression(nn+'.solved3D',1)\ncam\['label'].setValue('nodal')\ncam.setXYpos( sn.xpos(), sn.ypos()+100)" +STARTLINE}
+ addUserKnob {22 createNscene l "create scene" t "Creates a nodal camera and transform geo suitable for 2 point tracks where scale and rotation is required" -STARTLINE T "sn=nuke.thisNode()\nnn=nuke.thisNode()\['name'].value()\nnuke.endGroup()\n\n#set camera\ncam=nuke.nodes.Camera2()\ncam\['haperture'].setExpression(nn+'.apertureCalc.main.x')\ncam\['vaperture'].setExpression(nn+'.apertureCalc.main.y')\ncam\['focal'].setExpression(nn+'.focalLengthCalc')\ncam\['rotate'].setExpression(nn+'.solved3D',0)\ncam\['rotate'].setExpression(nn+'.solved3D',1)\ncam\['label'].setValue('nodal')\n\n#set scene\nsc=nuke.nodes.Scene()\n\n\n#set transformGeo\ntg=nuke.nodes.TransformGeo()\ntg\['translate'].setValue(-1,2)\ntg\['rotate'].setExpression(nn+'.rotationTrax',2)\ntg\['uniform_scale'].setExpression(nn+'.scaleTrax')\n\n\n#hook up and position\ntg.setXYpos( sn.xpos(), sn.ypos()+100)\nsc.setXYpos( tg.xpos()+10, tg.ypos()+80)\ncam.setXYpos( sc.xpos()-100, sc.ypos())\n\nsc.setInput(0,cam)\nsc.setInput(1,tg)\n"}
+ addUserKnob {26 translate l "Translate solves"}
+ addUserKnob {22 createTCamera l "create camera" T "sn=nuke.thisNode()\nnn=nuke.thisNode()\['name'].value()\nnuke.endGroup()\n\n#set camera\ncam=nuke.nodes.Camera2()\ncam\['haperture'].setExpression(nn+'.apertureCalc.main.x')\ncam\['vaperture'].setExpression(nn+'.apertureCalc.main.y')\ncam\['focal'].setExpression(nn+'.focalLengthCalc')\ncam\['translate'].setExpression('-'+nn+'.solvedTranslate',0)\ncam\['translate'].setExpression('-'+nn+'.solvedTranslate',1)\ncam\['label'].setValue('translate')\ncam.setXYpos( sn.xpos(), sn.ypos()+100)" +STARTLINE}
+ addUserKnob {22 createTScene l "create Scene" -STARTLINE T "sn=nuke.thisNode()\nnn=nuke.thisNode()\['name'].value()\nnuke.endGroup()\n\n#set camera\ncam=nuke.nodes.Camera2()\ncam\['haperture'].setExpression(nn+'.apertureCalc.main.x')\ncam\['vaperture'].setExpression(nn+'.apertureCalc.main.y')\ncam\['focal'].setExpression(nn+'.focalLengthCalc')\ncam\['label'].setValue('fixed')\n\n#set scene\nsc=nuke.nodes.Scene()\n\n#set Axis\nax=nuke.nodes.Axis()\nax\['translate'].setExpression(nn+'.solvedTranslate',0)\nax\['translate'].setExpression(nn+'.solvedTranslate',1)\nax\['rotate'].setExpression(nn+'.rotationTrax',2)\nax.setXYpos( sn.xpos(), sn.ypos()+100)\n\n#set transformGeo\ntg=nuke.nodes.TransformGeo()\n\n\n#hook up and position\ntg.setXYpos( sn.xpos(), sn.ypos()+100)\nsc.setXYpos( tg.xpos()+10, tg.ypos()+80)\ncam.setXYpos( sc.xpos()-100, sc.ypos())\nax.setXYpos( tg.xpos()-60, tg.ypos()-60)\n\nsc.setInput(0,cam)\nsc.setInput(1,tg)\ntg.setInput(1,ax)\n\n"}
+ addUserKnob {22 createAxis l "create axis" -STARTLINE T "sn=nuke.thisNode()\nnn=nuke.thisNode()\['name'].value()\nnuke.endGroup()\n\n#set transform\nax=nuke.nodes.Axis()\nax\['translate'].setExpression(nn+'.solvedTranslate',0)\nax\['translate'].setExpression(nn+'.solvedTranslate',1)\nax\['rotate'].setExpression(nn+'.rotationTrax',2)\nax.setXYpos( sn.xpos(), sn.ypos()+100)"}
+ addUserKnob {22 createTransformG l "create transformGeo" -STARTLINE T "sn=nuke.thisNode()\nnn=nuke.thisNode()\['name'].value()\nnuke.endGroup()\n\n#set transform\ntx=nuke.nodes.TransformGeo()\ntx\['translate'].setExpression(nn+'.solvedTranslate',0)\ntx\['translate'].setExpression(nn+'.solvedTranslate',1)\ntx\['rotate'].setExpression(nn+'.rotationTrax',2)\ntx.setXYpos( sn.xpos(), sn.ypos()+100)"}
+}
+ Constant {
+  inputs 0
+  color {0 0 0 1}
+  name Constant1
+  xpos -251
+  ypos -8
+ }
+ NoOp {
+  name FOV
+  xpos -251
+  ypos 88
+  addUserKnob {20 fovTab l FOV}
+  addUserKnob {12 apertureCalc l "film back"}
+  apertureCalc {24.576 {apertureCalc.main.x*height/width i}}
+  addUserKnob {7 focalLengthCalc l "focal length" R 0 300}
+  focalLengthCalc 50
+  addUserKnob {12 fovCalc l FOV}
+  fovCalc {{degrees(2*atan(apertureCalc/(2*focalLengthCalc))) i} {degrees(2*atan(apertureCalc/(2*focalLengthCalc))) i}}
+ }
+ Output {
+  name Output1
+  xpos -251
+  ypos 157
+ }
+end_group

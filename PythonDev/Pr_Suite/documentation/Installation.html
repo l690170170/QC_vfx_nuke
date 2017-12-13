@@ -1,0 +1,130 @@
+﻿<html>
+	
+<head>
+	<title>Installation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="keywords" content="">
+	
+	<link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/base.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/hnd.css" />
+	<!--[if lte IE 8]>
+		<link type="text/css" rel="stylesheet" media="all" href="css/ielte8.css" />
+	<![endif]-->
+	<style type="text/css">
+		#topic_header
+		{
+			background-color: #EFEFEF;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/hnd.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			if (top.frames.length == 0)
+			{
+				var sTopicUrl = top.location.href.substring(top.location.href.lastIndexOf("/") + 1, top.location.href.length);
+				top.location.href = "Pr_Suite v1.1 Documentation.html?" + sTopicUrl;
+			}
+			else
+			{
+				var bTocSelected = false;
+				(function waitForTOC()
+				{
+					if (top && top.FrameTOC && top.FrameTOC.SelectTocItem)
+					{
+						top.FrameTOC.SelectTocItem("Installation");
+						bTocSelected = true;
+					}
+					if (!bTocSelected) setTimeout(function() { waitForTOC(); }, 300);
+				})();
+			}
+		});
+	</script>
+	
+	</head>
+
+<body>
+
+<div id="topic_header">
+			<div id="topic_header_content">
+				<h1 id="topic_header_text">Installation</h1>
+				
+				<div id="topic_breadcrumb">
+					<a href="Pr_SuiteIntroduction.html">Pr_Suite Introduction</a> &rsaquo;&rsaquo; </div>
+				</div>
+			<div id="topic_header_nav">
+				<a href="Pr_SuiteIntroduction.html"><img src="img/arrow_up.png" alt="Parent"/></a>
+				
+				<a href="AboutthisDocumentation.html"><img src="img/arrow_left.png" alt="Previous"/></a>
+				
+				<a href="HelpandSupport.html"><img src="img/arrow_right.png" alt="Next"/></a>
+				
+				</div>
+			<div class="clear"></div>
+		</div>
+	<div id="topic_content">
+		
+<p></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Download Pr_Suite from </span><a class="rvts11" href="http://www.nukepedia.com/gizmos/other/pr_suite" target="_blank">http://www.nukepedia.com/gizmos/other/pr_suite</a><span class="rvts6"> or </span><a class="rvts11" href="http://www.parimalvfx.com/rnd/pr_suite/" target="_blank">http://www.parimalvfx.com/rnd/pr_suite/</a></p>
+<p class="rvps2"><span class="rvts11"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">After downloading extract the Pr_Suite package.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Copy Pr_Suite package to one of the following directories based on your operating system:</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<div class="rvps5"><table border="1" style="border-color: #000000; border-style: solid; border-spacing: 2px;">
+<tr valign="top">
+<td style="border-color: #000000; border-style: solid; padding: 1px; width: 173px; height: 20px;"><p class="rvps3"><span class="rvts15">Operating System</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; padding: 1px; width: 173px; height: 20px;"><p class="rvps3"><span class="rvts15">Installation Directory</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-color: #000000; border-style: solid; padding: 1px; width: 173px;"><p class="rvps3"><span class="rvts6">Windows</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; padding: 1px; width: 173px;"><p class="rvps3"><span class="rvts6">C:\Users\username\.nuke</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-color: #000000; border-style: solid; padding: 1px; width: 173px;"><p class="rvps3"><span class="rvts6">Mac</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; padding: 1px; width: 173px;"><p class="rvps3"><span class="rvts6">Users/username/.nuke</span></p>
+</td>
+</tr>
+<tr valign="top">
+<td style="border-color: #000000; border-style: solid; padding: 1px; width: 173px;"><p class="rvps3"><span class="rvts6">Linux</span></p>
+</td>
+<td style="border-color: #000000; border-style: solid; padding: 1px; width: 173px;"><p class="rvps3"><span class="rvts6">/home/username/.nuke</span></p>
+</td>
+</tr>
+</table>
+</div>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">If you are installing Pr_Suite in custom PLUGIN_PATH make sure to copy the whole Pr_Suite package as it is.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">After copying the package add following lines to your root init.py, if you don't have init.py create one by copy and pasting following lines in a text editor and save it as init.py in your .nuke directory:</span></p>
+<p class="rvps2"><span class="rvts14"><br/></span></p>
+<p class="rvps5"><span class="rvts14">nuke.pluginAddPath( "./Pr_Suite" )</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Now restart Nuke and you can see Pr_Suite is successfully installed if Pr_Suite icon is visible Nodes menu and Pr_Suite menu is visible in Nuke menu.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps5"><img alt="" style="padding : 1px;" src="lib/pr_suite_nodes_menu.jpg"><span class="rvts6"> Nodes Menu</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps5"><img alt="" style="padding : 1px;" src="lib/pr_suite_nuke_menu.jpg"><span class="rvts6"> Nuke Menu</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps5" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">If Pr_Suite icon is not visible in Nodes menu and Pr_Suite menu in not visible in Nuke menu then your installation is wrong, make sure you have copied the whole package as it is and you have not modified the menu.py and init.py included in the package.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">If you are still not able to install Pr_Suite e-mail at </span><a class="rvts11" href="mailto:support@parimalvfx.com?subject=Support%20for%20Pr_Suite">support@parimalvfx.com</a></p>
+<p></p>
+</div>
+	
+	<div id="topic_footer">
+
+			<div id="topic_footer_content">
+				Copyright (c) 2016 Parimal Desai</div>
+		</div>
+	</body>
+	
+</html>
+

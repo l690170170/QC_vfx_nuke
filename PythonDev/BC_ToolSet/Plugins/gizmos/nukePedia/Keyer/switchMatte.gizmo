@@ -1,0 +1,178 @@
+#satheesh.R DigiatalDreamsPost India
+
+
+#! C:/Program Files/Nuke6.1v1/Nuke6.1.exe -nx
+version 6.1 v1
+Gizmo {
+ inputs 2
+ addUserKnob {20 switchMatte}
+ addUserKnob {4 mattechannel M {alpha red green blue luminance}}
+ addUserKnob {6 invert +STARTLINE}
+ addUserKnob {41 softEdge T Blur1.size}
+ addUserKnob {41 matteExpand T Dilate1.size}
+ addUserKnob {16 LumaThreshold}
+ LumaThreshold 0.5
+ addUserKnob {6 premult +STARTLINE}
+ premult true
+}
+ Input {
+  inputs 0
+  name matte
+  xpos -142
+  ypos -384
+  number 1
+ }
+set N81feb20 [stack 0]
+ ColorMatrix {
+  channels rgba
+  matrix {
+      {0.3 0 0}
+      {0 0.59 0}
+      {0 0 0.11}
+    }
+  unpremult -rgba.red
+  name ColorMatrix1
+  xpos -266
+  ypos -384
+ }
+set N81ff000 [stack 0]
+ Expression {
+  channel3 alpha
+  expr3 r+g+b
+  name Expression1
+  xpos -338
+  ypos -327
+ }
+push $N81ff000
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy2
+  xpos -376
+  ypos -384
+ }
+ Multiply {
+  value {{parent.LumaThreshold*2 i}}
+  name Multiply1
+  xpos -480
+  ypos -390
+ }
+push $N81feb20
+ Shuffle {
+  red blue
+  green blue
+  alpha blue
+  name blue
+  xpos -405
+  ypos -460
+ }
+push $N81feb20
+ Shuffle {
+  red green
+  blue green
+  alpha green
+  name green
+  xpos -397
+  ypos -526
+ }
+push $N81feb20
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name red
+  xpos -404
+  ypos -597
+ }
+push $N81feb20
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name alpha
+  xpos -404
+  ypos -662
+ }
+ Switch {
+  inputs 5
+  which {{parent.mattechannel i}}
+  name Switch1
+  xpos -624
+  ypos -384
+ }
+ Dilate {
+  channels alpha
+  name Dilate1
+  xpos -764
+  ypos -390
+ }
+ Crop {
+  box {{curve i} {curve i} {root.format i} {curve i}}
+  intersect true
+  crop false
+  name Crop1
+  xpos -891
+  ypos -384
+ }
+ Invert {
+  mix {{parent.invert i}}
+  name Invert1
+  xpos -1037
+  ypos -390
+ }
+ Blur {
+  channels alpha
+  name Blur1
+  xpos -1174
+  ypos -390
+ }
+set N870e990 [stack 0]
+push $N870e990
+ Input {
+  inputs 0
+  name img
+  xpos -1451
+  ypos -603
+ }
+set N870ee70 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -1260
+  ypos -498
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  bbox B
+  name Merge1
+  xpos -1318
+  ypos -384
+ }
+push $N870ee70
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy1
+  xpos -1451
+  ypos -384
+ }
+ Premult {
+  channels rgba
+  name Premult1
+  selected true
+  xpos -1451
+  ypos -303
+  disable {{!parent.premult i}}
+ }
+ Output {
+  name Output1
+  xpos -1451
+  ypos -209
+ }
+ Output {
+  name Output2
+  xpos -1451
+  ypos -109
+ }
+end_group

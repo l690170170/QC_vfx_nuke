@@ -1,0 +1,283 @@
+#! C:/Program Files/Nuke6.3v7/Nuke6.3.exe -nx
+version 6.3 v7
+Gizmo {
+ inputs 2
+ tile_color 0x54bbcaff
+ addUserKnob {20 EdgeAdjust l "Edge Adjust"}
+ addUserKnob {6 premultiplied l "Input premultiplied" t "Input must be unpremulted if you're using a mask." +STARTLINE}
+ premultiplied true
+ addUserKnob {20 EdgeSmooth l "Edge smoothening" n 1}
+ addUserKnob {41 Blur l "Extend Blur" T Blur6.size}
+ addUserKnob {41 size l Edgeblur T EdgeBlur7.size}
+ addUserKnob {41 size_1 l Erode T FilterErode2.size}
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {20 EdgeColor l "Edge Color" n 1}
+ addUserKnob {41 brightness l "Intersection Brightness" T EdgeBlur7.brightness}
+ addUserKnob {41 white l Gain T Grade2.white}
+ addUserKnob {41 black l Lift T Grade2.black}
+ addUserKnob {41 multiply l Multiply T Grade2.multiply}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {20 EdgeAlpha_1 l "Edge Alpha" n 1}
+ addUserKnob {41 size_3 l Erode T FilterErode1.size}
+ addUserKnob {41 gamma l Gamma T Grade1.gamma}
+ addUserKnob {41 blackpoint l Blackpoint T Grade1.blackpoint}
+ addUserKnob {41 whitepoint l Whitepoint T Grade1.whitepoint}
+ addUserKnob {41 size_2 l Blur T Blur1.size}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 Creator l "" +STARTLINE T "\nCreated by Elias Mlayeh for Ghost"}
+}
+ Input {
+  inputs 0
+  name Mask
+  xpos 282
+  ypos 347
+  number 1
+ }
+ Input {
+  inputs 0
+  name FG
+  label FG
+  xpos 821
+  ypos -19
+ }
+set Nc008eb0 [stack 0]
+ Dot {
+  name Dot29
+  note_font Verdana
+  xpos 855
+  ypos 52
+ }
+set Nc0091e0 [stack 0]
+ Dot {
+  name Dot3
+  xpos 731
+  ypos 52
+ }
+add_layer {rgba rgba.beta rgba.noise rgba.eyes rgba.family}
+ Unpremult {
+  name Unpremult2
+  note_font Verdana
+  xpos 697
+  ypos 118
+ }
+push $Nc0091e0
+ Switch {
+  inputs 2
+  which {{"\[value parent.premultiplied]" i}}
+  name Switch2
+  note_font Verdana
+  xpos 821
+  ypos 118
+ }
+ Premult {
+  name Premult23
+  xpos 821
+  ypos 199
+ }
+set Nc009b70 [stack 0]
+add_layer {alpha alpha.red alpha.green alpha.mask}
+ Grade {
+  channels {rgba.alpha -alpha.red -alpha.green none}
+  name Grade1
+  xpos 670
+  ypos 193
+ }
+ Blur {
+  channels {rgba.alpha -alpha.red -alpha.green none}
+  name Blur1
+  xpos 670
+  ypos 237
+ }
+ FilterErode {
+  size 0
+  name FilterErode1
+  xpos 670
+  ypos 281
+ }
+push $Nc009b70
+ Unpremult {
+  name Unpremult21
+  xpos 821
+  ypos 247
+ }
+ FilterErode {
+  name FilterErode2
+  xpos 821
+  ypos 293
+ }
+ EdgeBlur {
+  size 0.5
+  name EdgeBlur7
+  xpos 821
+  ypos 341
+ }
+ Premult {
+  name Premult20
+  xpos 821
+  ypos 397
+ }
+push $Nc009b70
+ Blur {
+  size 10
+  name Blur6
+  xpos 950
+  ypos 101
+ }
+ Unpremult {
+  name Unpremult22
+  xpos 950
+  ypos 159
+ }
+push $Nc009b70
+ Merge2 {
+  inputs 2
+  name Merge14
+  xpos 950
+  ypos 199
+ }
+set Nb901810 [stack 0]
+ Premult {
+  name Premult21
+  xpos 950
+  ypos 349
+ }
+ Blur {
+  size {{parent.Blur6.size+1 i}}
+  name Blur10
+  xpos 1045
+  ypos 343
+ }
+ Unpremult {
+  name Unpremult23
+  xpos 1144
+  ypos 349
+ }
+push $Nb901810
+ Merge2 {
+  inputs 2
+  name Merge15
+  xpos 1144
+  ypos 199
+ }
+set Nb9adb80 [stack 0]
+ Premult {
+  name Premult22
+  xpos 1280
+  ypos 349
+ }
+ Blur {
+  size {{parent.Blur6.size+2 i}}
+  name Blur11
+  xpos 1410
+  ypos 343
+ }
+ Unpremult {
+  name Unpremult24
+  xpos 1520
+  ypos 349
+ }
+push $Nb9adb80
+ Merge2 {
+  inputs 2
+  name Merge16
+  xpos 1520
+  ypos 205
+ }
+set Nb9ae840 [stack 0]
+ Premult {
+  name Premult1
+  xpos 1672
+  ypos 343
+ }
+ Blur {
+  size {{parent.Blur6.size+3 i}}
+  name Blur2
+  xpos 1815
+  ypos 337
+ }
+ Unpremult {
+  name Unpremult1
+  xpos 1955
+  ypos 343
+ }
+set Nb9af1d0 [stack 0]
+ Dot {
+  name Dot35
+  xpos 1989
+  ypos 456
+ }
+ Grade {
+  name Grade2
+  xpos 1316
+  ypos 453
+ }
+ Merge2 {
+  inputs 2
+  name Merge17
+  xpos 821
+  ypos 453
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy5
+  xpos 670
+  ypos 341
+ }
+set Nb9afe90 [stack 0]
+push $Nc008eb0
+ Dot {
+  name Dot1
+  xpos 544
+  ypos -10
+ }
+ Keymix {
+  inputs 3
+  name Keymix1
+  xpos 510
+  ypos 341
+ }
+push $Nb9afe90
+ Dot {
+  name Dot2
+  note_font Verdana
+  xpos 704
+  ypos 417
+ }
+set Nb9b0820 [stack 0]
+ Premult {
+  name Premult2
+  xpos 730
+  ypos 469
+ }
+push $Nb9b0820
+ Switch {
+  inputs 2
+  which {{"\[value parent.premultiplied]"}}
+  name Switch3
+  note_font Verdana
+  xpos 620
+  ypos 469
+ }
+ Switch {
+  inputs 2
+  which {{"\[exists parent.input1]" i}}
+  name Switch1
+  xpos 510
+  ypos 469
+ }
+ Output {
+  name Output1
+  xpos 510
+  ypos 625
+ }
+push $Nb9af1d0
+push $Nb9ae840
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos 1955
+  ypos 205
+ }
+end_group

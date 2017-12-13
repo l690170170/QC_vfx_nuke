@@ -1,0 +1,146 @@
+set cut_paste_input [stack 0]
+version 10.0 v6
+push $cut_paste_input
+Group {
+ name Group1
+ label "\[value frameFix]"
+ note_font "Bitstream Vera Sans"
+ selected true
+ xpos -422
+ ypos -423
+ mapsize {0.15 0.15}
+ addUserKnob {20 User l "Frame fix"}
+ addUserKnob {41 frameFix l frame T control.frameFix}
+ addUserKnob {41 inputAmount l "No of frames" T control.inputAmount}
+ addUserKnob {22 stfrm l "Set To Current Frame" T "nuke.thisNode()\['frameFix'].setValue(nuke.frame())" +STARTLINE}
+ addUserKnob {20 Kronos}
+ addUserKnob {26 "" l "Local GPU"}
+ addUserKnob {26 "" l " "}
+ addUserKnob {41 useGPUIfAvailable l "Use GPU if available" T Kronos1.useGPUIfAvailable}
+ addUserKnob {26 ""}
+ addUserKnob {41 interactKnob T Kronos1.interactKnob}
+ addUserKnob {41 serializeKnob +INVISIBLE T Kronos1.serializeKnob}
+ addUserKnob {41 input.first l "Input Range" T Kronos1.input.first}
+ addUserKnob {41 input.last l "" -STARTLINE T Kronos1.input.last}
+ addUserKnob {41 resetInputRange l Reset T Kronos1.resetInputRange}
+ addUserKnob {41 timing l Timing +INVISIBLE T Kronos1.timing}
+ addUserKnob {41 timingSpeed l Speed +INVISIBLE T Kronos1.timingSpeed}
+ addUserKnob {41 timingFrame l Frame +INVISIBLE T Kronos1.timingFrame}
+ addUserKnob {41 vectorDetail l "Vector Detail" +INVISIBLE T Kronos1.vectorDetail}
+ addUserKnob {41 smoothness l Smoothness +INVISIBLE T Kronos1.smoothness}
+ addUserKnob {20 Shutter n 2}
+ addUserKnob {41 shutterSamples l "Shutter Samples" T Kronos1.shutterSamples}
+ addUserKnob {41 shutterTime l "Shutter Time" T Kronos1.shutterTime}
+ addUserKnob {26 "" l " "}
+ addUserKnob {41 autoShutterTime l "Automatic Shutter Time" T Kronos1.autoShutterTime}
+ addUserKnob {20 "" n -1}
+ addUserKnob {41 output l Output T Kronos1.output}
+ addUserKnob {41 matteChannel l "Matte Channel" T Kronos1.matteChannel}
+ addUserKnob {20 Advanced n 2}
+ addUserKnob {26 "" l " "}
+ addUserKnob {41 flickerCompensation l "Flicker Compensation" T Kronos1.flickerCompensation}
+ addUserKnob {20 Tolerances n 2}
+ addUserKnob {41 weightRed l "Weight Red" T Kronos1.weightRed}
+ addUserKnob {41 weightGreen l "Weight Green" T Kronos1.weightGreen}
+ addUserKnob {41 weightBlue l "Weight Blue" T Kronos1.weightBlue}
+ addUserKnob {20 "" n -1}
+ addUserKnob {41 vectorSpacing l "Vector Spacing" T Kronos1.vectorSpacing}
+ addUserKnob {41 showVectors l "Overlay Vectors" T Kronos1.showVectors}
+ addUserKnob {20 "" n -1}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -480
+  ypos -32
+ }
+ Dot {
+  name Dot1
+  xpos -446
+  ypos 26
+ }
+set N73da5000 [stack 0]
+push $N73da5000
+ TimeWarp {
+  lookup {{(frame*(mult)+(offset-mult))-1 i C x1 90 93}}
+  time ""
+  name TimeWarp2
+  xpos -537
+  ypos 105
+  addUserKnob {20 User}
+  addUserKnob {7 mult}
+  mult {{parent.control.amount i}}
+  addUserKnob {7 offset}
+  offset {{parent.control.frameFix i}}
+ }
+set N73da4c00 [stack 0]
+ Kronos {
+  retimedChannels all
+  timing2 Frame
+  timingFrame2 {{frame/parent.control.amount+(1-1/control.amount)}}
+  showLegacyMode false
+  motionEstimation Regularized
+  legacyModeNuke9 false
+  name Kronos2
+  selected true
+  xpos -537
+  ypos 147
+ }
+ TimeOffset {
+  time_offset {{control.frameFix-2 i}}
+  time ""
+  name TimeOffset1
+  xpos -537
+  ypos 200
+ }
+ Switch {
+  inputs 2
+  which {{frame<control.frameFix||frame>control.frameFix+control.inputAmount?1:0 i}}
+  name Switch1
+  xpos -480
+  ypos 286
+ }
+ Output {
+  name Output1
+  xpos -487
+  ypos 344
+ }
+push $N73da5000
+ NoOp {
+  name control
+  xpos -735
+  ypos 150
+  addUserKnob {20 User}
+  addUserKnob {3 inputAmount}
+  inputAmount 1
+  addUserKnob {3 frameFix}
+  frameFix 1234
+  addUserKnob {3 amount}
+  amount {{inputAmount+1}}
+ }
+push $N73da4c00
+ OFXuk.co.thefoundry.time.oflow_v100 {
+  method Motion
+  timing "Source Frame"
+  timingFrame {{frame/parent.control.amount+(1-1/control.amount) x1 0.2 1.33 1.66 2}}
+  timingSpeed {{1/control.amount x1 11}}
+  filtering Normal
+  warpMode Normal
+  correctLuminance false
+  automaticShutterTime false
+  shutterTime 0
+  shutterSamples 1
+  vectorDetail 0.2
+  smoothness 0.5
+  blockSize 6
+  Tolerances 0
+  weightRed 0.3
+  weightGreen 0.6
+  weightBlue 0.1
+  showVectors false
+  cacheBreaker false
+  name OFlow3
+  xpos -890
+  ypos 148
+ }
+end_group

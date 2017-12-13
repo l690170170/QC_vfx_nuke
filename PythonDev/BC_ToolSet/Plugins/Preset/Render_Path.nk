@@ -1,0 +1,238 @@
+set cut_paste_input [stack 0]
+version 10.0 v4
+BackdropNode {
+ inputs 0
+ name Render_Path3
+ tile_color 0x406018
+ label "Render_Path:     tif&mov"
+ note_font_size 50
+ selected true
+ xpos -951
+ ypos -2132
+ bdwidth 1160
+ bdheight 650
+}
+StickyNote {
+ inputs 0
+ name StickyNote3
+ label "\n此处连原素材\n"
+ note_font "Verdana Bold Bold Bold Bold Bold"
+ note_font_size 18
+ selected true
+ xpos -759
+ ypos -1998
+}
+StickyNote {
+ inputs 0
+ name StickyNote4
+ label "若手动输出mov选Apple ProRes 4444压缩、并\n选Gamma1.8色彩空间和Raw勾上\n"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold"
+ note_font_size 15
+ selected true
+ xpos -335
+ ypos -1817
+}
+Dot {
+ inputs 0
+ name Dot14
+ selected true
+ xpos -714
+ ypos -1853
+}
+push $cut_paste_input
+Dot {
+ name Dot15
+ selected true
+ xpos -508
+ ypos -1989
+}
+set N4ac12000 [stack 0]
+Information_Reduction {
+ inputs 2
+ name Information_Reduction2
+ note_font "Adobe Arabic"
+ selected true
+ xpos -542
+ ypos -1856
+ metadatafilter ""
+ imageMetadatafilter ""
+ shownmetadata ""
+ metadatafilter_1 ""
+}
+Write {
+ channels rgba
+ file "S:/\[value proj_root]/\[value department]/\[value format]/\[value seq]/\[value shot]/\[value script]/\[value script]\[value padding]\[value format]"
+ colorspace Gamma1.8
+ raw true
+ file_type tiff
+ checkHashOnRead false
+ version 13
+ in_colorspace linear
+ out_colorspace linear
+ name Rander4
+ label "\n\n    Output Path: \[value file]\n    Project Path: \[value proj_path]\n    Project Root: \[value proj_root]\n    Department: \[value department]\n    Sequence: \[value seq]\n    Shot Name: \[value shot]\n    Script Name: \[value script]\n    Format Preset: \[value format]\n    "
+ selected true
+ xpos -542
+ ypos -1709
+ addUserKnob {20 plus}
+ addUserKnob {26 PlusControl l "Plus Control"}
+ addUserKnob {22 rfw l "Read from write" +STARTLINE}
+ addUserKnob {22 OPN l "Open Directory" T plusOpen() +STARTLINE}
+ addUserKnob {6 lnk l Link -STARTLINE}
+ addUserKnob {20 "Auto Create F_R Path "}
+ addUserKnob {1 proj_path l "Project Path"}
+ proj_path "\[join \[lrange \[split \[value root.name] / ] 0 0 ] / ]"
+ addUserKnob {1 proj_root l "Project Root"}
+ proj_root "\[join \[lrange \[split \[value root.name] / ] 1 1 ] / ]"
+ addUserKnob {4 department l Department M {cmpout aniout efxout dmtout layout mmvout lgtout}}
+ addUserKnob {1 seq l Sequence}
+ seq "\[lrange \[split \[value root.name] / ] 3 3 ]"
+ addUserKnob {1 shot l "Shot Name"}
+ shot "\[lrange \[split \[value root.name] / ] 4 4 ]"
+ addUserKnob {1 script l "Script Name"}
+ script "\[file rootname \[file tail \[value root.name] ] ]"
+ addUserKnob {4 format l "Format Preset:" M {dpx exr jpeg mov tga tif}}
+ format tif
+ addUserKnob {4 padding l Padding: M {.%04d. .}}
+ addUserKnob {26 ""}
+ addUserKnob {22 create_test l "          set and create output folder          " T "node=nuke.selectedNode()\nfile_path=node\[\"file\"].evaluate()\nimport os\ndirpath = os.path.dirname(file_path)\nprint dirpath\nprint os.path.exists(dirpath)\nif not os.path.exists(dirpath):\n    os.makedirs(dirpath)" +STARTLINE}
+}
+push $N4ac12000
+Dot {
+ name Dot16
+ selected true
+ xpos -164
+ ypos -1989
+}
+Slate_v02 { name Slate_v02_1
+ label "若手动输出mov选Apple ProRes 4444压缩、并\n选Gamma1.8色彩空间和Raw勾上"
+ xpos 408
+ ypos 439
+ Size 1
+ Slate 1
+ ShotMT false
+ Vendor "Blue Castel VFX"
+ Label01 Shot
+ Field01 "What's shot"
+ Label02 Show
+ Field02 "Wip or Final"
+ Label03 Artist
+ Field03 "Your Name"
+ Label04 ""
+ Field04 ""
+ CustomSpace ""
+ Info ""
+ Comment ""
+ Source path
+ Overlay 1
+ Layout 1
+ InputData 1
+ w {{width}}
+ h {{height}}
+ TimeStamp ""
+
+ xpos 7387
+ ypos 3842
+ selected true
+ disable false
+
+xpos 6376
+ypos 4863
+selected false
+disable false
+
+xpos 6376
+ypos 4863
+selected false
+disable false
+
+xpos 6376
+ypos 4863
+selected false
+disable false
+
+xpos 6376
+ypos 4863
+selected false
+disable false
+
+xpos 6376
+ypos 4863
+selected false
+disable false
+
+xpos 6376
+ypos 4863
+selected false
+disable false
+
+ xpos 6376
+ ypos 4863
+ selected true
+ disable false
+
+ xpos 483
+ ypos 59
+ selected true
+ disable true
+
+xpos 9185
+ypos 4599
+selected true
+disable true
+
+ xpos 17
+ ypos 20
+ selected true
+ disable true
+
+ xpos 2571
+ ypos -236
+ selected true
+ disable true
+
+xpos 7485
+ypos 4753
+selected true
+disable true
+
+ xpos -198
+ ypos -1919
+ selected true
+ disable true
+}
+Write {
+ file "//192.168.0.2/framestore/\[value proj_root]/\[value department]/mov/\[value seq]/\[value shot]/\[value script].mov"
+ colorspace sRGB
+ file_type mov
+ meta_codec ap4h
+ mov64_codec ap4h
+ mov64_bitrate 400000
+ mov64_bitrate_tolerance 40000000
+ mov64_quality_min 2
+ mov64_quality_max 31
+ mov64_gop_size 12
+ mov64_b_frames 0
+ checkHashOnRead false
+ name Rander_MOV2
+ label "\n\n    Output Path: \[value file]\n    Project Path: \[value proj_path]\n    Project Root: \[value proj_root]\n    Department: \[value department]\n    Sequence: \[value seq]\n    Shot Name: \[value shot]\n    Script Name: \[value script]\n    Format Preset: \[value format]\n    "
+ selected true
+ xpos -198
+ ypos -1713
+ addUserKnob {20 "Auto Create F_R Path "}
+ addUserKnob {1 proj_path l "Project Path"}
+ proj_path "\[join \[lrange \[split \[value root.name] / ] 0 0 ] / ]"
+ addUserKnob {1 proj_root l "Project Root"}
+ proj_root "\[join \[lrange \[split \[value root.name] / ] 1 1 ] / ]"
+ addUserKnob {4 department l Department M {cmpout aniout efxout dmtout layout mmvout lgtout}}
+ addUserKnob {1 seq l Sequence}
+ seq "\[lrange \[split \[value root.name] / ] 3 3 ]"
+ addUserKnob {1 shot l "Shot Name"}
+ shot "\[lrange \[split \[value root.name] / ] 4 4 ]"
+ addUserKnob {1 script l "Script Name"}
+ script "\[file rootname \[file tail \[value root.name] ] ]"
+ addUserKnob {4 padding l Padding: M {.%04d. .}}
+ padding .
+ addUserKnob {26 ""}
+ addUserKnob {22 setOutput l "          set and create output folder          " -STARTLINE T "node=nuke.selectedNode()\nfile_path=node\[\"file\"].evaluate()\nimport os\ndirpath = os.path.dirname(file_path)\nprint dirpath\nprint os.path.exists(dirpath)\nif not os.path.exists(dirpath):\n    os.makedirs(dirpath)"}
+}

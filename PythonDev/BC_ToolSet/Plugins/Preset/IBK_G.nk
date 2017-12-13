@@ -1,0 +1,18 @@
+set cut_paste_input [stack 0]
+version 9.0 v8
+push $cut_paste_input
+IBKColourV3 {
+ name IBKColourV3_1
+ selected true
+ xpos 106
+ ypos 12
+ screen_type green
+ Size 1
+}
+push 0
+IBKGizmoV3 {
+ inputs 2
+ name IBKGizmoV3_1
+ xpos 235
+ ypos 12
+}

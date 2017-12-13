@@ -1,0 +1,82 @@
+#! C:/Program Files/Nuke5.1v3b8/Nuke5.1.exe -nx
+version 5.1300
+Gizmo {
+ tile_color 0x7aa9ffff
+ addUserKnob {20 super35 l "Super 35mm Guide"}
+ addUserKnob {3 ls l Thickness}
+ ls 4
+ addUserKnob {18 color l Color}
+ color {0.3 1 0}
+ addUserKnob {32 reset l " default " -STARTLINE T "knob this.color \{0.3 1 0\}"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -23
+  ypos -76
+ }
+set N137016b8 [stack 0]
+ Rectangle {
+  area {{input.format.x i} {input.format.y i} {input.format.r i} {input.format.t i}}
+  color {{parent.color.r i} {parent.color.g i} {parent.color.b i} 1}
+  name Rectangle4
+  xpos 77
+  ypos -5
+ }
+ Rectangle {
+  output alpha
+  replace true
+  area {{rint((input.format.w-(input.format.w*0.8945313))-(parent.ls/2)) i} 0 {rint((input.format.w-(input.format.w*0.8945313))+(parent.ls/2)) i} {input.format.h i}}
+  name Rectangle1
+  xpos 77
+  ypos 24
+ }
+ Rectangle {
+  output alpha
+  area {{rint(input.format.w-(input.format.w*0.8945313)) i} {rint((input.format.h/2)-(parent.ls/2)) i} {input.format.w i} {rint((input.format.h/2)+(parent.ls/2)) i}}
+  name Rectangle2
+  xpos 77
+  ypos 69
+ }
+ Rectangle {
+  output alpha
+  area {{rint((input.format.w-(input.format.w*0.4482422))-(parent.ls/2)) i} 0 {rint((input.format.w-(input.format.w*0.4482422))+(parent.ls/2)) i} {input.format.h i}}
+  name Rectangle3
+  xpos 77
+  ypos 114
+ }
+ Text {
+  output alpha
+  message "O\nP\nT\nI\nC\nA\nL\n\nT\nR\nA\nC\nK\n\nA\nR\nE\nA"
+  font C:/WINDOWS/Fonts/Arial.ttf
+  size {{0.023*height i}}
+  xjustify center
+  translate {{0.055*width i} {0.7*height i}}
+  name Text1
+  xpos 77
+  ypos 159
+ }
+ Premult {
+  name Premult2
+  xpos 77
+  ypos 204
+ }
+push $N137016b8
+ Dot {
+  name Dot1
+  xpos 11
+  ypos 304
+ }
+ Merge2 {
+  inputs 2
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge1
+  xpos 77
+  ypos 299
+ }
+ Output {
+  name Output1
+  xpos 77
+  ypos 379
+ }
+end_group

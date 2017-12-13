@@ -1,0 +1,62 @@
+#! C:/Program Files/Nuke6.0v1/Nuke6.0.exe -nx
+#! by Martin Minsel,2010 (C)
+version 6.0 v1
+Gizmo {
+ inputs 3
+ help "This createMayaScene plugIn enables you to export your 3d tracking data to Maya by using a MayaAscii Scene file. \n\nFor other 3d Packages you can use in combination the other two files (chan and obj), exported by this plugIn.\n\nTo run the plugIn just fillOut the first Tab and hit Execute!"
+ lock_connections true
+ addUserKnob {20 mayaCreation l "Create Maya Scene" t "Fill out the following fields and then press 'execute'"}
+ addUserKnob {1 readNode l "Read Node" t "enter the name of your Footage-Node"}
+ addUserKnob {1 trackNode l "Tracking Node" t "enter the name of your camera-tracker-node"}
+ addUserKnob {1 camNode l "Camera Node" t "enter the name of the camera created by the camera tracker"}
+ addUserKnob {26 ""}
+ addUserKnob {2 mPath l mayaScene t "choose a location and specify a filename. you can only export *.ma files (Maya-Ascii)"}
+ addUserKnob {41 seqPath l INVISIBLE +INVISIBLE T Read.read}
+ addUserKnob {26 ""}
+ addUserKnob {22 mayaScene l execute! t "by hitting this button you will create 3 Files:\n#1 a Maya scene  \n#2 a Camera-chan file\n#3 a OBJ Point-cloud " T "import math\nimport re\n\nreNode = nuke.toNode('this').knob('readNode').value()\ntrNode = nuke.toNode('this').knob('trackNode').value()\ncaNode = nuke.toNode('this').knob('camNode').value()\npluginPath= _nuke.pluginPath()\n\nseq = nuke.toNode(reNode).knob('file').value()\nwildCrd = re.findall(r'\\%\[0-9]\[0-9]d*',seq)\nhelp3 = wildCrd\[0].replace(\"%\", \"\")\nhelp3 = help3.replace(\"d\", \"\")\nf1st = nuke.toNode(reNode).knob('first').getValue()\nhelp3= str(int(f1st)).zfill(int(help3))\nseq= seq.replace(wildCrd\[0], help3)\nnuke.toNode('this.Read').knob('read').setValue(seq)\n\n\ntimeLineST = nuke.toNode(trNode).knob('analysisStart').value()\ntimeLineEN =nuke.toNode(trNode).knob('analysisStop').value()\nmTX=\"\"\nmTY=\"\"\nmTZ=\"\"\nmRX=\"\"\nmRY=\"\"\nmRZ=\"\"\nmFL=\"\"\nchan=\"\"\nnuke.toNode('root').knob('frame').setValue(timeLineST)\nfor i in range (timeLineST,timeLineEN+1):\n    actFR = nuke.expression(\"(root.frame.main)\")\n\n    T = nuke.toNode('Camera1').knob('translate').getValueAt(i)\n    R = nuke.toNode('Camera1').knob('rotate').getValueAt(i)\n    F = nuke.toNode('Camera1').knob('focal').getValueAt(i)\n\n    camTX = T\[0]\n    camTY = T\[1]\n    camTZ = T\[2]\n    camRX = R\[0]\n    camRY = R\[1]\n    camRZ = R\[2]\n    camFL =  F\n    FR= i\n    mTX = (mTX + \" \" + str(FR)+\" \"+str(camTX))\n    mTY = (mTY +  \" \" + str(FR)+\" \"+str(camTY))\n    mTZ = (mTZ + \" \" + str(FR)+\" \"+str(camTZ))\n    mRX = (mRX + \" \" + str(FR)+\" \"+str(math.radians(camRX)))\n    mRY = (mRY + \" \" + str(FR)+\" \"+str(math.radians(camRY)))\n    mRZ = (mRZ + \" \" + str(FR)+\" \"+str(math.radians(camRZ)))\n    mFL = (mFL + \" \" + str(FR)+\" \"+str(camFL))\n    chan = chan + str(actFR) + \" \" + str(camTX) + \" \" + str(camTY) +  \" \" +str(camTZ) +  \" \" +str(camRX) +  \" \" +str(camRY) +  \" \" +str(camRZ) +  \" \" +str(camFL) + \"\\n\"\n\n#    a = nuke.toNode('root').knob('frame').value()\n #   nuke.toNode('root').knob('frame').setValue(a+1.0)\n \n \n#####################################################\n############CREATE MAYA SCENE ###########################\n#####################################################\nbase =  (\"//framestore/pipeline/pantry/globalNuke/gizmos/duckTools/createMayaScene/base.ma\")\nbasefile = open(base, 'r')\n\np= nuke.toNode('this').knob('mPath').getValue()\np = p.replace('''\"''', \"\")\n#seq = nuke.toNode('this.Read').knob('read').getValue()\nseq = seq.replace('''\"''', \"\")\nseq = '''\"'''+seq+'''\"'''\n\nfilename = p\n\n\n##################objFile########################\n\np = p.replace(\".ma\", \".obj\")\nobjPath = p\nnuke.toNode('this.getPointCloud').knob('file').setValue(p)\nnuke.execute('this.getPointCloud',timeLineST,timeLineST,1,)\n\nobjFile = open(objPath, 'r')\n\ntrackPntGen = \"\"\nh=objFile.read()\nl= h.splitlines()\ni=0\ncont = 0\nwhile cont <> 1:\n    w = l\[i].split( )\n    if l\[i] > \"\":\n        if (w\[0]==\"v\"):\n           trackPntGen = (trackPntGen+ \"\"\"\\n\"\"\"+\"\"\"createNode transform -n \"trackingPoint\"\"\"+str(i)+\"\"\"\" -p \"nukePointCloud\";\\n    setAttr \".t\" -type \"double3\" \"\"\"+str(w\[1])+\"\"\" \"\"\"+ str(w\[2])+\"\"\" \"\"\"+str(w\[3])+\"\"\" ;\\n    setAttr \".r\" -type \"double3\" 0 0 0 ;\\n    setAttr \".ro\" 2;\\n    setAttr \".s\" -type \"double3\" .05 .05 .05 ;\\n            createNode locator -n \"trackingPointShape\"\"\"+str(i)+\"\"\"\" -p \"trackingPoint\"\"\"+str(i)+\"\"\"\";\\n    setAttr -k off \".v\";\"\"\")\n        if (w\[1] == \"end\"):\n            cont=1\n    i=i+1    \n\nobjFile.close()\n\n##################chan##############\n\np = p.replace(\".obj\", \".chan\")\nchanPath = p\nchanFile = open(chanPath, 'w')\nchanFile.write(chan)\nchanFile.close()\n\n###################Maya###########\n\nfile = open(filename, 'w')\n\nfrom time import *\nlt = localtime()\nheaderGen = \"//Maya ASCII scene\\n//Name: test.ma\\n//Last modified:\" + strftime(\"%a, %b %d, %Y %I:%M:%S %p\", lt)\n\nhelp1 = int(timeLineEN-timeLineST)\nhelp2 = int(help1+1)\nanimCrvGen = \"\"\"createNode animCurveTL -n \"nukeCam_translateX\";\\n    setAttr \".tan\" 10;\\n    setAttr \".wgt\" no;    setAttr -s \"\"\"+ str(help2)+\"\"\" \".ktv\[0:\"\"\"+ str(help1)+\"\"\"]\"  \"\"\" + mTX+ \"\"\";\\n\"\"\" +  \"\"\"createNode animCurveTL -n \"nukeCam_translateY\";\\n    setAttr \".tan\" 10;\\n    setAttr \".wgt\" no;    setAttr -s \"\"\"+ str(help2)+\"\"\" \".ktv\[0:\"\"\"+ str(help1)+\"\"\"]\"  \"\"\" + mTY+ \"\"\";\\n\"\"\" + \"\"\"createNode animCurveTL -n \"nukeCam_translateZ\";\\n    setAttr \".tan\" 10;\\n    setAttr \".wgt\" no;    setAttr -s \"\"\"+ str(help2)+\"\"\" \".ktv\[0:\"\"\"+ str(help1)+\"\"\"]\"  \"\"\" + mTZ+\"\"\";\\n\"\"\" +  \"\"\"createNode animCurveTL -n \"nukeCam_rotateX\";\\n    setAttr \".tan\" 10;\\n    setAttr \".wgt\" no;    setAttr -s \"\"\"+ str(help2)+\"\"\" \".ktv\[0:\"\"\"+ str(help1)+\"\"\"]\"  \"\"\" + mRX+ \"\"\";\\n\"\"\" +  \"\"\"createNode animCurveTL -n \"nukeCam_rotateY\";\\n    setAttr \".tan\" 10;\\n    setAttr \".wgt\" no;    setAttr -s \"\"\"+ str(help2)+\"\"\" \".ktv\[0:\"\"\"+ str(help1)+\"\"\"]\"  \"\"\" +mRY+ \"\"\";\\n\"\"\" + \"\"\"createNode animCurveTL -n \"nukeCam_rotateZ\";\\n    setAttr \".tan\" 10;\\n    setAttr \".wgt\" no;    setAttr -s \"\"\"+ str(help2)+\"\"\" \".ktv\[0:\"\"\"+ str(help1)+\"\"\"]\"  \"\"\" + mRZ+ \"\"\";\\n\"\"\" + \"\"\"createNode animCurveTL -n \"nukeCamShape_focalLength\";\\n    setAttr \".tan\" 10;\\n    setAttr \".wgt\" no;    setAttr -s \"\"\"+ str(help2)+\"\"\" \".ktv\[0:\"\"\"+ str(help1)+\"\"\"]\"  \"\"\" + mFL+\"\"\";\\n\"\"\"\n\n\n##################imgPlane\n\nimgPlane = \"\"\"createNode imagePlane -n \"imagePlaneNukeTracker\";\\n    setAttr \".fc\" 0;\\n    setAttr \".imn\" -type \"string\" \"\"\"+seq+\"\"\";\\n    setAttr \".ufe\" yes;\\n    setAttr \".cov\" -type \"short2\" 283 212 ;\\n    setAttr \".s\" -type \"double2\" 1.41732 0.94488 ;\\n    setAttr \".c\" -type \"double3\" 0.56528282130621399 2.3487823687206264 -1.9688400893788227 ;\\n    setAttr \".w\" 30;\\n    setAttr \".h\" 30;\\ncreateNode expression -n \"expression1\";\\n    setAttr -k on \".nds\";\\n    setAttr \".ixp\" -type \"string\" \".O\[0]=frame\";\\nconnectAttr \"expression1.out\[0]\" \"imagePlaneNukeTracker.fe\";\\nconnectAttr \"imagePlaneNukeTracker.msg\" \"nukeCamShape.ip\" -na;\\nconnectAttr \":time1.o\" \"expression1.tim\";\"\"\"\n\n\n\n##############writeIt!##################################\n\nh = basefile.read()\nh = h.replace(\"QQQHeaderQQQ\", headerGen)\nh = h.replace(\"QQQTrackingPointsQQQ\", trackPntGen)\nh = h.replace(\"QQQChanFileQQQ\", animCrvGen)\nh = h.replace(\"QQQimagePlaneQQQ\",imgPlane)\nfile.write(h)\n\nfile.close()\nbasefile.close()\n\n" +STARTLINE}
+}
+ Input {
+  inputs 0
+  name Scene
+  xpos -95
+  ypos 2
+ }
+set N57e9f00 [stack 0]
+ WriteGeo {
+  file C:/Users/martinminsel/Desktop/script/1627jsda.obj
+  name getPointCloud
+  xpos -80
+  ypos 149
+  addUserKnob {20 User}
+  addUserKnob {41 file_1 l file T getPointCloud.file}
+ }
+ Input {
+  inputs 0
+  name Cam
+  xpos 86
+  ypos 1
+  number 2
+ }
+push $N57e9f00
+ Input {
+  inputs 0
+  name Read
+  selected true
+  xpos -5
+  ypos 1
+  number 1
+  addUserKnob {20 User}
+  addUserKnob {2 read l seqPath}
+ }
+ ScanlineRender {
+  inputs 3
+  name ScanlineRender1
+  xpos 15
+  ypos 96
+ }
+ Output {
+  name Output1
+  xpos 15
+  ypos 187
+ }
+end_group

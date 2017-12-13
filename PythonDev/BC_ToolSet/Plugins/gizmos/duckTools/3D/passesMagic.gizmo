@@ -1,0 +1,774 @@
+#! C:/Program Files/Nuke6.3v7/Nuke6.3.exe -nx
+version 6.3 v7
+Gizmo {
+ inputs 2
+ postage_stamp true
+ addUserKnob {20 master}
+ addUserKnob {41 blackpoint T masterGrade.blackpoint}
+ addUserKnob {41 whitepoint T masterGrade.whitepoint}
+ addUserKnob {41 black l lift T masterGrade.black}
+ addUserKnob {41 white_8 l gain T masterGrade.white}
+ addUserKnob {41 multiply_8 l multiply T masterGrade.multiply}
+ addUserKnob {41 add l offset T masterGrade.add}
+ addUserKnob {41 gamma_9 l gamma T masterGrade.gamma}
+ addUserKnob {26 "" l "  "}
+ addUserKnob {41 reverse T masterGrade.reverse}
+ addUserKnob {41 black_clamp l "black clamp" T masterGrade.black_clamp}
+ addUserKnob {41 white_clamp l "white clamp" T masterGrade.white_clamp}
+ addUserKnob {41 mix T masterGrade.mix}
+ addUserKnob {20 master_1 l "@b;master" n 1}
+ addUserKnob {41 saturation_6 l saturation T masterColorCorrect.saturation}
+ addUserKnob {41 contrast T masterColorCorrect.contrast}
+ addUserKnob {41 gamma_8 l gamma T masterColorCorrect.gamma}
+ addUserKnob {41 gain T masterColorCorrect.gain}
+ addUserKnob {41 offset T masterColorCorrect.offset}
+ addUserKnob {20 "" n -1}
+ addUserKnob {20 shadows l "@b;shadows" n 1}
+ addUserKnob {41 shadows.saturation l saturation T masterColorCorrect.shadows.saturation}
+ addUserKnob {41 shadows.contrast l contrast T masterColorCorrect.shadows.contrast}
+ addUserKnob {41 shadows.gamma l gamma T masterColorCorrect.shadows.gamma}
+ addUserKnob {41 shadows.gain l gain T masterColorCorrect.shadows.gain}
+ addUserKnob {41 shadows.offset l offset T masterColorCorrect.shadows.offset}
+ addUserKnob {20 "" n -1}
+ addUserKnob {20 midtones l "@b;midtones" n 1}
+ addUserKnob {41 midtones.saturation l saturation T masterColorCorrect.midtones.saturation}
+ addUserKnob {41 midtones.contrast l contrast T masterColorCorrect.midtones.contrast}
+ addUserKnob {41 midtones.gamma l gamma T masterColorCorrect.midtones.gamma}
+ addUserKnob {41 midtones.gain l gain T masterColorCorrect.midtones.gain}
+ addUserKnob {41 midtones.offset l offset T masterColorCorrect.midtones.offset}
+ addUserKnob {20 "" n -1}
+ addUserKnob {20 highlights l "@b;highlights" n 1}
+ addUserKnob {41 highlights.saturation l saturation T masterColorCorrect.highlights.saturation}
+ addUserKnob {41 highlights.contrast l contrast T masterColorCorrect.highlights.contrast}
+ addUserKnob {41 highlights.gamma l gamma T masterColorCorrect.highlights.gamma}
+ addUserKnob {41 highlights.gain l gain T masterColorCorrect.highlights.gain}
+ addUserKnob {41 highlights.offset l offset T masterColorCorrect.highlights.offset}
+ addUserKnob {20 "" n -1}
+ addUserKnob {20 diffuse}
+ addUserKnob {41 white l gain T diffuseG.white}
+ addUserKnob {41 gamma T diffuseG.gamma}
+ addUserKnob {41 multiply T diffuseG.multiply}
+ addUserKnob {41 saturation T diffuseSaturation.saturation}
+ addUserKnob {20 reflect}
+ addUserKnob {41 white_1 l gain T ReflectG.white}
+ addUserKnob {41 gamma_1 l gamma T ReflectG.gamma}
+ addUserKnob {41 multiply_1 l multiply T ReflectG.multiply}
+ addUserKnob {41 saturation_3 l saturation T ReflectSaturation.saturation}
+ addUserKnob {20 specular}
+ addUserKnob {41 white_2 l gain T specularG.white}
+ addUserKnob {41 multiply_2 l multiply T specularG.multiply}
+ addUserKnob {41 gamma_2 l gamma T specularG.gamma}
+ addUserKnob {41 saturation_4 l saturation T SpecSaturation.saturation}
+ addUserKnob {20 sss}
+ addUserKnob {41 white_3 l gain T sssG.white}
+ addUserKnob {41 multiply_3 l multiply T sssG.multiply}
+ addUserKnob {41 gamma_3 l gamma T sssG.gamma}
+ addUserKnob {41 saturation_2 l saturation T sssSaturation.saturation}
+ addUserKnob {20 refract}
+ addUserKnob {41 white_4 l gain T refractG.white}
+ addUserKnob {41 multiply_4 l multiply T refractG.multiply}
+ addUserKnob {41 gamma_4 l gamma T refractG.gamma}
+ addUserKnob {41 saturation_1 l saturation T RefractSaturation.saturation}
+ addUserKnob {20 shadowTint}
+ addUserKnob {41 white_5 l gain T tintShadow.white}
+ addUserKnob {41 multiply_5 l multiply T tintShadow.multiply}
+ addUserKnob {41 gamma_5 l gamma T tintShadow.gamma}
+ addUserKnob {20 occ}
+ addUserKnob {6 invertOccPass +STARTLINE}
+ addUserKnob {41 white_6 l gain T occG.white}
+ addUserKnob {41 multiply_6 l multiply T occG.multiply}
+ addUserKnob {41 gamma_6 l gamma T occG.gamma}
+ addUserKnob {20 selfIlum}
+ addUserKnob {41 white_7 l gain T selfillumG.white}
+ addUserKnob {41 multiply_7 l multiply T selfillumG.multiply}
+ addUserKnob {41 gamma_7 l gamma T selfillumG.gamma}
+ addUserKnob {41 saturation_5 l saturation T selfIlumSaturation.saturation}
+}
+ Shuffle {
+  inputs 0
+  name Shuffle13
+  xpos 1916
+  ypos -811
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos -1423
+  ypos -598
+  number 1
+ }
+ Invert {
+  name Invert2
+  xpos -1423
+  ypos -548
+ }
+ Roto {
+  curves {AnimTree: "" {
+ Version: 1.2
+ Flag: 0
+ RootNode: 1
+ Node: {
+  NodeName: "Root" {
+   Flag: 512
+   NodeType: 1
+   Transform: 0 0 S 0 0 S 0 0 S 0 0 S 0 1 S 0 1 S 0 0 S 0 480 S 0 270 
+   NumOfAttributes: 11
+   "vis" S 0 1 "opc" S 0 1 "mbo" S 0 1 "mb" S 0 1 "mbs" S 0 0.5 "fo" S 0 1 "fx" S 0 0 "fy" S 0 0 "ff" S 0 1 "ft" S 0 0 "pt" S 0 0 
+  }
+  NumOfChildren: 0
+ }
+}
+}
+  toolbox {createBezier {
+  { createBezier ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBSpline ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle ssx 1 ssy 1 sf 1 sb 1 }
+  { brush ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+  toolbar_brush_hardness 0.200000003
+  toolbar_lifetime_type all
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {480 270}
+  view {}
+  motionblur_on true
+  createNewTrack {{-1} "-1\t(none)\t-1" "1000\tNew Track Layer\t1000"}
+  name Roto3
+  xpos -1423
+  ypos -485
+ }
+ Invert {
+  name Invert1
+  xpos -1423
+  ypos -441
+ }
+ Dot {
+  name Dot19
+  xpos -1389
+  ypos -279
+ }
+set N8462ae80 [stack 0]
+ Dot {
+  name Dot20
+  xpos -1662
+  ypos -279
+ }
+ Dot {
+  name Dot33
+  xpos -1662
+  ypos -180
+ }
+set N8462b4e0 [stack 0]
+ Dot {
+  name Dot21
+  xpos -1662
+  ypos -111
+ }
+set N8462b810 [stack 0]
+ Dot {
+  name Dot31
+  xpos -1662
+  ypos 213
+ }
+set N8462bb40 [stack 0]
+ Dot {
+  name Dot32
+  xpos -1662
+  ypos 237
+ }
+set N8462be70 [stack 0]
+ Dot {
+  name Dot29
+  xpos -1662
+  ypos 355
+ }
+set N8462c1a0 [stack 0]
+ Dot {
+  name Dot30
+  xpos -1662
+  ypos 398
+ }
+set N8462c4d0 [stack 0]
+ Dot {
+  name Dot28
+  xpos -1662
+  ypos 436
+ }
+set N8462c800 [stack 0]
+ Dot {
+  name Dot23
+  xpos -1662
+  ypos 518
+ }
+set Nd9798b0 [stack 0]
+ Dot {
+  name Dot27
+  xpos -1662
+  ypos 605
+ }
+set Nd979be0 [stack 0]
+ Dot {
+  name Dot26
+  xpos -1662
+  ypos 650
+ }
+set Nd979f10 [stack 0]
+ Dot {
+  name Dot22
+  xpos -1662
+  ypos 695
+ }
+set Nd97a240 [stack 0]
+ Dot {
+  name Dot25
+  xpos -1662
+  ypos 727
+ }
+set Nd97a570 [stack 0]
+ Dot {
+  name Dot35
+  xpos -1662
+  ypos 2305
+ }
+set Nd97a8a0 [stack 0]
+ Dot {
+  name Dot36
+  xpos -1662
+  ypos 2329
+ }
+push $Nd97a8a0
+ Input {
+  inputs 0
+  name Input
+  xpos -379
+  ypos -1051
+ }
+ Unpremult {
+  name Unpremult1
+  xpos -379
+  ypos -938
+ }
+set Nd97b230 [stack 0]
+ Dot {
+  name Dot24
+  xpos -345
+  ypos -806
+ }
+set N84759d10 [stack 0]
+ Dot {
+  name Dot17
+  xpos 1618
+  ypos -806
+ }
+add_layer {occ occ.red occ.green occ.blue}
+ Shuffle {
+  in occ
+  name Shuffle12
+  xpos 1584
+  ypos 2136
+ }
+ Invert {
+  name Invert3
+  xpos 1582
+  ypos 2214
+  disable {{1-invertOccPass i x122 1}}
+ }
+set N8475a6a0 [stack 0]
+push $Nd97b230
+ Dot {
+  name Dot14
+  xpos 1307
+  ypos -935
+ }
+add_layer {matteShadow matteShadow.red matteShadow.green matteShadow.blue}
+ Shuffle {
+  in matteShadow
+  name Shuffle11
+  xpos 1273
+  ypos 2116
+ }
+push $Nd97b230
+ Dot {
+  name Dot16
+  xpos -1716
+  ypos -935
+ }
+ Dot {
+  name Dot15
+  xpos -1716
+  ypos 2006
+ }
+push $Nd97a240
+push $Nd979be0
+push $N84759d10
+ Dot {
+  name Dot13
+  xpos -345
+  ypos -734
+ }
+set N8475b690 [stack 0]
+ Dot {
+  name Dot9
+  xpos -345
+  ypos -531
+ }
+set N84e1b590 [stack 0]
+ Grade {
+  name Grade1
+  xpos -1438
+  ypos 285
+ }
+add_layer {selfIllum selfIllum.red selfIllum.green selfIllum.blue}
+ Shuffle {
+  in selfIllum
+  name Shuffle14
+  xpos -1438
+  ypos 470
+ }
+ Grade {
+  inputs 1+1
+  name selfillumG
+  xpos -1438
+  ypos 602
+ }
+ Saturation {
+  inputs 1+1
+  name selfIlumSaturation
+  xpos -1438
+  ypos 692
+ }
+ Multiply {
+  name selfIlumFade1
+  xpos -1438
+  ypos 935
+ }
+push $Nd97a570
+push $Nd979f10
+push $N84e1b590
+ Dot {
+  name Dot3
+  xpos -502
+  ypos -531
+ }
+set N84e1c8b0 [stack 0]
+ Dot {
+  name Dot1
+  xpos -673
+  ypos -531
+ }
+set N84e1cbe0 [stack 0]
+ Dot {
+  name Dot2
+  xpos -826
+  ypos -531
+ }
+set N84e1cf10 [stack 0]
+ Dot {
+  name Dot4
+  xpos -1003
+  ypos -531
+ }
+add_layer {specular specular.red specular.green specular.blue}
+ Shuffle {
+  in specular
+  alpha black
+  name Shuffle5
+  xpos -1037
+  ypos 528
+ }
+ Grade {
+  inputs 1+1
+  name specularG
+  xpos -1037
+  ypos 647
+ }
+ Saturation {
+  inputs 1+1
+  name SpecSaturation
+  xpos -1037
+  ypos 724
+ }
+ Multiply {
+  name specularFade
+  xpos -1037
+  ypos 813
+ }
+push $Nd9798b0
+push $N8462c1a0
+push $N84e1cf10
+add_layer {reflect reflect.red reflect.green reflect.blue}
+ Shuffle {
+  in reflect
+  name Shuffle3
+  xpos -860
+  ypos 159
+ }
+ Grade {
+  inputs 1+1
+  name ReflectG
+  xpos -860
+  ypos 352
+ }
+ Saturation {
+  inputs 1+1
+  name ReflectSaturation
+  xpos -860
+  ypos 515
+ }
+ Multiply {
+  name reflectFade
+  xpos -860
+  ypos 611
+ }
+push $N8462c800
+push $N8462c4d0
+push $N84e1cbe0
+add_layer {refract refract.red refract.green refract.blue}
+ Shuffle {
+  in refract
+  alpha black
+  name Shuffle4
+  xpos -707
+  ypos 309
+ }
+ Grade {
+  inputs 1+1
+  name refractG
+  xpos -707
+  ypos 395
+ }
+ Saturation {
+  inputs 1+1
+  name RefractSaturation
+  xpos -707
+  ypos 434
+ }
+ Multiply {
+  name refractFade
+  xpos -707
+  ypos 515
+ }
+push $N8462be70
+push $N8462bb40
+push $N84e1c8b0
+add_layer {SSS SSS.red SSS.green SSS.blue}
+ Shuffle {
+  in SSS
+  alpha black
+  name Shuffle2
+  xpos -536
+  ypos -39
+ }
+ Grade {
+  inputs 1+1
+  name sssG
+  xpos -536
+  ypos 210
+ }
+ Saturation {
+  inputs 1+1
+  name sssSaturation
+  xpos -536
+  ypos 234
+ }
+ Multiply {
+  name sssFade
+  xpos -536
+  ypos 403
+ }
+push $N8462b810
+push $N8462b4e0
+push $N8462ae80
+push $N8475b690
+ Dot {
+  name Dot11
+  xpos 1059
+  ypos -734
+ }
+ Dot {
+  name Dot12
+  xpos 1059
+  ypos 179
+ }
+push $N8475b690
+ Dot {
+  name Dot10
+  xpos 827
+  ypos -636
+ }
+set N2b0243e0 [stack 0]
+ Grade {
+  name Grade2
+  xpos 200
+  ypos -639
+ }
+ Shuffle {
+  in selfIllum
+  name Shuffle15
+  xpos 200
+  ypos -524
+ }
+ Grade {
+  name selfillumG1
+  xpos 200
+  ypos -323
+ }
+ Saturation {
+  name selfIlum1
+  xpos 200
+  ypos -263
+ }
+ Multiply {
+  name selfIlumFade2
+  xpos 200
+  ypos 61
+ }
+push $N2b0243e0
+ Dot {
+  name Dot8
+  xpos 683
+  ypos -636
+ }
+set N2b025700 [stack 0]
+ Dot {
+  name Dot7
+  xpos 601
+  ypos -636
+ }
+set N2b025a30 [stack 0]
+ Dot {
+  name Dot6
+  xpos 538
+  ypos -636
+ }
+set N2b06a0b0 [stack 0]
+ Dot {
+  name Dot5
+  xpos 458
+  ypos -636
+ }
+ Shuffle {
+  in specular
+  name Shuffle6
+  xpos 424
+  ypos -9
+ }
+push $N2b06a0b0
+ Shuffle {
+  in reflect
+  name Shuffle7
+  xpos 504
+  ypos -211
+ }
+push $N2b025a30
+ Shuffle {
+  in refract
+  name Shuffle8
+  xpos 567
+  ypos -307
+ }
+push $N2b025700
+ Shuffle {
+  in SSS
+  name Shuffle9
+  xpos 649
+  ypos -406
+ }
+push $N2b0243e0
+add_layer {lighting lighting.red lighting.green lighting.blue}
+ Shuffle {
+  in lighting
+  name Shuffle10
+  xpos 793
+  ypos -514
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge7
+  xpos 793
+  ypos -406
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge8
+  xpos 793
+  ypos -307
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge9
+  xpos 793
+  ypos -211
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge10
+  xpos 793
+  ypos -9
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Plus1
+  xpos 793
+  ypos 67
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge12
+  xpos 793
+  ypos 176
+ }
+ Dot {
+  name Dot18
+  xpos 54
+  ypos 179
+ }
+ Dot {
+  name Dot34
+  xpos 54
+  ypos -303
+ }
+push $N84e1b590
+ Shuffle {
+  in lighting
+  name Shuffle1
+  xpos -382
+  ypos -342
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge6
+  xpos -382
+  ypos -306
+ }
+ Grade {
+  inputs 1+1
+  name diffuseG
+  xpos -382
+  ypos -282
+ }
+ Multiply {
+  inputs 1+1
+  name diffuseFade
+  xpos -382
+  ypos -189
+ }
+ Saturation {
+  inputs 1+1
+  name diffuseSaturation
+  xpos -382
+  ypos -114
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge1
+  xpos -382
+  ypos 409
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge3
+  xpos -382
+  ypos 521
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge2
+  xpos -382
+  ypos 617
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge4
+  xpos -382
+  ypos 819
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Plus
+  xpos -382
+  ypos 941
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -382
+  ypos 1997
+ }
+ Grade {
+  inputs 1+1
+  name tintShadow
+  xpos -383
+  ypos 2116
+ }
+ Grade {
+  inputs 1+1
+  name occG
+  xpos -383
+  ypos 2220
+ }
+ Grade {
+  inputs 1+1
+  name Grade3
+  xpos -383
+  ypos 2302
+ }
+ Saturation {
+  inputs 1+1
+  name Saturation1
+  xpos -383
+  ypos 2326
+ }
+ ColorCorrect {
+  name masterColorCorrect
+  xpos -383
+  ypos 2389
+ }
+ Grade {
+  invert_unpremult true
+  name masterGrade
+  xpos -383
+  ypos 2474
+ }
+ Premult {
+  name Premult1
+  xpos -383
+  ypos 2514
+ }
+ Output {
+  name Output1
+  xpos -383
+  ypos 2596
+ }
+push $Nd97b230
+push $N8475a6a0
+ Viewer {
+  inputs 2
+  input_process false
+  name Viewer1
+  xpos -744
+  ypos 2491
+ }
+end_group

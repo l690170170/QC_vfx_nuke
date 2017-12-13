@@ -1,0 +1,156 @@
+#! C:/Program Files/Nuke6.3v7/Nuke6.3.exe -nx
+version 6.3 v7
+Gizmo {
+ inputs 2
+ addUserKnob {20 User l RgbSelect}
+ addUserKnob {41 channels l Include t "Include or exclude channels" T RemoveRGB.channels}
+ addUserKnob {41 value l Red t "Mix value of redToAlpha" T MultiplyRed.value}
+ addUserKnob {41 value_1 l Green t "Mix value of GreenToAlpha" T MultiplyGreen.value}
+ addUserKnob {41 value_2 l Blue t "Mix value of blueToAlpha" T MultiplyBlue.value}
+ addUserKnob {26 ""}
+ addUserKnob {41 disable_1 l Invert T Invert1.disable}
+ addUserKnob {41 invert_mask l "Mask invert" T Multiply_mask.invert_mask}
+}
+ Input {
+  inputs 0
+  name InputMask
+  xpos 647
+  ypos -22
+  number 1
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant1
+  xpos 796
+  ypos 75
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 647
+  ypos 99
+ }
+ Input {
+  inputs 0
+  name InputRGB
+  xpos 384
+  ypos -287
+ }
+ Remove {
+  operation keep
+  channels rgb
+  name RemoveRGB
+  xpos 384
+  ypos -233
+ }
+ Dot {
+  name Dot27
+  xpos 418
+  ypos -175
+ }
+set Ndbc6d20 [stack 0]
+ Dot {
+  name Dot29
+  xpos 319
+  ypos -175
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Red
+  xpos 285
+  ypos -132
+ }
+ Multiply {
+  value {{curve<1?curve:1 x1 1}}
+  name MultiplyRed
+  xpos 285
+  ypos -66
+ }
+push $Ndbc6d20
+ Shuffle {
+  red green
+  blue green
+  alpha green
+  name Green
+  xpos 384
+  ypos -132
+ }
+ Multiply {
+  value {{curve<1?curve:1 x1 1}}
+  name MultiplyGreen
+  xpos 384
+  ypos -65
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge16
+  xpos 348
+  ypos -7
+ }
+push $Ndbc6d20
+ Dot {
+  name Dot30
+  xpos 520
+  ypos -175
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha blue
+  name Blue
+  xpos 486
+  ypos -133
+ }
+ Multiply {
+  channels none
+  value {{curve<1?curve:1 x1 1}}
+  name MultiplyBlue
+  xpos 486
+  ypos -64
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge17
+  xpos 486
+  ypos -7
+ }
+ Clamp {
+  name Clamp1
+  xpos 486
+  ypos 32
+ }
+ Multiply {
+  inputs 1+1
+  value 0
+  name Multiply_mask
+  xpos 486
+  ypos 93
+ }
+ Invert {
+  name Invert1
+  xpos 486
+  ypos 168
+  disable true
+ }
+ Dot {
+  name Dot28
+  xpos 520
+  ypos 218
+ }
+ Output {
+  name Output1
+  xpos 486
+  ypos 267
+ }
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos 278
+  ypos 147
+ }
+end_group

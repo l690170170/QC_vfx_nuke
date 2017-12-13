@@ -1,0 +1,35 @@
+set cut_paste_input [stack 0]
+version 7.0 v4
+push $cut_paste_input
+push 0
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 rgba.alpha
+name Copy1
+selected true
+xpos 161
+ypos 777
+}
+Premult {
+name Premult1
+selected true
+xpos 161
+ypos 855
+}
+Constant {
+inputs 0
+channels rgb
+color 0.2
+name Constant1
+selected true
+xpos 317
+ypos 879
+}
+Merge2 {
+inputs 2
+name Merge1
+selected true
+xpos 161
+ypos 903
+}

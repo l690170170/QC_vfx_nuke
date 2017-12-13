@@ -1,0 +1,95 @@
+﻿<html>
+	
+<head>
+	<title>Pr_Suite Preferences</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="keywords" content="">
+	
+	<link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/base.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/hnd.css" />
+	<!--[if lte IE 8]>
+		<link type="text/css" rel="stylesheet" media="all" href="css/ielte8.css" />
+	<![endif]-->
+	<style type="text/css">
+		#topic_header
+		{
+			background-color: #EFEFEF;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/hnd.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			if (top.frames.length == 0)
+			{
+				var sTopicUrl = top.location.href.substring(top.location.href.lastIndexOf("/") + 1, top.location.href.length);
+				top.location.href = "Pr_Suite v1.1 Documentation.html?" + sTopicUrl;
+			}
+			else
+			{
+				var bTocSelected = false;
+				(function waitForTOC()
+				{
+					if (top && top.FrameTOC && top.FrameTOC.SelectTocItem)
+					{
+						top.FrameTOC.SelectTocItem("Pr_SuitePreferences");
+						bTocSelected = true;
+					}
+					if (!bTocSelected) setTimeout(function() { waitForTOC(); }, 300);
+				})();
+			}
+		});
+	</script>
+	
+	</head>
+
+<body>
+
+<div id="topic_header">
+			<div id="topic_header_content">
+				<h1 id="topic_header_text">Pr_Suite Preferences</h1>
+				
+				<div id="topic_breadcrumb">
+					<a href="Pr_SuitePreferencesandNukeRender.html">Pr_Suite Preferences and Nuke Renders Setup</a> &rsaquo;&rsaquo; </div>
+				</div>
+			<div id="topic_header_nav">
+				<a href="Pr_SuitePreferencesandNukeRender.html"><img src="img/arrow_up.png" alt="Parent"/></a>
+				
+				<a href="Pr_SuitePreferencesandNukeRender.html"><img src="img/arrow_left.png" alt="Previous"/></a>
+				
+				<a href="SetupNukeRendersWindowsOnly.html"><img src="img/arrow_right.png" alt="Next"/></a>
+				
+				</div>
+			<div class="clear"></div>
+		</div>
+	<div id="topic_content">
+		
+<p></p>
+<p class="rvps2"><span class="rvts6">Pr_Suite Preferences is great way to customize Pr_Suite. You can change color of all Pr_Suite gizmos from here. And most robust is Plugin Manager with which you can activate only needed gizmos and scripts.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">How to use Preferences:</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Open Pr_Suite Preferences from Pr_Suite Nuke Menu.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Change gizmo color with 'Gizmo Color' knob.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Check/Uncheck plugins according to your need.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Save preferences by using 'Save Preferences' knob.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Or set preferences to default by using 'Set to Default' knob.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><img width="314" height="789" alt="" style="padding : 1px;" src="lib/pr_suite_preferences.jpg"></p>
+<p></p>
+</div>
+	
+	<div id="topic_footer">
+
+			<div id="topic_footer_content">
+				Copyright (c) 2016 Parimal Desai</div>
+		</div>
+	</body>
+	
+</html>
+

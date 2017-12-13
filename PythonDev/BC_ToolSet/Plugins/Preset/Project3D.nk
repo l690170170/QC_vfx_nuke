@@ -1,0 +1,66 @@
+set cut_paste_input [stack 0]
+version 9.0 v3
+BackdropNode {
+inputs 0
+name BackdropNode10
+tile_color 0x8e388e00
+label Project3D
+note_font_size 42
+selected true
+xpos -2791
+ypos 1960
+bdwidth 358
+bdheight 304
+}
+push $cut_paste_input
+Camera2 {
+name Camera3
+selected true
+xpos -2762
+ypos 2072
+}
+set N923e4800 [stack 0]
+push $N923e4800
+FrameHold {
+first_frame 1
+name FrameHold1
+selected true
+xpos -2533
+ypos 2086
+}
+push 0
+Project3D {
+inputs 2
+name Project3D2
+selected true
+xpos -2533
+ypos 2214
+}
+Card2 {
+translate {-730 231.9967499 -1330}
+uniform_scale 10000
+control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+name Card2
+selected true
+xpos -2655
+ypos 2214
+}
+push 0
+ScanlineRender {
+inputs 3
+motion_vectors_type distance
+name ScanlineRender2
+selected true
+xpos -2772
+ypos 2214
+}

@@ -1,0 +1,40 @@
+set cut_paste_input [stack 0]
+version 7.0 v4
+BackdropNode {
+ inputs 0
+ name BackdropNode8
+ tile_color 0x388e8e00
+ note_font_size 42
+ selected true
+ xpos 849
+ ypos 3270
+ bdheight 253
+}
+push $cut_paste_input
+Clamp {
+ name Clamp1
+ selected true
+ xpos 859
+ ypos 3350
+}
+Shuffle {
+ alpha black
+ name Shuffle1
+ selected true
+ xpos 859
+ ypos 3403
+}
+Colorspace {
+ colorspace_out Cineon
+ name Colorspace3
+ selected true
+ xpos 859
+ ypos 3435
+}
+Write {
+ raw true
+ name Write3
+ selected true
+ xpos 859
+ ypos 3483
+}

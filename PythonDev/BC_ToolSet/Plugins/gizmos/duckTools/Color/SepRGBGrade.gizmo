@@ -1,0 +1,102 @@
+#! C:/Program Files/Nuke6.2v2/Nuke6.2.exe -nx
+version 6.2 v2
+Gizmo {
+ postage_stamp true
+ addUserKnob {20 User}
+ addUserKnob {26 RED l "" +STARTLINE}
+ addUserKnob {41 channels T Grade12.channels}
+ addUserKnob {41 blackpoint T Grade12.blackpoint}
+ addUserKnob {41 whitepoint T Grade12.whitepoint}
+ addUserKnob {41 black l lift T Grade12.black}
+ addUserKnob {41 white l gain T Grade12.white}
+ addUserKnob {41 multiply T Grade12.multiply}
+ addUserKnob {41 add l offset T Grade12.add}
+ addUserKnob {41 gamma T Grade12.gamma}
+ addUserKnob {26 "" l "  "}
+ addUserKnob {41 reverse T Grade12.reverse}
+ addUserKnob {41 black_clamp l "black clamp" T Grade12.black_clamp}
+ addUserKnob {41 white_clamp l "white clamp" T Grade12.white_clamp}
+ addUserKnob {26 "" l mask}
+ addUserKnob {41 maskChannelMask l "" -STARTLINE T Grade12.maskChannelMask}
+ addUserKnob {41 maskChannelInput l "" -STARTLINE T Grade12.maskChannelInput}
+ addUserKnob {41 inject T Grade12.inject}
+ addUserKnob {41 invert_mask l invert T Grade12.invert_mask}
+ addUserKnob {41 fringe T Grade12.fringe}
+ addUserKnob {41 unpremult l "(un)premult by" T Grade12.unpremult}
+ addUserKnob {41 invert_unpremult l invert T Grade12.invert_unpremult}
+ addUserKnob {41 mix T Grade12.mix}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 channels_1 l channels T Grade13.channels}
+ addUserKnob {41 blackpoint_1 l blackpoint T Grade13.blackpoint}
+ addUserKnob {41 whitepoint_1 l whitepoint T Grade13.whitepoint}
+ addUserKnob {41 black_1 l lift T Grade13.black}
+ addUserKnob {41 white_1 l gain T Grade13.white}
+ addUserKnob {41 multiply_1 l multiply T Grade13.multiply}
+ addUserKnob {41 add_1 l offset T Grade13.add}
+ addUserKnob {41 gamma_1 l gamma T Grade13.gamma}
+ addUserKnob {26 "" l "  "}
+ addUserKnob {41 reverse_1 l reverse T Grade13.reverse}
+ addUserKnob {41 black_clamp_1 l "black clamp" T Grade13.black_clamp}
+ addUserKnob {41 white_clamp_1 l "white clamp" T Grade13.white_clamp}
+ addUserKnob {26 "" l mask}
+ addUserKnob {41 maskChannelMask_1 l "" -STARTLINE T Grade13.maskChannelMask}
+ addUserKnob {41 maskChannelInput_1 l "" -STARTLINE T Grade13.maskChannelInput}
+ addUserKnob {41 inject_1 l inject T Grade13.inject}
+ addUserKnob {41 invert_mask_1 l invert T Grade13.invert_mask}
+ addUserKnob {41 fringe_1 l fringe T Grade13.fringe}
+ addUserKnob {41 unpremult_1 l "(un)premult by" T Grade13.unpremult}
+ addUserKnob {41 invert_unpremult_1 l invert T Grade13.invert_unpremult}
+ addUserKnob {41 mix_1 l mix T Grade13.mix}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 channels_2 l channels T Grade15.channels}
+ addUserKnob {41 blackpoint_2 l blackpoint T Grade15.blackpoint}
+ addUserKnob {41 whitepoint_2 l whitepoint T Grade15.whitepoint}
+ addUserKnob {41 black_2 l lift T Grade15.black}
+ addUserKnob {41 white_2 l gain T Grade15.white}
+ addUserKnob {41 multiply_2 l multiply T Grade15.multiply}
+ addUserKnob {41 add_2 l offset T Grade15.add}
+ addUserKnob {41 gamma_2 l gamma T Grade15.gamma}
+ addUserKnob {26 "" l "  "}
+ addUserKnob {41 reverse_2 l reverse T Grade15.reverse}
+ addUserKnob {41 black_clamp_2 l "black clamp" T Grade15.black_clamp}
+ addUserKnob {41 white_clamp_2 l "white clamp" T Grade15.white_clamp}
+ addUserKnob {26 "" l mask}
+ addUserKnob {41 maskChannelMask_2 l "" -STARTLINE T Grade15.maskChannelMask}
+ addUserKnob {41 maskChannelInput_2 l "" -STARTLINE T Grade15.maskChannelInput}
+ addUserKnob {41 inject_2 l inject T Grade15.inject}
+ addUserKnob {41 invert_mask_2 l invert T Grade15.invert_mask}
+ addUserKnob {41 fringe_2 l fringe T Grade15.fringe}
+ addUserKnob {41 unpremult_2 l "(un)premult by" T Grade15.unpremult}
+ addUserKnob {41 invert_unpremult_2 l invert T Grade15.invert_unpremult}
+ addUserKnob {41 mix_2 l mix T Grade15.mix}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 517
+  ypos 547
+ }
+ Grade {
+  channels {rgba.red -rgba.green -rgba.blue}
+  name Grade12
+  xpos 517
+  ypos 587
+ }
+ Grade {
+  channels {-rgba.red rgba.green -rgba.blue}
+  name Grade13
+  xpos 517
+  ypos 642
+ }
+ Grade {
+  channels {-rgba.red -rgba.green rgba.blue}
+  name Grade15
+  xpos 517
+  ypos 701
+ }
+ Output {
+  name Output1
+  xpos 517
+  ypos 801
+ }
+end_group

@@ -1,0 +1,31 @@
+set cut_paste_input [stack 0]
+version 9.0 v8
+Constant {
+ inputs 0
+ channels rgb
+ name Constant3
+ selected true
+ xpos 981
+ ypos 197
+}
+push $cut_paste_input
+OFXcom.absoft.neatvideo_v2 {
+ TFRad 1
+ TFThreshold 100
+ TFAdaptive false
+ TFInterlaced false
+ DNP ""
+ NFP ""
+ LinearInputData true
+ name "Reduce Noise2"
+ selected true
+ xpos 812
+ ypos 114
+}
+IBKGizmoV3 {
+ inputs 2
+ name IBKGizmoV3_3
+ xpos 812
+ ypos 220
+ st C-green
+}

@@ -1,0 +1,169 @@
+﻿<html>
+	
+<head>
+	<title>Pr_Suite v1.1</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="keywords" content="">
+	
+	<link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/base.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/hnd.css" />
+	<!--[if lte IE 8]>
+		<link type="text/css" rel="stylesheet" media="all" href="css/ielte8.css" />
+	<![endif]-->
+	<style type="text/css">
+		#topic_header
+		{
+			background-color: #EFEFEF;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/hnd.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			if (top.frames.length == 0)
+			{
+				var sTopicUrl = top.location.href.substring(top.location.href.lastIndexOf("/") + 1, top.location.href.length);
+				top.location.href = "Pr_Suite v1.1 Documentation.html?" + sTopicUrl;
+			}
+			else
+			{
+				var bTocSelected = false;
+				(function waitForTOC()
+				{
+					if (top && top.FrameTOC && top.FrameTOC.SelectTocItem)
+					{
+						top.FrameTOC.SelectTocItem("Pr_Suitev11");
+						bTocSelected = true;
+					}
+					if (!bTocSelected) setTimeout(function() { waitForTOC(); }, 300);
+				})();
+			}
+		});
+	</script>
+	
+	</head>
+
+<body>
+
+<div id="topic_header">
+			<div id="topic_header_content">
+				<h1 id="topic_header_text">Pr_Suite v1.1</h1>
+				
+				<div id="topic_breadcrumb">
+					<a href="AppendixAReleaseNotes.html">Appendix A: Release Notes</a> &rsaquo;&rsaquo; </div>
+				</div>
+			<div id="topic_header_nav">
+				<a href="AppendixAReleaseNotes.html"><img src="img/arrow_up.png" alt="Parent"/></a>
+				
+				<a href="Pr_Suitev10.html"><img src="img/arrow_left.png" alt="Previous"/></a>
+				
+				<a href="AppendixBLicense.html"><img src="img/arrow_right.png" alt="Next"/></a>
+				
+				</div>
+			<div class="clear"></div>
+		</div>
+	<div id="topic_content">
+		
+<p></p>
+<p class="rvps2"><span class="rvts6">This release has important bug fixes, improvements and new set of tools.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Release Date:</span></p>
+<p class="rvps2"><span class="rvts6">13 June 2016</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Requirements:</span></p>
+<p class="rvps2"><span class="rvts6">The Foundry Nuke 6.3, 7.0, 8.0, 9.0 or 10.0 on Windows, Mac or Linux.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">New Features:</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_Suite Preferences</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_Suite Nuke Renders (Windows only)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Bring Down Viewer v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Smart Floating Notepad v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Highlight Node v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Cycle Merge Operation Up-Down v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Cycle Shuffle 'in 1' Up-Down v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Read from Write v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Delete all Read(s) with error v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Open Read Folder v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Open Nuke File Folder v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Open .nuke Folder v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Open Specific PLUGIN_PATH Folder v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Link to Roto Bezier v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Set 0&gt;1 v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Set 1&gt;0 v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Set 1&lt;0 v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Set 0&lt;1 v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Set 1&lt;0&gt;1 v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Set 0&lt;1&gt;0 v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Set Current Frame v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Set Viewer channels to RGBA v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Set IP name as label v1.0 (Python Script)</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Nuke File Save Log v1.0 (Python Script)</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Improvements:</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_ShuffleMatte v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Added mask.</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Reduced color button size and grouped math options for compact UI.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_LBGrain v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Converted internal grain gizmos to group.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_Palette v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Added palette rendering option.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_CameraAim v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Converted aim method from expression based to Nuke's own aim method (for Nuke 9, 10).</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_LightAim v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Converted aim method from expression based to Nuke's own aim method (for Nuke 9, 10).</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_Timecode v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Automatic font path based on OS.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_InfoText v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Automatic font path based on OS.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Master Disable v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Added 'Set Write Before Render' and 'Set Write After Render' options.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Multi Knob Values v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Added support for string and enumeration.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Shuffle EXR Passes v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Shuffle only selected passes.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">All Python scripts rewritten for code optimization and PEP 8 compliance.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Bug Fixes:</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_ShuffleMatte v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Active mattes setting to default after script exit.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_LBGrain v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Wrong behavior of mask operation.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_RGBLuma v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Wrong behavior of mask operation.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_RGBShadow v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Mask not working.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_Contrast v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Wrong behavior of mask operation.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Known Bugs and Workarounds:</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_RGBLuma v1.1:</span></p>
+<p class="rvps2"><span class="rvts6"> &nbsp; &nbsp; &nbsp;Changing options in 'Adjust in' drop down choice for the first time, intensity knob will get a 'nan' value.</span></p>
+<p class="rvps5"><span class="rvts6">To overcome this, change to desired option from 'Adjust in' drop down choice and then set intensity knob to zero before adjusting it. After this you change options from 'Adjust in' drop down choice without any 'nan' value problem in intensity knob.</span></p>
+<p></p>
+</div>
+	
+	<div id="topic_footer">
+
+			<div id="topic_footer_content">
+				Copyright (c) 2016 Parimal Desai</div>
+		</div>
+	</body>
+	
+</html>
+

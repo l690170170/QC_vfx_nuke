@@ -1,0 +1,53 @@
+set cut_paste_input [stack 0]
+version 8.0 v6
+BackdropNode {
+ inputs 0
+ name BackdropNode1
+ tile_color 0xcc804eff
+ label ZDefocus
+ note_font_size 42
+ selected true
+ xpos 63
+ ypos -298
+ bdwidth 314
+ bdheight 259
+}
+push $cut_paste_input
+Dot {
+ name Dot1
+ selected true
+ xpos 214
+ ypos -222
+}
+set N54e5fa50 [stack 0]
+Gamma {
+ channels alpha
+ value 0
+ name Gamma1
+ selected true
+ xpos 290
+ ypos -159
+}
+push $N54e5fa50
+FilterErode {
+ inputs 1+1
+ channels depth
+ size {{"-.5 * parent.ZDefocus1.size"}}
+ filter gaussian
+ invert_mask true
+ name FilterErode1
+ selected true
+ xpos 180
+ ypos -159
+}
+ZDefocus2 {
+ math depth
+ center 0.0301361084
+ focal_point {2664 708}
+ dof 0.009999999776
+ name ZDefocus1
+ tile_color 0xcc804eff
+ selected true
+ xpos 180
+ ypos -87
+}

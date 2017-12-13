@@ -1,0 +1,79 @@
+set cut_paste_input [stack 0]
+version 8.0 v4
+push $cut_paste_input
+Expression {
+ channel0 rgba
+ expr0 (r*b)
+ expr1 (r*b)
+ expr2 (r*b)
+ expr3 (r*b)
+ name Expression22
+ tile_color 0xff00ffff
+ selected true
+ xpos 2270
+ ypos 1791
+}
+Expression {
+ inputs 0
+ channel0 rgba
+ expr0 g-r-b
+ expr1 g-r-b
+ expr2 g-r-b
+ expr3 g-r-b
+ name Expression1
+ tile_color 0xff00ff
+ gl_color 0xff00ff
+ selected true
+ xpos 2380
+ ypos 1791
+}
+Expression {
+ inputs 0
+ channel0 rgba
+ expr0 b-r-g
+ expr1 b-r-g
+ expr2 b-r-g
+ expr3 b-r-g
+ name Expression2
+ tile_color 0xffff
+ selected true
+ xpos 2490
+ ypos 1791
+}
+Expression {
+ inputs 0
+ channel0 rgba
+ expr0 (g*r)
+ expr1 (g*r)
+ expr2 (g*r)
+ expr3 (g*r)
+ name Expression21
+ tile_color 0xffff00ff
+ selected true
+ xpos 2600
+ ypos 1791
+}
+Expression {
+ inputs 0
+ channel0 rgba
+ expr0 (g*b)
+ expr1 (g*b)
+ expr2 (g*b)
+ name Expression20
+ tile_color 0xffffff
+ selected true
+ xpos 2710
+ ypos 1791
+}
+Expression {
+ inputs 0
+ channel0 rgba
+ expr0 r-g-b
+ expr1 r-g-b
+ expr2 r-g-b
+ name Expression25
+ tile_color 0xff0000ff
+ selected true
+ xpos 2820
+ ypos 1791
+}

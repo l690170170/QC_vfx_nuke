@@ -1,0 +1,47 @@
+#! /usr/local/Nuke9.0v7/libnuke-9.0.7.so -nx
+version 9.0 v7
+Gizmo {
+ addUserKnob {20 settings l Settings}
+ addUserKnob {26 qc_mov_options l "QC Mov Options"}
+ addUserKnob {41 mov64_codec l codec T Write1.mov64_codec}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 38
+  ypos -12
+ }
+set N8437920 [stack 0]
+ Write {
+  channels all
+  file "\[python writeNodeManager.setOutputPath('img')]"
+  file_type dpx
+  first 854
+  last 1009
+  checkHashOnRead false
+  name Write_dpx
+  xpos -29
+  ypos 59
+ }
+ Output {
+  name Output1
+  xpos -29
+  ypos 142
+ }
+push $N8437920
+ Write {
+  file "\[python writeNodeManager.setOutputPath('qc')]"
+  file_type mov
+  mov64_codec ap4h
+  mov64_bitrate 20000
+  mov64_bitrate_tolerance 40000000
+  mov64_quality_min 2
+  mov64_quality_max 31
+  mov64_gop_size 12
+  mov64_b_frames 0
+  checkHashOnRead false
+  name Write1
+  xpos 99
+  ypos 65
+ }
+end_group

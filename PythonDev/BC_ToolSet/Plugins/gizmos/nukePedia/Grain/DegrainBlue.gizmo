@@ -1,0 +1,64 @@
+#! /scratch/spitzak/private/DEBUG/linuxrh9_intel/nuke.debug/nuke.debug -nx
+version 4.4013
+Gizmo {
+ inputs 1
+ help "Degrains blue channel by amount specified in size"
+ addUserKnob { 20 "" User } 
+ addUserKnob { 7 size Size R 0 20 t size } 
+ size 8
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 140
+  ypos -13
+ }
+set N864afc8 [stack 0]
+ ColorMatrix {
+  colormatrix {
+      {0.299 0.587 0.144}
+      {-0.299 -0.587 0.886}
+      {0.701 -0.587 -0.144}
+    }
+  name ColorMatrix1
+  tile_color 0xc0c0c000
+  xpos 260
+  ypos -13
+ }
+ Blur {
+  channels {-rgba.red rgba.green -rgba.blue none}
+  size {{parent.size}}
+  name Blur1
+  tile_color 0xc0c0c000
+  selected true
+  xpos 260
+  ypos 22
+  indicators 2
+ }
+ ColorMatrix {
+  colormatrix {
+      {1 0 1}
+      {0.956038 -0.23817 -0.50937}
+      {0.970874 0.970874 0}
+    }
+  name ColorMatrix2
+  tile_color 0xc0c0c000
+  xpos 260
+  ypos 58
+ }
+push $N864afc8
+ Copy {
+  inputs 2
+  from0 rgba.blue
+  to0 rgba.blue
+  name ChannelCopy1
+  tile_color 0xc0c0c000
+  xpos 140
+  ypos 58
+ }
+ Output {
+  name Output1
+  xpos 140
+  ypos 94
+ }
+end_group

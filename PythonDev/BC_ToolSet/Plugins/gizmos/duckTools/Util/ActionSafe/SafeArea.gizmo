@@ -1,0 +1,211 @@
+#! C:/Program Files/Nuke5.1v3b8/Nuke5.1.exe -nx
+version 5.1300
+Gizmo {
+ tile_color 0x7aa9ffff
+ label "\[value this.option]"
+ addUserKnob {20 videosafe l "Video Safe"}
+ addUserKnob {4 option l Source M {Format "Aspect Guide" ""}}
+ addUserKnob {15 source l INVISIBLE}
+ source {{option==0?input.format.x:input.safeinside.x} {option==0?input.format.y:input.safeinside.y} {option==0?input.format.r:input.safeinside.r} {option==0?input.format.t:input.safeinside.t}}
+ addUserKnob {7 p_as l "Action Safe" t "Size in percentage" R 0 20}
+ p_as 5
+ addUserKnob {6 use_as l " " -STARTLINE}
+ use_as true
+ addUserKnob {7 p_ts l "Title Safe" t "Size in percentage" R 0 20}
+ p_ts 10
+ addUserKnob {6 use_ts l " " -STARTLINE}
+ use_ts true
+ addUserKnob {7 crosshair l "Crosshair size" R 0 100}
+ crosshair 90
+ addUserKnob {6 use_ch l " " -STARTLINE}
+ use_ch true
+ addUserKnob {7 f_as l INVISIBLE}
+ f_as {{this.p_as/100}}
+ addUserKnob {7 f_ts l INVISIBLE}
+ f_ts {{this.p_ts/100}}
+ addUserKnob {7 f_ch l INVISIBLE}
+ f_ch {{this.crosshair/100 i}}
+ addUserKnob {3 lw l Thickness}
+ lw 2
+ addUserKnob {6 draw_text l "Draw Text Labels" -STARTLINE}
+ draw_text true
+ addUserKnob {18 sa_color l Color}
+ sa_color {0.27 0.45 1}
+ addUserKnob {32 reset l " default " -STARTLINE T "knob this.sa_color \{0.27 0.45 1\}"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -346
+  ypos -348
+ }
+set N13693350 [stack 0]
+ Rectangle {
+  replace true
+  inject true
+  area {{"(((parent.source.r-parent.source.x) / 2) + parent.source.x) - (((parent.source.r-parent.source.x) / 2) * parent.f_ch)" i} {"(((parent.source.t-parent.source.y) / 2) + parent.source.y) - (((parent.source.t-parent.source.y) / 2) * parent.f_ch)" i} {"(((parent.source.r-parent.source.x) / 2) + parent.source.x) + (((parent.source.r-parent.source.x) / 2) * parent.f_ch)" i} {"(((parent.source.t-parent.source.y) / 2) + parent.source.y) + (((parent.source.t-parent.source.y) / 2) * parent.f_ch)" i}}
+  name Rectangle13
+  label crosshair
+  xpos -346
+  ypos -206
+ }
+push $N13693350
+ Rectangle {
+  replace true
+  area {{(input.format.r/2)-((parent.lw<=0?1:parent.lw)/2) i} {input.format.y i} {(input.format.r/2)+((parent.lw<=0?1:parent.lw)/2) i} {input.format.t i}}
+  name Rectangle5
+  label Vertical
+  xpos -452
+  ypos -206
+ }
+ Rectangle {
+  area {{input.format.x i} {(input.format.h/2)-((parent.lw<=0?1:parent.lw)/2) i} {input.format.r i} {(input.format.h/2)+((parent.lw<=0?1:parent.lw)/2) i}}
+  name Rectangle6
+  label Horizontal
+  xpos -452
+  ypos -161
+ }
+ Dot {
+  name Dot1
+  xpos -418
+  ypos -50
+ }
+ ChannelMerge {
+  inputs 2
+  operation in
+  name ChannelMerge1
+  xpos -346
+  ypos -71
+ }
+push $N13693350
+ Dot {
+  name Dot3
+  xpos -530
+  ypos -191
+ }
+ Dot {
+  name Dot5
+  xpos -530
+  ypos 72
+ }
+set N16e9e830 [stack 0]
+ Switch {
+  inputs 2
+  which {{parent.use_ch i}}
+  name Switch1
+  xpos -346
+  ypos 67
+ }
+ Dot {
+  name Dot2
+  xpos -312
+  ypos 139
+ }
+push $N13693350
+ Rectangle {
+  replace true
+  area {{"(parent.source.x + (parent.source.r * parent.f_as)) - (parent.lw<=0?1:parent.lw)" i} {"(parent.source.y + (parent.source.t * parent.f_as)) - (parent.lw<=0?1:parent.lw)" i} {"(parent.source.r - (parent.source.r * parent.f_as)) + (parent.lw<=0?1:parent.lw)" i} {"(parent.source.t - (parent.source.t * parent.f_as)) + (parent.lw<=0?1:parent.lw)" i}}
+  name Rectangle8
+  label "Action Safe"
+  xpos -233
+  ypos -204
+  disable {{!parent.use_as i}}
+ }
+ Rectangle {
+  area {{"(parent.source.x + (parent.source.r * parent.f_as))" i} {"(parent.source.y + (parent.source.t * parent.f_as))" i} {"(parent.source.r - (parent.source.r * parent.f_as))" i} {"(parent.source.t - (parent.source.t * parent.f_as))" i}}
+  color 0
+  name Rectangle10
+  label "Action Safe"
+  xpos -233
+  ypos -159
+  disable {{!parent.use_as i}}
+ }
+ Text {
+  message "Action Safe"
+  Font 1
+  font C:/Windows/Fonts/Arial.ttf
+  size {{input.format.h*0.025 i}}
+  translate {{"(parent.source.x + (parent.source.r * parent.f_as)) + 5" i} {"(parent.source.y + (parent.source.t * parent.f_as)) + 5" i}}
+  name Text4
+  tile_color 0xc0c0c000
+  label Action
+  xpos -233
+  ypos -114
+  disable {{parent.use_as==0?1:!parent.draw_text i}}
+ }
+ Rectangle {
+  area {{"(parent.source.x + (parent.source.r * parent.f_ts)) - (parent.lw<=0?1:parent.lw)" i} {"(parent.source.y + (parent.source.t * parent.f_ts)) - (parent.lw<=0?1:parent.lw)" i} {"(parent.source.r - (parent.source.r * parent.f_ts)) + (parent.lw<=0?1:parent.lw)" i} {"(parent.source.t - (parent.source.t * parent.f_ts)) + (parent.lw<=0?1:parent.lw)" i}}
+  name Rectangle11
+  label "Title Safe"
+  xpos -233
+  ypos -69
+  disable {{!parent.use_ts i}}
+ }
+ Rectangle {
+  area {{"(parent.source.x + (parent.source.r * parent.f_ts))" i} {"(parent.source.y + (parent.source.t * parent.f_ts))" i} {"(parent.source.r - (parent.source.r * parent.f_ts))" i} {"(parent.source.t - (parent.source.t * parent.f_ts))" i}}
+  color 0
+  name Rectangle12
+  label "Title Safe"
+  xpos -233
+  ypos -24
+  disable {{!parent.use_ts i}}
+ }
+ Text {
+  message "Title Safe"
+  font C:/Windows/Fonts/Arial.ttf
+  size {{input.format.h*0.025 i}}
+  translate {{"(parent.source.x + (parent.source.r * parent.f_ts)) + 5" i} {"(parent.source.y + (parent.source.t * parent.f_ts)) + 5" i}}
+  name Text3
+  tile_color 0xc0c0c000
+  label Title
+  xpos -233
+  ypos 21
+  disable {{parent.use_ts==0?1:!parent.draw_text i}}
+ }
+ ChannelMerge {
+  inputs 2
+  name ChannelMerge2
+  xpos -233
+  ypos 118
+ }
+push $N13693350
+ Rectangle {
+  area {{input.format.x i} {input.format.y i} {input.format.r i} {input.format.t i}}
+  color {{parent.sa_color.r i} {parent.sa_color.g i} {parent.sa_color.b i} 1}
+  name Rectangle7
+  label "Safe Area\nColor"
+  xpos -107
+  ypos -207
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -107
+  ypos 126
+ }
+ Premult {
+  name Premult1
+  xpos -107
+  ypos 216
+ }
+push $N16e9e830
+ Dot {
+  name Dot4
+  xpos -530
+  ypos 304
+ }
+ Merge2 {
+  inputs 2
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge1
+  xpos -107
+  ypos 299
+ }
+ Output {
+  name Output1
+  xpos -107
+  ypos 388
+ }
+end_group

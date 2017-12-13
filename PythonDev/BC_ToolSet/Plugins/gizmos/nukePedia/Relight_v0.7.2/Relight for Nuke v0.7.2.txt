@@ -1,0 +1,123 @@
+lowrez.net Relight for Nuke v0.7.2
+plugin suite for Nuke
+
+see http://www.lowrez.net/relightnuke.html for new versions, pictures/videos and more information.
+
+
+DISCLAIMER
+This thing is probably old enough to be out of alpha stage, nonetheless you'll likely experience crashes, lockups, hard disk formats, backup tapes shreddings, natural disasters etc. - under Linux feel free to multiply that likelihood by a factor of your choice (just make sure it's >1).
+USE IT AT YOUR OWN RISK!
+
+
+ABOUT
+This is an improved porting of Relight plugin suite for Fusion, also written by yours truly.
+These plugins allow fast (really! heavy algorithms are hand-optimized) 'true 3D' relighting of rendered sequences, given a depth channel and the 3D camera. This means the lighting will take into account the actual position of the surfaces and not only their normals. And this means, in turn, that you can relight using a spot light with quadratic decay, for example.
+Now, here's why 'true 3D' is NOT true 3D (and you can't kiss mental ray goodbye - yet):
+
+    * no REAL shadows - unless you provide a real (hopefully low-poly) 3D model of the scene
+    * no raytracing - no reflections, no refractions, no nothing
+    * no light volumes of any kind
+
+
+INSTALLATION
+Put the files in %NukeDir%/plugins/user
+
+
+QUICK START
+Have a node with depth and normals and a matching camera. Create a relight3D node, select depth and normal channels, and depth type (eg -1/z for Maya). Connect the camera. Create rlLights as needed and connect these also. Create rlMaterials as needed and connect them to the relight3D node, they compute the actual lighting according to the material properties you define.
+
+
+DETAILED INSTRUCTIONS
+Skipped, waiting for a source of inspiration ;)
+
+
+VERSION HISTORY
+v0.7.2
+
+    * fixed another bug related to 'external' shadowmap update - rlShadowmap hack got even dirtier
+
+v0.7.1 - Linux is back
+
+    * somehow ported to Linux again - dynamic_cast<> and vague linkage aren't really cooperating, workaround is not very elegant...
+    * rewrote internal hash management, now relight3D should work correctly with DiskBuffer (v0.2.0) ;)
+    * fixed 'external' shadowmap update bug
+    * fixed silly alpha-related bug in bump3D
+    * fixed seldom-occurring requested channels bug in rlMaterial
+
+v0.7.0 - tons of new features
+
+    * added support for geometry-based shadow maps in rlLight, and rlShadowmap gizmo to produce them effortless (a dirty hack, but works)
+    * added support for light projection in rlLight
+    * added lookat input in rlLight
+    * added support for color, specularity and reflectivity passes in rlMaterial to spare the lazy compers some nodes
+    * added position3D convenience node and the ability to use a position pass instead of depth in all nodes
+    * added normal3D node to compute normals - or just smooth them - from depth or position pass
+    * added bump3D node to bump normals via UV bumpmapping, color pass luma or 3D perlin noise
+    * added occlusion3D node - fake ambient occlusion, most effective with high-detail geometry
+    * rl3D is now called relight3D for no particular reason, the same for relightIBL
+    * added antialiasing (coverage based and/or normals based) to relight3D, with the additional benefit of solving the interactive zoom issue
+    * faster and more accurate algorithms, some parameters now behave differently (e.g. shadow threshold)
+    * tweaks everywhere
+    * more minor bugfixes
+
+v0.6.0 - another major rewrite
+
+    * added poly-sampled shadow maps, much faster and more accurate
+    * added fake "area light" soft shadows
+    * hand-coded optimizations in all critical sections, plugin 10% to 50% faster
+    * fixed automatic cache handling
+    * various refinements (shadow mapping and soft-shadowing algorithms)
+    * updated and optimized rlIBL
+
+v0.5.1 - bugfix release
+
+    * fixed nasty memory corruption bug - and it has been a difficult task
+    * fixed inverse cone shadowmap bug
+    * refined shadowmap sampling algorithm
+    * reorganized the internal working to allow for a speedup (at a cost of more memory consumption)
+
+v0.5.0 - buggy, use 0.5.1 or 0.2.1
+
+    * COMPLETE rewrite of rl3D to allow for the revolutionary interactive mode :)
+    * only for Nuke 4.7 Windows
+    * added shadow-mapped shadows
+    * added many nice fresh bugs
+
+v0.2.1 - multiplatform release ;)
+
+    * Linux version (rlLight is statically linked in rl3D)
+    * 4.6 and 4.7v2 versions for Linux and Windows
+    * bug fixes (wrong colors in rlIBL, penumbra and dropoff bug in rlLight)
+
+v0.2
+
+    * added rlIBL
+    * support for parent axis in rlLight
+    * proper handling of channels
+    * many improvements and bugfixes
+    * minor optimizations
+
+v0.1
+
+    * initial release
+
+
+    
+KNOWN BUGS
+
+    * File/Buffer reports will crash... 
+    * there could be multithreading issues
+    * Linux version is as untested as it could possibly be, unexpected behaviour is to be expected
+
+
+TODO LIST
+
+    * reorganize everything from scratch once again to allow for more complex materials - that is distant future...
+    * suggestions?
+
+
+Any testing and feedback VERY appreciated.
+
+
+Marco Aliano
+aliano@lowrez.net

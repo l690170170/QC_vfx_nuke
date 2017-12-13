@@ -1,0 +1,579 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+	<title>Pr_Suite v1.1 Documentation- Table of Contents</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/silver-theme/jquery-ui-1.8.12.custom.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/dynatree/chm/ui.dynatree.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/base.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/hnd.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="css/toc.css" />
+	<!--[if lte IE 8]>
+		<link type="text/css" rel="stylesheet" media="all" href="css/ielte8.css" />
+	<![endif]-->
+	<style type="text/css">
+		#tabs .ui-widget-header
+		{
+			background-color: #EFEFEF;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery.dynatree.min.js"></script>
+	<script type="text/javascript" src="js/hndjsse.js"></script>
+	<script type="text/javascript">
+	
+		window.bSearchDataLoaded = false;
+		var sHelpIdToActivate = '';
+	
+		$(document).ready(function()
+		{
+			var sAnchorName = '';
+			try { sAnchorName = top.location.href.substring(top.location.href.lastIndexOf("#") + 1, top.location.href.length); }
+			catch(err) { sAnchorName = ''; }
+			var nSelectedTab = 0;
+			if (sAnchorName == '_index') nSelectedTab = 1
+			else if (sAnchorName == '_search') nSelectedTab = 2;			
+			$("#tabs").tabs({
+				selected: nSelectedTab,
+				select: function(event, ui) { HideKwPopup(); }
+			});
+			
+			// Toc
+			if ($("#tab-toc").length) {
+				$("#tab-toc").dynatree({
+					clickFolderMode: 1,
+					debugLevel: 0,
+					imagePath: 'css/dynatree/chm/',
+					onActivate: function(node){
+						if ($("#tab-keywords").length && $("#tab-keywords").dynatree && $("#tab-keywords").dynatree("getTree") && $("#tab-keywords").dynatree("getTree").activateKey)
+							$("#tab-keywords").dynatree("getTree").activateKey(null);
+						if(node.data.href && node.data.href != '#'){
+							window.open(node.data.href, node.data.target);
+						}
+					}
+				});
+				// Expand all nodes if required
+				$("#tab-toc").dynatree("getRoot").visit(function(node){
+						node.expand(true);
+					});
+				// Select the active help id
+				if (sHelpIdToActivate != '') $("#tab-toc").dynatree("getTree").activateKey(sHelpIdToActivate);
+			}
+			
+			// Keywords
+			
+			if ($("#tab-keywords").length) {
+				$("#tab-keywords").dynatree({
+					clickFolderMode: 1,
+					debugLevel: 0,
+					imagePath: 'css/dynatree/chm/',
+					onClick: function(node, event){
+						HideKwPopup();
+						if (node.data && node.data.click)
+						{
+							var aRefList = null;
+							eval('aRefList=' + node.data.click);
+							if (ShowKwPopup(node.li, aRefList))
+							{
+								if ($("#tab-toc") && $("#tab-toc").dynatree && $("#tab-toc").dynatree("getTree") && $("#tab-toc").dynatree("getTree").activateKey)
+									$("#tab-toc").dynatree("getTree").activateKey(null);
+								if(node.data.href && node.data.href != '#'){
+									window.open(node.data.href, node.data.target);
+								}
+							}
+						}
+					}
+				});
+				// Expand all nodes if required
+				}
+			
+			// Load search data
+			(function() {
+				var se = document.createElement('script'); se.type = 'text/javascript'; se.async = true;
+				se.src = 'js/hndsd.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(se, s);
+			})();
+		});
+		
+		$('body').click(function() {
+			HideKwPopup();
+		});
+		
+		function SelectTocItem(sHelpId)
+		{
+			if ($("#tab-toc").length && $("#tab-toc").dynatree && $("#tab-toc").dynatree("getTree") && $("#tab-toc").dynatree("getTree").getNodeByKey) {
+				$("#tab-toc").dynatree("getTree").getNodeByKey(sHelpId).activateSilently();
+			}
+			else {
+				sHelpIdToActivate = sHelpId;
+			}
+		}
+		
+		function HideKwPopup()
+		{
+			if($("#popupMenu")) $("#popupMenu").remove();
+		}
+		
+		function ShowKwPopup(oSender, aLinks)
+		{
+			HideKwPopup();
+			if (!aLinks || !aLinks.length || aLinks.length == 0) return false
+			else if (aLinks.length == 1) return true
+			else
+			{
+				var oParentDiv = document.createElement("DIV");
+				oParentDiv.id = "popupMenu";
+				var oLink = null;
+				// Close button
+				oLink = document.createElement("SPAN");
+				oLink.className = "close-button";
+				oLink.innerHTML = "X";
+				oLink.href = "#";
+				oLink.onclick = HideKwPopup;
+				oParentDiv.appendChild(oLink);
+				// Items
+				for (var nCnt=0; nCnt<aLinks.length; nCnt++)
+				{
+					oLink = document.createElement("A");
+					oLink.innerHTML = aLinks[nCnt][0];
+					oLink.href = aLinks[nCnt][1];
+					oLink.target = "FrameMain";
+					oLink.onclick = HideKwPopup;
+					oParentDiv.appendChild(oLink);
+				}
+				document.body.appendChild(oParentDiv);
+				var pos = $(oSender).offset(); 
+				var height = $(oSender).height();
+				$(oParentDiv).css({
+					"left": (pos.left+20) + "px",
+					"top": (pos.top + height + 5) + "px"
+				});
+				$(oParentDiv).show();
+				return false;
+			}
+		}
+		
+		function PerformSearch()
+		{
+			if (!window.bSearchDataLoaded) {
+				$("#search_results").html("Search engine data hasn't been fully loaded yet or an error occurred while loading it. This usually happens when documentation is browsed locally.");
+				return;
+			}
+			sValue = $("#search_value").val();
+			$("#search_results").html('Searching...');
+			var oSearchEngine = new HndJsSe;
+			oSearchEngine.ParseInput(sValue);			
+			oSearchEngine.PerformSearch();
+			if (!oSearchEngine.aResults || !oSearchEngine.aResults.length)
+			{
+				$("#search_results").html('No results found.');
+			}
+			else
+			{
+				$("#search_results").html('<div id="search_results_content"></div>');
+				var oUl = $("#search_results_content").append("<ul id='lr'></ul>").find("ul");
+				for (var nCnt = 0; nCnt < oSearchEngine.aResults.length; nCnt++)
+				{
+					if (oSearchEngine.aResults[nCnt][0] < aTl.length)
+					{
+						oUl.append("<li><a href='" + aTl[oSearchEngine.aResults[nCnt][0]][0] + "?search=" + escape(sValue) + "' target='FrameMain'>" + unescape(aTl[oSearchEngine.aResults[nCnt][0]][1]) + "</a></li>");
+					}
+				}
+				// Tree
+				$("#search_results_content").dynatree({
+					clickFolderMode: 1,
+					debugLevel: 0,
+					imagePath: 'css/dynatree/chm/',
+					onActivate: function(node){
+						if ($("#search_results_content") && $("#search_results_content").dynatree && $("#search_results_content").dynatree("getTree") && $("#search_results_content").dynatree("getTree").activateKey)
+							$("#search_results_content").dynatree("getTree").activateKey(null);
+						if(node.data.href && node.data.href != '#'){
+							window.open(node.data.href, node.data.target);
+						}
+					}
+				});
+			}
+		}
+	</script>
+</head>
+
+<body>
+
+	<div id="tabs">
+		<ul>
+			<li><a href="#tab-toc">Contents</a></li>
+			<li><a href="#tab-search">Search</a></li>
+			</ul>
+		<div id="tab-toc">
+			<ul id="toc" class="">
+
+				<li class="folder" id="Pr_SuiteIntroduction" data="">
+							<a
+							href="Pr_SuiteIntroduction.html"
+							target="FrameMain">
+								Pr_Suite Introduction</a>
+
+				<ul><li class="" id="AboutthisDocumentation" data="">
+							<a
+							href="AboutthisDocumentation.html"
+							target="FrameMain">
+								About this Documentation</a>
+
+				</li><li class="" id="Installation" data="">
+							<a
+							href="Installation.html"
+							target="FrameMain">
+								Installation</a>
+
+				</li><li class="" id="HelpandSupport" data="">
+							<a
+							href="HelpandSupport.html"
+							target="FrameMain">
+								Help and Support</a>
+
+				</li><li class="" id="Gratitude" data="">
+							<a
+							href="Gratitude.html"
+							target="FrameMain">
+								Gratitude</a>
+
+				</li></ul></li><li class="folder" id="Pr_SuitePreferencesandNukeRender" data="">
+							<a
+							href="Pr_SuitePreferencesandNukeRender.html"
+							target="FrameMain">
+								Pr_Suite Preferences and Nuke Renders Setup</a>
+
+				<ul><li class="" id="Pr_SuitePreferences" data="">
+							<a
+							href="Pr_SuitePreferences.html"
+							target="FrameMain">
+								Pr_Suite Preferences</a>
+
+				</li><li class="" id="SetupNukeRendersWindowsOnly" data="">
+							<a
+							href="SetupNukeRendersWindowsOnly.html"
+							target="FrameMain">
+								Setup Nuke Renders (Windows Only)</a>
+
+				</li></ul></li><li class="folder" id="Pr_SuiteGizmos" data="">
+							<a
+							href="Pr_SuiteGizmos.html"
+							target="FrameMain">
+								Pr_Suite Gizmos</a>
+
+				<ul><li class="" id="Pr_ShuffleMattev11" data="">
+							<a
+							href="Pr_ShuffleMattev11.html"
+							target="FrameMain">
+								Pr_ShuffleMatte v1.1</a>
+
+				</li><li class="" id="Pr_LBGrainv11" data="">
+							<a
+							href="Pr_LBGrainv11.html"
+							target="FrameMain">
+								Pr_LBGrain v1.1</a>
+
+				</li><li class="" id="Pr_RGBLumav11" data="">
+							<a
+							href="Pr_RGBLumav11.html"
+							target="FrameMain">
+								Pr_RGBLuma v1.1</a>
+
+				</li><li class="" id="Pr_RGBShadowv11" data="">
+							<a
+							href="Pr_RGBShadowv11.html"
+							target="FrameMain">
+								Pr_RGBShadow v1.1</a>
+
+				</li><li class="" id="Pr_Contrastv11" data="">
+							<a
+							href="Pr_Contrastv11.html"
+							target="FrameMain">
+								Pr_Contrast v1.1</a>
+
+				</li><li class="" id="Pr_Palettev11" data="">
+							<a
+							href="Pr_Palettev11.html"
+							target="FrameMain">
+								Pr_Palette v1.1</a>
+
+				</li><li class="" id="Pr_CameraAimv10Nuke678v11Nuke910" data="">
+							<a
+							href="Pr_CameraAimv10Nuke678v11Nuke910.html"
+							target="FrameMain">
+								Pr_CameraAim v1.0 (Nuke 6, 7, 8) &amp; v1.1 (Nuke 9, 10)</a>
+
+				</li><li class="" id="Pr_LightAimv10Nuke678v11Nuke910" data="">
+							<a
+							href="Pr_LightAimv10Nuke678v11Nuke910.html"
+							target="FrameMain">
+								Pr_LightAim v1.0 (Nuke 6, 7, 8) &amp; v1.1 (Nuke 9, 10)</a>
+
+				</li><li class="" id="Pr_Timecodev11" data="">
+							<a
+							href="Pr_Timecodev11.html"
+							target="FrameMain">
+								Pr_Timecode v1.1</a>
+
+				</li><li class="" id="Pr_InfoTextv11" data="">
+							<a
+							href="Pr_InfoTextv11.html"
+							target="FrameMain">
+								Pr_InfoText v1.1</a>
+
+				</li></ul></li><li class="folder" id="Pr_SuitePythonScripts" data="">
+							<a
+							href="Pr_SuitePythonScripts.html"
+							target="FrameMain">
+								Pr_Suite Python Scripts</a>
+
+				<ul><li class="folder" id="NukeMenu" data="">
+							<a
+							href="NukeMenu.html"
+							target="FrameMain">
+								Nuke Menu</a>
+
+				<ul><li class="" id="NodeGraphGridv11" data="">
+							<a
+							href="NodeGraphGridv11.html"
+							target="FrameMain">
+								Node Graph Grid v1.1</a>
+
+				</li><li class="" id="BringDownViewerv10" data="">
+							<a
+							href="BringDownViewerv10.html"
+							target="FrameMain">
+								Bring Down Viewer v1.0</a>
+
+				</li><li class="" id="SmartFloatingNotepadv10" data="">
+							<a
+							href="SmartFloatingNotepadv10.html"
+							target="FrameMain">
+								Smart Floating Notepad v1.0</a>
+
+				</li><li class="" id="HighlightNodev10" data="">
+							<a
+							href="HighlightNodev10.html"
+							target="FrameMain">
+								Highlight Node v1.0</a>
+
+				</li><li class="" id="MasterDisablev11" data="">
+							<a
+							href="MasterDisablev11.html"
+							target="FrameMain">
+								Master Disable v1.1</a>
+
+				</li><li class="" id="MultiKnobValuesv11" data="">
+							<a
+							href="MultiKnobValuesv11.html"
+							target="FrameMain">
+								Multi Knob Values v1.1</a>
+
+				</li><li class="" id="CycleMergeOperationUpDownv10" data="">
+							<a
+							href="CycleMergeOperationUpDownv10.html"
+							target="FrameMain">
+								Cycle Merge Operation Up-Down v1.0</a>
+
+				</li><li class="" id="CycleShufflein1UpDownv10" data="">
+							<a
+							href="CycleShufflein1UpDownv10.html"
+							target="FrameMain">
+								Cycle Shuffle 'in 1' Up-Down v1.0</a>
+
+				</li><li class="" id="ShuffleEXRPassesv11" data="">
+							<a
+							href="ShuffleEXRPassesv11.html"
+							target="FrameMain">
+								Shuffle EXR Passes v1.1</a>
+
+				</li><li class="" id="LabelShufflev11" data="">
+							<a
+							href="LabelShufflev11.html"
+							target="FrameMain">
+								Label Shuffle v1.1</a>
+
+				</li><li class="" id="ReadfromWritev10" data="">
+							<a
+							href="ReadfromWritev10.html"
+							target="FrameMain">
+								Read from Write v1.0</a>
+
+				</li><li class="" id="DeleteallReadswitherrorv10" data="">
+							<a
+							href="DeleteallReadswitherrorv10.html"
+							target="FrameMain">
+								Delete all Read(s) with error v1.0</a>
+
+				</li><li class="" id="DeleteThumbsdbandtmpReadsv10" data="">
+							<a
+							href="DeleteThumbsdbandtmpReadsv10.html"
+							target="FrameMain">
+								Delete Thumbs.db and .tmp Read(s) v1.0</a>
+
+				</li><li class="" id="OpenReadFolderv10" data="">
+							<a
+							href="OpenReadFolderv10.html"
+							target="FrameMain">
+								Open Read Folder v1.0</a>
+
+				</li><li class="" id="OpenNukeFileFolderv10" data="">
+							<a
+							href="OpenNukeFileFolderv10.html"
+							target="FrameMain">
+								Open Nuke File Folder v1.0</a>
+
+				</li><li class="" id="OpennukeFolderv10" data="">
+							<a
+							href="OpennukeFolderv10.html"
+							target="FrameMain">
+								Open .nuke Folder v1.0</a>
+
+				</li><li class="" id="OpenSpecificPLUGIN_PATHFolderv10" data="">
+							<a
+							href="OpenSpecificPLUGIN_PATHFolderv10.html"
+							target="FrameMain">
+								Open Specific PLUGIN_PATH Folder v1.0</a>
+
+				</li></ul></li><li class="folder" id="AnimationMenu" data="">
+							<a
+							href="AnimationMenu.html"
+							target="FrameMain">
+								Animation Menu</a>
+
+				<ul><li class="" id="LinktoRotoBezierv10" data="">
+							<a
+							href="LinktoRotoBezierv10.html"
+							target="FrameMain">
+								Link to Roto Bezier v1.0</a>
+
+				</li><li class="" id="Set01v10" data="">
+							<a
+							href="Set01v10.html"
+							target="FrameMain">
+								Set 0&gt;1 v1.0</a>
+
+				</li><li class="" id="Set10v10" data="">
+							<a
+							href="Set10v10.html"
+							target="FrameMain">
+								Set 1&gt;0 v1.0</a>
+
+				</li><li class="" id="Set10v11" data="">
+							<a
+							href="Set10v11.html"
+							target="FrameMain">
+								Set 1&lt;0 v1.0</a>
+
+				</li><li class="" id="Set01v11" data="">
+							<a
+							href="Set01v11.html"
+							target="FrameMain">
+								Set 0&lt;1 v1.0</a>
+
+				</li><li class="" id="Set101v10" data="">
+							<a
+							href="Set101v10.html"
+							target="FrameMain">
+								Set 1&lt;0&gt;1 v1.0</a>
+
+				</li><li class="" id="Set010v10" data="">
+							<a
+							href="Set010v10.html"
+							target="FrameMain">
+								Set 0&lt;1&gt;0 v1.0</a>
+
+				</li><li class="" id="SetCurrentFramev10" data="">
+							<a
+							href="SetCurrentFramev10.html"
+							target="FrameMain">
+								Set Current Frame v1.0</a>
+
+				</li></ul></li><li class="folder" id="ViewerMenu" data="">
+							<a
+							href="ViewerMenu.html"
+							target="FrameMain">
+								Viewer Menu</a>
+
+				<ul><li class="" id="SetViewerchannelstoRGBAv10" data="">
+							<a
+							href="SetViewerchannelstoRGBAv10.html"
+							target="FrameMain">
+								Set Viewer channels to RGBA v1.0</a>
+
+				</li><li class="" id="SetIPnameaslabelv10" data="">
+							<a
+							href="SetIPnameaslabelv10.html"
+							target="FrameMain">
+								Set IP name as label v1.0</a>
+
+				</li></ul></li></ul></li><li class="folder" id="Pr_SuiteNukeRendersWindowsOnly" data="">
+							<a
+							href="Pr_SuiteNukeRendersWindowsOnly.html"
+							target="FrameMain">
+								Pr_Suite Nuke Renders (Windows Only)</a>
+
+				<ul><li class="" id="Pr_SuiteNukeFullRenderv10" data="">
+							<a
+							href="Pr_SuiteNukeFullRenderv10.html"
+							target="FrameMain">
+								Pr_Suite Nuke Full Render v1.0</a>
+
+				</li><li class="" id="Pr_SuiteNukeMultiFramesRenderv10" data="">
+							<a
+							href="Pr_SuiteNukeMultiFramesRenderv10.html"
+							target="FrameMain">
+								Pr_Suite Nuke Multi Frames Render v1.0</a>
+
+				</li><li class="" id="Pr_SuiteNukeQueueRenderv10" data="">
+							<a
+							href="Pr_SuiteNukeQueueRenderv10.html"
+							target="FrameMain">
+								Pr_Suite Nuke Queue Render v1.0</a>
+
+				</li></ul></li><li class="folder" id="AppendixAReleaseNotes" data="">
+							<a
+							href="AppendixAReleaseNotes.html"
+							target="FrameMain">
+								Appendix A: Release Notes</a>
+
+				<ul><li class="" id="Pr_Suitev10" data="">
+							<a
+							href="Pr_Suitev10.html"
+							target="FrameMain">
+								Pr_Suite v1.0</a>
+
+				</li><li class="" id="Pr_Suitev11" data="">
+							<a
+							href="Pr_Suitev11.html"
+							target="FrameMain">
+								Pr_Suite v1.1</a>
+
+				</li></ul></li><li class="" id="AppendixBLicense" data="icon: '10.png'">
+							<a
+							href="AppendixBLicense.html"
+							target="FrameMain">
+								Appendix B: License</a>
+
+				</li></ul>
+		</div>
+		
+		<div id="tab-search">
+			<form onsubmit="PerformSearch(); return false;">
+				<label for="search_value">Search:</label>
+				<input id="search_value" name="search_value"></input>
+				<input type="submit" value="Search"/>
+			</form>
+			<div id="search_results"></div>
+		</div>
+		
+		</div>
+    
+</body>
+
+</html>
+

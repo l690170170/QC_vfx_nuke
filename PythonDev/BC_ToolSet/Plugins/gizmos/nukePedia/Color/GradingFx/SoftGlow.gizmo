@@ -1,0 +1,73 @@
+#! /Applications/Nuke6.1v1-32/NukeX6.1v1.app/../Nuke6.1v1.app/Contents/MacOS/Nuke6.1v1 -nx
+version 6.1 v1
+Gizmo {
+ tile_color 0xfff6bb00
+ addUserKnob {20 "" l User}
+ addUserKnob {41 value l amount T Multiply1.value}
+ addUserKnob {41 contrast l bias T ColorCorrect5.contrast}
+ addUserKnob {41 size T Blur1.size}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -146
+  ypos -243
+ }
+ Dot {
+  name Dot1
+  tile_color 0xc0c0c000
+  xpos -77
+  ypos -188
+ }
+set N1d6e0dd0 [stack 0]
+ Blur {
+  channels rgba
+  size 30
+  name Blur1
+  selected true
+  xpos 54
+  ypos -192
+ }
+ ColorCorrect {
+  contrast 0.7
+  unpremult -rgba.alpha
+  name ColorCorrect5
+  xpos 54
+  ypos -129
+ }
+push $N1d6e0dd0
+ Merge {
+  inputs 2
+  operation minus
+  bbox B
+  name Merge6
+  tile_color 0x7171c600
+  note_font_size 16
+  xpos -6
+  ypos -75
+ }
+ Multiply {
+  channels rgba
+  value 1.7
+  name Multiply1
+  xpos -6
+  ypos -33
+ }
+push $N1d6e0dd0
+ Merge {
+  inputs 2
+  operation plus
+  bbox B
+  mix 0.45
+  name Plus
+  tile_color 0x7171c600
+  note_font_size 16
+  xpos -109
+  ypos 7
+ }
+ Output {
+  name Output1
+  xpos -113
+  ypos 62
+ }
+end_group

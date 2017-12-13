@@ -1,0 +1,283 @@
+#! /Applications/Nuke6.0v5-32/Nuke6.0v5.app/Contents/MacOS/Nuke6.0v5 -nx
+version 6.0 v5
+Gizmo {
+ inputs 2
+ help "Blurs image with a fake Zdepth. Great to simulate a very short depth of field in regular footage.\n\nYou have a choice of using 4 diferent fake ZDepths:\n\n1- \"your_Z\" -  Uses any image as a source of the blur (just pipe an image in \"your_Z\" input).\n2- ZRadial - Uses a radial gradient to control the bluring. It blurs from the center to the edges.\n3- ZHorizont - Uses a gradient to control a fake horizont blur, bluring from the \nground to the sky, good for horizontal landscapes.\n4- ZHorizontDuo - Same as ZHorizont but it blurs from the center to both up and down.\n5- ZVertical - Uses a vertical radial to blur from the center to the sides in a vertical fashion.\n\nYou can control the ZDepth gradig by clicking in the \"preview of ZDepth\"\nYou can then use the \"center of blur\" to control the center of the blur or link a tracking info\nto the transform of the blur.\nUse the \"ZBlur control\" to adjust your blur in size, filter shape and focus plane \n(use the \"preview of focal plane\" to \"see\" the focal point)\n\nCreated by Hugo Guerra\n\nwww.hugo-guerra.com\n"
+ tile_color 0xff161dff
+ label v2.0
+ note_font_size 10
+ addUserKnob {20 "" l User}
+ addUserKnob {26 "" l H_ZFaker}
+ addUserKnob {4 style l "type of Z Blur" t style M {"your own ZDepth" ZRadial ZHorizont ZHorizontDuo ZVertical}}
+ style ZRadial
+ addUserKnob {41 channels l "channels to blur" T Fake_ZBlur.channels}
+ addUserKnob {26 "" l "ZDepth grading"}
+ addUserKnob {6 previewgrade l "preview grade" -STARTLINE}
+ addUserKnob {41 blackpoint T Grade1.blackpoint}
+ addUserKnob {41 whitepoint T Grade1.whitepoint}
+ addUserKnob {41 gamma T Grade1.gamma}
+ addUserKnob {26 "" l "ZBlur control "}
+ addUserKnob {41 setup_mode l "preview of focal plane" T Fake_ZBlur.setup_mode}
+ addUserKnob {41 translate l "Focal center" t "Pick you focal center with the cross" T Transform1.translate}
+ addUserKnob {41 center l "focus plane (C)" T Fake_ZBlur.center}
+ addUserKnob {41 dof l depth-of-field T Fake_ZBlur.dof}
+ addUserKnob {41 size l "size of blur" T Fake_ZBlur.size}
+ addUserKnob {41 max_size l maximum T Fake_ZBlur.max_size}
+ addUserKnob {41 shape l "filter shape" T Fake_ZBlur.shape}
+ addUserKnob {41 occlude l "knob occlusion true" +INVISIBLE T Fake_ZBlur.occlude}
+ addUserKnob {41 quality +INVISIBLE T Fake_ZBlur.quality}
+ addUserKnob {41 "Depth of Field" l "knob center \$value" +INVISIBLE T "Fake_ZBlur.Depth of Field"}
+ addUserKnob {41 "Field Width" l "knob depth \$value" +INVISIBLE T "Fake_ZBlur.Field Width"}
+ addUserKnob {41 "Low Limit" +INVISIBLE T "Fake_ZBlur.Low Limit"}
+ addUserKnob {41 "High Limit" +INVISIBLE T "Fake_ZBlur.High Limit"}
+ addUserKnob {41 "Max Size" l "knob max_size \$value" +INVISIBLE T "Fake_ZBlur.Max Size"}
+ addUserKnob {41 Quality +INVISIBLE T Fake_ZBlur.Quality}
+ addUserKnob {41 Direction +INVISIBLE T Fake_ZBlur.Direction}
+ addUserKnob {41 mix T Fake_ZBlur.mix}
+ addUserKnob {41 enable l "knob mix \$value" +INVISIBLE T Fake_ZBlur.enable}
+ addUserKnob {26 H_ZFaker_v2 l "H_ZFaker v2"}
+}
+ Input {
+  inputs 0
+  name Image
+  xpos -268
+  ypos -743
+ }
+set N2ab0df0 [stack 0]
+ Dot {
+  name Dot1
+  xpos -765
+  ypos -739
+ }
+ Dot {
+  name Dot2
+  xpos -765
+  ypos -454
+ }
+ Dot {
+  name Dot3
+  xpos -765
+  ypos 247
+ }
+ Constant {
+  inputs 0
+  channels depth
+  name Constant1
+  xpos 31
+  ypos -751
+ }
+ Reformat {
+  type "to box"
+  box_width {{Image.format.w}}
+  box_height {{Image.format.h}}
+  box_fixed true
+  name Reformat2
+  xpos 31
+  ypos -622
+ }
+set Nf5d1400 [stack 0]
+ Dot {
+  name Dot4
+  xpos 5
+  ypos -544
+ }
+ Ramp {
+  output depth
+  p0 {{Image.format.w/2} {Image.format.h/2}}
+  p1 {{Image.format.w} {Image.format.h/2}}
+  name Vertical_Z
+  note_font_size 10
+  xpos -29
+  ypos -480
+ }
+ Ramp {
+  output depth
+  p0 {{Image.format.w/2 i} {Image.format.h/2 i}}
+  p1 {0 {Image.format.h/2 i}}
+  name Vertical_Z2
+  note_font_size 10
+  xpos -29
+  ypos -414
+ }
+push $Nf5d1400
+ Dot {
+  name Dot5
+  xpos -156
+  ypos -545
+ }
+ Ramp {
+  output depth
+  p0 {{Image.format.w/2 i} {Image.format.h/2 i}}
+  p1 {{Image.format.w/2 i} 0}
+  name Dual_Horizont_Z
+  note_font_size 10
+  xpos -190
+  ypos -472
+ }
+ Ramp {
+  output depth
+  p0 {{Image.format.w/2 i} {Image.format.h/2 i}}
+  p1 {{Image.format.w/2 i} {Image.format.h i}}
+  name Dual_Horizont_Z1
+  note_font_size 10
+  xpos -190
+  ypos -413
+ }
+push $Nf5d1400
+ Dot {
+  name Dot6
+  xpos -319
+  ypos -558
+ }
+ Ramp {
+  output depth
+  p0 {{format.w/2} {format.h/2}}
+  p1 {{format.w/2} {format.h}}
+  type smooth0
+  name Horizont_Z
+  xpos -353
+  ypos -466
+ }
+push $Nf5d1400
+ Dot {
+  name Dot7
+  xpos -476
+  ypos -608
+ }
+ Radial {
+  output depth
+  area {{curve} {curve} {Image.format.r} {Image.format.h}}
+  name Vignette_Z
+  xpos -510
+  ypos -474
+ }
+ Invert {
+  name Invert1
+  xpos -510
+  ypos -403
+ }
+ Input {
+  inputs 0
+  name your_Z
+  xpos -646
+  ypos -665
+  number 1
+ }
+ Shuffle {
+  out depth
+  name Shuffle2
+  xpos -646
+  ypos -594
+ }
+ Reformat {
+  type "to box"
+  box_width {{Image.format.w}}
+  box_height {{Image.format.h}}
+  box_fixed true
+  resize fill
+  name Reformat1
+  xpos -646
+  ypos -364
+ }
+ Switch {
+  inputs 5
+  which {{style i}}
+  name Switch1
+  xpos -222
+  ypos -332
+  addUserKnob {20 "" l Weta}
+  addUserKnob {32 "update input order" t "changes the input order according to the input nodes' horizontal order (left most node becomes input 0)" -STARTLINE T " reconnectInputs"}
+ }
+ Transform {
+  center {{format.r/2} {format.t/2}}
+  black_outside false
+  name Transform1
+  xpos -222
+  ypos -259
+ }
+ Crop {
+  box {{curve} {curve} {Image.format.r} {Image.format.t}}
+  name Crop1
+  xpos -222
+  ypos -202
+ }
+ Grade {
+  channels depth
+  name Grade1
+  xpos -222
+  ypos -149
+ }
+ Crop {
+  box {{curve} {curve} {Image.format.r} {Image.format.t}}
+  name Crop2
+  xpos -222
+  ypos -48
+ }
+set N12c31150 [stack 0]
+push $N2ab0df0
+ Dot {
+  name Dot8
+  xpos 196
+  ypos -739
+ }
+ Dot {
+  name Dot9
+  xpos 196
+  ypos -2
+ }
+ Copy {
+  inputs 2
+  from0 depth.Z
+  to0 depth.Z
+  name Copy1
+  xpos -222
+  ypos -13
+ }
+push $N12c31150
+ Shuffle {
+  in depth
+  alpha white
+  name Shuffle1
+  xpos -396
+  ypos -48
+ }
+ Merge2 {
+  inputs 2
+  operation copy
+  also_merge all
+  name Merge1
+  xpos -264
+  ypos 63
+  disable {{previewgrade i}}
+ }
+ ZBlur {
+  channels rgba
+  math linear
+  center 0.1
+  dof 0.35
+  size 10
+  max_size 5
+  name Fake_ZBlur
+  xpos -264
+  ypos 170
+  disable {{Merge1.disable i x1 1 x25 1}}
+ }
+ Remove {
+  channels depth
+  name Remove1
+  xpos -264
+  ypos 194
+ }
+ Copy {
+  inputs 2
+  channels depth
+  name Copy2
+  xpos -264
+  ypos 258
+ }
+ Output {
+  name Output1
+  xpos -264
+  ypos 368
+ }
+end_group

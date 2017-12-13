@@ -1,0 +1,67 @@
+#! /Applications/Nuke6.0v4-32/Nuke6.0v4.app/Contents/MacOS/Nuke6.0v4 -nx
+version 6.0 v4
+Gizmo {
+ inputs 2
+ help "create a Card or Axis placed in 3D to match a rendered pixels sourcs position.\nThis is based on the depth channel and the attached camera (assuming the image was \nrendered through the attached camera).\n"
+ addUserKnob {20 User}
+ addUserKnob {7 normZ l INVISIBLE +INVISIBLE}
+ normZ {{"math==0 ? -sampledZ : (math==1 ? -1/sampledZ : 1/sampledZ)"}}
+ addUserKnob {7 sampledZ l INVISIBLE +INVISIBLE}
+ addUserKnob {4 math l "depth math" t "@b;distance: @n; Z is distance in front of camera\n@b;far=0: @n; Z is 1/distance\n@b;far=-0: @n; Z is -1/distance" M {"distance (Mental Ray)" "far=0 (Nuke, RenderMan)" "far=-0 (Maya)" ""}}
+ math "far=0 (Nuke, RenderMan)"
+ addUserKnob {12 src}
+ addUserKnob {13 output3D l INVISIBLE +INVISIBLE}
+ output3D {{(edgeOfFrame.x*scale.x)} {(edgeOfFrame.y*scale.y)} {normZ}}
+ addUserKnob {4 object M {Axis Card Card3D Tracker TransformGeo ""}}
+ object Card
+ addUserKnob {22 Create -STARTLINE T "from __future__ import with_statement\n\nthis = nuke.thisNode()\ninput = nuke.thisNode().input(0)\nxsrc, ysrc = this\['src'].value()\nthis\['sampledZ'].setValue( nuke.sample( input, 'depth.Z', xsrc, ysrc ) )\n\nthis = nuke.thisNode()\nsrcCam = this.input(1)\nxform = this\['output3D'].value()\n\na = nuke.nodes.Axis()\na.setInput(0, srcCam)\na\['translate'].setValue( xform )\n\nr = nuke.nodes.Reconcile3D()\nr.setInput(2, a)\nnuke.execute( r, nuke.frame(), nuke.frame() )\nrealPos = r\['outputxyz'].value()\nfor n in (a, r):\n    nuke.delete( n )\nwith nuke.root():\n    print this\['object'].value()\n    if this\['object'].value() == 'Tracker':\n        a = nuke.nodes.Axis( name='temp...', tile_color=4 )\n        a\['translate'].setValue( realPos )\n        rec = nuke.nodes.Reconcile3D( name='temp....', tile_color=4 )\n        for i, n in enumerate( (input, srcCam, a) ):\n            rec.setInput(i, n)\n        nuke.execute( rec )\n        obj = nuke.nodes.Tracker3( reference_frame=nuke.frame(), transform='match-move')\n        obj\['track1'].copyAnimations( rec\['output'].animations(0) )\n        for n in (a, rec):\n            nuke.delete(n)\n\n    else:\n        obj = eval( 'nuke.nodes.%s()' % this\['object'].value() )\n        obj\['translate'].setValue( realPos )\n\n    obj\['label'].setValue( 'ZCard generated\\n\[value translate]' )\n    obj\['tile_color'].setValue(4800511)\n"}
+ addUserKnob {12 scale l INVISIBLE +INVISIBLE}
+ scale {{(src.x-(width/2))/(width/2)} {(src.y-(height/2))/(height/2)}}
+ addUserKnob {12 edgeOfFrame l INVISIBLE +INVISIBLE}
+ edgeOfFrame {{"\[exists input1]?-(input1.haperture/2/input1.focal)*normZ:0"} {edgeOfFrame.x*(height/width)}}
+}
+ Input {
+  inputs 0
+  name img
+  xpos -391
+  ypos -336
+ }
+ Output {
+  name Output1
+  xpos -391
+  ypos -52
+ }
+ Input {
+  inputs 0
+  name cam
+  xpos 53
+  ypos -345
+  number 1
+ }
+ Axis2 {
+  inputs 0
+  translate {8 0 0}
+  rotate {0 102 0}
+  name Axis1
+  xpos -521
+  ypos -176
+ }
+ Camera2 {
+  translate {{curve i x1 0 x5 1.3} 0 7}
+  name Camera1
+  xpos -345
+  ypos -98
+ }
+ Axis {
+  translate {-3.063238924 0.04485914743 -13.35093673}
+  name Axis2
+ }
+push 0
+push 0
+ Reconcile3D {
+  inputs 3
+  output {{curve x1 8082.419434} {curve x1 1109.779663}}
+  outputxyz {{curve x1 0.9543523788} {curve x1 0.04485914856} {curve x1 -0.2769052982}}
+  name Reconcile3D1
+ }
+end_group

@@ -1,0 +1,14 @@
+set cut_paste_input [stack 0]
+version 10.0 v5
+push $cut_paste_input
+JSLM_slate {
+name JSLM_slate1
+selected true
+xpos 565
+ypos 4835
+format "2048 1152 0 0 2048 1152 1 1152"
+message "\[date %Y/%m/%d]    \[date %H:%M]"
+message_1 ""
+message_2 "TC/Frame:   \[format %02d \[expr \[frame]/\[expr \[value root.fps]*3600]-\[expr \[frame]/\[expr \[value root.fps]*3600]/60]*60]]:\[format %02d \[expr \[frame]/\[expr \[value root.fps]*60]-\[expr \[frame]/\[expr \[value root.fps]*60]/60]*60]]:\[format %02d \[expr \[expr \[frame]/\[value root.fps]]-\[expr \[expr \[frame]/\[value root.fps]]/60]*60]]:\[format %02d \[expr \[frame]-\[frame]/\[value root.fps]*\[value root.fps]]]/\[format %04d \[frame]]"
+message_3 ""
+}

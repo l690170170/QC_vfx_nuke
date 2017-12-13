@@ -1,0 +1,121 @@
+#! /Applications/Nuke6.1v1-32/NukeX6.1v1.app/../Nuke6.1v1.app/Contents/MacOS/Nuke6.1v1 -nx
+version 6.1 v1
+Gizmo {
+ inputs 2
+ tile_color 0x7f9fa1ff
+ addUserKnob {20 ShapeDefocus}
+ addUserKnob {41 channels T Convolve1.channels}
+ addUserKnob {4 out l output M {"Defocused Image" "Convole Shape"}}
+ addUserKnob {7 amount R 0.1 3}
+ amount 1
+ addUserKnob {7 aspect l "aspect ratio" R 1 2.5}
+ aspect 1
+ addUserKnob {7 Flare1_chroma_spread l "chroma spread" R -0.25 0.25}
+ Flare1_chroma_spread 0.1
+ addUserKnob {26 ""}
+ addUserKnob {26 "" l "convolve shape"}
+ addUserKnob {3 Flare1_corners l corners}
+ Flare1_corners 6
+ addUserKnob {41 flattening l "edge flattening" T Flare1.flattening}
+ addUserKnob {41 sharpness l "corner sharpness" T Flare1.sharpness}
+ addUserKnob {26 ""}
+ addUserKnob {7 boost l "highlight boost"}
+ boost 1
+ addUserKnob {41 maskChannelMask l mask T Convolve1.maskChannelMask}
+ addUserKnob {41 inject -STARTLINE T Convolve1.inject}
+ addUserKnob {41 invert_mask l invert -STARTLINE T Convolve1.invert_mask}
+ addUserKnob {41 fringe -STARTLINE T Convolve1.fringe}
+}
+ Flare {
+  inputs 0
+  position {128 133}
+  size_mult 0.16
+  chroma_spread {{parent.Flare1_chroma_spread i}}
+  chroma_shift_angle_add true
+  corners {{parent.Flare1_corners i}}
+  flattening 1
+  sharpness 1
+  name Flare1
+  xpos -138
+  ypos -81
+  hide_input true
+  postage_stamp true
+ }
+ Expression {
+  temp_name0 l
+  temp_expr0 (r*0.299)+(g*0.587)+(b*0.114)
+  expr3 l
+  name l
+  xpos -139
+  ypos -7
+ }
+ Crop {
+  box {102 111.4 155 154.8}
+  reformat true
+  crop false
+  name Crop4
+  tile_color 0x9f80a800
+  xpos -139
+  ypos 26
+ }
+ Reformat {
+  type scale
+  scale {{parent.amount i}}
+  filter Notch
+  pbb true
+  name Reformat1
+  xpos -139
+  ypos 62
+ }
+ Reformat {
+  type scale
+  scale {{curve*parent.aspect i x1 1} {curve i x1 1}}
+  resize distort
+  name Reformat2
+  xpos -138
+  ypos 98
+ }
+set N243fb4d0 [stack 0]
+ Input {
+  inputs 0
+  name mask
+  xpos 122
+  ypos 113
+  number 1
+ }
+push $N243fb4d0
+ Input {
+  inputs 0
+  name Input
+  xpos 0
+  ypos -3
+ }
+ ColorCorrect {
+  highlights.gain {{parent.boost+1}}
+  unpremult -rgba.alpha
+  name ColorCorrect1
+  xpos 0
+  ypos 54
+ }
+ Convolve {
+  inputs 2+1
+  channels rgba
+  invert_mask true
+  name Convolve1
+  selected true
+  xpos 0
+  ypos 113
+ }
+ Switch {
+  inputs 2
+  which {{parent.out}}
+  name Switch1
+  xpos 0
+  ypos 150
+ }
+ Output {
+  name Output
+  xpos 0
+  ypos 187
+ }
+end_group

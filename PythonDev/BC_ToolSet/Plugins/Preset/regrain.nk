@@ -1,0 +1,154 @@
+set cut_paste_input [stack 0]
+version 8.0 v6
+push $cut_paste_input
+Unpremult {
+ name Unpremult1
+ selected true
+ xpos -1782
+ ypos 705
+}
+Dot {
+ name Dot13
+ selected true
+ xpos -1748
+ ypos 762
+}
+set N6469c60 [stack 0]
+Dot {
+ name Dot12
+ selected true
+ xpos -1610
+ ypos 805
+}
+set N64698f0 [stack 0]
+Keyer {
+ operation "luminance key"
+ name Keyer1
+ selected true
+ xpos -1644
+ ypos 858
+}
+push $N64698f0
+push 0
+FrameHold {
+ first_frame 101
+ name FrameHold1
+ selected true
+ xpos -1939
+ ypos 801
+}
+push $N6469c60
+OFXuk.co.thefoundry.furnace.f_regrain_v403 {
+ inputs 2
+ grainType "From Grain Clip"
+ presetStock "FUJIF250Under 2K"
+ amount 1
+ size 1
+ output Result
+ "Analysis Region" 0
+ regionBL {1209 617.9999771}
+ regionTR {1394.400269 773.600029}
+ frame 675
+ grainColourSpace Cineon
+ Advanced 0
+ processRed true
+ redAmount 1
+ redSize 1
+ processGreen true
+ greenAmount 1
+ greenSize 1
+ processBlue true
+ blueAmount 1
+ blueSize 1
+ "Grain Response" 0
+ srcColourSpace "Grain Colour Space"
+ lowGain 1
+ midGain 1
+ highGain 1
+ useResponse false
+ responseMix 1
+ drawResponse false
+ needsGrainSample true
+ notBeenAnalysed false
+ grainClipNeeded false
+ inputHasChanged false
+ responseR0Counts 0
+ responseR0Samples 0
+ responseG0Counts 0
+ responseG0Samples 0
+ responseB0Counts 0
+ responseB0Samples 0
+ responseR1Counts 0
+ responseR1Samples 0
+ responseG1Counts 0
+ responseG1Samples 0
+ responseB1Counts 0
+ responseB1Samples 0
+ responseR2Counts 0
+ responseR2Samples 0
+ responseG2Counts 0
+ responseG2Samples 0
+ responseB2Counts 0
+ responseB2Samples 0
+ responseR3Counts 0
+ responseR3Samples 0
+ responseG3Counts 0
+ responseG3Samples 0
+ responseB3Counts 0
+ responseB3Samples 0
+ responseR4Counts 0
+ responseR4Samples 0
+ responseG4Counts 0
+ responseG4Samples 0
+ responseB4Counts 0
+ responseB4Samples 0
+ responseR5Counts 0
+ responseR5Samples 0
+ responseG5Counts 0
+ responseG5Samples 0
+ responseB5Counts 0
+ responseB5Samples 0
+ responseR6Counts 0
+ responseR6Samples 0
+ responseG6Counts 0
+ responseG6Samples 0
+ responseB6Counts 0
+ responseB6Samples 0
+ responseR7Counts 0
+ responseR7Samples 0
+ responseG7Counts 0
+ responseG7Samples 0
+ responseB7Counts 0
+ responseB7Samples 0
+ responseR8Counts 0
+ responseR8Samples 0
+ responseG8Counts 0
+ responseG8Samples 0
+ responseB8Counts 0
+ responseB8Samples 0
+ responseR9Counts 0
+ responseR9Samples 0
+ responseG9Counts 0
+ responseG9Samples 0
+ responseB9Counts 0
+ responseB9Samples 0
+ grainSample ""
+ cacheBreaker true
+ name F_ReGrain1
+ selected true
+ xpos -1782
+ ypos 807
+}
+Keymix {
+ inputs 3
+ name Keymix3
+ selected true
+ xpos -1782
+ ypos 858
+}
+Premult {
+ name Premult1
+ selected true
+ xpos -1782
+ ypos 932
+}

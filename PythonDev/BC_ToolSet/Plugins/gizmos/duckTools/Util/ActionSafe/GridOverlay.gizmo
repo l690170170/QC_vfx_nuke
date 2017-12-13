@@ -1,0 +1,75 @@
+#! C:/Program Files/Nuke5.1v3b8/Nuke5.1.exe -nx
+version 5.1300
+Gizmo {
+ tile_color 0x7aa9ffff
+ addUserKnob {20 drawgrid l Grid}
+ addUserKnob {7 gridsize l Size R 10 100}
+ gridsize 64
+ addUserKnob {3 gw l Thickness}
+ gw 1
+ addUserKnob {6 align l "Center Grid" -STARTLINE}
+ align true
+ addUserKnob {6 subd l "Subdivide Grid" -STARTLINE}
+ subd true
+ addUserKnob {18 gridcolor l Color}
+ gridcolor 0.3
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -1216
+  ypos -278
+ }
+set N40f4338 [stack 0]
+ Rectangle {
+  area {{input.format.x i} {input.format.y i} {input.format.r i} {input.format.t i}}
+  color 0
+  name Rectangle8
+  xpos -1124
+  ypos -202
+ }
+ Grid {
+  number {{((input.format.w/parent.gridsize)*input.format.pixel_aspect)*2 i} {(input.format.h/parent.gridsize)*2 i}}
+  size {{(parent.gw<=1?0.5:parent.gw/2) i}}
+  translate {{parent.align==1?(input.format.w/2)-(parent.gw/2):0-(parent.gw/2) i} {parent.align==1?(input.format.h/2)-(parent.gw/2):0-(parent.gw/2) i}}
+  color {{parent.gridcolor.r i} {parent.gridcolor.g i} {parent.gridcolor.b i} 1}
+  name SubGrid
+  xpos -1124
+  ypos -173
+  disable {{!parent.subd i}}
+ }
+ Grid {
+  number {{(input.format.w/parent.gridsize)*input.format.pixel_aspect i} {input.format.h/parent.gridsize i}}
+  size {{(parent.gw<=0?1:parent.gw) i}}
+  translate {{parent.align==1?(input.format.w/2)-(parent.gw/2):0-(parent.gw/2) i} {parent.align==1?(input.format.h/2)-(parent.gw/2):0-(parent.gw/2) i}}
+  color {{parent.gridcolor.r i} {parent.gridcolor.g i} {parent.gridcolor.b i} 1}
+  name Grid1
+  xpos -1124
+  ypos -144
+ }
+ Premult {
+  name Premult2
+  xpos -1124
+  ypos 190
+ }
+push $N40f4338
+ Dot {
+  name Dot4
+  xpos -1182
+  ypos 304
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels {rgba.red rgba.green rgba.blue rgba.alpha}
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge2
+  xpos -1124
+  ypos 299
+ }
+ Output {
+  name Output1
+  xpos -1124
+  ypos 393
+ }
+end_group

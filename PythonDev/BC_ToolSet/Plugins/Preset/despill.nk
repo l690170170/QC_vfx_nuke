@@ -1,0 +1,82 @@
+set cut_paste_input [stack 0]
+version 8.0 v6
+push $cut_paste_input
+Dot {
+ name Dot9
+ selected true
+ xpos -1460
+ ypos -126
+}
+set Nf98e3470 [stack 0]
+OFXuk.co.thefoundry.keylight.keylight_v201 {
+ show "Final Result"
+ unPreMultiply false
+ screenColour {0 1 0}
+ screenGain 1
+ screenBalance 0.5
+ alphaBias {0.5 0.5 0.5}
+ despillBias {0.5 0.5 0.5}
+ gangBiases true
+ preBlur 0
+ "Screen Matte" 0
+ screenClipMin 0
+ screenClipMax 1
+ screenClipRollback 0
+ screenGrowShrink 0
+ screenSoftness 0
+ screenDespotBlack 0
+ screenDespotWhite 0
+ screenReplaceMethod "Soft Colour"
+ screenReplaceColour {0.5 0.5 0.5}
+ Tuning 0
+ midPoint 0.5
+ lowGain 1
+ midGain 1
+ highGain 1
+ "Inside Mask" 0
+ sourceAlphaHandling Ignore
+ insideReplaceMethod "Soft Colour"
+ insideReplaceColour {0.5 0.5 0.5}
+ Crops 0
+ SourceXMethod Colour
+ SourceYMethod Colour
+ SourceEdgeColour 0
+ SourceCropL 0
+ SourceCropR 1
+ SourceCropB 0
+ SourceCropT 1
+ balanceSet false
+ insideComponent None
+ outsideComponent None
+ cacheBreaker true
+ name Keylight1
+ selected true
+ xpos -1494
+ ypos -81
+}
+set Nf98e2340 [stack 0]
+push $Nf98e3470
+Merge2 {
+ inputs 2
+ operation difference
+ name Merge3
+ selected true
+ xpos -1384
+ ypos -81
+}
+Saturation {
+ saturation 0
+ name Saturation1
+ selected true
+ xpos -1384
+ ypos -57
+}
+push $Nf98e2340
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge4
+ selected true
+ xpos -1494
+ ypos -18
+}

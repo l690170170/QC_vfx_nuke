@@ -1,0 +1,816 @@
+set cut_paste_input [stack 0]
+version 10.0 v6
+push $cut_paste_input
+Group {
+name iblur
+selected true
+xpos 8635
+ypos -747
+addUserKnob {20 User}
+addUserKnob {41 size T MasterBlur.size}
+addUserKnob {4 defocus l "What you want?" M {Blur Defocus ""}}
+}
+Input {
+inputs 0
+name Matte
+xpos -870
+ypos 56
+number 1
+}
+Shuffle {
+red alpha
+green alpha
+blue alpha
+name Shuffle1
+xpos -870
+ypos 82
+}
+Roto {
+cliptype none
+curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 512}
+    {t x44b40000 x44070000}
+    {a}
+    {curvegroup Bezier1 576 bezier
+     {{cc
+       {f 8192}
+       {px x44852000
+        {x3e752008 xbffe2824}
+        {x43b70000 x435a0000}
+        {xbe754003 x3ffe2920}
+        {x3f838c00 x4102e925}
+        {x44538000 x439c0000}
+        {xbf838c00 xc102e91a}
+        {x405b07f2 xc13ac986}
+        {x44520000 x439b0000}
+        {xc05b07f2 x413ac986}
+        {xc135d70a x412b758e}
+        {x43b60000 x43580000}
+        {x4135d639 xc12b7660}}}
+      {cc
+       {f 8192}
+       {px x44852000
+        {x3e752008 xbffe2824}
+        {0 0}
+        {xbe754003 x3ffe2920}
+        {x3f838c00 x4102e925}
+        {0 0}
+        {xbf838c00 xc102e91a}
+        {x405b0a13 xc13ac91d}
+        {x42480000 x44150000}
+        {xc05b07f2 x413aca58}
+        {xc135d639 x412b75f7}
+        {xc2900000 x44280000}
+        {x4135d639 xc12b758e}}}}
+     {t
+      {{x44852000 x44500000}}
+      {{x44852000 x44194000}}     0
+      {{x44852000 0}}
+      {{x44852000 0}}     0 0 0
+      {{x44852000 0}}
+      {{x44852000 1}}
+      {{x44852000 1}}     1
+      {{x44852000 0}}}
+     {a spx x44b40000 spy x44070000 sb 1 ltn x44852000 ltm x44852000 tt x40800000}}}}}}
+toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+toolbar_brush_hardness 0.200000003
+toolbar_source_transform_scale {1 1}
+toolbar_source_transform_center {320 240}
+colorOverlay 0
+lifetime_type "all frames"
+lifetime_start 1065
+lifetime_end 1065
+motionblur_shutter_offset_type centred
+source_translate_round false
+source_black_outside true
+name Roto36
+xpos -870
+ypos 164
+disable true
+}
+set N917fec00 [stack 0]
+Grade {
+blackpoint {{lower i}}
+whitepoint {{upper i}}
+name Grade66
+xpos -1088
+ypos 343
+addUserKnob {20 User}
+addUserKnob {7 upper}
+upper {{divide*num i}}
+addUserKnob {7 lower}
+lower {{upper-divide i}}
+addUserKnob {7 total}
+total {{parent.MasterBlur.numControl i}}
+addUserKnob {7 center}
+addUserKnob {7 divide}
+divide {{1/total i x1065 1.#INF}}
+addUserKnob {7 num}
+num 10
+}
+Shuffle {
+alpha red
+name Shuffle23
+xpos -1088
+ypos 388
+}
+Input {
+inputs 0
+name Image
+xpos 325
+ypos 272
+}
+Roto {
+cliptype none
+curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 512}
+    {t x44b40000 x44070000}
+    {a}
+    {curvegroup Rectangle1 512 bezier
+     {{cc
+       {f 8192}
+       {px x44852000
+        {0 xc3b95560}
+        {x43ef0000 x44898000}
+        {x40c00000 0}
+        {xc0c00000 0}
+        {x43f80000 x44898000}
+        {0 xc3b95560}
+        {0 x43b95560}
+        {x43f80000 xc1400000}
+        {xc0c00000 0}
+        {x40c00000 0}
+        {x43ef0000 xc1400000}
+        {0 x43b95560}}}     idem}
+     {t
+      {{x44852000 x43f38000}}
+      {{x44852000 x44080000}}     0
+      {{x44852000 0}}
+      {{x44852000 0}}     0 0 0
+      {{x44852000 0}}
+      {{x44852000 1}}
+      {{x44852000 1}}     1
+      {{x44852000 0}}}
+     {a spx x44b40000 spy x44070000 sb 1 ltn x44852000 ltm x44852000 tt x40e00000}}}}}}
+toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 tt 7 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+toolbar_brush_hardness 0.200000003
+toolbar_source_transform_scale {1 1}
+toolbar_source_transform_center {320 240}
+colorOverlay 0
+lifetime_type "all frames"
+lifetime_start 1065
+lifetime_end 1065
+view {}
+motionblur_on true
+motionblur_shutter_offset_type centred
+source_black_outside true
+name Roto37
+xpos 325
+ypos 311
+disable true
+}
+set Na177c00 [stack 0]
+Dot {
+name Dot14
+xpos 193
+ypos 417
+}
+set Na177800 [stack 0]
+Blur {
+channels rgba
+size 25
+name MasterBlur
+xpos -1145
+ypos 511
+disable {{defocus}}
+addUserKnob {20 User}
+addUserKnob {7 numControl}
+numControl 10
+}
+Defocus {
+channels rgba
+defocus {{input.size}}
+name Defocus1
+xpos -1145
+ypos 537
+disable {{1-input.disable}}
+}
+Grade {
+white {3.359999895 0.05999999866 0.09200000018 1}
+add {0.25 -0.09399999678 -0.07999999821 0}
+name Grade67
+xpos -1145
+ypos 631
+disable true
+}
+push $N917fec00
+Grade {
+blackpoint {{lower i}}
+whitepoint {{upper i}}
+name Grade69
+xpos -970
+ypos 341
+addUserKnob {20 User}
+addUserKnob {7 upper}
+upper {{divide*num i}}
+addUserKnob {7 lower}
+lower {{upper-divide i}}
+addUserKnob {7 total}
+total {{parent.MasterBlur.numControl i}}
+addUserKnob {7 center}
+addUserKnob {7 divide}
+divide {{1/total i x1065 1.#INF}}
+addUserKnob {7 num}
+num 9
+}
+Shuffle {
+alpha red
+name Shuffle24
+xpos -970
+ypos 386
+}
+push $Na177800
+Blur {
+channels rgba
+size {{parent.MasterBlur.size/num*mult i}}
+name Blur35
+xpos -872
+ypos 498
+disable {{defocus}}
+addUserKnob {20 User}
+addUserKnob {7 mult}
+mult 9
+addUserKnob {7 num}
+num {{parent.MasterBlur.numControl i}}
+}
+Defocus {
+channels rgba
+defocus {{input.size}}
+name Defocus2
+xpos -872
+ypos 524
+disable {{1-input.disable}}
+}
+Grade {
+white {3.359999895 0.05999999866 0.09200000018 1}
+add {0.25 -0.09399999678 -0.07999999821 0}
+name Grade70
+xpos -872
+ypos 629
+disable true
+}
+push $N917fec00
+Grade {
+blackpoint {{lower i}}
+whitepoint {{upper i}}
+name Grade75
+xpos -854
+ypos 349
+addUserKnob {20 User}
+addUserKnob {7 upper}
+upper {{divide*num i}}
+addUserKnob {7 lower}
+lower {{upper-divide i}}
+addUserKnob {7 total}
+total {{parent.MasterBlur.numControl i}}
+addUserKnob {7 center}
+addUserKnob {7 divide}
+divide {{1/total i x1065 1.#INF}}
+addUserKnob {7 num}
+num 8
+}
+Shuffle {
+alpha red
+name Shuffle25
+xpos -854
+ypos 389
+}
+push $Na177800
+Blur {
+channels rgba
+size {{parent.MasterBlur.size/num*mult i}}
+name Blur41
+xpos -765
+ypos 502
+disable {{defocus}}
+addUserKnob {20 User}
+addUserKnob {7 mult}
+mult 8
+addUserKnob {7 num}
+num {{parent.MasterBlur.numControl i}}
+}
+Defocus {
+channels rgba
+defocus {{input.size}}
+name Defocus3
+xpos -765
+ypos 528
+disable {{1-input.disable}}
+}
+Grade {
+white {3.359999895 0.05999999866 0.09200000018 1}
+add {0.25 -0.09399999678 -0.07999999821 0}
+name Grade76
+xpos -765
+ypos 633
+disable true
+}
+push $N917fec00
+Grade {
+blackpoint {{lower i}}
+whitepoint {{upper i}}
+name Grade77
+xpos -737
+ypos 362
+addUserKnob {20 User}
+addUserKnob {7 upper}
+upper {{divide*num i}}
+addUserKnob {7 lower}
+lower {{upper-divide i}}
+addUserKnob {7 total}
+total {{parent.MasterBlur.numControl i}}
+addUserKnob {7 center}
+addUserKnob {7 divide}
+divide {{1/total i x1065 1.#INF}}
+addUserKnob {7 num}
+num 7
+}
+Shuffle {
+alpha red
+name Shuffle26
+xpos -737
+ypos 388
+}
+push $Na177800
+Blur {
+channels rgba
+size {{parent.MasterBlur.size/num*mult i}}
+name Blur42
+xpos -670
+ypos 511
+disable {{defocus}}
+addUserKnob {20 User}
+addUserKnob {7 mult}
+mult 7
+addUserKnob {7 num}
+num {{parent.MasterBlur.numControl i}}
+}
+Defocus {
+channels rgba
+defocus {{input.size}}
+name Defocus4
+xpos -670
+ypos 537
+disable {{1-input.disable}}
+}
+Grade {
+white {3.359999895 0.05999999866 0.09200000018 1}
+add {0.25 -0.09399999678 -0.07999999821 0}
+name Grade78
+xpos -670
+ypos 642
+disable true
+}
+push $N917fec00
+Grade {
+blackpoint {{lower i}}
+whitepoint {{upper i}}
+name Grade79
+xpos -622
+ypos 346
+addUserKnob {20 User}
+addUserKnob {7 upper}
+upper {{divide*num i}}
+addUserKnob {7 lower}
+lower {{upper-divide i}}
+addUserKnob {7 total}
+total {{parent.MasterBlur.numControl i}}
+addUserKnob {7 center}
+addUserKnob {7 divide}
+divide {{1/total i x1065 1.#INF}}
+addUserKnob {7 num}
+num 6
+}
+Shuffle {
+alpha red
+name Shuffle27
+xpos -622
+ypos 389
+}
+push $Na177800
+Blur {
+channels rgba
+size {{parent.MasterBlur.size/num*mult i}}
+name Blur43
+xpos -549
+ypos 516
+disable {{defocus}}
+addUserKnob {20 User}
+addUserKnob {7 mult}
+mult 6
+addUserKnob {7 num}
+num {{parent.MasterBlur.numControl i}}
+}
+Defocus {
+channels rgba
+defocus {{input.size}}
+name Defocus5
+xpos -549
+ypos 542
+disable {{1-input.disable}}
+}
+Grade {
+white {3.359999895 0.05999999866 0.09200000018 1}
+add {0.25 -0.09399999678 -0.07999999821 0}
+name Grade80
+xpos -549
+ypos 647
+disable true
+}
+push $N917fec00
+Grade {
+blackpoint {{lower i}}
+whitepoint {{upper i}}
+name Grade81
+xpos -470
+ypos 346
+addUserKnob {20 User}
+addUserKnob {7 upper}
+upper {{divide*num i}}
+addUserKnob {7 lower}
+lower {{upper-divide i}}
+addUserKnob {7 total}
+total {{parent.MasterBlur.numControl i}}
+addUserKnob {7 center}
+addUserKnob {7 divide}
+divide {{1/total i x1065 1.#INF}}
+addUserKnob {7 num}
+num 5
+}
+Shuffle {
+alpha red
+name Shuffle28
+xpos -470
+ypos 391
+}
+push $Na177800
+Blur {
+channels rgba
+size {{parent.MasterBlur.size/num*mult i}}
+name Blur44
+xpos -370
+ypos 512
+disable {{defocus}}
+addUserKnob {20 User}
+addUserKnob {7 mult}
+mult 5
+addUserKnob {7 num}
+num {{parent.MasterBlur.numControl i}}
+}
+Defocus {
+channels rgba
+defocus {{input.size}}
+name Defocus6
+xpos -370
+ypos 538
+disable {{1-input.disable}}
+}
+Grade {
+white {3.359999895 0.05999999866 0.09200000018 1}
+add {0.25 -0.09399999678 -0.07999999821 0}
+name Grade86
+xpos -370
+ypos 643
+disable true
+}
+push $N917fec00
+Grade {
+blackpoint {{lower i}}
+whitepoint {{upper i}}
+name Grade82
+xpos -352
+ypos 344
+addUserKnob {20 User}
+addUserKnob {7 upper}
+upper {{divide*num i}}
+addUserKnob {7 lower}
+lower {{upper-divide i}}
+addUserKnob {7 total}
+total {{parent.MasterBlur.numControl i}}
+addUserKnob {7 center}
+addUserKnob {7 divide}
+divide {{1/total i x1065 1.#INF}}
+addUserKnob {7 num}
+num 4
+}
+Shuffle {
+alpha red
+name Shuffle29
+xpos -352
+ypos 387
+}
+push $Na177800
+Blur {
+channels rgba
+size {{parent.MasterBlur.size/num*mult i}}
+name Blur48
+xpos -279
+ypos 518
+disable {{defocus}}
+addUserKnob {20 User}
+addUserKnob {7 mult}
+mult 4
+addUserKnob {7 num}
+num {{parent.MasterBlur.numControl i}}
+}
+Defocus {
+channels rgba
+defocus {{input.size}}
+name Defocus7
+xpos -279
+ypos 544
+disable {{1-input.disable}}
+}
+Grade {
+white {3.359999895 0.05999999866 0.09200000018 1}
+add {0.25 -0.09399999678 -0.07999999821 0}
+name Grade90
+xpos -279
+ypos 649
+disable true
+}
+push $N917fec00
+Grade {
+blackpoint {{lower i}}
+whitepoint {{upper i}}
+name Grade83
+xpos -236
+ypos 352
+addUserKnob {20 User}
+addUserKnob {7 upper}
+upper {{divide*num i}}
+addUserKnob {7 lower}
+lower {{upper-divide i}}
+addUserKnob {7 total}
+total {{parent.MasterBlur.numControl i}}
+addUserKnob {7 center}
+addUserKnob {7 divide}
+divide {{1/total i x1065 1.#INF}}
+addUserKnob {7 num}
+num 3
+}
+Shuffle {
+alpha red
+name Shuffle30
+xpos -236
+ypos 390
+}
+push $Na177800
+Blur {
+channels rgba
+size {{parent.MasterBlur.size/num*mult i}}
+name Blur45
+xpos -174
+ypos 521
+disable {{defocus}}
+addUserKnob {20 User}
+addUserKnob {7 mult}
+mult 3
+addUserKnob {7 num}
+num {{parent.MasterBlur.numControl i}}
+}
+Defocus {
+channels rgba
+defocus {{input.size}}
+name Defocus8
+xpos -174
+ypos 547
+disable {{1-input.disable}}
+}
+Grade {
+white {3.359999895 0.05999999866 0.09200000018 1}
+add {0.25 -0.09399999678 -0.07999999821 0}
+name Grade87
+xpos -176
+ypos 651
+disable true
+}
+push $N917fec00
+Grade {
+blackpoint {{lower i}}
+whitepoint {{upper i}}
+name Grade84
+xpos -119
+ypos 363
+addUserKnob {20 User}
+addUserKnob {7 upper}
+upper {{divide*num i}}
+addUserKnob {7 lower}
+lower {{upper-divide i}}
+addUserKnob {7 total}
+total {{parent.MasterBlur.numControl i}}
+addUserKnob {7 center}
+addUserKnob {7 divide}
+divide {{1/total i x1065 1.#INF}}
+addUserKnob {7 num}
+num 2
+}
+Shuffle {
+alpha red
+name Shuffle31
+xpos -119
+ypos 389
+}
+push $Na177800
+Blur {
+channels rgba
+size {{parent.MasterBlur.size/num*mult i}}
+name Blur46
+xpos -81
+ypos 532
+disable {{defocus}}
+addUserKnob {20 User}
+addUserKnob {7 mult}
+mult 2
+addUserKnob {7 num}
+num {{parent.MasterBlur.numControl i}}
+}
+Defocus {
+channels rgba
+defocus {{input.size}}
+name Defocus10
+xpos -81
+ypos 558
+disable {{1-input.disable}}
+}
+Grade {
+white {3.359999895 0.05999999866 0.09200000018 1}
+add {0.25 -0.09399999678 -0.07999999821 0}
+name Grade88
+xpos -81
+ypos 660
+disable true
+}
+push $N917fec00
+Grade {
+blackpoint {{lower}}
+whitepoint {{upper}}
+name Grade85
+xpos -4
+ypos 350
+addUserKnob {20 User}
+addUserKnob {7 upper}
+upper {{divide*num}}
+addUserKnob {7 lower}
+lower {{upper-divide}}
+addUserKnob {7 total}
+total {{parent.MasterBlur.numControl}}
+addUserKnob {7 center}
+addUserKnob {7 divide}
+divide {{1/total x1065 1.#INF}}
+addUserKnob {7 num}
+num 1
+}
+Shuffle {
+alpha red
+name Shuffle32
+xpos -4
+ypos 390
+}
+push $Na177800
+Blur {
+channels rgba
+size {{parent.MasterBlur.size/num*mult i}}
+name Blur47
+xpos 40
+ypos 537
+disable {{defocus}}
+addUserKnob {20 User}
+addUserKnob {7 mult}
+mult 1
+addUserKnob {7 num}
+num {{parent.MasterBlur.numControl i}}
+}
+Defocus {
+channels rgba
+defocus {{input.size}}
+name Defocus9
+xpos 40
+ypos 563
+disable {{1-input.disable}}
+}
+Grade {
+white {3.359999895 0.05999999866 0.09200000018 1}
+add {0.25 -0.09399999678 -0.07999999821 0}
+name Grade89
+xpos 40
+ypos 665
+disable true
+}
+push $Na177c00
+Keymix {
+inputs 3
+name Keymix15
+xpos 40
+ypos 769
+}
+Keymix {
+inputs 3
+name Keymix14
+xpos -81
+ypos 769
+}
+Keymix {
+inputs 3
+name Keymix13
+xpos -181
+ypos 763
+}
+Keymix {
+inputs 3
+name Keymix12
+xpos -317
+ypos 733
+}
+Keymix {
+inputs 3
+name Keymix11
+xpos -427
+ypos 733
+}
+Keymix {
+inputs 3
+name Keymix6
+xpos -549
+ypos 733
+}
+Keymix {
+inputs 3
+name Keymix7
+xpos -670
+ypos 733
+}
+Keymix {
+inputs 3
+name Keymix8
+xpos -765
+ypos 733
+}
+Keymix {
+inputs 3
+name Keymix9
+xpos -872
+ypos 733
+}
+Keymix {
+inputs 3
+name Keymix10
+xpos -1046
+ypos 733
+}
+Output {
+name Output1
+xpos -1030
+ypos 926
+}
+end_group

@@ -1,0 +1,3047 @@
+#! C:/Program Files/Nuke6.0v1/Nuke6.0.exe -nx
+version 6.0 v1
+Gizmo {
+ inputs 3
+ help "Elias Saliba\nVisual effect supervisor\nArtware corp\nsaliba.elias@gmail.com\nwww.elias-saliba.com (coming soon)\nwww.artwarecorp.com"
+ addUserKnob {20 Loader}
+ addUserKnob {26 ""}
+ addUserKnob {20 importgrp l Import t "Import Group" n 1}
+ addUserKnob {26 Import l "" +STARTLINE}
+ addUserKnob {41 Path T VrayPassesControl.Path}
+ addUserKnob {41 FileName T VrayPassesControl.FileName}
+ addUserKnob {41 Vray l "" -STARTLINE T VrayPassesControl.Vray}
+ addUserKnob {41 Sequance l "" t "Clear in case of one frame" -STARTLINE T VrayPassesControl.Sequance}
+ addUserKnob {41 FileType l "" -STARTLINE T VrayPassesControl.FileType}
+ addUserKnob {41 Rangein l In T VrayPassesControl.Rangein}
+ addUserKnob {41 Rangeout l Out -STARTLINE T VrayPassesControl.Rangeout}
+ addUserKnob {20 endGroupimport l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 LoadGRP l Load t "If you choose to use the browse button you must do on all passes and you must clear all input in the import group above\n\nTurn ignore off only on those passes that you rendered\n\nAfter loading in case of missing passes press the Ignore button then clear the field of each one to remove the error message" n 1}
+ addUserKnob {26 VrayPasses l "" +STARTLINE}
+ addUserKnob {41 Beauty T VrayPassesControl.Beauty}
+ addUserKnob {41 BeautyIgnore l Ignore -STARTLINE T VrayPassesControl.BeautyIgnore}
+ addUserKnob {41 UnclampedColor T VrayPassesControl.UnclampedColor}
+ addUserKnob {41 UnclampedColorIgnore l Ignore -STARTLINE T VrayPassesControl.UnclampedColorIgnore}
+ addUserKnob {41 DiffuseFilter T VrayPassesControl.DiffuseFilter}
+ addUserKnob {41 DiffuseFilterIgnore l Ignore -STARTLINE T VrayPassesControl.DiffuseFilterIgnore}
+ addUserKnob {41 Alpha T VrayPassesControl.Alpha}
+ addUserKnob {41 AlphaIgnore l Ignore -STARTLINE T VrayPassesControl.AlphaIgnore}
+ addUserKnob {41 Background T VrayPassesControl.Background}
+ addUserKnob {41 BackgroundIgnore l Ignore -STARTLINE T VrayPassesControl.BackgroundIgnore}
+ addUserKnob {41 GI T VrayPassesControl.GI}
+ addUserKnob {41 GIIgnore l Ignore -STARTLINE T VrayPassesControl.GIIgnore}
+ addUserKnob {41 RawGI T VrayPassesControl.RawGI}
+ addUserKnob {41 RawGIIgnore l Ignore -STARTLINE T VrayPassesControl.RawGIIgnore}
+ addUserKnob {41 Lighting T VrayPassesControl.Lighting}
+ addUserKnob {41 LightingIgnore l Ignore -STARTLINE T VrayPassesControl.LightingIgnore}
+ addUserKnob {41 RawLighting T VrayPassesControl.RawLighting}
+ addUserKnob {41 RawLightingIgnore l Ignore -STARTLINE T VrayPassesControl.RawLightingIgnore}
+ addUserKnob {41 TotalLighting T VrayPassesControl.TotalLighting}
+ addUserKnob {41 TotalLightingIgnore l Ignore -STARTLINE T VrayPassesControl.TotalLightingIgnore}
+ addUserKnob {41 RawTotalLighting T VrayPassesControl.RawTotalLighting}
+ addUserKnob {41 RawTotalLightingIgnore l Ignore -STARTLINE T VrayPassesControl.RawTotalLightingIgnore}
+ addUserKnob {41 Shadow T VrayPassesControl.Shadow}
+ addUserKnob {41 ShadowIgnore l Ignore -STARTLINE T VrayPassesControl.ShadowIgnore}
+ addUserKnob {41 RawShadow T VrayPassesControl.RawShadow}
+ addUserKnob {41 RawShadowIgnore l Ignore -STARTLINE T VrayPassesControl.RawShadowIgnore}
+ addUserKnob {41 MatteShadow T VrayPassesControl.MatteShadow}
+ addUserKnob {41 MatteShadowIgnore l Ignore -STARTLINE T VrayPassesControl.MatteShadowIgnore}
+ addUserKnob {41 Illuminance T VrayPassesControl.Illuminance}
+ addUserKnob {41 IlluminanceIgnore l Ignore -STARTLINE T VrayPassesControl.IlluminanceIgnore}
+ addUserKnob {41 Atmosphere T VrayPassesControl.Atmosphere}
+ addUserKnob {41 AtmosphereIgnore l Ignore -STARTLINE T VrayPassesControl.AtmosphereIgnore}
+ addUserKnob {41 Caustics T VrayPassesControl.Caustics}
+ addUserKnob {41 CausticsIgnore l Ignore -STARTLINE T VrayPassesControl.CausticsIgnore}
+ addUserKnob {41 SelfIllumination T VrayPassesControl.SelfIllumination}
+ addUserKnob {41 SelfIlluminationIgnore l Ignore -STARTLINE T VrayPassesControl.SelfIlluminationIgnore}
+ addUserKnob {41 Specular T VrayPassesControl.Specular}
+ addUserKnob {41 SpecularIgnore l Ignore -STARTLINE T VrayPassesControl.SpecularIgnore}
+ addUserKnob {41 Reflection T VrayPassesControl.Reflection}
+ addUserKnob {41 ReflectionIgnore l Ignore -STARTLINE T VrayPassesControl.ReflectionIgnore}
+ addUserKnob {41 RawReflection T VrayPassesControl.RawReflection}
+ addUserKnob {41 RawReflectionIgnore l Ignore -STARTLINE T VrayPassesControl.RawReflectionIgnore}
+ addUserKnob {41 ReflectionFilter T VrayPassesControl.ReflectionFilter}
+ addUserKnob {41 ReflectionFilterIgnore l Ignore -STARTLINE T VrayPassesControl.ReflectionFilterIgnore}
+ addUserKnob {41 Refraction T VrayPassesControl.Refraction}
+ addUserKnob {41 RefractionIgnore l Ignore -STARTLINE T VrayPassesControl.RefractionIgnore}
+ addUserKnob {41 RawRefraction T VrayPassesControl.RawRefraction}
+ addUserKnob {41 RawRefractionIgnore l Ignore -STARTLINE T VrayPassesControl.RawRefractionIgnore}
+ addUserKnob {41 RefractionFilter T VrayPassesControl.RefractionFilter}
+ addUserKnob {41 RefractionFilterIgnore l Ignore -STARTLINE T VrayPassesControl.RefractionFilterIgnore}
+ addUserKnob {41 ZDepth T VrayPassesControl.ZDepth}
+ addUserKnob {41 ZDepthIgnore l Ignore -STARTLINE T VrayPassesControl.ZDepthIgnore}
+ addUserKnob {41 Velocity T VrayPassesControl.Velocity}
+ addUserKnob {41 VelocityIgnore l Ignore -STARTLINE T VrayPassesControl.VelocityIgnore}
+ addUserKnob {41 Normal T VrayPassesControl.Normal}
+ addUserKnob {41 NormalIgnore l Ignore -STARTLINE T VrayPassesControl.NormalIgnore}
+ addUserKnob {41 BumpNormal T VrayPassesControl.BumpNormal}
+ addUserKnob {41 BumpNormalIgnore l Ignore -STARTLINE T VrayPassesControl.BumpNormalIgnore}
+ addUserKnob {41 SampleRate T VrayPassesControl.SampleRate}
+ addUserKnob {41 SampleRateIgnore l Ignore -STARTLINE T VrayPassesControl.SampleRateIgnore}
+ addUserKnob {41 WireColor T VrayPassesControl.WireColor}
+ addUserKnob {41 WireColorIgnore l Ignore -STARTLINE T VrayPassesControl.WireColorIgnore}
+ addUserKnob {41 ExtraTex T VrayPassesControl.ExtraTex}
+ addUserKnob {41 ExtraTexIgnore l Ignore -STARTLINE T VrayPassesControl.ExtraTexIgnore}
+ addUserKnob {41 RenderID T VrayPassesControl.RenderID}
+ addUserKnob {41 RenderIDIgnore l Ignore -STARTLINE T VrayPassesControl.RenderIDIgnore}
+ addUserKnob {41 ObjectID T VrayPassesControl.ObjectID}
+ addUserKnob {41 ObjectIDIgnore l Ignore -STARTLINE T VrayPassesControl.ObjectIDIgnore}
+ addUserKnob {41 MaterialID T VrayPassesControl.MaterialID}
+ addUserKnob {41 MaterialIDIgnore l Ignore -STARTLINE T VrayPassesControl.MaterialIDIgnore}
+ addUserKnob {41 MaterialSelect T VrayPassesControl.MaterialSelect}
+ addUserKnob {41 MaterialSelectIgnore l Ignore -STARTLINE T VrayPassesControl.MaterialSelectIgnore}
+ addUserKnob {20 endGroupload l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 extrapasses l "Extra Passes" t "Use the browser with non vray passes" n 1}
+ addUserKnob {26 notvray l "" t "Non Vray Passes" +STARTLINE}
+ addUserKnob {41 AmbiantLoader l "Ambiant Occ" T VrayPassesControl.AmbiantLoader}
+ addUserKnob {41 AmbiantOccIgnore l Ignore -STARTLINE T VrayPassesControl.AmbiantOccIgnore}
+ addUserKnob {41 FringeMask l "Fringe Mask" T VrayPassesControl.FringeMask}
+ addUserKnob {41 FringeMaskIgnore l Ignore -STARTLINE T VrayPassesControl.FringeMaskIgnore}
+ addUserKnob {20 endGroupExtraPasses l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 Maintab l Main}
+ addUserKnob {26 ""}
+ addUserKnob {41 BeautyPassess l "Comp Mode" T VrayPassesControl.BeautyPasses}
+ addUserKnob {26 ""}
+ addUserKnob {20 TexturesGRP l Textures n 1}
+ TexturesGRP 0
+ addUserKnob {26 ""}
+ addUserKnob {41 Texturesaturation l Saturation T VrayPassesControl.Texturesaturation}
+ addUserKnob {41 TextureCC T VrayPassesControl.TextureCC}
+ addUserKnob {20 endGrouptexture l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 Background_GRP l Background n 1}
+ Background_GRP 0
+ addUserKnob {26 ""}
+ addUserKnob {41 Enableback l Enable T VrayPassesControl.Enableback}
+ addUserKnob {41 backSaturation l Saturation T VrayPassesControl.backSaturation}
+ addUserKnob {41 BackCC T VrayPassesControl.BackCC}
+ addUserKnob {41 EnableDOF l "Enable DOF" T VrayPassesControl.EnableDOF}
+ addUserKnob {41 BlurAmount l DOF_Amount T VrayPassesControl.BlurAmount}
+ addUserKnob {41 BlurSize l DOF_Size T VrayPassesControl.BlurSize}
+ addUserKnob {41 DOF_aspect T VrayPassesControl.DOF_aspect}
+ addUserKnob {20 endGroup_backgroung l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {41 LightingMethod l "Light  Mode" T VrayPassesControl.LightingMethod}
+ addUserKnob {26 ""}
+ addUserKnob {20 DefaultLightingGroup l "Default Light" n 1}
+ DefaultLightingGroup 0
+ addUserKnob {26 ""}
+ addUserKnob {26 DirectLightLine l DirectLight T "\t\t\t\t"}
+ addUserKnob {26 ""}
+ addUserKnob {41 IgnoreDirect l "Ignore Direct Lighting" T VrayPassesControl.IgnoreDirect}
+ addUserKnob {41 DirectLightingDefault l "Defualt Direct Lighting (as rendered)" T VrayPassesControl.DirectLightingDefault}
+ addUserKnob {7 dlContrast l Contrast}
+ dlContrast 1
+ addUserKnob {41 DirectLightMultiplier l Gamma T VrayPassesControl.DirectLightMultiplier}
+ addUserKnob {41 DirectColorCorrect l Gain T VrayPassesControl.DirectColorCorrect}
+ addUserKnob {41 DirectSaturation l Saturation T VrayPassesControl.DirectSaturation}
+ addUserKnob {26 ""}
+ addUserKnob {26 IndirectLine l IndirectLight T "\t\t\t\t"}
+ addUserKnob {26 ""}
+ addUserKnob {41 IgnoreIndirectLighting l "Ignore Indirect Lighting" T VrayPassesControl.IgnoreIndirectLighting}
+ addUserKnob {41 DefaultIndirect l "Default Indirect Lighting (as rendered)" T VrayPassesControl.DefaultIndirect}
+ addUserKnob {41 IndirectMultiplier l Contrast T VrayPassesControl.IndirectMultiplier}
+ addUserKnob {41 indirectColorCorrect l Gamma T VrayPassesControl.indirectColorCorrect}
+ addUserKnob {7 ilgain l Gain}
+ ilgain 1
+ addUserKnob {41 IndirectSaturation l Saturation T VrayPassesControl.IndirectSaturation}
+ addUserKnob {26 ""}
+ addUserKnob {26 Causticsline l Caustics T "\t\t\t\t"}
+ addUserKnob {26 ""}
+ addUserKnob {41 AddCaustics l "Add Caustics" T VrayPassesControl.AddCaustics}
+ addUserKnob {41 CausticsMultiplier l Amount T VrayPassesControl.CausticsMultiplier}
+ addUserKnob {41 CausticsColorCorrect l ColorCorrect T VrayPassesControl.CausticsColorCorrect}
+ addUserKnob {41 CausticsSatur l Saturation T VrayPassesControl.CausticsSatur}
+ addUserKnob {20 endGroupDefaultLight l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 TotalLightingGroup l "Total Lighting" n 1}
+ TotalLightingGroup 0
+ addUserKnob {26 ""}
+ addUserKnob {41 IgnoreTotalLighting l "Ignore Total Lighting" T VrayPassesControl.IgnoreTotalLighting}
+ addUserKnob {41 DefaultTotlaLighting l "Default Total Lighting (as rendered)" T VrayPassesControl.DefaultTotlaLighting}
+ addUserKnob {41 tlMultiplier l Multiplier T VrayPassesControl.tlMultiplier}
+ addUserKnob {41 ColorCorrect T VrayPassesControl.ColorCorrect}
+ addUserKnob {41 tlSaturation l Saturation T VrayPassesControl.tlSaturation}
+ addUserKnob {20 endGrouptotallight l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 Illuminance_group l Illuminance n 1}
+ Illuminance_group 0
+ addUserKnob {26 ""}
+ addUserKnob {41 IgnoreIlluminance l "Ignore Illuminance" T VrayPassesControl.IgnoreIlluminance}
+ addUserKnob {41 Multiplier T VrayPassesControl.Multiplier}
+ addUserKnob {41 ilColorCorrect l ColorCorrect T VrayPassesControl.ilColorCorrect}
+ addUserKnob {7 IllSaturation l Saturation R 0 100}
+ IllSaturation 1
+ addUserKnob {20 endGroupIlluminance l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 SelfIlluminationGroup l "Self Illumination" n 1}
+ SelfIlluminationGroup 0
+ addUserKnob {26 ""}
+ addUserKnob {41 TurnOffSelf l "Ignore Self Illumination" T VrayPassesControl.TurnOffSelf}
+ addUserKnob {41 siMultiplier l Multiplier T VrayPassesControl.siMultiplier}
+ addUserKnob {41 siColorCorrect l "Color Correct" T VrayPassesControl.siColorCorrect}
+ addUserKnob {7 selfillSaturation l Saturation}
+ selfillSaturation 1
+ addUserKnob {20 endGroupselfillumination l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 Shadows n 1}
+ Shadows 0
+ addUserKnob {26 ""}
+ addUserKnob {26 MainShadow -STARTLINE T "\t\t\t\t"}
+ addUserKnob {26 ""}
+ addUserKnob {6 IgnoreShadow l Ignore +STARTLINE}
+ addUserKnob {6 Invertmask l "Invert Shadow Mask" -STARTLINE}
+ addUserKnob {6 DefaultShadow l "Default Shadow (as rendered)" +STARTLINE}
+ addUserKnob {41 contrast_8 l contrast T ColorCorrect2.contrast}
+ addUserKnob {41 gamma_8 l gamma T ColorCorrect2.gamma}
+ addUserKnob {41 gain_8 l gain T ColorCorrect2.gain}
+ addUserKnob {41 offset T ColorCorrect2.offset}
+ addUserKnob {41 saturation_8 l saturation T Saturation1.saturation}
+ addUserKnob {41 mix_7 l mix T Merge20.mix}
+ addUserKnob {26 ""}
+ addUserKnob {26 AmbiantLine l AmbiantOcc T "\t\t\t\t"}
+ addUserKnob {26 ""}
+ addUserKnob {41 EnableOCC l Enable T VrayPassesControl.EnableOCC}
+ addUserKnob {41 AmountOCC l Amount T VrayPassesControl.AmountOCC}
+ addUserKnob {41 ColorOcc l ColorCorrect T VrayPassesControl.ColorOcc}
+ addUserKnob {7 AMBSatur l Saturation R 0 50}
+ AMBSatur 1
+ addUserKnob {20 endGroupShadow l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 Refractions n 1}
+ Refractions 0
+ addUserKnob {26 ""}
+ addUserKnob {41 IgnoreRefractins l Ignore T VrayPassesControl.IgnoreRefractins}
+ addUserKnob {41 DefaultRefractions l "Default Refractions (as rendered)" T VrayPassesControl.DefaultRefractions}
+ addUserKnob {41 refractblur l Blur T VrayPassesControl.refractblur}
+ addUserKnob {41 RefractionsMultiplier l Amount T VrayPassesControl.RefractionsMultiplier}
+ addUserKnob {41 saturation_15 l saturation T ColorCorrect17.saturation}
+ addUserKnob {41 contrast_15 l contrast T ColorCorrect17.contrast}
+ addUserKnob {41 gamma_15 l gamma T ColorCorrect17.gamma}
+ addUserKnob {41 gain_15 l gain T ColorCorrect17.gain}
+ addUserKnob {7 RefractSat l Saturation R 0 50}
+ RefractSat 1
+ addUserKnob {20 endGroup_refractions l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 ReflectionGroup l Reflection n 1}
+ ReflectionGroup 0
+ addUserKnob {26 ""}
+ addUserKnob {41 Ignorerefl l Ignore T VrayPassesControl.Ignorerefl}
+ addUserKnob {41 DefaultReflection l "Default Reflection (as rendered)" T VrayPassesControl.DefaultReflection}
+ addUserKnob {41 RefBlur l "Reflection Blur" T VrayPassesControl.RefBlur}
+ addUserKnob {41 reflectionAmount l Amount T VrayPassesControl.reflectionAmount}
+ addUserKnob {41 saturation_14 l saturation T ColorCorrect18.saturation}
+ addUserKnob {41 contrast_14 l contrast T ColorCorrect18.contrast}
+ addUserKnob {41 gamma_14 l gamma T ColorCorrect18.gamma}
+ addUserKnob {41 gain_14 l gain T ColorCorrect18.gain}
+ addUserKnob {7 ReflectSatu l Saturation R 0 50}
+ ReflectSatu 1
+ addUserKnob {7 Fringing l "Fringe correction"}
+ addUserKnob {20 endGroup_ReflectionGroup l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 SpecularGroup l Specular n 1}
+ SpecularGroup 0
+ addUserKnob {26 ""}
+ addUserKnob {41 Ignorespec l Ignore T VrayPassesControl.Ignorespec}
+ addUserKnob {41 Amountspec l Amount T VrayPassesControl.Amountspec}
+ addUserKnob {41 speccc l SpecularCC T VrayPassesControl.speccc}
+ addUserKnob {7 SpecSatu l Saturation R 0 50}
+ SpecSatu 1
+ addUserKnob {20 endGroup_spec l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 AtmosphereGroup l Atmosphere n 1}
+ AtmosphereGroup 0
+ addUserKnob {26 ""}
+ addUserKnob {41 Ignoreatmo l Ignore T VrayPassesControl.Ignoreatmo}
+ addUserKnob {41 Amountatmo l Amount T VrayPassesControl.Amountatmo}
+ addUserKnob {41 Atmocc l ColorCorrect T VrayPassesControl.Atmocc}
+ addUserKnob {7 AtmoSatu l Saturation R 0 50}
+ addUserKnob {20 endGroup_atmosphere l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 Secondary}
+ addUserKnob {26 ""}
+ addUserKnob {20 Texture n 1}
+ Texture 0
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannelInput_1 l Mask -STARTLINE T ColorCorrect23.maskChannelInput}
+ addUserKnob {41 invert_mask l invert -STARTLINE T ColorCorrect23.invert_mask}
+ addUserKnob {41 mix T ColorCorrect23.mix}
+ addUserKnob {41 saturation T ColorCorrect23.saturation}
+ addUserKnob {41 contrast T ColorCorrect23.contrast}
+ addUserKnob {41 gamma T ColorCorrect23.gamma}
+ addUserKnob {41 gain T ColorCorrect23.gain}
+ addUserKnob {20 endGroup_texture l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 Background_1 l Background n 1}
+ Background_1 0
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannelInput_3 l Mask -STARTLINE T ColorCorrect24.maskChannelInput}
+ addUserKnob {41 invert_mask_1 l invert -STARTLINE T ColorCorrect24.invert_mask}
+ addUserKnob {41 saturation_1 l saturation T ColorCorrect24.saturation}
+ addUserKnob {41 contrast_1 l contrast T ColorCorrect24.contrast}
+ addUserKnob {41 gamma_1 l gamma T ColorCorrect24.gamma}
+ addUserKnob {41 gain_1 l gain T ColorCorrect24.gain}
+ addUserKnob {20 endGroup_Background l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 RawDirect n 1}
+ RawDirect 0
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannelInput l Mask -STARTLINE T ColorCorrect25.maskChannelInput}
+ addUserKnob {41 mix_2 l mix T ColorCorrect25.mix}
+ addUserKnob {41 invert_mask_2 l invert -STARTLINE T ColorCorrect25.invert_mask}
+ addUserKnob {41 saturation_2 l saturation T ColorCorrect25.saturation}
+ addUserKnob {41 contrast_2 l contrast T ColorCorrect25.contrast}
+ addUserKnob {41 gamma_2 l gamma T ColorCorrect25.gamma}
+ addUserKnob {41 gain_2 l gain T ColorCorrect25.gain}
+ addUserKnob {20 endGroup_RawLight l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 RawIndirect n 1}
+ RawIndirect 0
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannelInput_4 l Mask -STARTLINE T ColorCorrect26.maskChannelInput}
+ addUserKnob {41 invert_mask_3 l invert -STARTLINE T ColorCorrect26.invert_mask}
+ addUserKnob {41 mix_3 l mix T ColorCorrect26.mix}
+ addUserKnob {41 saturation_3 l saturation T ColorCorrect26.saturation}
+ addUserKnob {41 contrast_3 l contrast T ColorCorrect26.contrast}
+ addUserKnob {41 gamma_3 l gamma T ColorCorrect26.gamma}
+ addUserKnob {41 gain_3 l gain T ColorCorrect26.gain}
+ addUserKnob {20 endGroup_RawIndirect l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 Caustics_1 l Caustics n 1}
+ Caustics_1 0
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannelInput_2 l Mask -STARTLINE T ColorCorrect27.maskChannelInput}
+ addUserKnob {41 invert_mask_4 l invert -STARTLINE T ColorCorrect27.invert_mask}
+ addUserKnob {41 mix_1 l mix T ColorCorrect27.mix}
+ addUserKnob {41 saturation_4 l saturation T ColorCorrect27.saturation}
+ addUserKnob {41 contrast_4 l contrast T ColorCorrect27.contrast}
+ addUserKnob {41 gamma_4 l gamma T ColorCorrect27.gamma}
+ addUserKnob {41 gain_4 l gain T ColorCorrect27.gain}
+ addUserKnob {20 endGroup_Caustics l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 TotalLighting_1 l TotalLighting n 1}
+ TotalLighting_1 0
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannelInput_5 l Mask -STARTLINE T ColorCorrect28.maskChannelInput}
+ addUserKnob {41 invert_mask_5 l invert -STARTLINE T ColorCorrect28.invert_mask}
+ addUserKnob {41 mix_4 l mix T ColorCorrect28.mix}
+ addUserKnob {41 saturation_5 l saturation T ColorCorrect28.saturation}
+ addUserKnob {41 contrast_5 l contrast T ColorCorrect28.contrast}
+ addUserKnob {41 gamma_5 l gamma T ColorCorrect28.gamma}
+ addUserKnob {41 gain_5 l gain T ColorCorrect28.gain}
+ addUserKnob {20 endGroup_TotalLight l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 IlluminanceGRP l Illuminance n 1}
+ IlluminanceGRP 0
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannelInput_6 l Mask -STARTLINE T ColorCorrect29.maskChannelInput}
+ addUserKnob {41 invert_mask_6 l invert -STARTLINE T ColorCorrect29.invert_mask}
+ addUserKnob {41 mix_5 l mix T ColorCorrect29.mix}
+ addUserKnob {41 saturation_6 l saturation T ColorCorrect29.saturation}
+ addUserKnob {41 contrast_6 l contrast T ColorCorrect29.contrast}
+ addUserKnob {41 gamma_6 l gamma T ColorCorrect29.gamma}
+ addUserKnob {41 gain_6 l gain T ColorCorrect29.gain}
+ addUserKnob {20 endGroup_Illuminance l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 SelfIlluminationGRP l SelfIllumination n 1}
+ SelfIlluminationGRP 0
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannelInput_7 l Mask -STARTLINE T ColorCorrect30.maskChannelInput}
+ addUserKnob {41 mix_6 l mix T ColorCorrect30.mix}
+ addUserKnob {41 invert_mask_7 l invert -STARTLINE T ColorCorrect30.invert_mask}
+ addUserKnob {41 saturation_7 l saturation T ColorCorrect30.saturation}
+ addUserKnob {41 contrast_7 l contrast T ColorCorrect30.contrast}
+ addUserKnob {41 gamma_7 l gamma T ColorCorrect30.gamma}
+ addUserKnob {41 gain_7 l gain T ColorCorrect30.gain}
+ addUserKnob {20 endGroup_SelfIllumin l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 ShadowsGRP l Shadows n 1}
+ ShadowsGRP 0
+ addUserKnob {26 MaskErode l "" +STARTLINE T "Shadow Mask Erode"}
+ addUserKnob {6 EnableErodd l "Enable Erode" +STARTLINE}
+ addUserKnob {41 size T Erode2.size}
+ addUserKnob {41 blur T Erode2.blur}
+ addUserKnob {26 inmask l "" +STARTLINE T "In Mask Settings"}
+ addUserKnob {41 contrast_16 l contrast T ColorCorrect15.contrast}
+ addUserKnob {41 gamma_16 l gamma T ColorCorrect15.gamma}
+ addUserKnob {41 gain_16 l gain T ColorCorrect15.gain}
+ addUserKnob {41 offset_1 l offset T ColorCorrect15.offset}
+ addUserKnob {26 Matte l "" +STARTLINE T "Matte Shadow (Extra Shadowing)"}
+ addUserKnob {6 InvertMask l "Invert Mask" +STARTLINE}
+ InvertMask true
+ addUserKnob {41 mix_14 l Amount t "Matte Shadow Amount" T ColorCorrect16.mix}
+ addUserKnob {41 mix_13 l "Mask Opacity" T Merge26.mix}
+ addUserKnob {41 saturation_16 l saturation T ColorCorrect16.saturation}
+ addUserKnob {41 contrast_17 l contrast T ColorCorrect16.contrast}
+ addUserKnob {41 gamma_17 l gamma T ColorCorrect16.gamma}
+ addUserKnob {41 gain_17 l gain T ColorCorrect16.gain}
+ addUserKnob {20 endGroup_Shadow l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 AmbiantGRP l Ambiant n 1}
+ AmbiantGRP 0
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannelInput_9 l Mask -STARTLINE T ColorCorrect32.maskChannelInput}
+ addUserKnob {41 invert_mask_9 l invert -STARTLINE T ColorCorrect32.invert_mask}
+ addUserKnob {41 mix_8 l mix T ColorCorrect32.mix}
+ addUserKnob {41 saturation_9 l saturation T ColorCorrect32.saturation}
+ addUserKnob {41 contrast_9 l contrast T ColorCorrect32.contrast}
+ addUserKnob {41 gamma_9 l gamma T ColorCorrect32.gamma}
+ addUserKnob {41 gain_9 l gain T ColorCorrect32.gain}
+ addUserKnob {20 endGroup_Ambiant l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 RefractionsGRP l Refractions n 1}
+ RefractionsGRP 0
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannelInput_10 l Mask -STARTLINE T ColorCorrect33.maskChannelInput}
+ addUserKnob {41 invert_mask_10 l invert -STARTLINE T ColorCorrect33.invert_mask}
+ addUserKnob {41 mix_9 l mix T ColorCorrect33.mix}
+ addUserKnob {41 contrast_10 l contrast T ColorCorrect33.contrast}
+ addUserKnob {41 gamma_10 l gamma T ColorCorrect33.gamma}
+ addUserKnob {41 gain_10 l gain T ColorCorrect33.gain}
+ addUserKnob {41 saturation_10 l saturation T ColorCorrect33.saturation}
+ addUserKnob {26 ""}
+ addUserKnob {26 RefractionsBlurs l "Refractions Blur" T "\t\t\t\t\t"}
+ addUserKnob {41 maskChannelInput_15 l Mask T Blur4.maskChannelInput}
+ addUserKnob {41 size_2 l size T Blur4.size}
+ addUserKnob {41 invert_mask_15 l invert -STARTLINE T Blur4.invert_mask}
+ addUserKnob {20 endGroup_Refractions l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 ReflectionsGRP l Reflections n 1}
+ ReflectionsGRP 0
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannelInput_11 l Mask -STARTLINE T ColorCorrect34.maskChannelInput}
+ addUserKnob {41 invert_mask_11 l invert -STARTLINE T ColorCorrect34.invert_mask}
+ addUserKnob {41 mix_10 l mix T ColorCorrect34.mix}
+ addUserKnob {41 contrast_11 l contrast T ColorCorrect34.contrast}
+ addUserKnob {41 gamma_11 l gamma T ColorCorrect34.gamma}
+ addUserKnob {41 gain_11 l gain T ColorCorrect34.gain}
+ addUserKnob {41 saturation_11 l saturation T ColorCorrect34.saturation}
+ addUserKnob {26 ""}
+ addUserKnob {26 Reflectionblurs l "Reflection Blur" T "\t\t\t"}
+ addUserKnob {41 maskChannelInput_14 l Mask T Blur2.maskChannelInput}
+ addUserKnob {41 invert_mask_14 l invert -STARTLINE T Blur2.invert_mask}
+ addUserKnob {41 size_1 l size T Blur2.size}
+ addUserKnob {20 endGroup_reflect l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 SpecularGRP l Specular n 1}
+ SpecularGRP 0
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannelInput_12 l Mask -STARTLINE T ColorCorrect35.maskChannelInput}
+ addUserKnob {41 invert_mask_12 l invert -STARTLINE T ColorCorrect35.invert_mask}
+ addUserKnob {41 mix_11 l mix T ColorCorrect35.mix}
+ addUserKnob {41 saturation_12 l saturation T ColorCorrect35.saturation}
+ addUserKnob {41 contrast_12 l contrast T ColorCorrect35.contrast}
+ addUserKnob {41 gamma_12 l gamma T ColorCorrect35.gamma}
+ addUserKnob {41 gain_12 l gain T ColorCorrect35.gain}
+ addUserKnob {20 endGroup_Spec l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 AtmosphereGRP l Atmosphere n 1}
+ AtmosphereGRP 0
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannelInput_13 l Mask -STARTLINE T ColorCorrect36.maskChannelInput}
+ addUserKnob {41 invert_mask_13 l invert -STARTLINE T ColorCorrect36.invert_mask}
+ addUserKnob {41 mix_12 l mix T ColorCorrect36.mix}
+ addUserKnob {41 saturation_13 l saturation T ColorCorrect36.saturation}
+ addUserKnob {41 contrast_13 l contrast T ColorCorrect36.contrast}
+ addUserKnob {41 gamma_13 l gamma T ColorCorrect36.gamma}
+ addUserKnob {41 gain_13 l gain T ColorCorrect36.gain}
+ addUserKnob {20 endGroup_Atmosphere l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 Help}
+ addUserKnob {26 ""}
+ addUserKnob {26 Helpline l Help T "\t\t\t"}
+ addUserKnob {26 Lhelp l "Loader Help"}
+ addUserKnob {26 Note l "" -STARTLINE T "\nIf you saved your file as \"myfile.exr\"\nyour passes must be named as follow\nmyfile_Vray_ObjectID%04d.exr\nand existed in the same folder as beauty\nIt's the Default naming algorithm in Vray\n\nIf you choose to use the browse button you\nmust do on all passes and you must clear all\ninput in the import group\n\nTurn ignore off only on those passes that\nyou rendered\n\nAfter loading in case of missing passes let say\nspecular press the Ignore button next to\nthe specular field then clear its input \nto remove the error message\n\n\"you could render in whatever format\nyou want, just change it from the uploader\"\n\nExtra passes (non Vray passes) are optional \nFringe Mask Pass is recommended\n"}
+ addUserKnob {26 Secondaryhelp l "Shuffle Pipe"}
+ addUserKnob {26 sh l "" +STARTLINE T "\nJust shuffle any mask to the shuffle pipe\nin the gizmo, then use it as an input mask\nfor any parameter you'd like to change\nin the secondary tab\n"}
+ addUserKnob {26 BackgroundPipe l "Background Pipe"}
+ addUserKnob {26 backgroundpipehelp l "" +STARTLINE T "From loader tab\\Vray Passes Check \"ignore\"\nnext to the Background input, that will make\nBackground pipe active\n"}
+ addUserKnob {26 ShadowMaskPipe l "ShadowMask Pipe"}
+ addUserKnob {26 shadowmaskpipes l "" +STARTLINE T "When connecting this pipe to a black&White\nimage you'll get seperate controls on the shadows inside and outside the mask\nfrom the main and the secondary tabs\n"}
+ addUserKnob {26 ""}
+ addUserKnob {26 About -STARTLINE T "\t\t\t"}
+ addUserKnob {26 abouttext l "" +STARTLINE T "Elias Saliba\nVisual effect supervisor\nArtware corp\nsaliba.elias@gmail.com\nwww.elias-saliba.com (coming soon)\nwww.artwarecorp.com"}
+ addUserKnob {26 ""}
+}
+ BackdropNode {
+  inputs 0
+  name Reflection_BackDrop
+  tile_color 0x3f3f3fff
+  label Reflection
+  note_font_size 42
+  xpos -638
+  ypos -39
+  bdwidth 617
+  bdheight 461
+ }
+ BackdropNode {
+  inputs 0
+  name Refraction_BackDrop
+  tile_color 0x3f3f3fff
+  label Refraction
+  note_font_size 42
+  xpos 1482
+  ypos -106
+  bdwidth 556
+  bdheight 452
+ }
+ StickyNote {
+  inputs 0
+  name Atmosphere_Note
+  label " Atmosphere "
+  note_font_size 42
+  xpos 529
+  ypos 525
+ }
+ StickyNote {
+  inputs 0
+  name Illuminance_Note
+  label " Illuminance "
+  note_font_size 42
+  xpos 314
+  ypos -987
+ }
+ StickyNote {
+  inputs 0
+  name Lighting_Note
+  label " Lighting "
+  note_font_size 42
+  xpos 458
+  ypos -1323
+ }
+ StickyNote {
+  inputs 0
+  name IndirectLight_Note
+  label " IndirectLight "
+  note_font_size 42
+  xpos 83
+  ypos -1683
+ }
+ StickyNote {
+  inputs 0
+  name BackGround_Note
+  label " BackGround "
+  note_font_size 42
+  xpos 969
+  ypos 909
+ }
+ StickyNote {
+  inputs 0
+  name SelfIllumination_Note
+  label " SelfIllumination "
+  note_font_size 42
+  xpos 275
+  ypos 93
+ }
+ StickyNote {
+  inputs 0
+  name TotalLighting_Note
+  label " TotalLighting "
+  note_font_size 42
+  xpos 854
+  ypos -1731
+ }
+ StickyNote {
+  inputs 0
+  name Specular_Note
+  label " Specular "
+  note_font_size 42
+  xpos 1331
+  ypos 405
+ }
+ StickyNote {
+  inputs 0
+  name Caustics_Note
+  label " Caustics "
+  note_font_size 42
+  xpos 15
+  ypos -1203
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.UnclampedColor].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  name Read39
+  xpos 1830
+  ypos -1120
+  disable {{parent.VrayPassesControl.UnclampedColorIgnore.main i}}
+ }
+ Dot {
+  name UnclampedColor_Dot
+  label UnclampedColor
+  xpos 984
+  ypos 1506
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.MaterialSelect].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  name Read38
+  xpos 1830
+  ypos -736
+  disable {{parent.VrayPassesControl.MaterialSelectIgnore.main i}}
+ }
+ Dot {
+  name MaterialSelect_Dot
+  label MaterialSelect
+  xpos 984
+  ypos 1482
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.ObjectID].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read16
+  xpos 1830
+  ypos -880
+  disable {{parent.VrayPassesControl.ObjectIDIgnore.main i}}
+ }
+ Dot {
+  name ObjectID_Dot
+  label ObjectID
+  xpos 984
+  ypos 1458
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.MaterialID].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read13
+  xpos 1830
+  ypos -808
+  disable {{parent.VrayPassesControl.MaterialIDIgnore.main i}}
+ }
+ Dot {
+  name MaterialID_Dot
+  label MaterialID
+  xpos 984
+  ypos 1434
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.RenderID].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read27
+  xpos 1830
+  ypos -952
+  disable {{parent.VrayPassesControl.RenderIDIgnore.main i}}
+ }
+ Dot {
+  name RenderID_Dot
+  label RenderID
+  xpos 984
+  ypos 1410
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.ExtraTex].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read8
+  xpos 1720
+  ypos -808
+  disable {{parent.VrayPassesControl.ExtraTexIgnore.main i}}
+ }
+ Dot {
+  name ExtraTex
+  label ExtraTex
+  xpos 984
+  ypos 1386
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.WireColor].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read35
+  xpos 1720
+  ypos -880
+  disable {{parent.VrayPassesControl.WireColorIgnore.main i}}
+ }
+ Dot {
+  name WireColor
+  label WireColor
+  xpos 984
+  ypos 1362
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.SampleRate].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read28
+  xpos 1720
+  ypos -952
+  disable {{parent.VrayPassesControl.SampleRateIgnore.main i}}
+ }
+ Dot {
+  name SampleRate
+  label SampleRate
+  xpos 984
+  ypos 1338
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.BumpNormal].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  name Read5
+  xpos 1720
+  ypos -1096
+  disable {{parent.VrayPassesControl.BumpNormalIgnore.main i}}
+ }
+ Dot {
+  name BumpNormal
+  label BumpNormal
+  xpos 984
+  ypos 1314
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.Normal].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read15
+  xpos 1720
+  ypos -1024
+  disable {{parent.VrayPassesControl.NormalIgnore.main i}}
+ }
+ Dot {
+  name Normal
+  label Normal
+  xpos 984
+  ypos 1290
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.Velocity].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read34
+  xpos 1830
+  ypos -1192
+  disable {{parent.VrayPassesControl.VelocityIgnore.main i}}
+ }
+ Dot {
+  name Velocity_Dot
+  label Velocity
+  xpos 984
+  ypos 1266
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 2
+  colorspace linear
+  name Read1
+  xpos 3370
+  ypos -742
+  disable {{parent.VrayPassesControl.BeautyIgnore.main i}}
+ }
+set N147383d0 [stack 0]
+ Dot {
+  name Motion
+  label Motion
+  xpos 984
+  ypos 1242
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.ZDepth].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 2
+  name Read36
+  xpos 3370
+  ypos -808
+  disable {{parent.VrayPassesControl.ZDepthIgnore.main i}}
+ }
+ Dot {
+  name ZDepth
+  label "\nZDepth"
+  xpos 984
+  ypos 1218
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.Alpha].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read2
+  xpos 3260
+  ypos -808
+  disable {{parent.VrayPassesControl.AlphaIgnore.main i}}
+ }
+ Dot {
+  name Alpha
+  label "\nAlpha"
+  xpos 544
+  ypos 906
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove3
+  xpos 620
+  ypos 902
+ }
+set N14739270 [stack 0]
+ Dot {
+  name Alpha1
+  label "\nAlpha"
+  xpos 984
+  ypos 1194
+  hide_input true
+ }
+push $N147383d0
+ Dot {
+  name Beauty_Dot
+  label Beauty
+  xpos 984
+  ypos 1098
+  hide_input true
+ }
+ Input {
+  inputs 0
+  name Background
+  xpos 290
+  ypos 974
+  number 1
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.Background].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read4
+  xpos 180
+  ypos 968
+  disable {{parent.VrayPassesControl.BackgroundIgnore.main i}}
+ }
+ Switch {
+  inputs 2
+  which {{parent.VrayPassesControl.BackgroundIgnore.main i}}
+  name Switch10
+  xpos 290
+  ypos 998
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove2
+  xpos 400
+  ypos 998
+ }
+ Input {
+  inputs 0
+  name Shuffle
+  label Shuffle
+  xpos -920
+  ypos -976
+ }
+set N1473a110 [stack 0]
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy19
+  xpos 510
+  ypos 998
+  hide_input true
+ }
+ ColorCorrect {
+  name ColorCorrect24
+  xpos 620
+  ypos 998
+ }
+ ColorCorrect {
+  saturation {{parent.VrayPassesControl.backSaturation.main i}}
+  gamma {{parent.VrayPassesControl.BackCC.main.r i} {parent.VrayPassesControl.BackCC.main.g i} {parent.VrayPassesControl.BackCC.main.b i} 1}
+  name ColorCorrect21
+  xpos 730
+  ypos 998
+ }
+ Defocus {
+  defocus {{parent.VrayPassesControl.BlurAmount.main i}}
+  ratio {{parent.VrayPassesControl.DOF_aspect.main i}}
+  scale {{parent.VrayPassesControl.BlurSize.main i}}
+  name Defocus1
+  xpos 730
+  ypos 944
+  disable {{1-parent.VrayPassesControl.EnableDOF.main i}}
+ }
+push $N14739270
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.Atmosphere].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 2
+  name Read3
+  xpos 3150
+  ypos -736
+  disable {{parent.VrayPassesControl.AtmosphereIgnore.main i}}
+ }
+ Dot {
+  name Atmosphere
+  label "\nAtmosphere"
+  xpos 544
+  ypos 426
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove4
+  xpos 620
+  ypos 422
+ }
+ ColorCorrect {
+  gain {{parent.VrayPassesControl.Atmocc.main.r i} {parent.VrayPassesControl.Atmocc.main.g i} {parent.VrayPassesControl.Atmocc.main.b i} 0.96}
+  name ColorCorrect20
+  xpos 620
+  ypos 446
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy31
+  xpos 620
+  ypos 470
+  hide_input true
+ }
+ ColorCorrect {
+  name ColorCorrect36
+  xpos 620
+  ypos 494
+ }
+ ColorCorrect {
+  saturation {{parent.AtmoSatu.main i}}
+  name ColorCorrect45
+  xpos 730
+  ypos 494
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.Specular].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read31
+  xpos 3040
+  ypos -736
+  disable {{parent.VrayPassesControl.SpecularIgnore.main i}}
+ }
+ Dot {
+  name Specular
+  label Specular
+  xpos 1314
+  ypos 378
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove5
+  xpos 1170
+  ypos 374
+ }
+ ColorCorrect {
+  gamma {{parent.VrayPassesControl.speccc.main.r i} {parent.VrayPassesControl.speccc.main.g i} {parent.VrayPassesControl.speccc.main.b i} 1}
+  name ColorCorrect19
+  xpos 1170
+  ypos 398
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy30
+  xpos 1170
+  ypos 422
+  hide_input true
+ }
+ ColorCorrect {
+  name ColorCorrect35
+  xpos 1170
+  ypos 446
+ }
+ ColorCorrect {
+  saturation {{parent.SpecSatu.main i}}
+  name ColorCorrect44
+  xpos 1060
+  ypos 446
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.Reflection].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read23
+  xpos 2820
+  ypos -952
+  disable {{parent.VrayPassesControl.ReflectionIgnore.main i}}
+ }
+ Dot {
+  name Reflection
+  label "\nReflection"
+  xpos -446
+  ypos 306
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove12
+  xpos -480
+  ypos 326
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.ReflectionFilter].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 4
+  name Read24
+  xpos 2820
+  ypos -880
+  disable {{parent.VrayPassesControl.ReflectionFilterIgnore.main i}}
+ }
+ Dot {
+  name ReflectionFilter
+  label "\nReflectionFilter"
+  xpos -446
+  ypos 114
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove11
+  xpos -370
+  ypos 110
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy29
+  xpos -370
+  ypos 134
+  hide_input true
+ }
+add_layer {test test.test}
+ ColorCorrect {
+  maskChannelMask test.test
+  name ColorCorrect34
+  xpos -370
+  ypos 158
+ }
+ set C14740770 [stack 0]
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.FringeMask]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 3
+  name Read37
+  xpos -370
+  ypos 8
+  disable {{parent.VrayPassesControl.FringeMaskIgnore.main i}}
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.DiffuseFilter].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 8
+  "import sequence" C:/Users/elias/Desktop/test2/
+  name Read7
+  xpos 2160
+  ypos -736
+  disable {{parent.VrayPassesControl.DiffuseFilterIgnore.main i}}
+ }
+set N14741130 [stack 0]
+ Dot {
+  name Dot13
+  label DiffuseFilter
+  xpos -116
+  ypos 42
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.RawReflection].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 3
+  name Read19
+  xpos 2820
+  ypos -808
+  disable {{parent.VrayPassesControl.RawReflectionIgnore.main i}}
+ }
+ Dot {
+  name RawReflection
+  label RawReflection
+  xpos -226
+  ypos -6
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove10
+  xpos -260
+  ypos 14
+ }
+ Merge2 {
+  inputs 2+1
+  operation plus
+  maskChannelMask rgba.red
+  fringe true
+  mix {{parent.Fringing.main i}}
+  name Merge21
+  xpos -260
+  ypos 38
+  disable {{parent.VrayPassesControl.FringeMaskIgnore.main i}}
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy32
+  xpos -260
+  ypos 62
+  hide_input true
+ }
+ Blur {
+  name Blur2
+  xpos -260
+  ypos 80
+ }
+ Blur {
+  size {{parent.VrayPassesControl.RefBlur.main i x1 0}}
+  quality 30
+  name Blur1
+  xpos -260
+  ypos 128
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge8
+  xpos -260
+  ypos 158
+ }
+ ColorCorrect {
+  name ColorCorrect18
+  xpos -260
+  ypos 206
+ }
+ ColorCorrect {
+  saturation {{parent.ReflectSatu.main i}}
+  name ColorCorrect43
+  xpos -260
+  ypos 230
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy35
+  xpos -260
+  ypos 254
+  hide_input true
+ }
+clone $C14740770 {
+  xpos -260
+  ypos 278
+  selected false
+ }
+ Switch {
+  inputs 2
+  which {{parent.VrayPassesControl.DefaultReflection.main i}}
+  name Switch5
+  xpos -260
+  ypos 326
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.Refraction].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read25
+  xpos 2710
+  ypos -952
+  disable {{parent.VrayPassesControl.RefractionIgnore.main i}}
+ }
+ Dot {
+  name Refraction
+  label Refraction
+  xpos 1974
+  ypos 138
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove27
+  xpos 1940
+  ypos 158
+ }
+set N14ac8600 [stack 0]
+ Dot {
+  name Dot1
+  xpos 1974
+  ypos 282
+ }
+push $N14ac8600
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.RefractionFilter].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 5
+  name Read26
+  xpos 2710
+  ypos -880
+  disable {{parent.VrayPassesControl.RefractionFilterIgnore.main i}}
+ }
+ Dot {
+  name RefractionFilter
+  label RefractionFilter
+  xpos 1974
+  ypos 18
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove8
+  xpos 1940
+  ypos 38
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy28
+  xpos 1940
+  ypos 62
+  hide_input true
+ }
+ ColorCorrect {
+  name ColorCorrect33
+  xpos 1940
+  ypos 110
+ }
+ set C14ac94a0 [stack 0]
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.RawRefraction].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 6
+  name Read20
+  xpos 2710
+  ypos -808
+  disable {{parent.VrayPassesControl.RawRefractionIgnore.main i}}
+ }
+ Dot {
+  name RawRefraction
+  label RawRefraction
+  xpos 1754
+  ypos -78
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove7
+  xpos 1720
+  ypos -58
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy33
+  xpos 1720
+  ypos -34
+  hide_input true
+ }
+ Blur {
+  size {{parent.VrayPassesControl.refractblur.main i}}
+  name Blur3
+  xpos 1720
+  ypos 32
+ }
+ Blur {
+  name Blur4
+  xpos 1720
+  ypos 56
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge6
+  xpos 1720
+  ypos 110
+ }
+ Merge2 {
+  inputs 2
+  operation under
+  name Merge24
+  xpos 1720
+  ypos 158
+  disable {{parent.VrayPassesControl.RefractionMaskIgnore.main i}}
+ }
+ ColorCorrect {
+  name ColorCorrect17
+  xpos 1720
+  ypos 182
+ }
+ ColorCorrect {
+  saturation {{parent.RefractSat.main i}}
+  name ColorCorrect42
+  xpos 1720
+  ypos 206
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy34
+  xpos 1720
+  ypos 230
+  hide_input true
+ }
+clone $C14ac94a0 {
+  xpos 1720
+  ypos 254
+  selected false
+ }
+ Switch {
+  inputs 2
+  which {{parent.VrayPassesControl.DefaultRefractions.main i}}
+  name Switch6
+  xpos 1720
+  ypos 278
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.SelfIllumination].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read29
+  xpos 3260
+  ypos -736
+  disable {{parent.VrayPassesControl.SelfIlluminationIgnore.main i}}
+ }
+set N14acc7d0 [stack 0]
+ Dot {
+  name Self2
+  label "Self Illumination"
+  xpos 654
+  ypos 18
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove13
+  xpos 620
+  ypos 62
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy24
+  xpos 620
+  ypos 86
+  hide_input true
+ }
+ ColorCorrect {
+  maskChannelMask test.test
+  name ColorCorrect30
+  xpos 620
+  ypos 110
+ }
+ ColorCorrect {
+  gain {{parent.VrayPassesControl.siMultiplier.main i}}
+  name ColorCorrect13
+  xpos 620
+  ypos 134
+ }
+ ColorCorrect {
+  gain {{parent.VrayPassesControl.siColorCorrect.main.r i} {parent.VrayPassesControl.siColorCorrect.main.g i} {parent.VrayPassesControl.siColorCorrect.main.b i} 1}
+  name ColorCorrect14
+  xpos 620
+  ypos 158
+ }
+ ColorCorrect {
+  saturation {{parent.selfillSaturation.main i}}
+  name ColorCorrect40
+  xpos 620
+  ypos 182
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.AmbiantLoader]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  name Read33
+  xpos 2930
+  ypos -736
+  disable {{parent.VrayPassesControl.AmbiantOccIgnore.main i}}
+ }
+ Dot {
+  name Dot8
+  label Ambiant
+  xpos 1094
+  ypos -6
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove14
+  xpos 1060
+  ypos 38
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy27
+  xpos 1060
+  ypos 62
+  hide_input true
+ }
+ ColorCorrect {
+  maskChannelMask test.test
+  name ColorCorrect32
+  xpos 1060
+  ypos 86
+ }
+ Grade {
+  blackpoint {{parent.VrayPassesControl.ColorOcc.main.r i} {parent.VrayPassesControl.ColorOcc.main.g i} {parent.VrayPassesControl.ColorOcc.main.b i} 0}
+  name Grade1
+  xpos 1060
+  ypos 110
+ }
+ ColorCorrect {
+  saturation {{parent.AMBSatur.main i}}
+  name ColorCorrect41
+  xpos 1060
+  ypos 134
+ }
+ Input {
+  inputs 0
+  name ShadowMask
+  label ShadowMask
+  xpos 1610
+  ypos -712
+  number 2
+ }
+ Invert {
+  name Invert3
+  xpos 1610
+  ypos -664
+  disable {{parent.Invertmask.main i x37 1}}
+ }
+ Invert {
+  name Invert1
+  xpos 1610
+  ypos -616
+ }
+set N14ad0e80 [stack 0]
+ Dot {
+  name Dot3
+  label ShadowMask
+  xpos 1094
+  ypos -270
+  hide_input true
+ }
+ Invert {
+  channels rgb
+  name Invert2
+  xpos 1060
+  ypos -226
+  disable {{parent.InvertMask.main i}}
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.MatteShadow].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read12
+  xpos 2600
+  ypos -880
+  disable {{parent.VrayPassesControl.MatteShadowIgnore.main i}}
+ }
+ Dot {
+  name MatteShadow
+  label MatteShadow
+  xpos 1204
+  ypos -246
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove15
+  xpos 1170
+  ypos -226
+ }
+ Erode {
+  channels rgb
+  size -0.5
+  name Erode1
+  xpos 1170
+  ypos -202
+ }
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge26
+  xpos 1060
+  ypos -202
+ }
+push $N14ad0e80
+ Dot {
+  name Dot9
+  label ShadowMask
+  xpos 984
+  ypos -366
+  hide_input true
+ }
+ Merge2 {
+  name Merge27
+  xpos 950
+  ypos -418
+ }
+push $N147383d0
+ Dot {
+  name Dot16
+  label Constant
+  xpos 1094
+  ypos -486
+  hide_input true
+ }
+set N14ad26e0 [stack 0]
+ Dot {
+  name Dot17
+  label Constant
+  xpos 1424
+  ypos -510
+  hide_input true
+ }
+ Grade {
+  whitepoint 0
+  white 0
+  add 1
+  white_clamp true
+  name Grade2
+  xpos 1390
+  ypos -538
+ }
+ set C14ad2bc0 [stack 0]
+push $N14ad0e80
+ Invert {
+  name Invert4
+  xpos 1500
+  ypos -664
+ }
+ Erode {
+  name Erode2
+  xpos 1390
+  ypos -664
+  disable {{1-parent.EnableErodd.main i}}
+ }
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge30
+  xpos 1390
+  ypos -610
+ }
+push $N14741130
+ Dot {
+  name Diffuse_Filter
+  label "Diffuse_Filter\n"
+  xpos 434
+  ypos -1878
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove24
+  xpos 400
+  ypos -1858
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy12
+  xpos 400
+  ypos -1834
+  hide_input true
+ }
+ ColorCorrect {
+  maskChannelMask none
+  name ColorCorrect23
+  xpos 400
+  ypos -1810
+ }
+ ColorCorrect {
+  saturation {{parent.VrayPassesControl.Texturesaturation.main i}}
+  gamma {{parent.VrayPassesControl.TextureCC.main.r i} {parent.VrayPassesControl.TextureCC.main.g i} {parent.VrayPassesControl.TextureCC.main.b i} 1}
+  name ColorCorrect22
+  xpos 400
+  ypos -1762
+ }
+set N14ad4420 [stack 0]
+ Dot {
+  name Dot4
+  xpos 1314
+  ypos -1758
+ }
+ Dot {
+  name Dot2
+  xpos 1314
+  ypos -822
+ }
+set N14ad4de0 [stack 0]
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.RawShadow].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read21
+  xpos 2600
+  ypos -736
+  disable {{parent.VrayPassesControl.RawShadowIgnore.main i}}
+ }
+ Dot {
+  name RawShadow
+  label RawShadow
+  xpos 1094
+  ypos -702
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove17
+  xpos 1060
+  ypos -682
+ }
+set N14ad5530 [stack 0]
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge11
+  xpos 1280
+  ypos -682
+ }
+ ColorCorrect {
+  inputs 1+1
+  gain 0
+  name ColorCorrect15
+  xpos 1280
+  ypos -610
+ }
+ Dot {
+  name Dot14
+  xpos 1314
+  ypos -462
+ }
+push $N14ad26e0
+clone $C14ad2bc0 {
+  xpos 1060
+  ypos -538
+  selected false
+ }
+push $N14ad0e80
+ Dot {
+  name Dot10
+  label ShadowMask
+  xpos 1204
+  ypos -582
+  hide_input true
+ }
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge28
+  xpos 1060
+  ypos -586
+ }
+push $N14ad4de0
+ Dot {
+  name Dot15
+  xpos 984
+  ypos -822
+ }
+push $N14ad5530
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge19
+  xpos 950
+  ypos -682
+ }
+ ColorCorrect {
+  gain 0
+  name ColorCorrect2
+  xpos 950
+  ypos -634
+ }
+ Saturation {
+  name Saturation1
+  xpos 950
+  ypos -610
+ }
+push $N14acc7d0
+ Dot {
+  name Dot12
+  label "Self Illumination"
+  xpos 544
+  ypos -1038
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.Illuminance].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read10
+  xpos 2490
+  ypos -736
+  disable {{parent.VrayPassesControl.IlluminanceIgnore.main i}}
+ }
+ Dot {
+  name Illuminance
+  label Illuminance
+  xpos 544
+  ypos -1206
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove18
+  xpos 510
+  ypos -1186
+ }
+ ColorCorrect {
+  contrast 0.1941
+  gamma {0.13 0.13 0.1021 0.13}
+  name ColorCorrect1
+  xpos 510
+  ypos -1162
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy23
+  xpos 510
+  ypos -1138
+  hide_input true
+ }
+ ColorCorrect {
+  maskChannelMask test.test
+  name ColorCorrect29
+  xpos 400
+  ypos -1138
+ }
+ ColorCorrect {
+  gamma {{parent.VrayPassesControl.ilColorCorrect.main.r i} {parent.VrayPassesControl.ilColorCorrect.main.g i} {parent.VrayPassesControl.ilColorCorrect.main.b i} 1}
+  gain {{parent.VrayPassesControl.Multiplier.main i}}
+  name ColorCorrect12
+  xpos 400
+  ypos -1114
+ }
+ ColorCorrect {
+  gain {{1-parent.VrayPassesControl.IgnoreIlluminance.main i}}
+  name ColorCorrect11
+  xpos 400
+  ypos -1090
+ }
+ ColorCorrect {
+  saturation {{parent.IllSaturation.main i}}
+  name ColorCorrect39
+  xpos 400
+  ypos -1066
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge25
+  xpos 400
+  ypos -1042
+ }
+push $N14ad4420
+ Dot {
+  name Dot5
+  xpos -6
+  ypos -1758
+ }
+ Dot {
+  name Dot6
+  xpos -6
+  ypos -1014
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge13
+  xpos 400
+  ypos -1018
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.TotalLighting].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read32
+  xpos 2380
+  ypos -808
+  disable {{parent.VrayPassesControl.TotalLightingIgnore.main i}}
+ }
+ Dot {
+  name TotalLighting
+  label TotalLighting
+  xpos 1094
+  ypos -1518
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove19
+  xpos 1060
+  ypos -1498
+ }
+push $N14acc7d0
+ Dot {
+  name Dot11
+  label "Self Illumination"
+  xpos 874
+  ypos -1566
+  hide_input true
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.RawTotalLighting].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read22
+  xpos 2380
+  ypos -736
+  disable {{parent.VrayPassesControl.RawTotalLightingIgnore.main i}}
+ }
+ Dot {
+  name RawTotalLighting
+  label RawTotalLighting
+  xpos 874
+  ypos -1638
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove20
+  xpos 1060
+  ypos -1642
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy22
+  xpos 1060
+  ypos -1618
+  hide_input true
+ }
+ ColorCorrect {
+  maskChannelMask test.test
+  name ColorCorrect28
+  xpos 1060
+  ypos -1594
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge22
+  xpos 1060
+  ypos -1570
+ }
+ ColorCorrect {
+  saturation {{parent.VrayPassesControl.tlSaturation.main i}}
+  gamma {{parent.VrayPassesControl.ColorCorrect.main.r i} {parent.VrayPassesControl.ColorCorrect.main.g i} {parent.VrayPassesControl.ColorCorrect.main.b i} 1}
+  gain {{parent.VrayPassesControl.tlMultiplier.main i}}
+  name ColorCorrect10
+  xpos 1060
+  ypos -1546
+ }
+ ColorCorrect {
+  saturation {{parent.VrayPassesControl.tlSaturation.main i}}
+  name ColorCorrect38
+  xpos 950
+  ypos -1546
+ }
+push $N14ad4420
+ Dot {
+  name Dot7
+  xpos 434
+  ypos -1542
+ }
+set N14d13630 [stack 0]
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge4
+  xpos 840
+  ypos -1546
+ }
+ Switch {
+  inputs 2
+  which {{parent.VrayPassesControl.DefaultTotlaLighting.main i}}
+  name Switch4
+  xpos 840
+  ypos -1498
+ }
+ ColorCorrect {
+  gain {{1-parent.VrayPassesControl.IgnoreTotalLighting.main i}}
+  name ColorCorrect9
+  xpos 840
+  ypos -1474
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.Caustics].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  name Read6
+  xpos 1940
+  ypos -736
+  disable {{parent.VrayPassesControl.CausticsIgnore.main i}}
+ }
+ Dot {
+  name Caustics
+  label "\nCaustics"
+  xpos 104
+  ypos -1350
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove23
+  xpos 70
+  ypos -1330
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy18
+  xpos 70
+  ypos -1306
+  hide_input true
+ }
+add_layer {anothertest anothertest.at}
+ ColorCorrect {
+  maskChannelMask anothertest.at
+  name ColorCorrect27
+  xpos 70
+  ypos -1282
+ }
+ Switch {
+  which {{"1- parent.VrayPassesControl.AddCaustics.main" i}}
+  name Switch9
+  xpos 180
+  ypos -1282
+ }
+ ColorCorrect {
+  gamma {1 1 1 1}
+  gain {{parent.VrayPassesControl.CausticsColorCorrect.main.r i} {parent.VrayPassesControl.CausticsColorCorrect.main.g i} {parent.VrayPassesControl.CausticsColorCorrect.main.b i} 1}
+  name ColorCorrect8
+  xpos 180
+  ypos -1258
+ }
+ ColorCorrect {
+  saturation {{parent.VrayPassesControl.CausticsSatur.main i}}
+  name ColorCorrect37
+  xpos 180
+  ypos -1234
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.Lighting].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 3
+  name Read11
+  xpos 2270
+  ypos -808
+  disable {{parent.VrayPassesControl.LightingIgnore.main i}}
+ }
+ Dot {
+  name Lighting
+  label Lighting
+  xpos 654
+  ypos -1398
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove21
+  xpos 620
+  ypos -1354
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.RawLighting].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 2
+  name Read18
+  xpos 2270
+  ypos -736
+  disable {{parent.VrayPassesControl.RawLightingIgnore.main i}}
+ }
+ Dot {
+  name RawLighting
+  label RawLighting
+  xpos 654
+  ypos -1470
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove22
+  xpos 620
+  ypos -1522
+ }
+ ColorCorrect {
+  contrast {{parent.dlContrast.main i}}
+  gamma {{parent.VrayPassesControl.DirectLightMultiplier.main i} {parent.VrayPassesControl.DirectLightMultiplier.main i} {parent.VrayPassesControl.DirectLightMultiplier.main i} {parent.VrayPassesControl.DirectLightMultiplier.main i}}
+  gain {{parent.VrayPassesControl.DirectColorCorrect.main.r i} {parent.VrayPassesControl.DirectColorCorrect.main.g i} {parent.VrayPassesControl.DirectColorCorrect.main.b i} 1}
+  name ColorCorrect4
+  xpos 510
+  ypos -1522
+ }
+ ColorCorrect {
+  saturation {{parent.VrayPassesControl.DirectSaturation.main i}}
+  name ColorCorrect3
+  xpos 510
+  ypos -1498
+ }
+push $N14d13630
+push $N14acc7d0
+ Dot {
+  name SelfIllumination
+  label "\nSelfIllumination"
+  xpos 434
+  ypos -1422
+  hide_input true
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge23
+  xpos 400
+  ypos -1474
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge2
+  xpos 510
+  ypos -1474
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy20
+  xpos 510
+  ypos -1450
+  hide_input true
+ }
+ ColorCorrect {
+  maskChannelMask none
+  name ColorCorrect25
+  xpos 510
+  ypos -1402
+ }
+ Switch {
+  inputs 2
+  which {{parent.VrayPassesControl.DirectLightingDefault.main i}}
+  name Switch1
+  xpos 510
+  ypos -1354
+ }
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.GI].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 2
+  name Read9
+  xpos 2050
+  ypos -808
+  disable {{parent.VrayPassesControl.GIIgnore.main i}}
+ }
+ Dot {
+  name GlobalIllumination
+  label "\nGlobalIllumination"
+  xpos 104
+  ypos -1494
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove26
+  xpos 180
+  ypos -1498
+ }
+push $N14d13630
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.RawGI].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read17
+  xpos 2050
+  ypos -736
+  disable {{parent.VrayPassesControl.RawGIIgnore.main i}}
+ }
+ Dot {
+  name RawGlobalIllumination
+  label "\nRawGlobalIllumination"
+  xpos 104
+  ypos -1590
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove25
+  xpos 180
+  ypos -1594
+ }
+push $N1473a110
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  name ShuffleCopy21
+  xpos 180
+  ypos -1618
+  hide_input true
+ }
+ ColorCorrect {
+  contrast {{parent.VrayPassesControl.IndirectMultiplier.main i}}
+  gamma {{parent.VrayPassesControl.indirectColorCorrect.main.r i} {parent.VrayPassesControl.indirectColorCorrect.main.g i} {parent.VrayPassesControl.indirectColorCorrect.main.b i} 1}
+  gain {{parent.ilgain.main i}}
+  name ColorCorrect6
+  xpos 290
+  ypos -1618
+ }
+ ColorCorrect {
+  saturation {{parent.VrayPassesControl.IndirectSaturation.main i}}
+  name ColorCorrect5
+  xpos 290
+  ypos -1594
+ }
+ ColorCorrect {
+  maskChannelMask -rgba.red
+  name ColorCorrect26
+  xpos 290
+  ypos -1570
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge1
+  xpos 290
+  ypos -1546
+ }
+ Switch {
+  inputs 2
+  which {{parent.VrayPassesControl.DefaultIndirect.main i}}
+  name Switch2
+  xpos 290
+  ypos -1498
+ }
+ ColorCorrect {
+  gamma {{"1- parent.VrayPassesControl.IgnoreIndirectLighting.main" i}}
+  name ColorCorrect7
+  xpos 290
+  ypos -1474
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge3
+  xpos 290
+  ypos -1354
+  disable {{parent.VrayPassesControl.IgnoreDirect.main i}}
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  mix {{parent.VrayPassesControl.CausticsMultiplier.main i}}
+  name Merge5
+  xpos 290
+  ypos -1234
+ }
+ Switch {
+  inputs 2
+  which {{"VrayPassesControl.LightingMethod " i}}
+  name Switch3
+  xpos 840
+  ypos -1234
+ }
+ Switch {
+  inputs 2
+  which {{"VrayPassesControl.LightingMethod -1" i}}
+  name Switch8
+  xpos 840
+  ypos -1018
+ }
+set Nd236490 [stack 0]
+push $Nd236490
+ Read {
+  inputs 0
+  file "\[knob VrayPassesControl.Path]\[knob VrayPassesControl.FileName]\[knob VrayPassesControl.Vray]\[knob VrayPassesControl.Shadow].\[knob VrayPassesControl.Sequance]\[knob VrayPassesControl.FileType]"
+  format "640 480 0 0 640 480 1 PC_Video"
+  first {{VrayPassesControl.Rangein i}}
+  last {{VrayPassesControl.Rangeout i}}
+  on_error checkerboard
+  version 1
+  name Read30
+  xpos 2600
+  ypos -808
+  disable {{parent.VrayPassesControl.ShadowIgnore.main i}}
+ }
+ Dot {
+  name Shadow
+  label Shadow
+  xpos 654
+  ypos -750
+  hide_input true
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove16
+  xpos 620
+  ypos -730
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge10
+  xpos 730
+  ypos -730
+ }
+ Switch {
+  inputs 2
+  which {{1-parent.IgnoreShadow.main i}}
+  name Switch11
+  xpos 840
+  ypos -586
+ }
+set Nd236740 [stack 0]
+ Merge2 {
+  inputs 2+1
+  operation plus
+  maskChannelMask rgba.red
+  name Merge20
+  xpos 950
+  ypos -586
+ }
+ Merge2 {
+  inputs 2+1
+  operation plus
+  maskChannelMask rgba.red
+  name Merge18
+  xpos 950
+  ypos -466
+ }
+push $Nd236740
+ Switch {
+  inputs 2
+  which {{1-((parent.DefaultShadow.main)+(parent.IgnoreShadow.main)) i}}
+  name Switch12
+  xpos 840
+  ypos -466
+ }
+set Nd236ca0 [stack 0]
+ ColorCorrect {
+  inputs 1+1
+  maskChannelMask rgba.red
+  name ColorCorrect16
+  xpos 840
+  ypos -202
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  mix {{parent.VrayPassesControl.AmountOCC.main i}}
+  name Merge17
+  xpos 840
+  ypos 134
+  disable {{"(1-parent.VrayPassesControl.EnableOCC.main) + ( AmbiantOccIgnore)" i x1 1}}
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  mix {{1-parent.VrayPassesControl.TurnOffSelf.main i}}
+  name Merge14
+  xpos 840
+  ypos 182
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  mix {{parent.VrayPassesControl.RefractionsMultiplier.main i}}
+  name Merge7
+  xpos 840
+  ypos 278
+  disable {{parent.VrayPassesControl.IgnoreRefractins.main i}}
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  mix {{parent.VrayPassesControl.reflectionAmount.main i}}
+  name Merge9
+  xpos 840
+  ypos 326
+  disable {{parent.VrayPassesControl.Ignorerefl.main i}}
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  mix {{parent.VrayPassesControl.Amountspec.main i}}
+  name Merge12
+  xpos 840
+  ypos 446
+  disable {{parent.VrayPassesControl.Ignorespec.main i}}
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  mix {{parent.VrayPassesControl.Amountatmo.main i}}
+  name Merge15
+  xpos 840
+  ypos 494
+  disable {{parent.VrayPassesControl.Ignoreatmo.main i}}
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy1
+  xpos 840
+  ypos 902
+ }
+ Unpremult {
+  name Unpremult3
+  xpos 840
+  ypos 926
+  disable {{parent.VrayPassesControl.unpremult.main i}}
+ }
+ Merge2 {
+  inputs 2
+  operation under
+  name Merge16
+  xpos 840
+  ypos 950
+  disable {{1-parent.VrayPassesControl.Enableback.main i}}
+ }
+ Switch {
+  inputs 2
+  which {{1-VrayPassesControl.BeautyPasses i}}
+  name Switch7
+  xpos 840
+  ypos 1094
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy36
+  xpos 840
+  ypos 1190
+ }
+ ShuffleCopy {
+  inputs 2
+  black blue
+  out2 depth
+  name ShuffleCopy4
+  xpos 840
+  ypos 1214
+ }
+ ShuffleCopy {
+  inputs 2
+  in motion
+  alpha alpha2
+  black red
+  white green
+  red2 blue
+  green2 alpha
+  out2 motion
+  name ShuffleCopy5
+  xpos 840
+  ypos 1238
+ }
+add_layer {Velocity Velocity.X Velocity.Y Velocity.Z}
+ ShuffleCopy {
+  inputs 2
+  alpha alpha2
+  black red
+  white green
+  red2 blue
+  out none
+  out2 Velocity
+  name ShuffleCopy6
+  xpos 840
+  ypos 1262
+ }
+add_layer {N N.X N.Y N.Z}
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  out N
+  name ShuffleCopy7
+  xpos 840
+  ypos 1286
+ }
+add_layer {NormalBump NormalBump.X NormalBump.Y NormalBump.Z}
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  out NormalBump
+  name ShuffleCopy8
+  xpos 840
+  ypos 1310
+ }
+add_layer {SampleRate SampleRate.R SampleRate.G SampleRate.B}
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  out SampleRate
+  name ShuffleCopy9
+  xpos 840
+  ypos 1334
+ }
+add_layer {WireColor WireColor.R WireColor.G WireColor.B}
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  out WireColor
+  name ShuffleCopy10
+  xpos 840
+  ypos 1358
+ }
+add_layer {ExtraTex ExtraTex.R ExtraTex.G ExtraTex.B}
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  out ExtraTex
+  name ShuffleCopy11
+  xpos 840
+  ypos 1382
+ }
+add_layer {RenderID RenderID.R RenderID.G RenderID.B}
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  out RenderID
+  name ShuffleCopy13
+  xpos 840
+  ypos 1406
+ }
+add_layer {MaterialID MaterialID.R MaterialID.G MaterialID.B}
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  out MaterialID
+  name ShuffleCopy14
+  xpos 840
+  ypos 1430
+ }
+add_layer {ObjectID ObjectID.R ObjectID.G ObjectID.B}
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  out ObjectID
+  name ShuffleCopy15
+  xpos 840
+  ypos 1454
+ }
+add_layer {MaterialSelect MaterialSelect.R MaterialSelect.G MaterialSelect.B}
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  out MaterialSelect
+  name ShuffleCopy16
+  xpos 840
+  ypos 1478
+ }
+add_layer {UnclampedColor UnclampedColor.R UnclampedColor.G UnclampedColor.B}
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  out UnclampedColor
+  name ShuffleCopy17
+  xpos 840
+  ypos 1502
+ }
+ Output {
+  name Output1
+  xpos 840
+  ypos 1622
+ }
+ StickyNote {
+  inputs 0
+  name SelfIllumination_Note1
+  label AMB
+  note_font_size 42
+  xpos 945
+  ypos 45
+ }
+ StickyNote {
+  inputs 0
+  name Shadow_Note
+  label " Shadow "
+  note_font_size 42
+  xpos 679
+  ypos -555
+ }
+ NoOp {
+  inputs 0
+  name VrayPassesControl
+  tile_color 0x2c2c2cff
+  note_font_color 0x12c93fff
+  xpos 70
+  ypos 110
+  hide_input true
+  addUserKnob {20 Loader t Loader}
+  addUserKnob {26 ""}
+  addUserKnob {1 Path t Path}
+  addUserKnob {1 FileName t FileName}
+  addUserKnob {1 Vray -STARTLINE}
+  Vray _Vray_
+  addUserKnob {1 Star l "" -STARTLINE}
+  Star Pass
+  addUserKnob {1 Sequance -STARTLINE}
+  Sequance %04d
+  addUserKnob {1 FileType -STARTLINE}
+  FileType .exr
+  addUserKnob {1 Rangein}
+  Rangein 1
+  addUserKnob {1 Rangeout}
+  Rangeout 1
+  addUserKnob {26 ""}
+  addUserKnob {2 Beauty t Beauty}
+  Beauty Beauty
+  addUserKnob {6 BeautyIgnore l Ignore t BeautyIgnore -STARTLINE}
+  BeautyIgnore true
+  addUserKnob {2 UnclampedColor t UnclampedColor}
+  UnclampedColor UnclampedColor
+  addUserKnob {6 UnclampedColorIgnore l Ignore t UnclampedColorIgnore -STARTLINE}
+  UnclampedColorIgnore true
+  addUserKnob {2 DiffuseFilter t DiffuseFilter}
+  DiffuseFilter DiffuseFilter
+  addUserKnob {6 DiffuseFilterIgnore l Ignore t DiffuseFilterIgnore -STARTLINE}
+  DiffuseFilterIgnore true
+  addUserKnob {2 Alpha t Alpha}
+  Alpha Alpha
+  addUserKnob {6 AlphaIgnore l Ignore t AlphaIgnore -STARTLINE}
+  AlphaIgnore true
+  addUserKnob {2 Background t Background}
+  Background Background
+  addUserKnob {6 BackgroundIgnore l Ignore t BackgroundIgnore -STARTLINE}
+  BackgroundIgnore true
+  addUserKnob {2 GI t GI}
+  GI GlobalIllumination
+  addUserKnob {6 GIIgnore l Ignore t GIIgnore -STARTLINE}
+  GIIgnore true
+  addUserKnob {2 RawGI t RawGI}
+  RawGI RawGlobalIllumination
+  addUserKnob {6 RawGIIgnore l Ignore t RawGIIgnore -STARTLINE}
+  RawGIIgnore true
+  addUserKnob {2 Lighting t Lighting}
+  Lighting Lighting
+  addUserKnob {6 LightingIgnore l Ignore t LightingIgnore -STARTLINE}
+  LightingIgnore true
+  addUserKnob {2 RawLighting t RawLighting}
+  RawLighting RawLighting
+  addUserKnob {6 RawLightingIgnore l Ignore t RawLightingIgnore -STARTLINE}
+  RawLightingIgnore true
+  addUserKnob {2 TotalLighting t TotalLighting}
+  TotalLighting TotalLighting
+  addUserKnob {6 TotalLightingIgnore l Ignore t TotalLightingIgnore -STARTLINE}
+  TotalLightingIgnore true
+  addUserKnob {2 RawTotalLighting t RawTotalLighting}
+  RawTotalLighting RawTotalLighting
+  addUserKnob {6 RawTotalLightingIgnore l Ignore t RawTotalLightingIgnore -STARTLINE}
+  RawTotalLightingIgnore true
+  addUserKnob {2 Shadow t Shadow}
+  Shadow Shadows
+  addUserKnob {6 ShadowIgnore l Ignore t ShadowIgnore -STARTLINE}
+  ShadowIgnore true
+  addUserKnob {2 RawShadow t RawShadow}
+  RawShadow RawShadow
+  addUserKnob {6 RawShadowIgnore l Ignore t RawShadowIgnore -STARTLINE}
+  RawShadowIgnore true
+  addUserKnob {2 MatteShadow t MatteShadow}
+  MatteShadow MatteShadow
+  addUserKnob {6 MatteShadowIgnore l Ignore t MatteShadowIgnore -STARTLINE}
+  MatteShadowIgnore true
+  addUserKnob {2 AmbiantLoader l "Ambiant Occ" t "Ambiant Occ"}
+  addUserKnob {6 AmbiantOccIgnore l Ignore t "Unload Ambiant Occ" -STARTLINE}
+  AmbiantOccIgnore true
+  addUserKnob {2 Illuminance t Illuminance}
+  Illuminance Illuminance
+  addUserKnob {6 IlluminanceIgnore l Ignore t IlluminanceIgnore -STARTLINE}
+  IlluminanceIgnore true
+  addUserKnob {2 Atmosphere t Atmosphere}
+  Atmosphere Atmosphere
+  addUserKnob {6 AtmosphereIgnore l Ignore t AtmosphereIgnore -STARTLINE}
+  AtmosphereIgnore true
+  addUserKnob {2 Caustics t Caustics}
+  Caustics Caustics
+  addUserKnob {6 CausticsIgnore l Ignore t CausticsIgnore -STARTLINE}
+  CausticsIgnore true
+  addUserKnob {2 SelfIllumination t SelfIllumination}
+  SelfIllumination SelfIllumination
+  addUserKnob {6 SelfIlluminationIgnore l Ignore t SelfIlluminationIgnore -STARTLINE}
+  SelfIlluminationIgnore true
+  addUserKnob {2 Specular t Specular}
+  Specular Specular
+  addUserKnob {6 SpecularIgnore l Ignore t SpecularIgnore -STARTLINE}
+  SpecularIgnore true
+  addUserKnob {2 Reflection t Reflection}
+  Reflection Reflection
+  addUserKnob {6 ReflectionIgnore l Ignore t ReflectionIgnore -STARTLINE}
+  ReflectionIgnore true
+  addUserKnob {2 RawReflection t RawReflection}
+  RawReflection RawReflection
+  addUserKnob {6 RawReflectionIgnore l Ignore t RawReflectionIgnore -STARTLINE}
+  RawReflectionIgnore true
+  addUserKnob {2 ReflectionFilter t ReflectionFilter}
+  ReflectionFilter ReflectionFilter
+  addUserKnob {6 ReflectionFilterIgnore l Ignore t ReflectionFilterIgnore -STARTLINE}
+  ReflectionFilterIgnore true
+  addUserKnob {2 ReflectionMask t ReflectionMask}
+  ReflectionMask ReflectionMask%04d.tga
+  addUserKnob {6 ReflectionMaskIgnore l Ignore t ReflectionMaskIgnore -STARTLINE}
+  ReflectionMaskIgnore true
+  addUserKnob {2 Refraction t Refraction}
+  Refraction Refraction
+  addUserKnob {6 RefractionIgnore l Ignore t RefractionIgnore -STARTLINE}
+  RefractionIgnore true
+  addUserKnob {2 RawRefraction t RawRefraction}
+  RawRefraction RawRefraction
+  addUserKnob {6 RawRefractionIgnore l Ignore t RawRefractionIgnore -STARTLINE}
+  RawRefractionIgnore true
+  addUserKnob {2 RefractionFilter t RefractionFilter}
+  RefractionFilter RefractionFilter
+  addUserKnob {6 RefractionFilterIgnore l Ignore t RefractionFilterIgnore -STARTLINE}
+  RefractionFilterIgnore true
+  addUserKnob {2 RefractionMask t RefractionMask}
+  RefractionMask RefractionMask%04d.tga
+  addUserKnob {6 RefractionMaskIgnore l Ignore t RefractionMaskIgnore -STARTLINE}
+  RefractionMaskIgnore true
+  addUserKnob {2 ZDepth t ZDepth}
+  ZDepth ZDepth
+  addUserKnob {6 ZDepthIgnore l Ignore t ZDepthIgnore -STARTLINE}
+  ZDepthIgnore true
+  addUserKnob {2 Velocity t Velocity}
+  Velocity Velocity
+  addUserKnob {6 VelocityIgnore l Ignore t VelocityIgnore -STARTLINE}
+  VelocityIgnore true
+  addUserKnob {2 Normal t Normal}
+  Normal Normals
+  addUserKnob {6 NormalIgnore l Ignore t NormalIgnore -STARTLINE}
+  NormalIgnore true
+  addUserKnob {2 BumpNormal t BumpNormal}
+  BumpNormal BumpNormals
+  addUserKnob {6 BumpNormalIgnore l Ignore t BumpNormalIgnore -STARTLINE}
+  BumpNormalIgnore true
+  addUserKnob {2 SampleRate t SampleRate}
+  SampleRate SampleRate
+  addUserKnob {6 SampleRateIgnore l Ignore t SampleRateIgnore -STARTLINE}
+  SampleRateIgnore true
+  addUserKnob {2 WireColor t WireColor}
+  WireColor WireColor
+  addUserKnob {6 WireColorIgnore l Ignore t WireColorIgnore -STARTLINE}
+  WireColorIgnore true
+  addUserKnob {2 ExtraTex t ExtraTex}
+  ExtraTex ExtraTex
+  addUserKnob {6 ExtraTexIgnore l Ignore t ExtraTexIgnore -STARTLINE}
+  ExtraTexIgnore true
+  addUserKnob {2 RenderID t RenderID}
+  RenderID RenderID
+  addUserKnob {6 RenderIDIgnore l Ignore t RenderIDIgnore -STARTLINE}
+  RenderIDIgnore true
+  addUserKnob {2 ObjectID t ObjectID}
+  ObjectID ObjectID
+  addUserKnob {6 ObjectIDIgnore l Ignore t ObjectIDIgnore -STARTLINE}
+  ObjectIDIgnore true
+  addUserKnob {2 MaterialID t MaterialID}
+  MaterialID MtlID
+  addUserKnob {6 MaterialIDIgnore l Ignore t MaterialIDIgnore -STARTLINE}
+  MaterialIDIgnore true
+  addUserKnob {2 MaterialSelect t MaterialSelect}
+  MaterialSelect MtlSelect
+  addUserKnob {6 MaterialSelectIgnore l Ignore t "MaterialSelectIgnore\n" -STARTLINE}
+  MaterialSelectIgnore true
+  addUserKnob {2 FringeMask l "Fringe Mask"}
+  addUserKnob {6 FringeMaskIgnore l Ignore -STARTLINE}
+  FringeMaskIgnore true
+  addUserKnob {20 Maintab l Main}
+  addUserKnob {26 ""}
+  addUserKnob {4 BeautyPasses l "Comp Mode" M {Beauty Passes "" "" "" ""}}
+  BeautyPasses Passes
+  addUserKnob {26 ""}
+  addUserKnob {20 TexturesGRP l Textures n 1}
+  TexturesGRP 0
+  addUserKnob {26 ""}
+  addUserKnob {7 Texturesaturation l Saturation}
+  Texturesaturation 1
+  addUserKnob {18 TextureCC}
+  TextureCC 1
+  addUserKnob {20 endGrouptexture l endGroup n -1}
+  addUserKnob {26 ""}
+  addUserKnob {20 Background_GRP l Background n 1}
+  addUserKnob {26 ""}
+  addUserKnob {6 Enableback l Enable +STARTLINE}
+  Enableback true
+  addUserKnob {7 backSaturation l Saturation R 0 5}
+  backSaturation 1
+  addUserKnob {18 BackCC}
+  BackCC 1
+  addUserKnob {6 EnableDOF l "Enable DOF" +STARTLINE}
+  addUserKnob {7 BlurAmount l DOF_Amount R 0 25}
+  BlurAmount 10
+  addUserKnob {7 BlurSize l DOF_Size R 0 25}
+  BlurSize 1
+  addUserKnob {7 DOF_aspect}
+  DOF_aspect 1
+  addUserKnob {20 endGroup_backgroung l endGroup n -1}
+  addUserKnob {26 ""}
+  addUserKnob {20 LightingTab l Lighting t Lighting}
+  addUserKnob {4 LightingMethod l "Lighting Method" M {"Default Light" "Total Lighting" Illuminance ""}}
+  addUserKnob {26 ""}
+  addUserKnob {20 DefaultLightingGroup l "Default Light" n 1}
+  DefaultLightingGroup 0
+  addUserKnob {26 ""}
+  addUserKnob {26 DirectLightLine l DirectLight T "\t\t"}
+  addUserKnob {26 ""}
+  addUserKnob {6 IgnoreDirect l "Ignore Direct Lighting" +STARTLINE}
+  addUserKnob {6 DirectLightingDefault l "Defualt Direct Lighting (as rendered)" t DefaultDirectLighting +STARTLINE}
+  addUserKnob {18 DirectLightMultiplier l Multiplier t DirectLightMultiplier R 0 4}
+  DirectLightMultiplier 1
+  addUserKnob {7 DirectSaturation l Saturation t Saturation R 0 3}
+  DirectSaturation 1
+  addUserKnob {18 DirectColorCorrect l ColorCorrect t DirectColorCorrect}
+  DirectColorCorrect 1
+  addUserKnob {18 CC_Mask}
+  CC_Mask 1
+  addUserKnob {26 ""}
+  addUserKnob {26 IndirectLine l IndirectLight t "Indirect Lighting" T "\t\t"}
+  addUserKnob {26 ""}
+  addUserKnob {6 IgnoreIndirectLighting l "Ignore Indirect Lighting" t "Turn Off Indirect Lighting" +STARTLINE}
+  addUserKnob {6 DefaultIndirect l "Default Indirect Lighting (as rendered)" t "Default Indirect Lighting" +STARTLINE}
+  addUserKnob {7 IndirectMultiplier l Multiplier t "Indirect Lighting Multiplier" R 0 4}
+  IndirectMultiplier 1
+  addUserKnob {7 IndirectSaturation l Saturation t "Indirect Lighting Saturation" R 0 3}
+  IndirectSaturation 1
+  addUserKnob {18 indirectColorCorrect l ColorCorrect t "Color Correct For Indirect Lighting"}
+  indirectColorCorrect 1
+  addUserKnob {26 ""}
+  addUserKnob {26 Causticsline l Caustics T "\t\t"}
+  addUserKnob {26 ""}
+  addUserKnob {6 AddCaustics l "Add Caustics" t "Add Caustics" +STARTLINE}
+  AddCaustics true
+  addUserKnob {7 CausticsMultiplier l Multiplier t "Caustics Multiplier"}
+  CausticsMultiplier 1
+  addUserKnob {18 CausticsColorCorrect l ColorCorrect t ColorCorrect}
+  CausticsColorCorrect 1
+  addUserKnob {7 CausticsSatur l Saturation R 0 100}
+  CausticsSatur 1
+  addUserKnob {20 endGroupDefaultLight l endGroup n -1}
+  addUserKnob {26 ""}
+  addUserKnob {20 TotalLightingGroup l "Total Lighting" n 1}
+  TotalLightingGroup 0
+  addUserKnob {26 ""}
+  addUserKnob {6 IgnoreTotalLighting l "Ignore Total Lighting" t "Turn Off Total Lighting" +STARTLINE}
+  addUserKnob {6 DefaultTotlaLighting l "Default Total Lighting (as rendered)" +STARTLINE}
+  addUserKnob {7 tlMultiplier l Multiplier t Multiplier R 0 3}
+  tlMultiplier 1
+  addUserKnob {7 tlSaturation l Saturation t Saturation R 0 3}
+  tlSaturation 1
+  addUserKnob {18 ColorCorrect t ColorCorrect}
+  ColorCorrect 1
+  addUserKnob {20 endGrouptotallight l endGroup n -1}
+  addUserKnob {26 ""}
+  addUserKnob {20 Illuminance_group l Illuminance t Illuminance n 1}
+  Illuminance_group 0
+  addUserKnob {26 ""}
+  addUserKnob {6 IgnoreIlluminance l "Ignore Illuminance" t "Turn Off Illuminance" +STARTLINE}
+  addUserKnob {7 Multiplier t Multiplier R 0 3}
+  Multiplier 1
+  addUserKnob {18 ilColorCorrect l ColorCorrect t ColorCorrect}
+  ilColorCorrect 1
+  addUserKnob {20 endGroupIlluminance l endGroup n -1}
+  addUserKnob {26 ""}
+  addUserKnob {20 SelfIlluminationGroup l "Self Illumination" t "Self Illumination" n 1}
+  SelfIlluminationGroup 0
+  addUserKnob {26 ""}
+  addUserKnob {6 TurnOffSelf l "Ignore Self Illumination" t "Turn Off Self Illumination" +STARTLINE}
+  addUserKnob {7 siMultiplier l Multiplier t Multiplier R 0 2}
+  siMultiplier 1
+  addUserKnob {18 siColorCorrect l "Color Correct" t ColorCorrect}
+  siColorCorrect 1
+  addUserKnob {20 endGroupselfillumination l endGroup n -1}
+  addUserKnob {26 ""}
+  addUserKnob {26 AmbiantLine l AmbiantOcc T "\t\t"}
+  addUserKnob {26 ""}
+  addUserKnob {6 EnableOCC l Enable +STARTLINE}
+  EnableOCC true
+  addUserKnob {7 AmountOCC l Amount}
+  AmountOCC 0.25
+  addUserKnob {18 ColorOcc l ColorCorrect R -1 0}
+  ColorOcc {0 0 0}
+  addUserKnob {20 endGroupShadow l endGroup n -1}
+  addUserKnob {26 ""}
+  addUserKnob {20 Reflections l "Reflect\\Refract"}
+  addUserKnob {20 Refractions n 1}
+  addUserKnob {6 IgnoreRefractins l Ignore +STARTLINE}
+  addUserKnob {6 DefaultRefractions l "Default Refractions (as rendered)" +STARTLINE}
+  addUserKnob {7 refractblur l Blur R 0 100}
+  addUserKnob {7 RefractionsMultiplier l Amount}
+  RefractionsMultiplier 1
+  addUserKnob {18 RefractCC}
+  RefractCC {1 1 1}
+  addUserKnob {20 endGroup_refractions l endGroup n -1}
+  addUserKnob {26 ""}
+  addUserKnob {20 ReflectionGroup l Reflection n 1}
+  addUserKnob {6 Ignorerefl l Ignore +STARTLINE}
+  addUserKnob {6 DefaultReflection l "Default Reflection (as rendered)" +STARTLINE}
+  addUserKnob {7 RefBlur l "Reflection Blur" R 0 10}
+  RefBlur 1
+  addUserKnob {7 reflectionAmount l Amount}
+  reflectionAmount 1
+  addUserKnob {18 ReflectCC}
+  ReflectCC {1 1 1}
+  addUserKnob {20 endGroup_ReflectionGroup l endGroup n -1}
+  addUserKnob {26 ""}
+  addUserKnob {20 SpecularGroup l Specular n 1}
+  SpecularGroup 0
+  addUserKnob {6 Ignorespec l Ignore +STARTLINE}
+  addUserKnob {7 Amountspec l Amount}
+  Amountspec 1
+  addUserKnob {18 speccc l SpecularCC R 0 5}
+  speccc 1
+  addUserKnob {20 endGroup_spec l endGroup n -1}
+  addUserKnob {26 ""}
+  addUserKnob {20 AtmosphereGroup l Atmosphere n 1}
+  AtmosphereGroup 0
+  addUserKnob {6 Ignoreatmo l Ignore +STARTLINE}
+  addUserKnob {7 Amountatmo l Amount}
+  Amountatmo 1
+  addUserKnob {18 Atmocc l ColorCorrect}
+  Atmocc 1
+  addUserKnob {20 endGroup_atmosphere l endGroup n -1}
+  addUserKnob {26 ""}
+ }
+push $Nd236ca0
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos 840
+  ypos 1958
+ }
+end_group

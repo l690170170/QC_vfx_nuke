@@ -1,0 +1,55 @@
+#! C:/Program Files/Nuke6.1v2/Nuke6.1.exe -nx
+version 6.1 v2
+Gizmo {
+ addUserKnob {20 CornerPin_tvd}
+ addUserKnob {41 to1 -STARTLINE T CornerPin2D1.to1}
+ addUserKnob {41 enable1 -STARTLINE T CornerPin2D1.enable1}
+ addUserKnob {41 to2 T CornerPin2D1.to2}
+ addUserKnob {41 enable2 -STARTLINE T CornerPin2D1.enable2}
+ addUserKnob {41 to3 T CornerPin2D1.to3}
+ addUserKnob {41 enable3 -STARTLINE T CornerPin2D1.enable3}
+ addUserKnob {41 to4 T CornerPin2D1.to4}
+ addUserKnob {41 enable4 -STARTLINE T CornerPin2D1.enable4}
+ addUserKnob {41 filter T CornerPin2D1.filter}
+ addUserKnob {41 clamp -STARTLINE T CornerPin2D1.clamp}
+ addUserKnob {41 black_outside l "black outside" -STARTLINE T CornerPin2D1.black_outside}
+ addUserKnob {41 motionblur T CornerPin2D1.motionblur}
+ addUserKnob {41 shutter T CornerPin2D1.shutter}
+ addUserKnob {41 shutteroffset l "shutter offset" T CornerPin2D1.shutteroffset}
+ addUserKnob {41 shuttercustomoffset l "" -STARTLINE T CornerPin2D1.shuttercustomoffset}
+ addUserKnob {41 refFrame l "reference frame" T CornerPin2D1.refFrame}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {22 grabAnim l "Grab existing animation..." t "Use this to copy animation data from an existing CornerPin node." T "cPinNames = \[n.name() for n in nuke.allNodes(\"CornerPin2D\", nuke.root())]\np = nuke.Panel(\"Select Corner-Pin Node...\")\np.addEnumerationPulldown(\"Node:\", \" \".join(cPinNames))\nresult = p.show()\n\nif result:\n\tcPin = nuke.toNode(p.value(\"Node:\"))\n\ttn = nuke.thisNode()\n\tfor counter in range(1,5):\n\t\tfor index in range(2):\n\t\t\tif cPin\['to%d' % counter].isAnimated(index):\n\t\t\t\ttn\['to%d' % counter].copyAnimation(index, cPin\['to%d' % counter].animation(index))\n\t\t\telse:\n\t\t\t\ttn\['to%d' % counter].setValue(cPin\['to%d' % counter].value(index), index)" +STARTLINE}
+ addUserKnob {20 from}
+ addUserKnob {41 from1 T CornerPin2D1.from1}
+ addUserKnob {41 from2 T CornerPin2D1.from2}
+ addUserKnob {41 from3 T CornerPin2D1.from3}
+ addUserKnob {41 from4 T CornerPin2D1.from4}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -523
+  ypos 478
+ }
+ CornerPin2D {
+  to1 {0 0}
+  to2 {1920 0}
+  to3 {1920 1080}
+  to4 {0 1080}
+  from1 {{to1.x(refFrame)} {to1.y(refFrame)}}
+  from2 {{to2.x(refFrame)} {to2.y(refFrame)}}
+  from3 {{to3.x(refFrame)} {to3.y(refFrame)}}
+  from4 {{to4.x(refFrame)} {to4.y(refFrame)}}
+  name CornerPin2D1
+  xpos -523
+  ypos 518
+  addUserKnob {20 User}
+  addUserKnob {3 refFrame}
+ }
+ Output {
+  name Output1
+  xpos -523
+  ypos 618
+ }
+end_group

@@ -1,0 +1,124 @@
+#! /lot/s27/SWDEVL/SOFTWARE/linuxrh9_intel/nuke4.5/16/nuke4.5.16 -nx
+version 4.5016
+Gizmo {
+ inputs 1
+ addUserKnob { 20 "" Settings }
+ addUserKnob { 41 from0 "control channel" T Copy2.from0 }
+ addUserKnob { 41 output output T ChannelMerge4.output }
+ addUserKnob { 41 blackpoint blackpoint T Grade1.blackpoint }
+ addUserKnob { 41 whitepoint whitepoint T Grade1.whitepoint }
+ addUserKnob { 26 "" "edge size" }
+ addUserKnob { 41 size inside T ErodeInside.size }
+ addUserKnob { 14 ErodeOutside_size outside }
+ addUserKnob { 26 "" "edge blur" }
+ addUserKnob { 41 size_3 inside T BlurInside.size }
+ addUserKnob { 41 size_1 outside T BlurOutside.size }
+ name EdgeFromAlpha
+ ErodeOutside_size 3
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -446
+  ypos 37
+ }
+set N8be0048 [stack 0]
+push $N8be0048
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.red
+  name Copy2
+  xpos -193
+  ypos 30
+ }
+ Clamp {
+  channels {rgba.red -rgba.green -rgba.blue}
+  name Clamp1
+  xpos -193
+  ypos 94
+ }
+ Grade {
+  channels {rgba.red -rgba.green -rgba.blue}
+  black_clamp false
+  name Grade1
+  selected true
+  xpos -193
+  ypos 146
+ }
+set N8cff3a8 [stack 0]
+ Erode {
+  channels {none none none rgba.red}
+  size 3
+  name ErodeInside
+  xpos -126
+  ypos 198
+ }
+ Blur {
+  channels {rgba.red -rgba.green -rgba.blue}
+  name BlurInside
+  xpos -126
+  ypos 250
+ }
+push $N8cff3a8
+ Erode {
+  channels {none none none rgba.red}
+  size {{-parent.ErodeOutside_size.w} {-parent.ErodeOutside_size.h}}
+  name ErodeOutside
+  xpos -264
+  ypos 199
+ }
+ Blur {
+  channels {rgba.red -rgba.green -rgba.blue}
+  name BlurOutside
+  xpos -264
+  ypos 251
+ }
+ ChannelMerge {
+  inputs 2
+  A rgba.red
+  operation stencil
+  B rgba.red
+  name ChannelMerge4
+  xpos -191
+  ypos 308
+ }
+set N8a9d988 [stack 0]
+ Dot {
+  name Dot1
+  xpos -52
+  ypos 324
+ }
+ Dot {
+  name Dot2
+  xpos -52
+  ypos 458
+ }
+push $N8be0048
+ Dot {
+  name Dot3
+  xpos -414
+  ypos 416
+ }
+push $N8a9d988
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 rgba.red
+  name Copy1
+  xpos -191
+  ypos 407
+ }
+ Switch {
+  inputs 2
+  which {{"parent.output == red"}}
+  name Switch1
+  xpos -191
+  ypos 456
+ }
+ Output {
+  name Output1
+  xpos -191
+  ypos 526
+ }
+end_group

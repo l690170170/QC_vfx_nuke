@@ -1,0 +1,307 @@
+set cut_paste_input [stack 0]
+version 10.0 v3
+BackdropNode {
+inputs 0
+name BackdropNode4
+tile_color 0x8e388e00
+label Grain
+note_font_size 42
+selected true
+xpos -3920
+ypos 2671
+bdwidth 410
+bdheight 495
+}
+push $cut_paste_input
+NoOp {
+name Footage1
+selected true
+xpos -3688
+ypos 2589
+}
+Read {
+inputs 0
+file C:/mnt/images/projects/myer2016/spt/savesChristmas/sc09900/footage/ts01/myer2016-savesChristmas-sc09900_ts01_v001/myer2016-savesChristmas-sc09900_ts01_pl_v001.%04d.exr
+last 18
+after loop
+origfirst 0
+origlast 18
+origset true
+name Read10
+selected true
+xpos -3885
+ypos 2797
+}
+NoOp {
+name DeadPixel1
+selected true
+xpos -3885
+ypos 2883
+}
+DeadPixelRemove {
+name DeadPixelRemove2
+selected true
+xpos -3885
+ypos 2921
+disable {{"\$gui"}}
+frame2Hold 1
+channels {rgba.red rgba.green -rgba.blue none}
+}
+Group {
+name De_Grain1
+tile_color 0xffffffff
+selected true
+xpos -3885
+ypos 2947
+addUserKnob {20 Controls}
+addUserKnob {26 de_noise_controls l De_Noise}
+addUserKnob {41 type l Source T Denoise1.type}
+addUserKnob {41 model l "Noise Model" T Denoise1.model}
+addUserKnob {41 profile l Profile T Denoise1.profile}
+addUserKnob {41 output l Output T Denoise1.output}
+addUserKnob {41 amount l "Denoise Amount" T Denoise1.amount}
+addUserKnob {26 grain_normalisation l "Grain Normalisation"}
+addUserKnob {41 value l "Grain gamma value" t "edit value to even out grain" T Gamma2.value}
+addUserKnob {26 ""}
+addUserKnob {6 view_grain l "View grain" +STARTLINE}
+}
+BackdropNode {
+inputs 0
+name BackdropNode5
+tile_color 0x7171c600
+label DeGrain
+note_font_size 42
+xpos -566
+ypos -655
+bdwidth 601
+bdheight 329
+}
+BackdropNode {
+inputs 0
+name BackdropNode7
+label Footage
+note_font_size 42
+xpos -615
+ypos -977
+bdwidth 225
+bdheight 178
+}
+Input {
+inputs 0
+name FOOTAGE
+label Footage
+xpos -556
+ypos -894
+}
+Dot {
+name Dot18
+xpos -522
+ypos -705
+}
+set N6cbff800 [stack 0]
+Dot {
+name Dot19
+xpos -334
+ypos -705
+}
+push $N6cbff800
+Denoise2 {
+amount 1.21
+analysisRegion {440.75 735.5 661.25 930.5}
+needsAnalyzing false
+profileCurve {profile {curve x0.1000000015 0 x0.1333521456 0 x0.1778279394 0 x0.2371373773 0 x0.3162277639 0 x0.4216965139 0 x0.5623413324 0 x0.7498942018 0 x1 0}}
+serializeKnob "1.50024 0.513454 0.498166
+0.00383534 0.00239841 0.000927164
+0.00383534 0.00239841 0.000927164
+0.00160094 0.00082937 0.000283709
+0 0 0
+0.00217493 0.00225605 0.00103413
+0.00217493 0.00225605 0.00103413
+0.000995786 0.000747839 0.00031408
+0 0 0
+0.00108605 0.00210273 0.00103078
+0.00108605 0.00210273 0.00103078
+0.000587676 0.000990394 0.000453494
+0 0 0
+0.000328024 0.00064677 0.000378129
+0.000328024 0.00064677 0.000378129
+0.00023122 0.000486443 0.00028747
+0 0 0 0 0 0 0 0 0 
+9032002483793159533"
+name Denoise1
+xpos -556
+ypos -551
+}
+set N6cbff000 [stack 0]
+Dot {
+name Dot20
+xpos -522
+ypos -457
+}
+set N6cbfec00 [stack 0]
+Merge2 {
+inputs 2
+operation minus
+name Merge10
+xpos -368
+ypos -461
+}
+push $N6cbff000
+Gamma {
+value 1.38
+name Gamma2
+xpos -247
+ypos -551
+}
+Dot {
+name Dot21
+xpos -88
+ypos -541
+}
+Merge2 {
+inputs 2
+operation divide
+name Merge11
+selected true
+xpos -122
+ypos -461
+}
+Dot {
+name Dot1
+xpos -88
+ypos -373
+}
+add_layer {Grain Grain.red Grain.green Grain.blue Grain.alpha}
+Shuffle {
+out Grain
+name Shuffle1
+xpos -254
+ypos -377
+}
+set N6cc2f400 [stack 0]
+Dot {
+name Dot2
+xpos -220
+ypos -292
+}
+push $N6cc2f400
+push $N6cbfec00
+Merge2 {
+inputs 2
+Achannels none
+also_merge Grain
+name Merge1
+xpos -556
+ypos -377
+}
+Switch {
+inputs 2
+which {{view_grain}}
+name Switch1
+xpos -556
+ypos -296
+}
+Output {
+name Output2
+xpos -556
+ypos -232
+}
+end_group
+ShuffleCopy {
+inputs 2
+in2 Grain
+red red
+green green
+blue blue
+out rgb
+out2 Grain
+name ShuffleCopy4
+label "\[value in] | \[value in2]"
+selected true
+xpos -3688
+ypos 2947
+}
+Group {
+name Re_Grain1
+tile_color 0xfcffffff
+selected true
+xpos -3688
+ypos 3074
+}
+BackdropNode {
+inputs 0
+name BackdropNode6
+tile_color 0x7171c600
+label Regrain
+note_font_size 42
+xpos -141
+ypos -13
+bdwidth 515
+bdheight 182
+}
+Input {
+inputs 0
+name RE_GRAIN
+xpos -165
+ypos -69
+}
+Dot {
+name Dot1
+xpos -131
+ypos 11
+}
+set N6cc67800 [stack 0]
+Dot {
+name Dot16
+xpos -131
+ypos 77
+}
+set N6cc67400 [stack 0]
+Dot {
+name Dot17
+xpos -131
+ypos 132
+}
+push $N6cc67400
+Gamma {
+value {{parent.parent.De_Grain1.Gamma2.value}}
+name Gamma1
+xpos 112
+ypos 67
+}
+push $N6cc67800
+Shuffle {
+in Grain
+name Shuffle1
+selected true
+xpos 269
+ypos 7
+}
+set N6cc66800 [stack 0]
+Merge2 {
+inputs 2
+operation multiply
+name Merge12
+xpos 269
+ypos 73
+}
+Merge2 {
+inputs 2
+operation plus
+name Merge13
+xpos 269
+ypos 128
+}
+Output {
+name Output1
+xpos 269
+ypos 228
+}
+push $N6cc66800
+Viewer {
+frame_range 1-100
+name Viewer1
+xpos 269
+ypos 33
+}
+end_group

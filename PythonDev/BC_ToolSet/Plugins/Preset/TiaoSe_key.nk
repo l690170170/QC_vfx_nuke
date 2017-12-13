@@ -1,0 +1,155 @@
+set cut_paste_input [stack 0]
+version 8.0 v4
+BackdropNode {
+ inputs 0
+ name BackdropNode1
+ tile_color 0x8e8e3800
+ note_font_size 42
+ selected true
+ xpos -1820
+ ypos -264
+ bdwidth 107
+ bdheight 278
+}
+push $cut_paste_input
+Shuffle {
+ blue green
+ name Shuffle1
+ selected true
+ xpos -1809
+ ypos -237
+}
+HueShift {
+ color_saturation 3.18
+ name HueShift1
+ selected true
+ xpos -1809
+ ypos -189
+}
+OFXuk.co.thefoundry.furnace.f_degrain_v403 {
+ colourSpace sRGB
+ amount 1
+ output Result
+ grain 10
+ "Analysis Region" 1
+ regionBL {636.6000061 751.1000549}
+ regionTR {841.4000623 859.0999675}
+ frame 961
+ Advanced 1
+ Frequencies 0
+ processSmall true
+ smallAmount 1
+ processMedium true
+ mediumAmount 1
+ processLarge true
+ largeAmount 1
+ processHuge true
+ hugeAmount 1
+ Channels 1
+ redAmount 1
+ greenAmount 2
+ blueAmount 1
+ notBeenAnalysed false
+ inputHasChanged false
+ magic0HR 0.004005719442
+ magic0DR 0.005301347468
+ magic0HG 0.00390562648
+ magic0DG 0.004043030553
+ magic0HB 0.003855770454
+ magic0DB 0.003864720697
+ magic1HR 0.00205739215
+ magic1DR 0.003386361524
+ magic1HG 0.001563510392
+ magic1DG 0.001806801185
+ magic1HB 0.001461951178
+ magic1DB 0.001669623191
+ magic2HR 0.001074169879
+ magic2DR 0.0007157728542
+ magic2HG 0.001115423045
+ magic2DG 0.0009236786282
+ magic2HB 0.001120470813
+ magic2DB 0.0009416501271
+ magic3HR 0.001076508779
+ magic3DR 0.0004826443037
+ magic3HG 0.001117411884
+ magic3DG 0.0006245892146
+ magic3HB 0.001120923902
+ magic3DB 0.0006857664557
+ cacheBreaker true
+ name F_DeGrain5
+ selected true
+ xpos -1809
+ ypos -136
+}
+set Nea3ea530 [stack 0]
+IBKColourV3 {
+ name IBKColourV3_4
+ selected true
+ xpos -1809
+ ypos -101
+ screen_type green
+}
+push 0
+push $Nea3ea530
+IBKGizmoV3 {
+ inputs 3
+ name IBKGizmoV3_4
+ xpos -1809
+ ypos -59
+ st pick
+}
+OFXuk.co.thefoundry.furnace.f_degrain_v403 {
+ colourSpace sRGB
+ amount 1
+ output Result
+ grain 10
+ "Analysis Region" 1
+ regionBL {934.5999568 724.4999702}
+ regionTR {1139.400149 914.5000955}
+ frame 961
+ Advanced 1
+ Frequencies 0
+ processSmall true
+ smallAmount 1
+ processMedium true
+ mediumAmount 1
+ processLarge true
+ largeAmount 1
+ processHuge true
+ hugeAmount 1
+ Channels 1
+ redAmount 1
+ greenAmount 2
+ blueAmount 0
+ notBeenAnalysed false
+ inputHasChanged true
+ magic0HR 0.00336816092
+ magic0DR 0.00223205029
+ magic0HG 0.003466232447
+ magic0DG 0.002576298313
+ magic0HB 0.003496095538
+ magic0DB 0.002745927544
+ magic1HR 0.0009457651176
+ magic1DR 0.0007524734247
+ magic1HG 0.001074079773
+ magic1DG 0.0006129164831
+ magic1HB 0.001093567815
+ magic1DB 0.0007355647394
+ magic2HR 0.001131205936
+ magic2DR 0.000956442731
+ magic2HG 0.001137915533
+ magic2DG 0.001084943768
+ magic2HB 0.001136793988
+ magic2DB 0.001041546348
+ magic3HR 0.001111429068
+ magic3DR 0.0006701865932
+ magic3HG 0.001128606033
+ magic3DG 0.0008347367402
+ magic3HB 0.001124266651
+ magic3DB 0.0007810215466
+ cacheBreaker true
+ name F_DeGrain3
+ selected true
+ xpos -1809
+ ypos -14
+}

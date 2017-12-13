@@ -1,0 +1,155 @@
+#! /Nuke4.7v4/Nuke4.7v4.app/Contents/MacOS/../../Nuke4.7_ -nx
+version 4.7400
+Gizmo {
+ inputs 1
+ tile_color 0xff911800
+ label 0.3
+ note_font_size 9
+ help "In photography and optics, \nvignetting is a reduction of \nan image's brightness or \nsaturation at the periphery \ncompared to the image center.\nWikipedia"
+ addUserKnob {20 "" l "H_Vignette "}
+ addUserKnob {26 "" l ""}
+ addUserKnob {41 in l "What layer?" t "What layer do you what to apply the vignette? " T Shuffle1.in}
+ addUserKnob {26 "" l Vignetting}
+ addUserKnob {41 disable_1 l disable T Premult1.disable}
+ addUserKnob {41 gamma l "Color of Vignette" t "Change color of vignette" T Grade1.gamma}
+ addUserKnob {41 mix l "Amount of Vignette" t "Defines amount of darkness of Vignette" T Radial1.mix}
+ addUserKnob {41 softness l "Softness of Vignette" t "Feathering of Vignette " T Radial1.softness}
+ addUserKnob {41 plinear l "perceptually linear" T Radial1.plinear}
+ addUserKnob {26 "" l Saturation t "Saturation of vignette"}
+ addUserKnob {41 disable_1_1 l disable T Saturation1.disable}
+ addUserKnob {41 desaturation l De-saturation t "Saturation of Vignette area" T Saturation1.saturation}
+ addUserKnob {26 "" l "Defocus Vignette"}
+ addUserKnob {41 disable_3 l disable T Defocus1.disable}
+ addUserKnob {41 quality T Defocus1.quality}
+ addUserKnob {41 setup_mode l "focal-plane setup" T Defocus1.setup_mode}
+ addUserKnob {41 center l "focus plane (C)" T Defocus1.center}
+ addUserKnob {41 dof l depth-of-field T Defocus1.dof}
+ addUserKnob {41 size T Defocus1.size}
+ addUserKnob {41 max_size l maximum T Defocus1.max_size}
+ addUserKnob {41 shape l "filter shape" T Defocus1.shape}
+ addUserKnob {41 occlude l "knob occlusion true" T Defocus1.occlude}
+ addUserKnob {41 quality_1 l quality T Defocus1.quality}
+ addUserKnob {41 "Depth of Field" l "knob center \$value" T "Defocus1.Depth of Field"}
+ addUserKnob {41 "Field Width" l "knob depth \$value" T "Defocus1.Field Width"}
+ addUserKnob {41 "Low Limit" T "Defocus1.Low Limit"}
+ addUserKnob {41 "High Limit" T "Defocus1.High Limit"}
+ addUserKnob {41 "Max Size" l "knob max_size \$value" T "Defocus1.Max Size"}
+ addUserKnob {41 mix_1 l mix T Defocus1.mix}
+ addUserKnob {26 "" l "H_Vignette 0.3"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -633
+  ypos -807
+ }
+set N11b5510 [stack 0]
+push $N11b5510
+push $N11b5510
+ Shuffle {
+  name Shuffle1
+  xpos -288
+  ypos -714
+ }
+add_layer {mask mask.mask}
+ Radial {
+  output mask
+  mix 0.8
+  invert true
+  area {{0-format.w/4 x1 4} {0-format.h/4} {Input1.format.w+format.w/4} {Input1.format.h+format.h/4}}
+  softness 0.8
+  p1 {100 400}
+  p0 {100 100}
+  name Radial1
+  xpos -288
+  ypos -673
+ }
+set N11b6e20 [stack 0]
+push $N11b6e20
+ Copy {
+  inputs 2
+  from0 mask.mask
+  to0 depth.Z
+  from1 mask.mask
+  to1 mask.mask
+  name Copy2
+  xpos -288
+  ypos -626
+ }
+ Premult {
+  channels rgba
+  alpha mask.mask
+  invert true
+  name Premult1
+  xpos -288
+  ypos -563
+ }
+ Crop {
+  box {{curve} {curve} {Input1.format.w} {Input1.format.h}}
+  name Crop2
+  xpos -288
+  ypos -513
+ }
+ Grade {
+  channels rgba
+  blackpoint -0.0005
+  whitepoint 1.25
+  black 0.002
+  mask mask.mask
+  name Grade1
+  xpos -288
+  ypos -476
+  disable {{Premult1.disable}}
+ }
+ Invert {
+  channels depth
+  name Invert1
+  xpos -288
+  ypos -408
+ }
+ ZBlur {
+  channels rgba
+  center 1
+  dof 0.5
+  size 3
+  max_size 5
+  name Defocus1
+  xpos -288
+  ypos -355
+  disable true
+ }
+ Crop {
+  box {{curve} {curve} {Input1.format.w} {Input1.format.h}}
+  name Crop1
+  xpos -288
+  ypos -304
+ }
+ Saturation {
+  saturation 0
+  mask mask.mask
+  name Saturation1
+  xpos -288
+  ypos -253
+  disable true
+ }
+add_layer {alpha rgba.alpha}
+ Copy {
+  inputs 2
+  channels alpha
+  name Copy1
+  xpos -398
+  ypos -164
+ }
+ Copy {
+  inputs 2
+  channels depth
+  name Copy3
+  xpos -455
+  ypos -62
+ }
+ Output {
+  name Output1
+  xpos -398
+  ypos 59
+ }
+end_group

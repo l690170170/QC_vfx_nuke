@@ -1,0 +1,134 @@
+#! C:/Program Files/Nuke5.1v3/Nuke5.1.exe -nx
+version 5.1300
+Gizmo {
+ note_font Verdana
+ note_font_size 13
+ note_font_color 0xff
+ addUserKnob {20 ChromaAbb}
+ addUserKnob {41 multiplier l Multiplier T Dot1.multiplier}
+ addUserKnob {41 mixRay T moxDot.mixRay}
+ addUserKnob {41 which T Switch1.which}
+}
+ Dot {
+  inputs 0
+  name moxDot
+  xpos 7
+  ypos -8
+  addUserKnob {20 User}
+  addUserKnob {7 mixRay}
+  mixRay 0.04
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -117
+  ypos -395
+ }
+set N145603d0 [stack 0]
+ Viewer {
+  name Viewer1
+  xpos 32
+  ypos 229
+ }
+push $N145603d0
+ Dot {
+  name Dot2
+  xpos -83
+  ypos -301
+ }
+set N14560620 [stack 0]
+ GodRays {
+  channels {-rgba.red rgba.green -rgba.blue}
+  scale {{parent.GodRays8.scale i}}
+  center {{parent.GodRays5.center.x i} {parent.GodRays5.center.y i}}
+  name GodRays6
+  xpos -15
+  ypos -225
+ }
+ GodRays {
+  channels {rgba.red -rgba.green -rgba.blue}
+  scale {{parent.GodRays5.scale i}}
+  center {{parent.GodRays6.center.x i} {parent.GodRays6.center.y i}}
+  name GodRays7
+  xpos -15
+  ypos -140
+  addUserKnob {20 User}
+  addUserKnob {4 sasdasd M {Read1 ""}}
+ }
+push $N14560620
+ GodRays {
+  channels {-rgba.red -rgba.green rgba.blue}
+  scale {{(Dot1.multiplier)+1 i}}
+  center {{(format.width)/2 i} {(format.height)/2 i}}
+  name GodRays8
+  xpos -117
+  ypos -226
+ }
+ GodRays {
+  channels {-rgba.red rgba.green -rgba.blue}
+  scale {{parent.GodRays2.scale i}}
+  center {{parent.GodRays8.center.x i} {parent.GodRays8.center.y i}}
+  name GodRays5
+  xpos -117
+  ypos -140
+  addUserKnob {20 User}
+  addUserKnob {4 sasdasd M {Read1 ""}}
+ }
+push $N14560620
+ GodRays {
+  channels {-rgba.red -rgba.green rgba.blue}
+  scale {{(Dot1.multiplier)+1 i}}
+  center {{(format.width)/2 i} {(format.height)/2 i}}
+  name GodRays1
+  xpos -229
+  ypos -223
+ }
+ GodRays {
+  channels {rgba.red -rgba.green -rgba.blue}
+  scale {{((Dot1.multiplier)*(-1))+1 i}}
+  center {{parent.GodRays1.center.x i} {parent.GodRays1.center.y i}}
+  name GodRays2
+  xpos -229
+  ypos -138
+  addUserKnob {20 User}
+  addUserKnob {4 sasdasd M {Read1 ""}}
+ }
+ Switch {
+  inputs 3
+  name Switch1
+  xpos -117
+  ypos -71
+  addUserKnob {20 User}
+  addUserKnob {41 which_1 l which T Switch1.which}
+ }
+ GodRays {
+  scale {{((moxDot.mixRay)*.05)+1 i}}
+  name GodRays3
+  xpos -117
+  ypos -18
+  addUserKnob {20 User}
+  addUserKnob {7 mult}
+  mult 1
+ }
+ Blur {
+  size 0.6
+  name Blur1
+  xpos -117
+  ypos 67
+ }
+ Output {
+  name Output1
+  xpos -117
+  ypos 186
+ }
+ Dot {
+  inputs 0
+  name Dot1
+  selected true
+  xpos -135
+  ypos -168
+  addUserKnob {20 User}
+  addUserKnob {7 multiplier R -0.1 0.1}
+  multiplier -0.008
+ }
+end_group

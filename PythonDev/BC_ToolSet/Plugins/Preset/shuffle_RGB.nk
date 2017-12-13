@@ -1,0 +1,44 @@
+set cut_paste_input [stack 0]
+version 7.0 v4
+push $cut_paste_input
+Shuffle {
+ red blue
+ green blue
+ alpha blue
+ name Shuffle3
+ tile_color 0xffff
+ selected true
+ xpos 574
+ ypos 1278
+}
+push 0
+push $cut_paste_input
+Shuffle {
+ green red
+ blue red
+ alpha red
+ name Shuffle4
+ tile_color 0xff0000ff
+ selected true
+ xpos 368
+ ypos 1287
+}
+push $cut_paste_input
+Shuffle {
+ red green
+ blue green
+ alpha green
+ name Shuffle5
+ tile_color 0xff00ff
+ selected true
+ xpos 468
+ ypos 1280
+}
+Merge2 {
+ inputs 3+1
+ operation plus
+ name Merge3
+ selected true
+ xpos 468
+ ypos 1407
+}

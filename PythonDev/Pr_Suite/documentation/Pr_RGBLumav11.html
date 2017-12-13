@@ -1,0 +1,103 @@
+﻿<html>
+	
+<head>
+	<title>Pr_RGBLuma v1.1</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="keywords" content=", , , , ">
+	
+	<link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/base.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/hnd.css" />
+	<!--[if lte IE 8]>
+		<link type="text/css" rel="stylesheet" media="all" href="css/ielte8.css" />
+	<![endif]-->
+	<style type="text/css">
+		#topic_header
+		{
+			background-color: #EFEFEF;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/hnd.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			if (top.frames.length == 0)
+			{
+				var sTopicUrl = top.location.href.substring(top.location.href.lastIndexOf("/") + 1, top.location.href.length);
+				top.location.href = "Pr_Suite v1.1 Documentation.html?" + sTopicUrl;
+			}
+			else
+			{
+				var bTocSelected = false;
+				(function waitForTOC()
+				{
+					if (top && top.FrameTOC && top.FrameTOC.SelectTocItem)
+					{
+						top.FrameTOC.SelectTocItem("Pr_RGBLumav11");
+						bTocSelected = true;
+					}
+					if (!bTocSelected) setTimeout(function() { waitForTOC(); }, 300);
+				})();
+			}
+		});
+	</script>
+	
+	</head>
+
+<body>
+
+<div id="topic_header">
+			<div id="topic_header_content">
+				<h1 id="topic_header_text">Pr_RGBLuma v1.1</h1>
+				
+				<div id="topic_breadcrumb">
+					<a href="Pr_SuiteGizmos.html">Pr_Suite Gizmos</a> &rsaquo;&rsaquo; </div>
+				</div>
+			<div id="topic_header_nav">
+				<a href="Pr_SuiteGizmos.html"><img src="img/arrow_up.png" alt="Parent"/></a>
+				
+				<a href="Pr_LBGrainv11.html"><img src="img/arrow_left.png" alt="Previous"/></a>
+				
+				<a href="Pr_RGBShadowv11.html"><img src="img/arrow_right.png" alt="Next"/></a>
+				
+				</div>
+			<div class="clear"></div>
+		</div>
+	<div id="topic_content">
+		
+<p></p>
+<p class="rvps2"><span class="rvts15">Description:</span></p>
+<p class="rvps2"><span class="rvts6">Pr_RGBLuma is a tool to extract RGB light from a RGB Luma pass and to compose it on a Color pass. It also provide controls for controlling extracted light.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><img width="400" height="405" alt="" style="padding : 1px;" src="lib/pr_rgbluma_01.jpg"></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Inputs:</span></p>
+<p class="rvps2"><span class="rvts6">Pr_RGBLuma has three inputs:</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">RGB Luma input - This input takes RGB Luma pass, this pass stores lighting information from a 3D application in Red, Green and Blue channels. You can find a note about rendering RGB Luma pass in Special Note.</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Color input - This input takes Color pass, it could be named differently in variety of renders but Color pass is a pass which contains only color of a image without any other properties such as reflection, specular, etc. You can find a note about rendering Color pass in Special Note.</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Mask input - This is a optional input, if you want to limit the light to a specific region, feed in matte for limiting region.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Special Note:</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Rendering RGB Luma pass - In your 3D application apply a standard material (In Maya and many applications it is a Lambert material) basically it is a material only with diffuse property, apply it to all visible geometries in your 3D scene, set diffuse property to 100 percent and set diffuse color to White in material. In your 3D scene you may have many lights used. Make groups of these lights, each group will have three lights. Set color of first light in group to Red, color of second light to Green and color of third light to Blue and turn of shadow for all lights if you are wanting to control the shadow separately while compositing using </span><a class="rvts11" href="Pr_RGBShadowv11.html">Pr_RGBShadow</a><span class="rvts6"> or manually. Render the scene with only one light group active and other light groups deactivated, follow this process until you complete rendering with all light groups. Render in 16 bit or 32 bit float for more control and detail, rendering in 8 bit is not recommended. If you have only one or two lights in your scene, set color of first light to Red and color of second light to Green and the process explained earlier.</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Rendering Color pass - You can render Color pass from any renderer of a 3D application, you can find Color pass (your renderer may have different name for it) in AOV's list of your renderer. In Mental Ray it is called Diffuse Material Color, add this pass to your render list and render it. Render in 16 bit or 32 bit float for more control and detail, rendering in 8 bit is not recommended.</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Compositing Tip - If you have Occlusion pass compose it with Color pass before feeding it to Color input.</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Further Reference - </span><a class="rvts11" href="https://vimeo.com/138289995" target="_blank">https://vimeo.com/138289995</a><span class="rvts6"> (A tutorial by </span><a class="rvts11" href="https://vimeo.com/chetal" target="_blank">Chetal Gazdar</a><span class="rvts6"> explaining RGB Light Workflow from Maya to Nuke, you can use Pr_RGBLuma for Nuke process.)</span></p>
+<p class="rvps2"><span class="rvts15"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Known Bug:</span></p>
+<p class="rvps2"><span class="rvts6">Click </span><a class="rvts11" href="Pr_Suitev11.html">here</a><span class="rvts6"> for more information.</span></p>
+<p class="rvps2"><span class="rvts15"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Tutorial:</span></p>
+<p class="rvps2"><span class="rvts6">Tutorial Link - </span><a class="rvts11" href="https://youtu.be/-KFrRrStwR0" target="_blank">https://youtu.be/-KFrRrStwR0</a></p>
+<p></p>
+</div>
+	
+	<div id="topic_footer">
+
+			<div id="topic_footer_content">
+				Copyright (c) 2016 Parimal Desai</div>
+		</div>
+	</body>
+	
+</html>
+

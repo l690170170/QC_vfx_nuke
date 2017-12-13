@@ -1,0 +1,74 @@
+set cut_paste_input [stack 0]
+version 10.0 v6
+push $cut_paste_input
+Group {
+name Diffuser
+selected true
+xpos 596
+ypos -5917
+addUserKnob {20 User}
+addUserKnob {41 size T Blur15.size}
+}
+Input {
+inputs 0
+name Input1
+xpos 388
+ypos -576
+}
+Dot {
+name Dot15
+xpos 422
+ypos -536
+}
+set N9c3f7000 [stack 0]
+Blur {
+size {{parent.Blur21.size*2}}
+name Blur22
+xpos 707
+ypos -444
+}
+push $N9c3f7000
+Blur {
+size {{parent.Blur20.size*2}}
+name Blur21
+xpos 492
+ypos -442
+}
+set N7317b800 [stack 0]
+push 0
+push $N9c3f7000
+Blur {
+size 10
+name Blur15
+xpos 204
+ypos -440
+}
+push $N9c3f7000
+Blur {
+size {{parent.Blur15.size*2}}
+name Blur20
+selected true
+xpos 360
+ypos -440
+}
+Merge2 {
+inputs 4+1
+operation average
+name Merge25
+xpos 396
+ypos -335
+}
+Output {
+name Output1
+xpos 396
+ypos -234
+}
+push $N7317b800
+Viewer {
+frame_range 1001-1130
+fps 30
+name Viewer1
+xpos 399
+ypos -309
+}
+end_group

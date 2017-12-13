@@ -1,0 +1,31 @@
+#! C:/Program Files/Nuke6.3v7/Nuke6.3.exe -nx
+version 6.3 v7
+Gizmo {
+ postage_stamp true
+ addUserKnob {20 REORDER}
+ addUserKnob {41 expr3 l = T Expression1.expr3}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -503
+  ypos 672
+ }
+ Expression {
+  expr3 r+g+b+a
+  name Expression1
+  xpos -503
+  ypos 743
+ }
+ Clamp {
+  channels alpha
+  name Clamp1
+  xpos -503
+  ypos 776
+ }
+ Output {
+  name Output1
+  xpos -503
+  ypos 831
+ }
+end_group

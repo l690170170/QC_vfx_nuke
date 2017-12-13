@@ -1,0 +1,103 @@
+#! C:/Program Files/Nuke6.3v1/Nuke6.3.exe -nx
+version 6.3 v1
+Gizmo {
+ help "This gizmo will create a spherical mask based on the world space coordinates of a position channel."
+ addUserKnob {20 PointPositionToMask l PositionToMask}
+ addUserKnob {18 center l Center}
+ center {0 0 0}
+ addUserKnob {7 radius l Radius R 0 1000}
+ radius 1
+ addUserKnob {26 ""}
+ addUserKnob {7 feather l Feather R -500 500}
+ addUserKnob {7 feather_falloff l "Feather falloff" R 0.2 5}
+ feather_falloff 1
+ addUserKnob {26 ""}
+ addUserKnob {41 point_postion l Postion T Shuffle1.in}
+ addUserKnob {41 mask_output l "Mask output" T Copy1.to0}
+}
+ Input {
+  inputs 0
+  name src
+  xpos -195
+  ypos -147
+ }
+ Dot {
+  name Dot1
+  xpos -161
+  ypos -101
+ }
+set N4135bb0 [stack 0]
+ Dot {
+  name Dot2
+  xpos -25
+  ypos -101
+ }
+set N446c430 [stack 0]
+ Dot {
+  name Dot4
+  xpos 101
+  ypos -101
+ }
+ Expression {
+  channel0 {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+  expr0 parent.center.r
+  expr1 parent.center.g
+  expr2 parent.center.b
+  name Expression1
+  label center
+  xpos 67
+  ypos -9
+ }
+push $N446c430
+ Shuffle {
+  in rgb
+  name Shuffle1
+  xpos -59
+  ypos -65
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 distance
+  temp_expr0 "sqrt(pow((Ar-Br), 2) + pow((Ag-Bg), 2) + pow((Ab-Bb), 2))"
+  temp_name1 inner_radius
+  temp_expr1 parent.feather<0?parent.radius+parent.feather:parent.radius
+  temp_name2 outer_radius
+  temp_expr2 parent.feather<0?parent.radius:parent.radius+parent.feather
+  channel0 {rgba.red rgba.green rgba.blue rgba.alpha}
+  expr0 "distance<inner_radius?1:distance>outer_radius?0:pow((1-(distance-inner_radius)/(outer_radius-inner_radius)), parent.feather_falloff)"
+  channel1 {-rgba.red -rgba.green -rgba.blue}
+  channel2 {-rgba.red -rgba.green -rgba.blue}
+  name MergeExpression1
+  xpos -59
+  ypos -3
+ }
+ Dot {
+  name Dot3
+  xpos -25
+  ypos 53
+ }
+push $N4135bb0
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -195
+  ypos 44
+ }
+set N446d750 [stack 0]
+ Output {
+  name Output1
+  xpos -195
+  ypos 119
+ }
+push $N446d750
+ Viewer {
+  fps 25
+  input_process false
+  name Viewer1
+  selected true
+  xpos -21
+  ypos 120
+ }
+end_group

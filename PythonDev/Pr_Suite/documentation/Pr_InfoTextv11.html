@@ -1,0 +1,94 @@
+﻿<html>
+	
+<head>
+	<title>Pr_InfoText v1.1</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="keywords" content=", , , , ">
+	
+	<link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/base.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/hnd.css" />
+	<!--[if lte IE 8]>
+		<link type="text/css" rel="stylesheet" media="all" href="css/ielte8.css" />
+	<![endif]-->
+	<style type="text/css">
+		#topic_header
+		{
+			background-color: #EFEFEF;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/hnd.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			if (top.frames.length == 0)
+			{
+				var sTopicUrl = top.location.href.substring(top.location.href.lastIndexOf("/") + 1, top.location.href.length);
+				top.location.href = "Pr_Suite v1.1 Documentation.html?" + sTopicUrl;
+			}
+			else
+			{
+				var bTocSelected = false;
+				(function waitForTOC()
+				{
+					if (top && top.FrameTOC && top.FrameTOC.SelectTocItem)
+					{
+						top.FrameTOC.SelectTocItem("Pr_InfoTextv11");
+						bTocSelected = true;
+					}
+					if (!bTocSelected) setTimeout(function() { waitForTOC(); }, 300);
+				})();
+			}
+		});
+	</script>
+	
+	</head>
+
+<body>
+
+<div id="topic_header">
+			<div id="topic_header_content">
+				<h1 id="topic_header_text">Pr_InfoText v1.1</h1>
+				
+				<div id="topic_breadcrumb">
+					<a href="Pr_SuiteGizmos.html">Pr_Suite Gizmos</a> &rsaquo;&rsaquo; </div>
+				</div>
+			<div id="topic_header_nav">
+				<a href="Pr_SuiteGizmos.html"><img src="img/arrow_up.png" alt="Parent"/></a>
+				
+				<a href="Pr_Timecodev11.html"><img src="img/arrow_left.png" alt="Previous"/></a>
+				
+				<a href="Pr_SuitePythonScripts.html"><img src="img/arrow_right.png" alt="Next"/></a>
+				
+				</div>
+			<div class="clear"></div>
+		</div>
+	<div id="topic_content">
+		
+<p></p>
+<p class="rvps2"><span class="rvts15">Description:</span></p>
+<p class="rvps2"><span class="rvts6">Pr_InfoText is a information displaying tool which takes the metadata from your image, nuke script and other resources and displays it in viewer and gives you control to modify the way information is displaying. Pr_InfoText will come handy if you are building your own information slate.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><img width="400" height="377" alt="" style="padding : 1px;" src="lib/pr_infotext_01.jpg"></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Inputs:</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">Pr_InfoText has only one input which takes a image on which information is to be displayed.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Special Note:</span></p>
+<p class="rvps2" style="text-indent: -24px; padding-left: 24px; margin-left: 0px;"><span style="font-size: 12pt; font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'Arial'; color: #000000; display: inline-block; text-indent: 0px; min-width: 24px;">•</span><span class="rvts6">File frame range and colorspace - If you have selected file frame range or file colorspace in info then make sure you don't have any another node connected between read node and Pr_InfoText, otherwise Pr_InfoText will not be able to provide you with the information.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Tutorial:</span></p>
+<p class="rvps2"><span class="rvts6">Tutorial Link - </span><a class="rvts11" href="https://youtu.be/S-CyLOXtUqg" target="_blank">https://youtu.be/S-CyLOXtUqg</a></p>
+<p></p>
+</div>
+	
+	<div id="topic_footer">
+
+			<div id="topic_footer_content">
+				Copyright (c) 2016 Parimal Desai</div>
+		</div>
+	</body>
+	
+</html>
+

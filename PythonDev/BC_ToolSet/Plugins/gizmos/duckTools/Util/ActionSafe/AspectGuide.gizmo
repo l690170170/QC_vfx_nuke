@@ -1,0 +1,160 @@
+#! C:/Program Files/Nuke5.1v3b8/Nuke5.1.exe -nx
+version 5.1300
+Gizmo {
+ tile_color 0x7aa9ffff
+ label "\[value this.ar]:1"
+ addUserKnob {20 aspectguides l "Aspect Ratio Guide"}
+ addUserKnob {7 current_ar l INVISIBLE}
+ current_ar {{(input.format.w*input.format.pixel_aspect)/input.format.h}}
+ addUserKnob {35 set_ar l "Aspect Ratio" M {1.19 "knob this.ar 1.19" 1.25 "knob this.ar 1.25" 1.33 "knob this.ar 1.33" 1.37 "knob this.ar 1.37" 1.43 "knob this.ar 1.43" 1.50 "knob this.ar 1.50" 1.56 "knob this.ar 1.56" 1.60 "knob this.ar 1.60" 1.66 "knob this.ar 1.66" 1.75 "knob this.ar 1.75" 1.77 "knob this.ar 1.777" 1.85 "knob this.ar 1.85" 2.00 "knob this.ar 2.00" 2.20 "knob this.ar 2.20" 2.35 "knob this.ar 2.35" 2.40 "knob this.ar 2.40" 2.55 "knob this.ar 2.55" 2.59 "knob this.ar 2.59" 2.76 "knob this.ar 2.76" 4.00 "knob this.ar 4.00" ""}}
+ addUserKnob {7 ar l "" -STARTLINE R 1 4}
+ ar 1.33
+ addUserKnob {6 draw_line l "Draw Lines" +STARTLINE}
+ draw_line true
+ addUserKnob {3 arw l Thickness t "Thickness of the guide line in pixels"}
+ arw 2
+ addUserKnob {6 tx_ar l "Draw Text Label" t "Toggles the display of the Guide value text On/Off" -STARTLINE}
+ tx_ar true
+ addUserKnob {18 ar_color l Color t "Guide line color"}
+ ar_color {1 0.35 0}
+ addUserKnob {32 ar_default_color l " default " t "Resets the default color" -STARTLINE T "knob this.ar_color \{1 0.35 0\}"}
+ addUserKnob {26 ""}
+ addUserKnob {6 use_black l "Use Blackout" t "Toggle Blackout On/Off" +STARTLINE}
+ use_black true
+ addUserKnob {7 blackout l Mix t "Mix value for the blackout"}
+ blackout 0.5
+ addUserKnob {18 blackout_color l Color}
+ addUserKnob {15 safeinside l INVISIBLE}
+ safeinside {{this.Rectangle3.area.x} {this.Rectangle3.area.y} {this.Rectangle3.area.r} {this.Rectangle3.area.t}}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -848
+  ypos -297
+ }
+set N3ab9cb8 [stack 0]
+ Rectangle {
+  area {{input.format.x i} {input.format.y i} {input.format.r i} {input.format.t i}}
+  color {{parent.ar_color.r i} {parent.ar_color.g i} {parent.ar_color.b i} 0}
+  name Rectangle11
+  xpos -722
+  ypos -204
+ }
+ Rectangle {
+  output alpha
+  replace true
+  area {{"parent.current_ar  > parent.ar ? rint((input.format.w - ((input.format.h * parent.ar) / input.format.pixel_aspect)) / 2) - parent.arw : 0" i} {"parent.current_ar  < parent.ar ? ((input.format.h - ((input.format.w*input.format.pixel_aspect) / parent.ar)) / 2) - parent.arw : 0" i} {"parent.current_ar  > parent.ar ? rint(((input.format.w - ((input.format.h * parent.ar) / input.format.pixel_aspect)) / 2) + ((input.format.h * parent.ar) / input.format.pixel_aspect)) + parent.arw : input.format.w" i} {"parent.current_ar  < parent.ar ? ((input.format.h - ((input.format.w*input.format.pixel_aspect) / parent.ar)) / 2) + ((input.format.w*input.format.pixel_aspect) / parent.ar) + parent.arw: input.format.h" i}}
+  name Rectangle1
+  xpos -722
+  ypos -175
+ }
+ Rectangle {
+  output alpha
+  area {{"parent.current_ar > parent.ar ? rint((input.format.w - ((input.format.h * parent.ar) / input.format.pixel_aspect)) / 2)  : 0" i} {"parent.current_ar < parent.ar ? ((input.format.h - ((input.format.w*input.format.pixel_aspect) / parent.ar)) / 2) : 0" i} {"parent.current_ar > parent.ar ? rint(((input.format.w - ((input.format.h * parent.ar) / input.format.pixel_aspect)) / 2) + ((input.format.h * parent.ar) / input.format.pixel_aspect)) : input.format.w" i} {"parent.current_ar < parent.ar ? ((input.format.h - ((input.format.w*input.format.pixel_aspect) / parent.ar)) / 2) + ((input.format.w*input.format.pixel_aspect) / parent.ar) : input.format.h" i}}
+  color 0
+  name Rectangle2
+  xpos -722
+  ypos -130
+ }
+ Text {
+  output alpha
+  message "\[value parent.ar]:1"
+  Font 1
+  font C:/Windows/Fonts/Arial.ttf
+  size {{input.format.h*0.025 i}}
+  translate {{"parent.current_ar < parent.ar ? input.format.w*0.06 : rint((input.format.w - ((input.format.h * parent.ar) / input.format.pixel_aspect)) / 2) - parent.arw - 5" i} {"parent.current_ar < parent.ar ? (((input.format.h - ((input.format.w*input.format.pixel_aspect) / parent.ar)) / 2) + ((input.format.w*input.format.pixel_aspect) / parent.ar)) + parent.arw + 5 : input.format.h * 0.8" i}}
+  rotate {{"parent.current_ar > parent.ar ? 90 : 0" i}}
+  name Text3
+  tile_color 0xc0c0c000
+  xpos -722
+  ypos -85
+  disable {{!parent.tx_ar i}}
+ }
+ Premult {
+  name Premult3
+  xpos -722
+  ypos -40
+ }
+push $N3ab9cb8
+ Rectangle {
+  area {{input.format.x i} {input.format.y i} {input.format.r i} {input.format.t i}}
+  color {{parent.blackout_color.r i} {parent.blackout_color.g i} {parent.blackout_color.b i} 0}
+  name Rectangle14
+  xpos -848
+  ypos -205
+ }
+ Rectangle {
+  output alpha
+  replace true
+  invert true
+  area {{"parent.current_ar > parent.ar ? rint((input.format.w - ((input.format.h * parent.ar) / input.format.pixel_aspect)) / 2)  : 0" i} {"parent.current_ar < parent.ar ? ((input.format.h - ((input.format.w*input.format.pixel_aspect) / parent.ar)) / 2) : 0" i} {"parent.current_ar  > parent.ar ? rint(((input.format.w - ((input.format.h * parent.ar) / input.format.pixel_aspect)) / 2) + ((input.format.h * parent.ar) / input.format.pixel_aspect)) : input.format.w" i} {"parent.current_ar  < parent.ar ? ((input.format.h - ((input.format.w*input.format.pixel_aspect) / parent.ar)) / 2) + ((input.format.w*input.format.pixel_aspect) / parent.ar) : input.format.h" i}}
+  name Rectangle3
+  selected true
+  xpos -848
+  ypos -176
+ }
+ Premult {
+  name Premult1
+  xpos -848
+  ypos -131
+ }
+push $N3ab9cb8
+ Dot {
+  name Dot3
+  xpos -922
+  ypos -191
+ }
+ Dot {
+  name Dot4
+  xpos -922
+  ypos 304
+ }
+ Merge2 {
+  inputs 2
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  mix {{parent.blackout i}}
+  name Merge3
+  xpos -848
+  ypos 299
+  disable {{!parent.use_black i}}
+ }
+ Merge2 {
+  inputs 2
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge4
+  xpos -722
+  ypos 299
+  disable {{!parent.draw_line i}}
+ }
+ Output {
+  name Output1
+  xpos -722
+  ypos 446
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote1
+  label "(input.format.h - (input.format.h - (input.format.w*input.format.pixel_aspect / \[value parent.ar] )) /2)\n\n(input.format.w-(input.format.w/1.333)) / 2"
+  xpos -1014
+  ypos -424
+ }
+ Rectangle {
+  inputs 0
+  output alpha
+  replace true
+  area {{curve i} {"((input.format.h - (input.format.w*input.format.pixel_aspect / parent.ar)) /2)-(parent.arw<=1?1:parent.arw)" i} {input.format.w i} {"((input.format.h - (input.format.h - (input.format.w*input.format.pixel_aspect / parent.ar)) /2))+(parent.arw<=1?1:parent.arw)" i}}
+  color {0 0 0 1}
+  name Rectangle10
+  xpos -459
+  ypos 256
+ }
+ Rectangle {
+  output alpha
+  area {0 {"((input.format.h - (input.format.w*input.format.pixel_aspect / parent.ar)) /2)" i} {input.format.w i} {"(input.format.h - (input.format.h - (input.format.w*input.format.pixel_aspect / parent.ar)) /2)" i}}
+  color 0
+  name Rectangle12
+  xpos -459
+  ypos 301
+ }
+end_group
