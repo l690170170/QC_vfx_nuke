@@ -1,0 +1,72 @@
+#! /usr/local/Nuke6.1v1/Nuke6.1 -nx
+version 6.1 v1
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {41 mix l MaskOpacity T Merge2.mix}
+ addUserKnob {41 mix_1 l "on/off log lin switch" t "0 = disabled\n1 = enabled" T Log2Lin1.mix}
+ addUserKnob {41 operation l "LogLin " T Log2Lin1.operation}
+}
+ Constant {
+  inputs 0
+  channels rgb
+  color {1 1 1 1}
+  name Constant1
+  xpos 178
+  ypos 57
+ }
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos 178
+  ypos 144
+ }
+ Crop {
+  box {0 147 2048 1018}
+  name Crop1
+  xpos 178
+  ypos 186
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant2
+  xpos 325
+  ypos 56
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 325
+  ypos 186
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos 517
+  ypos 19
+ }
+ NoOp {
+  name Input
+  xpos 517
+  ypos 59
+ }
+ Log2Lin {
+  operation lin2log
+  name Log2Lin1
+  xpos 517
+  ypos 102
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  mix 0.435
+  name Merge2
+  xpos 517
+  ypos 186
+ }
+ Output {
+  name Output1
+  xpos 517
+  ypos 286
+ }
+end_group

@@ -38,7 +38,7 @@ def platform_pref_path():
         nuke.message("Unsupported OS")
 
 
-class PrSuitePreferencesPanel(nukescripts.PythonPanel):
+class BcToolSetPreferencesPanel(nukescripts.PythonPanel):
     """
     UI and main operation.
     """
@@ -46,11 +46,11 @@ class PrSuitePreferencesPanel(nukescripts.PythonPanel):
         """
         Adding knobs to UI panel.
         """
-        nukescripts.PythonPanel.__init__(self, "Bc_ToolSet Preferences", "com.parimalvfx.PrSuitePreferencesPanel")
+        nukescripts.PythonPanel.__init__(self, "Bc_ToolSet Preferences", "com.parimalvfx.BcToolSetPreferencesPanel")
 
         self.setMinimumSize(450, 700)
 
-        self.PrPref = nuke.Text_Knob("Bc_ToolSet_pref", "", "<font color='grey' size='7'><b>Pr_</b>Suite Preferences"
+        self.PrPref = nuke.Text_Knob("Bc_ToolSet_pref", "", "<font color='grey' size='7'><b>Bc_</b>ToolSet Preferences"
                                                           "</font><br>")
         self.div0 = nuke.Text_Knob("div0", "", " ")
         self.GzColor = nuke.ColorChip_Knob("gizmo_color", "  Gizmo Color ", 0x7f7f7fff)
@@ -61,28 +61,28 @@ class PrSuitePreferencesPanel(nukescripts.PythonPanel):
         self.SL = nuke.Boolean_Knob("save_log", "Nuke File Save Log", False)
         self.SL.setTooltip("Log information in Project Settings 'comment', whenever Nuke file saves.")
         self.Gizmos = nuke.Text_Knob("gizmos", "", "<br><font color='dark grey' size='4'><b>Gizmos</b></font>")
-        self.ShuffleMatte = nuke.Boolean_Knob("Pr_ShuffleMatte", "Pr_ShuffleMatte", True)
-        self.LBGrain = nuke.Boolean_Knob("Pr_LBGrain", "Pr_LBGrain", True)
+        self.ShuffleMatte = nuke.Boolean_Knob("Bc_ShuffleMatte", "Bc_ShuffleMatte", True)
+        self.LBGrain = nuke.Boolean_Knob("Bc_LBGrain", "Bc_LBGrain", True)
         self.LBGrain.setFlag(nuke.STARTLINE)
-        self.RGBLuma = nuke.Boolean_Knob("Pr_RGBLuma", "Pr_RGBLuma", True)
+        self.RGBLuma = nuke.Boolean_Knob("Bc_RGBLuma", "Bc_RGBLuma", True)
         self.RGBLuma.setFlag(nuke.STARTLINE)
-        self.RGBShadow = nuke.Boolean_Knob("Pr_RGBShadow", "Pr_RGBShadow", True)
+        self.RGBShadow = nuke.Boolean_Knob("Bc_RGBShadow", "Bc_RGBShadow", True)
         self.RGBShadow.setFlag(nuke.STARTLINE)
-        self.Contrast = nuke.Boolean_Knob("Pr_Contrast", "Pr_Contrast", True)
+        self.Contrast = nuke.Boolean_Knob("Bc_Contrast", "Bc_Contrast", True)
         self.Contrast.setFlag(nuke.STARTLINE)
-        self.Palette = nuke.Boolean_Knob("Pr_Palette", "Pr_Palette", True)
+        self.Palette = nuke.Boolean_Knob("Bc_Palette", "Bc_Palette", True)
         self.Palette.setFlag(nuke.STARTLINE)
-        self.CameraAim = nuke.Boolean_Knob("Pr_CameraAim", "Pr_CameraAim (Nuke 6, 7, 8)", True)
+        self.CameraAim = nuke.Boolean_Knob("Bc_CameraAim", "Bc_CameraAim (Nuke 6, 7, 8)", True)
         self.CameraAim.setFlag(nuke.STARTLINE)
-        self.CameraAim9 = nuke.Boolean_Knob("Pr_CameraAim9", "Pr_CameraAim (Nuke 9, 10)", True)
+        self.CameraAim9 = nuke.Boolean_Knob("Bc_CameraAim9", "Bc_CameraAim (Nuke 9, 10)", True)
         self.CameraAim9.setFlag(nuke.STARTLINE)
-        self.LightAim = nuke.Boolean_Knob("Pr_LightAim", "Pr_LightAim (Nuke 6, 7, 8)", True)
+        self.LightAim = nuke.Boolean_Knob("Bc_LightAim", "Bc_LightAim (Nuke 6, 7, 8)", True)
         self.LightAim.setFlag(nuke.STARTLINE)
-        self.LightAim9 = nuke.Boolean_Knob("Pr_LightAim9", "Pr_LightAim (Nuke 9, 10)", True)
+        self.LightAim9 = nuke.Boolean_Knob("Bc_LightAim9", "Bc_LightAim (Nuke 9, 10)", True)
         self.LightAim9.setFlag(nuke.STARTLINE)
-        self.Timecode = nuke.Boolean_Knob("Pr_Timecode", "Pr_Timecode", True)
+        self.Timecode = nuke.Boolean_Knob("Bc_Timecode", "Bc_Timecode", True)
         self.Timecode.setFlag(nuke.STARTLINE)
-        self.InfoText = nuke.Boolean_Knob("Pr_InfoText", "Pr_InfoText", True)
+        self.InfoText = nuke.Boolean_Knob("Bc_InfoText", "Bc_InfoText", True)
         self.InfoText.setFlag(nuke.STARTLINE)
         self.NukeMenu = nuke.Text_Knob("nuke_menu", "", "<br><font color='dark grey' size='4'><b>Python Scripts - Nuke"
                                                         " Menu</b></font>")
@@ -154,29 +154,29 @@ class PrSuitePreferencesPanel(nukescripts.PythonPanel):
             if pref.save_log is True:
                 self.SL.setValue(True)
             # Gizmos
-            if pref.Pr_ShuffleMatte is False:
+            if pref.Bc_ShuffleMatte is False:
                 self.ShuffleMatte.setValue(False)
-            if pref.Pr_LBGrain is False:
+            if pref.Bc_LBGrain is False:
                 self.LBGrain.setValue(False)
-            if pref.Pr_RGBLuma is False:
+            if pref.Bc_RGBLuma is False:
                 self.RGBLuma.setValue(False)
-            if pref.Pr_RGBShadow is False:
+            if pref.Bc_RGBShadow is False:
                 self.RGBShadow.setValue(False)
-            if pref.Pr_Contrast is False:
+            if pref.Bc_Contrast is False:
                 self.Contrast.setValue(False)
-            if pref.Pr_Palette is False:
+            if pref.Bc_Palette is False:
                 self.Palette.setValue(False)
-            if pref.Pr_CameraAim is False:
+            if pref.Bc_CameraAim is False:
                 self.CameraAim.setValue(False)
-            if pref.Pr_CameraAim9 is False:
+            if pref.Bc_CameraAim9 is False:
                 self.CameraAim9.setValue(False)
-            if pref.Pr_LightAim is False:
+            if pref.Bc_LightAim is False:
                 self.LightAim.setValue(False)
-            if pref.Pr_LightAim9 is False:
+            if pref.Bc_LightAim9 is False:
                 self.LightAim9.setValue(False)
-            if pref.Pr_Timecode is False:
+            if pref.Bc_Timecode is False:
                 self.Timecode.setValue(False)
-            if pref.Pr_InfoText is False:
+            if pref.Bc_InfoText is False:
                 self.InfoText.setValue(False)
             # Python Scripts - Nuke Menu
             if pref.node_graph_grid is False:
@@ -260,18 +260,18 @@ class PrSuitePreferencesPanel(nukescripts.PythonPanel):
                 # Save Log
                 save_pref.write("\nsave_log = %s" % self.SL.value())
                 # Gizmos
-                save_pref.write("\nPr_ShuffleMatte = %s" % self.ShuffleMatte.value())
-                save_pref.write("\nPr_LBGrain = %s" % self.LBGrain.value())
-                save_pref.write("\nPr_RGBLuma = %s" % self.RGBLuma.value())
-                save_pref.write("\nPr_RGBShadow = %s" % self.RGBShadow.value())
-                save_pref.write("\nPr_Contrast = %s" % self.Contrast.value())
-                save_pref.write("\nPr_Palette = %s" % self.Palette.value())
-                save_pref.write("\nPr_CameraAim = %s" % self.CameraAim.value())
-                save_pref.write("\nPr_CameraAim9 = %s" % self.CameraAim9.value())
-                save_pref.write("\nPr_LightAim = %s" % self.LightAim.value())
-                save_pref.write("\nPr_LightAim9 = %s" % self.LightAim9.value())
-                save_pref.write("\nPr_Timecode = %s" % self.Timecode.value())
-                save_pref.write("\nPr_InfoText = %s" % self.InfoText.value())
+                save_pref.write("\nBc_ShuffleMatte = %s" % self.ShuffleMatte.value())
+                save_pref.write("\nBc_LBGrain = %s" % self.LBGrain.value())
+                save_pref.write("\nBc_RGBLuma = %s" % self.RGBLuma.value())
+                save_pref.write("\nBc_RGBShadow = %s" % self.RGBShadow.value())
+                save_pref.write("\nBc_Contrast = %s" % self.Contrast.value())
+                save_pref.write("\nBc_Palette = %s" % self.Palette.value())
+                save_pref.write("\nBc_CameraAim = %s" % self.CameraAim.value())
+                save_pref.write("\nBc_CameraAim9 = %s" % self.CameraAim9.value())
+                save_pref.write("\nBc_LightAim = %s" % self.LightAim.value())
+                save_pref.write("\nBc_LightAim9 = %s" % self.LightAim9.value())
+                save_pref.write("\nBc_Timecode = %s" % self.Timecode.value())
+                save_pref.write("\nBc_InfoText = %s" % self.InfoText.value())
                 # Python Scripts - Nuke Menu
                 save_pref.write("\nnode_graph_grid = %s" % self.NGG.value())
                 save_pref.write("\nbring_down_viewer = %s" % self.BDV.value())
@@ -321,5 +321,5 @@ def launch():
     :return: None
     :rtype: None
     """
-    launch_panel = PrSuitePreferencesPanel()
+    launch_panel = BcToolSetPreferencesPanel()
     launch_panel.showModal()

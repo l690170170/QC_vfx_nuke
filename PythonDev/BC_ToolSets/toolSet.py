@@ -8,7 +8,7 @@ import nukescripts
 
 #RootPath = os.path.expanduser('~').replace('\\','/') + '/.nuke/BC_ToolSet/Plugins'
 #2017年11月29日17:24:54（更改路径）
-RootPath = "//192.168.0.2/PythonDev/BC_ToolSet/Plugins"
+RootPath = "//192.168.0.2/PythonDev/BC_ToolSets/Plugins"
 
 PluginFormat = ["gizmo", "nk", "dll", "so"]
 curVersion = "%s.%s" % (nuke.env ["NukeVersionMajor"], nuke.env ["NukeVersionMinor"])

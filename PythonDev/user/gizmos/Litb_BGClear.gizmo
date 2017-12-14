@@ -1,0 +1,401 @@
+#! D:/Program Files/Nuke9.0v8/nuke-9.0.8.dll -nx
+version 9.0 v8
+Gizmo {
+ inputs 3
+ note_font Verdana
+ lock_connections true
+ mapsize {0.15 0.15}
+ addUserKnob {20 BGclear}
+ addUserKnob {41 output T ctrl.output}
+ addUserKnob {26 r l "Reduce Noise"}
+ addUserKnob {41 选项 T "Reduce Noise1.选项"}
+ addUserKnob {26 ""}
+ addUserKnob {41 BGviwer T ctrl.BGviwer}
+ addUserKnob {41 DarkColor T Keylight1.screenColour}
+ addUserKnob {41 BGGain T Keylight1.screenGain}
+ addUserKnob {41 screenClipMin_1 l "Clip Black" T Keylight1.screenClipMin}
+ addUserKnob {41 screenClipMax_1 l "Clip White" T Keylight1.screenClipMax}
+ addUserKnob {41 lowGain_1 l "Shadow Gain" T Keylight1.lowGain}
+ addUserKnob {41 ErodeSize T Erode6.size}
+ addUserKnob {41 softness T Blur11.size}
+ addUserKnob {41 finalpatch T Blur12.size}
+ addUserKnob {26 ""}
+ addUserKnob {41 LightColor T Keylight2.screenColour}
+ addUserKnob {41 screenClipMax l "Clip White" T Keylight2.screenClipMax}
+ addUserKnob {26 ""}
+ addUserKnob {41 InMask T Keylight1.insideComponent}
+ addUserKnob {41 OutMask T Keylight1.outsideComponent}
+ addUserKnob {26 ""}
+ addUserKnob {26 about l "BGclearB v1.3for Nuke 9 By Litb" T "\n\n\n\n\n\nRefined for Freedom Creatives\n\n\n\n把节点连接在素材下面，然后去燥，第一个吸色吸取蓝绿背最暗的地方，\n用第二个吸色吸取最亮的地方。\nok？"}
+ addUserKnob {20 "" n -1}
+ addUserKnob {20 endGroup n -1}
+}
+ Input {
+  inputs 0
+  name Source
+  xpos -244
+  ypos -754
+ }
+ OFXcom.absoft.neatvideo_v2 {
+  TFRad 1
+  TFThreshold 100
+  TFAdaptive false
+  TFInterlaced false
+  DNP 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
+  NFP NTAyd/otAAAAAAAAAP8AAIA/AACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AACAP5qZGT8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAABAAABAAAA
+  LinearInputData true
+  name "Reduce Noise1"
+  xpos -244
+  ypos -637
+ }
+ Dot {
+  name Dot17
+  xpos -210
+  ypos -546
+ }
+set N63a94c00 [stack 0]
+ Dot {
+  name Dot18
+  xpos -70
+  ypos -546
+ }
+set N63a94800 [stack 0]
+ Dot {
+  name Dot19
+  xpos 86
+  ypos -546
+ }
+set N63a94400 [stack 0]
+ OFXuk.co.thefoundry.keylight.keylight_v201 {
+  show "Intermediate Result"
+  unPreMultiply false
+  screenColour {0 0 0}
+  screenGain 1
+  screenBalance 0.5
+  alphaBias {0.5 0.5 0.5}
+  despillBias {0.5 0.5 0.5}
+  gangBiases true
+  preBlur 0
+  "Screen Matte" 1
+  screenClipMin 0
+  screenClipMax 1
+  screenClipRollback 0
+  screenGrowShrink 0
+  screenSoftness 0
+  screenDespotBlack 0
+  screenDespotWhite 0
+  screenReplaceMethod "Soft Colour"
+  screenReplaceColour {0.5 0.5 0.5}
+  Tuning 0
+  midPoint 0.5
+  lowGain 1
+  midGain 1
+  highGain 1
+  "Inside Mask" 0
+  sourceAlphaHandling Ignore
+  insideReplaceMethod "Soft Colour"
+  insideReplaceColour {0.5 0.5 0.5}
+  Crops 0
+  SourceXMethod Colour
+  SourceYMethod Colour
+  SourceEdgeColour 0
+  SourceCropL 0
+  SourceCropR 1
+  SourceCropB 0
+  SourceCropT 1
+  balanceSet false
+  insideComponent None
+  outsideComponent None
+  cacheBreaker true
+  name Keylight2
+  xpos 52
+  ypos -141
+ }
+set N63a94000 [stack 0]
+ Input {
+  inputs 0
+  name OutM
+  xpos -416
+  ypos -607
+  number 2
+ }
+ Input {
+  inputs 0
+  name InM
+  xpos -383
+  ypos -656
+  number 1
+ }
+push $N63a94c00
+ OFXuk.co.thefoundry.keylight.keylight_v201 {
+  inputs 3
+  show "Intermediate Result"
+  unPreMultiply false
+  screenColour {0 0 0}
+  screenGain 1
+  screenBalance 0.5
+  alphaBias {0.5 0.5 0.5}
+  despillBias {0.5 0.5 0.5}
+  gangBiases true
+  preBlur 0
+  "Screen Matte" 1
+  screenClipMin 0.04
+  screenClipMax 0.47
+  screenClipRollback 0
+  screenGrowShrink 0
+  screenSoftness 0
+  screenDespotBlack 0
+  screenDespotWhite 0
+  screenReplaceMethod "Soft Colour"
+  screenReplaceColour {0.5 0.5 0.5}
+  Tuning 0
+  midPoint 0.5
+  lowGain 1
+  midGain 1
+  highGain 1
+  "Inside Mask" 0
+  sourceAlphaHandling Ignore
+  insideReplaceMethod "Soft Colour"
+  insideReplaceColour {0.5 0.5 0.5}
+  Crops 0
+  SourceXMethod Colour
+  SourceYMethod Colour
+  SourceEdgeColour 0
+  SourceCropL 0
+  SourceCropR 1
+  SourceCropB 0
+  SourceCropT 1
+  balanceSet false
+  insideComponent None
+  outsideComponent None
+  cacheBreaker true
+  name Keylight1
+  xpos -244
+  ypos -483
+ }
+set N63387400 [stack 0]
+ Invert {
+  channels alpha
+  name Invert10
+  xpos -244
+  ypos -445
+ }
+ Erode {
+  size 1.8
+  name Erode6
+  xpos -244
+  ypos -409
+ }
+ Blur {
+  channels alpha
+  size 4.8
+  name Blur11
+  xpos -244
+  ypos -373
+ }
+set N63386800 [stack 0]
+ Premult {
+  name Premult7
+  xpos -244
+  ypos -311
+ }
+set N63386400 [stack 0]
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle2
+  xpos -114
+  ypos -311
+ }
+push $N63387400
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle1
+  xpos 5
+  ypos -348
+ }
+push $N63386800
+push $N63a94800
+push $N63386400
+ Blur {
+  size 170
+  name Blur12
+  xpos -244
+  ypos -277
+ }
+ Unpremult {
+  name Unpremult2
+  xpos -244
+  ypos -218
+ }
+ Keymix {
+  inputs 3
+  name Keymix6
+  xpos -104
+  ypos -224
+ }
+set N6398b000 [stack 0]
+ Switch {
+  inputs 3
+  which {{ctrl.BGviwer i}}
+  name Switch2
+  xpos 5
+  ypos -291
+ }
+push $N63a94000
+ Invert {
+  channels alpha
+  name Invert9
+  xpos 52
+  ypos -117
+ }
+push $N6398b000
+ OFXuk.co.thefoundry.keylight.keylight_v201 {
+  show "Intermediate Result"
+  unPreMultiply false
+  screenColour {{parent.Keylight2.screenColour x1 0} {parent.Keylight2.screenColour x1 0} {parent.Keylight2.screenColour x1 0}}
+  screenGain 1
+  screenBalance 0.5
+  alphaBias {0.5 0.5 0.5}
+  despillBias {0.5 0.5 0.5}
+  gangBiases true
+  preBlur 0
+  "Screen Matte" 1
+  screenClipMin {{parent.Keylight2.screenClipMin}}
+  screenClipMax {{parent.Keylight2.screenClipMax}}
+  screenClipRollback {{parent.Keylight2.screenClipRollback}}
+  screenGrowShrink {{parent.Keylight2.screenGrowShrink}}
+  screenSoftness {{parent.Keylight2.screenSoftness}}
+  screenDespotBlack 0
+  screenDespotWhite 0
+  screenReplaceMethod "Soft Colour"
+  screenReplaceColour {0.5 0.5 0.5}
+  Tuning 0
+  midPoint 0.5
+  lowGain 1
+  midGain 1
+  highGain 1
+  "Inside Mask" 0
+  sourceAlphaHandling Ignore
+  insideReplaceMethod "Soft Colour"
+  insideReplaceColour {0.5 0.5 0.5}
+  Crops 0
+  SourceXMethod Colour
+  SourceYMethod Colour
+  SourceEdgeColour 0
+  SourceCropL 0
+  SourceCropR 1
+  SourceCropB 0
+  SourceCropT 1
+  balanceSet false
+  insideComponent None
+  outsideComponent None
+  cacheBreaker true
+  name Keylight3
+  xpos -104
+  ypos -141
+ }
+ Invert {
+  channels alpha
+  name Invert11
+  xpos -104
+  ypos -117
+ }
+ ChannelMerge {
+  inputs 2
+  operation divide
+  name ChannelMerge6
+  xpos -23
+  ypos -41
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {{parent.Keylight2.screenColour} {parent.Keylight2.screenColour} {parent.Keylight2.screenColour} {parent.Keylight2.screenColour}}
+  name Constant4
+  xpos 169
+  ypos -306
+ }
+push $N63a94400
+ Dot {
+  name Dot1
+  xpos 306
+  ypos -546
+ }
+set N62c74c00 [stack 0]
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle3
+  xpos 272
+  ypos -381
+ }
+ Merge2 {
+  inputs 2
+  bbox B
+  name Merge1
+  xpos 272
+  ypos -282
+ }
+push $N6398b000
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge15
+  xpos 272
+  ypos -218
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy6
+  xpos 236
+  ypos -27
+ }
+ Premult {
+  name Premult8
+  xpos 236
+  ypos 51
+ }
+push $N62c74c00
+ Dot {
+  name Dot20
+  xpos 425
+  ypos -546
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge16
+  xpos 391
+  ypos 51
+ }
+ Switch {
+  inputs 3
+  which {{ctrl.output i}}
+  name Switch1
+  xpos 317
+  ypos 185
+ }
+ Output {
+  name Output1
+  xpos 317
+  ypos 395
+ }
+ StickyNote {
+  inputs 0
+  name ctrl
+  label KeyLightClearBG
+  xpos 710
+  ypos -399
+  addUserKnob {20 BGclearB}
+  addUserKnob {4 output M {Final BG Key}}
+  addUserKnob {4 BGviwer M {final key erode ""}}
+ }
+end_group

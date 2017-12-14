@@ -1,0 +1,74 @@
+#! C:/Program Files/Nuke8.0v1/nuke-8.0.v1.dll -nx
+version 8.0 v1
+Gizmo {
+ help "For creating a custom motion vector pass based on translate data. Plug in a Transform or Tracker node that corresponds to a specific moving area of your image. Merge multiple instances of the vector_module together to create a motion vector pass.\n\nSee http://richardfrazer.com/tools-tutorials/custom-motion-vector-blur-using-trackers for a full tutorial."
+ addUserKnob {20 User}
+ addUserKnob {4 shutter M {centred start end ""}}
+ addUserKnob {7 master_radius R 1 1000}
+ master_radius 210
+ addUserKnob {26 ""}
+ addUserKnob {26 credit l "" +STARTLINE T "Vector Module v1.0 by Richard Frazer www.richardfrazer.com"}
+}
+ Input {
+  inputs 0
+  name transform_2d
+  selected true
+  xpos -313
+  ypos -386
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle1
+  xpos -313
+  ypos -298
+ }
+set N309b1590 [stack 0]
+ Radial {
+  area {{position.x-radius i} {position.y-radius i} {position.x+radius i} {position.y+radius i}}
+  color {{parent.shutter==1?vector_start.x:parent.shutter==2?vector_end.x:vector_centred.x i} {parent.shutter==1?vector_start.y:parent.shutter==2?vector_end.y:vector_centred.y i} 0 1}
+  name Radial1
+  xpos -313
+  ypos -200
+  addUserKnob {20 User}
+  addUserKnob {7 radius R 1 100}
+  radius {{parent.master_radius i}}
+  addUserKnob {12 vector_centred}
+  vector_centred {{((position(t+1)-position(t))+(position(t)-position(t-1)))/2 i} {((position(t+1)-position(t))+(position(t)-position(t-1)))/2 i}}
+  addUserKnob {12 vector_start}
+  vector_start {{position-position(t-1) i} {position-position(t-1) i}}
+  addUserKnob {12 vector_end}
+  vector_end {{position(t+1)-position i} {position(t+1)-position i}}
+  addUserKnob {12 position}
+  position {{parent.input0.center.x+parent.input0.translate.x i} {parent.input0.center.y+parent.input0.translate.y i}}
+ }
+ CheckerBoard2 {
+  inputs 0
+  name CheckerBoard1
+  xpos -148
+  ypos -124
+ }
+ Switch {
+  inputs 2
+  which {{"parent.input0.name +1"}}
+  name Switch3
+  xpos -313
+  ypos -100
+ }
+ Output {
+  name Output1
+  xpos -313
+  ypos 27
+ }
+push $N309b1590
+ Viewer {
+  input_process false
+  near 0.9
+  far 10000
+  name Viewer1
+  xpos 30
+  ypos -247
+ }
+end_group

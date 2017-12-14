@@ -1,0 +1,102 @@
+#! /usr/local/Nuke6.1v1/Nuke6.1 -nx
+version 6.1 v1
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 Extrudeeedge l "" +STARTLINE T "\tExtrudeeedges  v1.0               "}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 ErodeFG l "" +STARTLINE T "Dilate/Erode FG"}
+ addUserKnob {41 size T ERODE_FG1.size}
+ addUserKnob {41 filter T ERODE_FG1.filter}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 ErodeAlpha l "" +STARTLINE T "Dilate/Erode Alpha"}
+ addUserKnob {41 size_1 l size T Erode_Alpha1.size}
+ addUserKnob {41 filter_1 l filter T Erode_Alpha1.filter}
+ addUserKnob {41 softalpha l softness T Soft_alpha1.size}
+ addUserKnob {26 "" +STARTLINE}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -637
+  ypos 106
+ }
+ NoOp {
+  name Input1
+  xpos -637
+  ypos 146
+ }
+set N17a07330 [stack 0]
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle12
+  xpos -838
+  ypos 146
+ }
+ FilterErode {
+  channels all
+  size -2
+  filter gaussian
+  name Erode_Alpha1
+  xpos -838
+  ypos 254
+ }
+ Blur {
+  name Soft_alpha1
+  xpos -838
+  ypos 306
+ }
+push $N17a07330
+ Premult {
+  name Premult3
+  xpos -637
+  ypos 190
+ }
+push $N17a07330
+ FilterErode {
+  channels rgb
+  size 4.5
+  name ERODE_FG1
+  xpos -504
+  ypos 219
+ }
+ Merge2 {
+  inputs 2
+  Bchannels rgb
+  output rgb
+  name Merge4
+  xpos -637
+  ypos 234
+ }
+ Shuffle {
+  alpha black
+  name Shuffle16
+  xpos -637
+  ypos 274
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy3
+  xpos -630
+  ypos 306
+ }
+ Premult {
+  name Premult4
+  xpos -635
+  ypos 421
+ }
+ NoOp {
+  name Output1
+  xpos -635
+  ypos 485
+ }
+ Output {
+  name Output1
+  xpos -630
+  ypos 514
+ }
+end_group

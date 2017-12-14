@@ -274,7 +274,4 @@ def run_readFromWrite():
     ReadAfterRender.RenderWrite().read_from_write()
 
 
-def run_releaseNotes():
-    nuke.message('<p style="color:#99CCFF;font-weight:600">Nuke ToolSet Ver1.0</p>'
-                 '<p  style="color:#6699cc;font-weight:600">By weijer</p>'
-                 '<p  style="color:#99CCFF;font-weight:600">联系QQ：250557277</p>')
+

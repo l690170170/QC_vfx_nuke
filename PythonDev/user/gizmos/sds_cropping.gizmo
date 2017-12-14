@@ -1,0 +1,857 @@
+#! D:/Program Files/Nuke9.0v3/nuke-9.0.3.dll -nx
+version 9.0 v3
+Gizmo {
+ tile_color 0xff
+ lock_connections true
+ addUserKnob {20 User t "current_time\nModify_time\ndate\nframe"}
+ addUserKnob {4 topl l top_left M {current_time Modify_time date frame project_path project_name version_num project_range project_framenum fps read_name read_framerange timecode material_bit}}
+ topl Modify_time
+ addUserKnob {4 topr l top_right M {current_time Modify_time date frame project_path project_name version_num project_range project_framenum fps read_name read_framerange timecode material_bit "" ""}}
+ topr fps
+ addUserKnob {4 bottoml l bottom_left M {current_time Modify_time date frame project_path project_name version_num project_range project_framenum fps read_name read_framerange timecode material_bit}}
+ bottoml project_framenum
+ addUserKnob {4 bottomr l bottom_right M {current_time Modify_time date frame project_path project_name version_num project_range project_framenum fps read_name read_framerange timecode material_bit}}
+ bottomr project_name
+ addUserKnob {41 size l font_size T font_size_control.size}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0x71c67100
+  label clock
+  note_font_size 42
+  xpos -814
+  ypos -594
+  bdwidth 509
+  bdheight 246
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x7171c600
+  label project
+  note_font_size 42
+  xpos -218
+  ypos -583
+  bdwidth 880
+  bdheight 243
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  tile_color 0x7171c600
+  label "Read material"
+  note_font_size 42
+  xpos 3298
+  ypos -544
+  bdwidth 724
+  bdheight 243
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode4
+  tile_color 0x71c67100
+  label clock
+  note_font_size 42
+  xpos 1743
+  ypos -554
+  bdwidth 509
+  bdheight 246
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode5
+  tile_color 0x7171c600
+  label project
+  note_font_size 42
+  xpos 2337
+  ypos -551
+  bdwidth 880
+  bdheight 243
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode6
+  tile_color 0x7171c600
+  label "Read material"
+  note_font_size 42
+  xpos 757
+  ypos -583
+  bdwidth 724
+  bdheight 243
+ }
+ StickyNote {
+  inputs 0
+  name font_size_control
+  label font_size_control
+  note_font PMingLiU
+  xpos 132
+  ypos 350
+  addUserKnob {20 User}
+  addUserKnob {12 position l text_position}
+  position {{root.format.w-20} {root.format.h}}
+  addUserKnob {7 size l font_size R 12 200}
+  size 60
+ }
+ Input {
+  inputs 0
+  name src
+  xpos 1354
+  ypos -1428
+  addUserKnob {20 User}
+  addUserKnob {14 framerange l framerange_input R 0 100}
+  framerange {{input.first} {input.last}}
+ }
+ Shuffle {
+  alpha black
+  name Shuffle5
+  xpos 1354
+  ypos -1210
+ }
+set N5a2bdc00 [stack 0]
+ Text {
+  message "\[metadata input/bitsperchannel]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name material_bit1
+  tile_color 0xff00ff
+  xpos 3834
+  ypos -419
+ }
+set N5a2bd800 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[metadata input/timecode]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name timecode1
+  tile_color 0xff00ff
+  xpos 3693
+  ypos -414
+ }
+set N5a2bd000 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[value src.framerange.w]-\[value src.framerange.h]   \[expr \[value src.framerange.h]-\[value src.framerange.w]+1]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name read_framerange1
+  tile_color 0xff00ff
+  xpos 3542
+  ypos -415
+ }
+set N5a2bc800 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[basename \[metadata input/filename]]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name read_name1
+  tile_color 0xff00ff
+  xpos 3387
+  ypos -415
+ }
+set N5a2bc000 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[value root.fps]fps"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name fps1
+  tile_color 0xff00ff
+  xpos 3081
+  ypos -429
+ }
+set N5a2ef800 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[expr \[value root.last_frame]-\[value root.first_frame]+1]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name project_framenum1
+  tile_color 0xff00ff
+  xpos 2949
+  ypos -428
+ }
+set N5a2ef000 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[value root.first_frame]-\[value root.last_frame] "
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name project_range1
+  tile_color 0xff00ff
+  xpos 2822
+  ypos -428
+ }
+set N5a2ee800 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[regexp -inline \"v\\\[0-9]+\" \[value root.name]]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name version_num1
+  tile_color 0xff00ff
+  xpos 2696
+  ypos -429
+ }
+set N5a2ee000 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[file tail \[file rootname \[value root.name]]]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name project_name1
+  tile_color 0xff00ff
+  xpos 2557
+  ypos -428
+ }
+set Nfc85800 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[value root.name]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name project_path1
+  tile_color 0xff00ff
+  xpos 2414
+  ypos -431
+ }
+set Nfc85000 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[frame]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name frame1
+  tile_color 0xff00ff
+  xpos 2140
+  ypos -426
+ }
+set Nfc84800 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[date %Y/%m/%d]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name date1
+  tile_color 0xff00ff
+  xpos 2018
+  ypos -427
+ }
+set Nfc84000 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[clock format \[file mtime  \[value root.name]] -format \{%x %H:%M:%S\}]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name Modify_time1
+  tile_color 0xff00ff
+  xpos 1898
+  ypos -431
+ }
+set Nfcb5800 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[date %H:%M:%S]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name current_time1
+  tile_color 0xff00ff
+  xpos 1769
+  ypos -429
+ }
+set Nfcb5000 [stack 0]
+ Switch {
+  inputs 14
+  which {{parent.topr}}
+  name top_right
+  tile_color 0xffff00ff
+  xpos 2582
+  ypos 199
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle4
+  xpos 2582
+  ypos 290
+ }
+ Transform {
+  translate {0 {root.format.h-font_size_control.size-20}}
+  name top_right_t1
+  tile_color 0xffff
+  xpos 2582
+  ypos 375
+ }
+ Reformat {
+  name Reformat5
+  xpos 2582
+  ypos 441
+ }
+ set Cfcf3c00 [stack 0]
+ Dot {
+  name Dot3
+  xpos 2616
+  ypos 904
+ }
+push $N5a2bd800
+push $N5a2bd000
+push $N5a2bc800
+push $N5a2bc000
+push $N5a2ef800
+push $N5a2ef000
+push $N5a2ee800
+push $N5a2ee000
+push $Nfc85800
+push $Nfc85000
+push $Nfc84800
+push $Nfc84000
+push $Nfcb5800
+push $Nfcb5000
+ Switch {
+  inputs 14
+  which {{parent.bottomr}}
+  name bottom_right
+  tile_color 0xffff00ff
+  xpos 2255
+  ypos 196
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle2
+  xpos 2255
+  ypos 277
+ }
+clone $Cfcf3c00 {
+  xpos 2255
+  ypos 356
+  selected false
+ }
+ Dot {
+  name Dot4
+  xpos 2289
+  ypos 639
+ }
+push 0
+push $N5a2bdc00
+ Text {
+  message "\[metadata input/bitsperchannel]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name material_bit
+  tile_color 0xff00ff
+  xpos 1274
+  ypos -452
+ }
+set Nfd1bc00 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[metadata input/timecode]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name timecode
+  tile_color 0xff00ff
+  xpos 1132
+  ypos -447
+ }
+set Nfd1b400 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[value src.framerange.w]-\[value src.framerange.h]   \[expr \[value src.framerange.h]-\[value src.framerange.w]+1]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name read_framerange
+  tile_color 0xff00ff
+  xpos 982
+  ypos -450
+ }
+set Nfd1ac00 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[basename \[metadata input/filename]]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name read_name
+  tile_color 0xff00ff
+  xpos 827
+  ypos -447
+ }
+set Nfd1a400 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[value root.fps]fps"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name fps
+  tile_color 0xff00ff
+  xpos 517
+  ypos -482
+ }
+set Nfd4fc00 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[expr \[value root.last_frame]-\[value root.first_frame]+1]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name project_framenum
+  tile_color 0xff00ff
+  xpos 385
+  ypos -481
+ }
+set Nfd4f400 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[value root.first_frame]-\[value root.last_frame] "
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name project_range
+  tile_color 0xff00ff
+  xpos 257
+  ypos -481
+ }
+set Nfd4ec00 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[regexp -inline \"v\\\[0-9]+\" \[value root.name]]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name version_num
+  tile_color 0xff00ff
+  xpos 132
+  ypos -482
+ }
+set Nfd4e400 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[file tail \[file rootname \[value root.name]]]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name project_name
+  tile_color 0xff00ff
+  xpos -7
+  ypos -481
+ }
+set Nfd7dc00 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[value root.name]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name project_path
+  tile_color 0xff00ff
+  xpos -150
+  ypos -484
+ }
+set Nfd7d400 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[frame]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name frame
+  tile_color 0xff00ff
+  xpos -424
+  ypos -479
+ }
+set Nfd7cc00 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[date %Y/%m/%d]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name date
+  tile_color 0xff00ff
+  xpos -546
+  ypos -480
+ }
+set Nfd7c400 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[clock format \[file mtime  \[value root.name]] -format \{%x %H:%M:%S\}]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name Modify_time
+  tile_color 0xff00ff
+  xpos -666
+  ypos -481
+ }
+set Nfdb3c00 [stack 0]
+push $N5a2bdc00
+ Text {
+  message "\[date %H:%M:%S]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{parent.font_size_control.size}}
+  yjustify bottom
+  Transform 1
+  box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+  center {1024 778}
+  name current_time
+  tile_color 0xff00ff
+  xpos -795
+  ypos -482
+ }
+set Nfdb3400 [stack 0]
+ Switch {
+  inputs 14
+  which {{parent.bottoml}}
+  name bottom_left
+  tile_color 0xffff00ff
+  xpos -988
+  ypos 195
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle3
+  xpos -988
+  ypos 367
+ }
+clone $Cfcf3c00 {
+  xpos -988
+  ypos 422
+  selected false
+ }
+ Dot {
+  name Dot1
+  xpos -954
+  ypos 904
+ }
+push $Nfd1bc00
+push $Nfd1b400
+push $Nfd1ac00
+push $Nfd1a400
+push $Nfd4fc00
+push $Nfd4f400
+push $Nfd4ec00
+push $Nfd4e400
+push $Nfd7dc00
+push $Nfd7d400
+push $Nfd7cc00
+push $Nfd7c400
+push $Nfdb3c00
+push $Nfdb3400
+ Switch {
+  inputs 14
+  which {{parent.topl}}
+  name top_left
+  tile_color 0xffff00ff
+  xpos -661
+  ypos 198
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle1
+  xpos -661
+  ypos 289
+ }
+ Transform {
+  translate {0 {root.format.h-font_size_control.size-20}}
+  name top_right_t
+  tile_color 0xffff
+  xpos -661
+  ypos 374
+ }
+clone $Cfcf3c00 {
+  xpos -661
+  ypos 421
+  selected false
+ }
+ Dot {
+  name Dot2
+  xpos -627
+  ypos 718
+ }
+ Merge2 {
+  inputs 4+1
+  name Merge1
+  xpos 558
+  ypos 901
+ }
+ Dot {
+  name Dot5
+  xpos 592
+  ypos 1439
+ }
+push $N5a2bdc00
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos 1398
+  ypos 1436
+ }
+ Roto {
+  output rgb
+  curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097152}
+    {t x44800000 x44100000}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Rectangle2 512 bezier
+     {{cc
+       {f 8192}
+       {px x42fa0000
+        {0 x431c0000}
+        {x450c2000 xc3a50000}
+        {xc441c000 0}
+        {x4441c000 0}
+        {xc2a60000 xc3a50000}
+        {0 x431c0000}
+        {0 xc31c0000}
+        {xc2a60000 x430c0000}
+        {x4441c000 0}
+        {xc441c000 0}
+        {x450c2000 x430c0000}
+        {0 xc31c0000}}}
+      {cc
+       {f 8192}
+       {p
+        {{{x42fa0000 0}}
+      {{x42fa0000 x431c0000}}}
+        {{{x42fa0000 0}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 xc441c000}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 x4441c000}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 0}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 0}}
+      {{x42fa0000 x431c0000}}}
+        {{{x42fa0000 0}}
+      {{x42fa0000 xc31c0000}}}
+        {{{x42fa0000 0}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 x4441c000}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 xc441c000}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 0}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 0}}
+      {{x42fa0000 xc31c0000}}}}}}
+     {tx x42fa0000 x4486f000 xc2c00000}
+     {a r 0 g 0 b 0 opc x3f451eb8 osw x41200000 osf 0 str 1 spx x44800000 spy x44100000 sb 1 ltn x42fa0000 ltm x42fa0000 tt x41000000}}
+    {curvegroup Rectangle1 512 bezier
+     {{cc
+       {f 8192}
+       {px x42fa0000
+        {0 xc3260000}
+        {xc30e0000 x44bc8000}
+        {x4443aaab 0}
+        {xc443aaac 0}
+        {x4509e000 x44bc8000}
+        {0 xc3260000}
+        {0 x43260000}
+        {x4509e000 x447cc000}
+        {xc443aaac 0}
+        {x4443aaab 0}
+        {xc30e0000 x447cc000}
+        {0 x43260000}}}
+      {cc
+       {f 8192}
+       {p
+        {{{x42fa0000 0}}
+      {{x42fa0000 xc3260000}}}
+        {{{x42fa0000 0}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 x4443aaab}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 xc443aaac}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 0}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 0}}
+      {{x42fa0000 xc3260000}}}
+        {{{x42fa0000 0}}
+      {{x42fa0000 x43260000}}}
+        {{{x42fa0000 0}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 xc443aaac}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 x4443aaab}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 0}}
+      {{x42fa0000 0}}}
+        {{{x42fa0000 0}}
+      {{x42fa0000 x43260000}}}}}}
+     {tx x42fa0000 x44810000 x449d6000}
+     {a r 0 g 0 b 0 opc x3f451eb8 osw x41200000 osf 0 str 1 spx x44800000 spy x44100000 sb 1 ltn x42fa0000 ltm x42fa0000 tt x41000000}}}}}}
+  toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 tt 8 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+  toolbar_brush_hardness 0.200000003
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {1024 576}
+  color {0 0 0 1}
+  colorOverlay {0 0 0 0}
+  opacity 0.77
+  lifetime_type "all frames"
+  lifetime_start 125
+  lifetime_end 125
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name Roto1
+  selected true
+  xpos 1398
+  ypos 1495
+ }
+ Output {
+  name Output1
+  xpos 1398
+  ypos 1780
+ }
+push $Nfd1ac00
+ Viewer {
+  frame 1001
+  input_process false
+  name Viewer1
+  xpos 1659
+  ypos 1660
+ }
+end_group

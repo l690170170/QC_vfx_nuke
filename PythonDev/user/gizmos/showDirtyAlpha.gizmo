@@ -1,0 +1,355 @@
+#! D:/Program Files/Nuke9.0v8/nuke-9.0.8.dll -nx
+version 9.0 v8
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {41 SDAEnhance l "Enhance Dirt" T showDirtControls.SDAEnhance}
+ addUserKnob {41 SDAErrodeDirt l "Errode Dirt" T showDirtControls.SDAErrodeDirt}
+ addUserKnob {41 SDASuperBWOn l "Super values overlay" T showDirtControls.SDASuperBWOn}
+ addUserKnob {41 SDASpacing l "Line Spacing" T showDirtControls.SDASpacing}
+ addUserKnob {41 SDAWidth l "Line Width" T showDirtControls.SDAWidth}
+ addUserKnob {41 SDAOver l "Display original image under dirt" T showDirtControls.SDAOver}
+ addUserKnob {41 SDAAlphaMode l "Alpha Mode" T showDirtControls.SDAAlphaMode}
+}
+ Input {
+  inputs 0
+  name Input_showDirtyAlpha
+  xpos 319
+  ypos 324
+ }
+ Dot {
+  name Dot4
+  xpos 353
+  ypos 559
+ }
+set N68868000 [stack 0]
+ Dot {
+  name Dot5
+  xpos 1342
+  ypos 784
+ }
+ Dot {
+  name Dot10
+  xpos 1342
+  ypos 1568
+ }
+set N7b583c00 [stack 0]
+push $N68868000
+ Remove {
+  operation keep
+  channels alpha
+  name Remove1
+  xpos 319
+  ypos 690
+ }
+ Dot {
+  name Dot56
+  xpos 353
+  ypos 824
+ }
+set N7b583400 [stack 0]
+ Dot {
+  name Dot51
+  xpos 854
+  ypos 875
+ }
+set N7b583000 [stack 0]
+ Grid {
+  replace true
+  number {{"width / parent.showDirtControls.SDASpacing"} 0}
+  size {{parent.showDirtControls.SDAWidth}}
+  name Grid1
+  xpos 1016
+  ypos 971
+ }
+ Posterize {
+  channels alpha
+  Colors 2
+  name Posterize2
+  xpos 1016
+  ypos 1029
+ }
+ Dot {
+  name Dot7
+  xpos 1050
+  ypos 1105
+ }
+push $N7b583000
+ Expression {
+  expr3 (a<0?1:0)
+  name Expression3
+  xpos 903
+  ypos 971
+ }
+ Dilate {
+  channels {-rgba.red -rgba.green rgba.blue none}
+  size {{"parent.showDirtControls.SDAErrodeDirt * 2"}}
+  name Dilate6
+  xpos 903
+  ypos 1029
+  disable {{parent.showDirtControls.SDAErrodeDirt==0?1:0}}
+ }
+ Dot {
+  name Dot12
+  xpos 937
+  ypos 1105
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge26
+  label "\[value bbox]"
+  xpos 952
+  ypos 1180
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle9
+  xpos 952
+  ypos 1233
+ }
+ ColorCorrect {
+  gain {0 1 1 1}
+  name ColorCorrect17
+  xpos 952
+  ypos 1287
+ }
+push $N7b583000
+ Grid {
+  replace true
+  number {0 {"height / parent.showDirtControls.SDASpacing"}}
+  size {{parent.showDirtControls.SDAWidth}}
+  name Grid2
+  xpos 723
+  ypos 971
+ }
+ Posterize {
+  channels alpha
+  Colors 2
+  name Posterize1
+  xpos 723
+  ypos 1029
+ }
+ Dot {
+  name Dot6
+  xpos 757
+  ypos 1105
+ }
+push $N7b583000
+ Expression {
+  expr3 (a>1?1:0)
+  name Expression2
+  xpos 613
+  ypos 971
+ }
+ Dot {
+  name Dot13
+  xpos 647
+  ypos 1105
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge25
+  label "\[value bbox]"
+  xpos 662
+  ypos 1180
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle8
+  xpos 662
+  ypos 1233
+ }
+ ColorCorrect {
+  gain {1 0.25 1 1}
+  name ColorCorrect9
+  xpos 662
+  ypos 1287
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge27
+  xpos 820
+  ypos 1367
+ }
+ Dot {
+  name Dot3
+  xpos 854
+  ypos 1460
+ }
+push $N7b583400
+ ColorLookup {
+  lut {master {}
+    red {}
+    green {}
+    blue {}
+    alpha {curve L x0.5 0 x1 1}}
+  name ColorLookup4
+  xpos 387
+  ypos 971
+ }
+ Expression {
+  expr0 a>=1?0:a
+  expr1 0
+  expr2 0
+  expr3 0
+  name Expression10
+  xpos 387
+  ypos 1083
+ }
+push $N7b583400
+ ColorLookup {
+  lut {master {}
+    red {}
+    green {}
+    blue {}
+    alpha {curve L 1 x0.5 0}}
+  name ColorLookup5
+  xpos 251
+  ypos 971
+ }
+ Expression {
+  expr0 0
+  expr1 0
+  expr2 a>=1?0:a
+  expr3 0
+  name Expression13
+  xpos 251
+  ypos 1084
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge22
+  xpos 319
+  ypos 1180
+ }
+ Dilate {
+  channels {rgba.red -rgba.green rgba.blue none}
+  size {{parent.showDirtControls.SDAErrodeDirt}}
+  name Dilate10
+  xpos 319
+  ypos 1274
+  disable {{parent.showDirtControls.SDAErrodeDirt==0?1:0}}
+ }
+ Expression {
+  expr3 max(r,b,g)
+  name Expression7
+  xpos 319
+  ypos 1361
+ }
+set N7b65d800 [stack 0]
+ Expression {
+  expr0 r>0?1:0
+  expr2 b>0?1:0
+  expr3 max((r>0?1:0),g,(b>0?1:0))
+  name Expression1
+  xpos 448
+  ypos 1461
+ }
+push $N7b65d800
+ Switch {
+  inputs 2
+  which {{parent.showDirtControls.SDAEnhance}}
+  name Switch_enhanceDirt
+  xpos 319
+  ypos 1553
+  addUserKnob {20 User}
+  addUserKnob {6 enhance t "Enhance to solid colors" +STARTLINE}
+  enhance true
+ }
+set N7b65c800 [stack 0]
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge24
+  xpos 448
+  ypos 1679
+ }
+push $N7b65c800
+ Switch {
+  inputs 2
+  which {{parent.showDirtControls.SDASuperBWOn}}
+  name Switch_superBW
+  xpos 319
+  ypos 1763
+ }
+set N7b65c000 [stack 0]
+ Merge2 {
+  inputs 2
+  operation under
+  name Merge1
+  label "\[value bbox]"
+  xpos 448
+  ypos 1868
+ }
+push $N7b65c000
+ Switch {
+  inputs 2
+  which {{parent.showDirtControls.SDAOver}}
+  name Switch_dirtOrOvelay
+  xpos 319
+  ypos 1980
+ }
+set N7b68b800 [stack 0]
+push $N7b65c800
+ Dot {
+  name Dot8
+  xpos 648
+  ypos 1669
+ }
+push $N7b583c00
+ Dot {
+  name Dot11
+  xpos 1342
+  ypos 1872
+ }
+ Switch {
+  inputs 3
+  which {{parent.showDirtControls.SDAAlphaMode}}
+  name Switch_OutputAlphaMode
+  xpos 614
+  ypos 2103
+ }
+push $N7b68b800
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy1
+  xpos 319
+  ypos 2234
+ }
+ Output {
+  name Output_showDirtyAlpha
+  xpos 319
+  ypos 2347
+ }
+ Output {
+  name Output1
+  xpos 319
+  ypos 2447
+ }
+ NoOp {
+  inputs 0
+  name showDirtControls
+  xpos 1176
+  ypos 2222
+  addUserKnob {20 User}
+  addUserKnob {6 SDAEnhance l "Enhance Dirt" t "Binary dirt" +STARTLINE}
+  SDAEnhance true
+  addUserKnob {7 SDAErrodeDirt l "Errode Dirt" t "Make the dirt Fat" R 0 50}
+  addUserKnob {6 SDASuperBWOn l "Super values overlay" t "Show alpha super white and super black overlay" +STARTLINE}
+  SDASuperBWOn true
+  addUserKnob {7 SDASpacing l "Line Spacing" t "Super overlay line spacing" R 1 100}
+  SDASpacing 15
+  addUserKnob {7 SDAWidth l "Line Width" t "Super overlay line width" R 1 100}
+  SDAWidth 3
+  addUserKnob {6 SDAOver l "Display original image under dirt" +STARTLINE}
+  SDAOver true
+  addUserKnob {68 SDAAlphaMode l "Alpha Mode" M {"Original Alpha" "Dirt only" "Dirt and Supervalues combined" "" "" "" "" ""}}
+ }
+end_group

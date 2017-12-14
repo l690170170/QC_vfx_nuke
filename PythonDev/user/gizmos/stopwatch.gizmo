@@ -1,0 +1,70 @@
+#! C:/Program Files (x86)/Nuke6.0v1/Nuke6.0.exe -nx
+version 6.0 v1
+Gizmo {
+ addUserKnob {20 Clock t Clock}
+ addUserKnob {3 all_time_min l 输入分 t 输入分}
+ all_time_min 10
+ addUserKnob {3 all_time_sec l 输入秒 t 输入秒}
+ all_time_sec {30}
+ addUserKnob {3 time_fps l 帧速率 t 输入帧速率}
+ time_fps 24
+ addUserKnob {20 text_change l text编辑 t 修改通道，字体等}
+ addUserKnob {20 channel_change l 通道设置 t 通道设置 n 1}
+ channel_change 0
+ addUserKnob {41 output T Text1.output}
+ addUserKnob {41 premult T Text1.premult}
+ addUserKnob {41 cliptype l "clip to" T Text1.cliptype}
+ addUserKnob {41 replace T Text1.replace}
+ addUserKnob {41 invert T Text1.invert}
+ addUserKnob {41 opacity T Text1.opacity}
+ addUserKnob {26 "" l mask}
+ addUserKnob {41 maskChannelMask l "" -STARTLINE T Text1.maskChannelMask}
+ addUserKnob {41 maskChannelInput l "" -STARTLINE T Text1.maskChannelInput}
+ addUserKnob {41 inject T Text1.inject}
+ addUserKnob {41 invert_mask l invert T Text1.invert_mask}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {20 Font l 字体修改 n 1}
+ Font 0
+ addUserKnob {41 font T Text1.font}
+ addUserKnob {41 index l "" -STARTLINE T Text1.index}
+ addUserKnob {41 size T Text1.size}
+ addUserKnob {41 kerning T Text1.kerning}
+ addUserKnob {41 leading T Text1.leading}
+ addUserKnob {41 xjustify l justify T Text1.xjustify}
+ addUserKnob {41 yjustify l "" -STARTLINE T Text1.yjustify}
+ addUserKnob {20 "" n -1}
+ addUserKnob {20 Transform l 变换 t 位移，旋转，缩放等 n 2}
+ addUserKnob {41 box T Text1.box}
+ addUserKnob {41 matrix T Text1.matrix}
+ addUserKnob {41 translate T Text1.translate}
+ addUserKnob {41 rotate T Text1.rotate}
+ addUserKnob {41 scale T Text1.scale}
+ addUserKnob {41 skew T Text1.skew}
+ addUserKnob {41 center T Text1.center}
+ addUserKnob {20 "" n -1}
+ addUserKnob {20 endGroup n -1}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+  ypos -36
+ }
+ Text {
+  message "\[\nset timeframe \[expr \[frame]  / \[value parent.time_fps]]\nset alltime \[expr  \[value parent.all_time_min]*60 + \[value parent.all_time_sec]]\nset surplustime \[expr \$alltime - \$timeframe]\nset surplustime_min \[expr \$surplustime/60]\nset surplustime_sec \[expr \$surplustime%60]\nif \{\$surplustime > 0\n\} \{ if \{\$surplustime_sec <10\n\} \{ if \{\$surplustime_min<10\n\} \{format \"0%d:0%d\" \$surplustime_min \$surplustime_sec\n\} else \{format \"%d:0%d\" \$surplustime_min \$surplustime_sec\}\n\} else \{if \{\$surplustime_min<10\n\} \{format \"0%d:%d\" \$surplustime_min \$surplustime_sec\n\} else \{format \"%d:%d\" \$surplustime_min \$surplustime_sec\}\n\}\n\} else \{format \"00:00\"\}\n]"
+  font C:/WINDOWS/Fonts/arial.ttf
+  yjustify center
+  Transform 1
+  box {0 0 130 44}
+  center {65 22}
+  name Text1
+  selected true
+  xpos 0
+  ypos 23
+ }
+ Output {
+  name Output1
+  xpos 0
+  ypos 300
+ }
+end_group

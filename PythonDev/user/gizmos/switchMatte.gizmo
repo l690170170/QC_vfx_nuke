@@ -1,0 +1,428 @@
+#! D:/Program Files/Nuke9.0v3/nuke-9.0.3.dll -nx
+version 9.0 v3
+Gizmo {
+ inputs 2
+ tile_color 0x13b277ff
+ note_font "Adobe Arabic"
+ note_font_size 15
+ lock_connections true
+ addUserKnob {20 switchMatte t "extract the input using the matte channel's"}
+ addUserKnob {4 mattechannel t "choose your channel of your matte input" M {alpha red green blue luminance "" "" ""}}
+ addUserKnob {6 Unpremult -STARTLINE}
+ addUserKnob {6 Invert -STARTLINE}
+ addUserKnob {41 softEdge t "softening your matte edges" T Blur1.size}
+ addUserKnob {41 matteExpand t "increase are decrease your matte" T Dilate1.size}
+ addUserKnob {16 LumaThreshold l "Luma Threshold"}
+ addUserKnob {26 ""}
+ addUserKnob {20 despill t "expand this to work with despill sliders." n 1}
+ addUserKnob {26 Despill_1 l Despill -STARTLINE T "\n"}
+ addUserKnob {4 Screentype t "choose screen type to remove spill from the image." M {None "Green screen" "Blue screen" "" "" "" ""}}
+ Screentype "Green screen"
+ addUserKnob {7 spillValue R 0 5}
+ spillValue 1
+ addUserKnob {41 gamma T gamma_correction.gamma}
+ addUserKnob {6 luminanceBack t "enable to add luminance value back to image.\nadjust the slider to mix back value" +STARTLINE}
+ addUserKnob {7 addLuminance}
+ addLuminance 1
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 spillOnlyOnEdges n 1}
+ spillOnlyOnEdges 0
+ addUserKnob {6 edgeOnly t "to despill only on edge of the image." +STARTLINE}
+ addUserKnob {7 edgeOutside R 0 5}
+ edgeOutside 1
+ addUserKnob {7 outSideBlur l soften R 0 10}
+ addUserKnob {7 edgeInside R 0 5}
+ edgeInside 1
+ addUserKnob {7 insideEdgeBlur l soften R 0 10}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {26 createdBy l "" +STARTLINE T "for bug reports: satheesrev@gmail.com\n"}
+ addUserKnob {32 moreTools l for_moreTools -STARTLINE T "start http://satheeshnuketutorials.blogspot.in/"}
+}
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant1
+  xpos -431
+  ypos -673
+ }
+ Input {
+  inputs 0
+  name matte
+  xpos 756
+  ypos -523
+  number 1
+ }
+set N1010d400 [stack 0]
+ ColorMatrix {
+  channels rgba
+  matrix {
+      {0.3 0 0}
+      {0 0.59 0}
+      {0 0 0.11}
+    }
+  unpremult -rgba.red
+  name ColorMatrix1
+  xpos 476
+  ypos -523
+ }
+set N1010d000 [stack 0]
+ Expression {
+  channel3 alpha
+  expr3 r+g+b
+  name Expression1
+  xpos 322
+  ypos -420
+ }
+push $N1010d000
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy2
+  xpos 322
+  ypos -523
+ }
+ Multiply {
+  value {{parent.LumaThreshold*2 i}}
+  name Multiply1
+  xpos 208
+  ypos -529
+ }
+push $N1010d400
+ Shuffle {
+  red blue
+  green blue
+  alpha blue
+  name blue
+  xpos 307
+  ypos -599
+ }
+push $N1010d400
+ Shuffle {
+  red green
+  blue green
+  alpha green
+  name green
+  xpos 305
+  ypos -666
+ }
+push $N1010d400
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name red
+  xpos 312
+  ypos -724
+ }
+push $N1010d400
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name alpha
+  xpos 314
+  ypos -797
+ }
+ Switch {
+  inputs 5
+  which {{parent.mattechannel i}}
+  name Switch1
+  xpos 74
+  ypos -523
+ }
+ Dilate {
+  channels alpha
+  name Dilate1
+  xpos -36
+  ypos -529
+ }
+ Blur {
+  channels alpha
+  name Blur1
+  xpos -137
+  ypos -529
+ }
+ Crop {
+  box {{curve} {curve} {root.format} {curve}}
+  intersect true
+  crop false
+  name Crop1
+  xpos -247
+  ypos -523
+ }
+ Merge2 {
+  inputs 2
+  name Merge4
+  label "Bbox: \[value bbox]"
+  xpos -431
+  ypos -529
+  disable {{!parent.Invert}}
+ }
+set N1017dc00 [stack 0]
+ Invert {
+  mix {{parent.Invert i}}
+  name Invert1
+  xpos -653
+  ypos -529
+ }
+set N1017d800 [stack 0]
+ Invert {
+  name Invert2
+  xpos -1587
+  ypos 400
+ }
+push $N1017d800
+push $N1017d800
+ Input {
+  inputs 0
+  name img
+  xpos -1201
+  ypos -706
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos -1201
+  ypos -529
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos -1201
+  ypos -428
+ }
+ Dot {
+  name Dot6
+  xpos -1167
+  ypos -154
+ }
+set N1017c400 [stack 0]
+ Dot {
+  name Dot7
+  xpos -1928
+  ypos -154
+ }
+ Dot {
+  name Dot8
+  xpos -1928
+  ypos 180
+ }
+push $N1017d800
+ Dot {
+  name Dot1
+  xpos -619
+  ypos -163
+ }
+set N101ad800 [stack 0]
+ Dot {
+  name Dot2
+  xpos -671
+  ypos -163
+ }
+ FilterErode {
+  channels alpha
+  size {{parent.edgeInside+1 i}}
+  name FilterErode1
+  xpos -705
+  ypos -132
+ }
+ Blur {
+  size {{parent.insideEdgeBlur i}}
+  name Blur2
+  xpos -705
+  ypos -66
+ }
+push $N101ad800
+ Dot {
+  name Dot3
+  xpos -554
+  ypos -163
+ }
+ FilterErode {
+  channels alpha
+  size {{-parent.edgeOutside-1 i}}
+  name FilterErode2
+  xpos -588
+  ypos -112
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge1
+  label "Bbox: \[value bbox]"
+  note_font_size 20
+  xpos -629
+  ypos -17
+ }
+set N101cb800 [stack 0]
+push $N1017c400
+ Dot {
+  name Dot4
+  xpos -1683
+  ypos -154
+ }
+set N101cb400 [stack 0]
+ Expression {
+  inputs 1+1
+  temp_name0 value
+  temp_expr0 parent.spillValue*2
+  expr1 "g>(r+b)/value ? (r+b)/value:g"
+  name Expression4
+  xpos -1599
+  ypos -13
+ }
+push $N101cb400
+ Expression {
+  temp_name0 value
+  temp_expr0 parent.spillValue*2
+  expr1 "g>(r+b)/value ? (r+b)/value:g"
+  maskChannelMask none
+  name Expression2
+  xpos -1795
+  ypos -9
+ }
+ Switch {
+  inputs 2
+  which {{parent.edgeOnly i}}
+  name Switch3
+  xpos -1710
+  ypos 94
+ }
+set N101ca000 [stack 0]
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge2
+  label "Bbox: \[value bbox]"
+  note_font_size 20
+  xpos -1710
+  ypos 161
+ }
+ Clamp {
+  maximum 1000
+  name Clamp1
+  xpos -1710
+  ypos 217
+ }
+ Saturation {
+  saturation 0
+  name Saturation1
+  xpos -1710
+  ypos 264
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -1710
+  ypos 400
+ }
+ Premult {
+  name Premult2
+  xpos -1710
+  ypos 438
+  disable true
+ }
+ Remove {
+  operation keep
+  channels rgb
+  name Remove1
+  xpos -1455
+  ypos 438
+ }
+ Multiply {
+  value {{clamp(parent.Screentype) i}}
+  name Multiply2
+  xpos -1324
+  ypos 432
+ }
+push $N101cb800
+push $N1017c400
+ Dot {
+  name Dot5
+  xpos -937
+  ypos -154
+ }
+set N101fa000 [stack 0]
+ Expression {
+  inputs 1+1
+  temp_name0 value
+  temp_expr0 parent.spillValue*2
+  expr2 "b>(r+g)/value ? (r+g)/value:b"
+  name Expression5
+  xpos -909
+  ypos -2
+ }
+push $N101fa000
+ Expression {
+  temp_name0 value
+  temp_expr0 parent.spillValue*2
+  expr2 "b>(r+g)/value ? (r+g)/value:b"
+  name Expression3
+  xpos -1029
+  ypos -7
+ }
+ Switch {
+  inputs 2
+  which {{parent.edgeOnly i}}
+  name Switch4
+  xpos -978
+  ypos 82
+ }
+push $N101ca000
+push $N1017c400
+ Switch {
+  inputs 3
+  which {{parent.Screentype i}}
+  name Switch2
+  xpos -1201
+  ypos 94
+ }
+ Grade {
+  maskChannelInput rgba.alpha
+  invert_mask true
+  name gamma_correction
+  xpos -1201
+  ypos 207
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  mix {{parent.addLuminance i}}
+  name Merge3
+  label "Bbox: \[value bbox]"
+  note_font_size 20
+  xpos -1201
+  ypos 423
+  disable {{!parent.luminanceBack i}}
+ }
+ Premult {
+  name Premult1
+  xpos -1201
+  ypos 496
+ }
+ Unpremult {
+  name Unpremult1
+  xpos -1201
+  ypos 559
+  disable {{!parent.Unpremult i}}
+ }
+ Output {
+  name Output2
+  xpos -1201
+  ypos 725
+ }
+push $N1017d800
+push $N1017dc00
+ Viewer {
+  inputs 2
+  input_process false
+  name Viewer1
+  xpos -1324
+  ypos 794
+ }
+end_group

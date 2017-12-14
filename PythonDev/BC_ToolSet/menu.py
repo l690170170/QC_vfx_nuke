@@ -21,7 +21,7 @@ from PrPy import License, About
 
 # Nodes Menu
 nodesMenu = nuke.menu("Nodes")
-nodes = nodesMenu.addMenu("Bc_ToolSet", icon="Bc_ToolSet_v01.png")
+nodes = nodesMenu.addMenu("Bc_ToolSet", icon="Bc_ToolSet.png")
 
 # Nuke Menu
 topMenu = nuke.menu("Nuke")
@@ -141,9 +141,8 @@ if os.path.exists(platform_pref_path()):  # Preferences Available
         top.addSeparator()
     else:
         top.addSeparator()
-    top.addCommand("Documentation", "About.docs()", icon="Doc.png")
-    top.addCommand("Tutorials", "webbrowser.open('http://bitly.com/Bc_ToolSetTutorials')", icon="Tutorials.png")
-    top.addCommand("Report a Bug", "webbrowser.open('http://bit.ly/PrSuiteReportBug')", icon="Report_Bug_v01.png")
+    top.addCommand("Official website", "webbrowser.open('http://www.bjqccm.com/')", icon="Tutorials.png")
+    top.addCommand("Recruit", "webbrowser.open('http://www.bjqccm.com/Index/show/catid/5/id/54.html')", icon="Report_Bug_v01.png")
     top.addSeparator()
     top.addCommand("License", "License.Bc_ToolSet_license()", icon="Bc_ToolSet_v01.png")
     top.addCommand("About Bc_ToolSet", "About.about()", icon="Bc_ToolSet_v01.png")
@@ -243,9 +242,8 @@ else:  # Default Preferences
         top.addSeparator()
     else:
         top.addSeparator()
-    top.addCommand("Documentation", "About.docs()", icon="Doc.png")
-    top.addCommand("Tutorials", "webbrowser.open('http://bitly.com/Bc_ToolSetTutorials')", icon="Tutorials.png")
-    top.addCommand("Report a Bug", "webbrowser.open('http://bit.ly/PrSuiteReportBug')", icon="Report_Bug_v01.png")
+    top.addCommand("Official website", "webbrowser.open('http://www.bjqccm.com/')", icon="Tutorials.png")
+    top.addCommand("Recruit", "webbrowser.open('http://www.bjqccm.com/Index/show/catid/5/id/54.html')", icon="Report_Bug_v01.png")
     top.addSeparator()
     top.addCommand("License", "License.Bc_ToolSet_license()", icon="Bc_ToolSet_v01.png")
     top.addCommand("About Bc_ToolSet", "About.about()", icon="Bc_ToolSet_v01.png")

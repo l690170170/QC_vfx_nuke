@@ -1,0 +1,913 @@
+#! /Applications/Nuke5.0v1/Nuke5.0v1.app/Contents/MacOS/Nuke5.0 -nx
+version 5.0100
+Gizmo {
+ inputs 3
+ label "hassanvfx.com\nV4"
+ note_font "Verdana Bold"
+ note_font_color 0xff0000ff
+ help "Auto Comp V4\nThis Gizmo Creates an Automatic composition of a :\n\nmatted foreground over a \nsolid matte background.\n\nMakes LightWrapping and EdgeBlur Stuff. With a Finde Detail Sense Matte\n\nAnd a kind of Moblur Automatic Matte detection with Moblur Spill Supression.\n\nAlso allow u to control de operation with a mask channel.\n\nU can Output just the Fine Detail and Moblur Control Masks if you want."
+ lock_connections true
+ addUserKnob {20 User}
+ addUserKnob {6 _useMask l "Use control mask"}
+ addUserKnob {7 _BGpreblur t "hi!\nThis is the amount of blur to apply in the background to put over in the edgeblur operation." R 0 100}
+ _BGpreblur 5
+ addUserKnob {7 _EdgeWide t "Here You Indicate The Wide in the edge to use inside the EdgeBlur And Lightwrap Operations" R 0 10}
+ _EdgeWide 2
+ addUserKnob {26 "" l ""}
+ addUserKnob {6 _ShowFineDetailMatte l "Show FineDetail Matte" t "This show u the ares detected as fine Detail, Also the matte is output to the alpha channel"}
+ addUserKnob {7 _LightWrapFineDetail l "Fine Detail Sense" t "This is a magic slider that will try to reach the fine detail ares to prevent EdgeBlur And LightWrap to damage little areas" R 0 100}
+ _LightWrapFineDetail 25.9162
+ addUserKnob {20 EdgeBlur n 1}
+ addUserKnob {7 _EdgeBlur t "The global Out Blur size for the EdgeBlur Operation. Try it in lower values.!" R 0 20}
+ _EdgeBlur 5
+ addUserKnob {7 _EdgeBlurFade t "The Fade Value of the EdgeBlur operation"}
+ _EdgeBlurFade 1
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {20 LightWrap n 1}
+ addUserKnob {7 _LightWrapBlur t "The insidence of the LightWrap" R 0 200}
+ _LightWrapBlur 30
+ addUserKnob {7 _LightWrapFade t "The Fade of the LightWrap"}
+ _LightWrapFade 1
+ addUserKnob {7 _LightWrapColor t "This Adds Background Blurred color to the LightWrap Operation" R 0 4}
+ _LightWrapColor 0.2
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {26 "" l ""}
+ addUserKnob {26 "" l ""}
+ addUserKnob {20 Moblur_Spillsupress l "Moblur Spillsupress" n 1}
+ addUserKnob {6 _UseMoblurSpillSupress t "Turn on/off the MotionBlur SpillSupression"}
+ _UseMoblurSpillSupress true
+ addUserKnob {6 _ShowControMattes l _ShowMoBlurSupressMattes t "Output the MotionBlurSpill Supression Mattes"}
+ _ShowControMattes false
+ addUserKnob {7 _MoBlurTrackOffset l _MoBlurTimeRange t "The Range to calculate the motion difference mattes" R 0 10}
+ _MoBlurTrackOffset 1
+ addUserKnob {7 _MoblurChoker l _MoblurMatteChoker t "This Dilate contract the motion difference mattes" R -10 10}
+ _MoblurChoker -1
+ addUserKnob {7 _MoblurExpansion l _MoblurMatteSoft t "This adds blur the the Motion Difference Mattes" R 0 200}
+ _MoblurExpansion 30
+ addUserKnob {7 _MoblurAmount l _ReMoblurAmount t "The Amount To Reblur inside the Moblur Matte areas" R 0 100}
+ _MoblurAmount 6
+ addUserKnob {26 "" l ""}
+ addUserKnob {4 _ScreenColor t "Set the color to Spill Supress inside the motionblur mattes" M {Supress-Green Supress-Blue "" ""}}
+ addUserKnob {7 _SpillExpansion l _SpillSupressSoftness t "This appply a blur to the MotionBlur Spillsupression Mattes" R 0 200}
+ _SpillExpansion 5
+ addUserKnob {7 _SpillBrightness l _SpillSupressBrightness}
+ _SpillBrightness 0.5
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {26 "" l "AutoComp V1" t "by hassanvfx. For support visit hassanvfx.com" T "by hassanvfx. For support visit hassanvfx.com"}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode8
+  xpos 2686
+  ypos 74
+  bdwidth 289
+  bdheight 366
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode7
+  xpos 1483
+  ypos -1348
+  bdwidth 403
+  bdheight 1554
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode5
+  xpos 1938
+  ypos -860
+  bdwidth 179
+  bdheight 682
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode4
+  xpos 2608
+  ypos -1033
+  bdwidth 361
+  bdheight 730
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode6
+  xpos 2171
+  ypos -1045
+  bdwidth 380
+  bdheight 1077
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  xpos -1010
+  ypos 204
+  bdwidth 570
+  bdheight 910
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  xpos 223
+  ypos -33
+  bdwidth 165
+  bdheight 559
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  xpos 38
+  ypos 548
+  bdwidth 574
+  bdheight 497
+ }
+ Input {
+  inputs 0
+  name FG
+  label FG
+  xpos -174
+  ypos -1987
+  number 1
+ }
+set N1995b350 [stack 0]
+ Dot {
+  name Dot1
+  xpos 2160
+  ypos -1977
+ }
+ NoOp {
+  name NoOp1
+  xpos 2147
+  ypos -1312
+ }
+set N19930070 [stack 0]
+ Shuffle {
+  name Shuffle6
+  xpos 2199
+  ypos -976
+ }
+set N19956b70 [stack 0]
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle9
+  xpos 1997
+  ypos -744
+ }
+set N19953840 [stack 0]
+ EdgeDetect {
+  edgedetector simple
+  name EdgeDetect1
+  xpos 1997
+  ypos -717
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle10
+  xpos 1997
+  ypos -611
+ }
+ ColorCorrect {
+  gain 0.076999
+  name ColorCorrect3
+  xpos 1997
+  ypos -584
+ }
+push $N19930070
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle8
+  xpos 2735
+  ypos -969
+ }
+set N1b6b1f80 [stack 0]
+push $N1b6b1f80
+ TimeOffset {
+  time_offset {{_MoBlurTrackOffset i x59 1 x415 0}}
+  name TimeOffset1
+  xpos 2635
+  ypos -877
+ }
+ Merge {
+  inputs 2
+  operation minus
+  name Merge4
+  xpos 2635
+  ypos -705
+ }
+push $N1b6b1f80
+push $N1b6b1f80
+ TimeOffset {
+  time_offset {{_MoBlurTrackOffset*-1 i x415 0}}
+  name TimeOffset2
+  xpos 2858
+  ypos -878
+ }
+ Merge {
+  inputs 2
+  operation minus
+  name Merge7
+  xpos 2877
+  ypos -709
+ }
+ Merge {
+  inputs 2
+  operation max
+  name Merge10
+  xpos 2753
+  ypos -644
+ }
+ Dilate {
+  size {{_MoblurChoker i x415 0}}
+  name Dilate4
+  xpos 2753
+  ypos -570
+ }
+ Dilate {
+  size {{(Dilate4.size*-1)+1 i x398 4}}
+  name Dilate5
+  xpos 2753
+  ypos -387
+ }
+set N1b6787a0 [stack 0]
+ Merge {
+  inputs 2
+  operation in
+  name Merge12
+  xpos 1997
+  ypos -381
+ }
+ Blur {
+  size {{_SpillExpansion i x415 0}}
+  name blut
+  xpos 1997
+  ypos -262
+ }
+set N1b711e60 [stack 0]
+ Expression {
+  expr0 r
+  expr1 0
+  expr2 0
+  name Expression1
+  xpos 2014
+  ypos 1493
+ }
+push $N19956b70
+push $N19956b70
+ Blur {
+  size 69.5691
+  name Blur1
+  xpos 2428
+  ypos -982
+ }
+ Merge {
+  inputs 2
+  operation minus
+  name Merge2
+  xpos 2331
+  ypos -504
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle7
+  xpos 2331
+  ypos -276
+ }
+push $N1b6787a0
+ Merge {
+  inputs 2
+  operation in
+  name Merge11
+  xpos 2331
+  ypos -154
+ }
+ Blur {
+  size {{_MoblurExpansion i x415 0}}
+  name Blur4
+  xpos 2331
+  ypos -55
+ }
+ ColorCorrect {
+  channels rgba
+  gain 3.3964
+  name ColorCorrect2
+  xpos 2361
+  ypos 1286
+ }
+set N1b723ff0 [stack 0]
+ Expression {
+  expr0 0
+  expr1 0
+  expr2 b
+  expr3 a
+  name Expression2
+  xpos 2361
+  ypos 1357
+ }
+ Merge2 {
+  inputs 2
+  name Merge19
+  xpos 2361
+  ypos 1493
+ }
+set N1b72ac20 [stack 0]
+ Input {
+  inputs 0
+  name BG
+  label background
+  xpos 7
+  ypos -1807
+ }
+set N1b72da40 [stack 0]
+ Dot {
+  name Dot2
+  xpos 1531
+  ypos -1797
+ }
+push $N1b711e60
+push $N19953840
+ Merge2 {
+  inputs 2
+  operation in
+  name Merge13
+  xpos 1774
+  ypos -256
+ }
+ Merge2 {
+  inputs 2
+  operation in
+  name Merge14
+  xpos 1497
+  ypos -256
+ }
+push $N1b711e60
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  alpha alpha2
+  name ShuffleCopy4
+  xpos 1497
+  ypos -128
+ }
+push $N19930070
+ HueCorrect {
+  hue {sat {curve 1 1 1 1 0.1420000792 0.1365001202 1}
+    lum {}
+    red {}
+    green {}
+    blue {}
+    r_sup {}
+    g_sup {}
+    b_sup {}
+    sat_thrsh {}}
+  name HueCorrect1
+  xpos 1890
+  ypos -1218
+ }
+push $N19930070
+ HueCorrect {
+  hue {sat {curve 1 1 1 x2.5249 0.1860001087 x4 0.1530001163 x4.64358 0.9889999628 x5 1 x6 1}
+    lum {}
+    red {}
+    green {}
+    blue {}
+    r_sup {}
+    g_sup {}
+    b_sup {}
+    sat_thrsh {}}
+  name HueCorrect2
+  xpos 1667
+  ypos -1312
+ }
+ Switch {
+  inputs 2
+  which {{_ScreenColor}}
+  name Switch6
+  xpos 1667
+  ypos -1213
+ }
+ Blur {
+  size 1.80981
+  name Blur5
+  xpos 1667
+  ypos -1021
+ }
+push $N1b723ff0
+ Merge2 {
+  inputs 2
+  operation in
+  name Merge15
+  xpos 1667
+  ypos -772
+ }
+push $N19930070
+ Merge2 {
+  inputs 2
+  name Merge16
+  xpos 1667
+  ypos -355
+ }
+ Merge2 {
+  inputs 2
+  operation max
+  mix {{_SpillBrightness i x415 0}}
+  name Merge17
+  xpos 1497
+  ypos 121
+ }
+push $N19930070
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  alpha alpha2
+  name ShuffleCopy5
+  xpos 2807
+  ypos 121
+ }
+ Premult {
+  name Premult2
+  xpos 2807
+  ypos 375
+ }
+ Dot {
+  name Dot3
+  xpos 1152
+  ypos 379
+ }
+ Dot {
+  name Dot4
+  xpos 1152
+  ypos -1306
+ }
+push $N1995b350
+ Switch {
+  inputs 2
+  which {{_UseMoblurSpillSupress i x407 1}}
+  name Switch3
+  xpos -174
+  ypos -1310
+ }
+ Premult {
+  name Premult1
+  xpos -174
+  ypos -325
+ }
+set N1b701030 [stack 0]
+ Shuffle {
+  name Shuffle3
+  xpos -174
+  ypos -258
+ }
+set N1b702940 [stack 0]
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle1
+  xpos -174
+  ypos 99
+ }
+set N1b705850 [stack 0]
+ Dot {
+  name Dot10
+  xpos -763
+  ypos 258
+ }
+ Invert {
+  name Invert1
+  xpos -797
+  ypos 301
+ }
+set N1b709a70 [stack 0]
+ Blur {
+  size {{_LightWrapFineDetail i x51 0}}
+  name Blur2
+  xpos -797
+  ypos 387
+ }
+push $N1b709a70
+ Difference {
+  inputs 2
+  name Difference1
+  xpos -984
+  ypos 338
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle5
+  xpos -984
+  ypos 430
+ }
+ ColorCorrect {
+  channels rgba
+  gain 4
+  name ColorCorrect1
+  xpos -984
+  ypos 457
+ }
+ Invert {
+  name Invert2
+  xpos -984
+  ypos 484
+ }
+ Blur {
+  size {{Blur2.size*1.5 i x103 20.03534155}}
+  name Blur3
+  xpos -984
+  ypos 542
+ }
+ Expression {
+  expr0 (red>(_LightWrapFineDetail/400)?1:0)
+  name Expression4
+  xpos -984
+  ypos 609
+ }
+ Expression {
+  expr0 red<1?0:1
+  name Expression3
+  xpos -984
+  ypos 636
+ }
+ Blur {
+  size {{22-((_LightWrapFineDetail/100)*20) i x1 12.1875 x17 10.63874346}}
+  name Blur7
+  xpos -984
+  ypos 824
+ }
+set N1b639300 [stack 0]
+ Dot {
+  name Dot5
+  xpos -950
+  ypos 1042
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle11
+  xpos -1236
+  ypos 1038
+ }
+ Invert {
+  name Invert3
+  xpos -1236
+  ypos 1097
+ }
+ Shuffle {
+  green red
+  blue black
+  alpha red
+  name Shuffle12
+  xpos -1236
+  ypos 1173
+ }
+set N1b641ae0 [stack 0]
+push $N1b702940
+ Dot {
+  name Dot5
+  xpos -11
+  ypos 103
+ }
+push $N1b72da40
+ Shuffle {
+  name Shuffle2
+  xpos 47
+  ypos -2
+ }
+set N1b645990 [stack 0]
+ Merge {
+  inputs 2
+  name Merge8
+  xpos -45
+  ypos 684
+ }
+set N1b6488e0 [stack 0]
+ Merge2 {
+  inputs 2
+  name Merge21
+  xpos -1236
+  ypos 1299
+ }
+push $N1b641ae0
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  alpha alpha2
+  name ShuffleCopy3
+  xpos -1116
+  ypos 1299
+ }
+push $N1b701030
+ Dot {
+  name Dot6
+  xpos 690
+  ypos -321
+ }
+push $N1b645990
+ Blur {
+  size {{_BGpreblur i x103 0.06791569}}
+  name BGBlur
+  xpos 264
+  ypos -8
+ }
+push $N1b639300
+push $N1b705850
+ Dilate {
+  size {{_EdgeWide i x1 1.2}}
+  name DilateIN
+  xpos -230
+  ypos 329
+ }
+push $N1b705850
+ Dilate {
+  size {{DilateIN.size*-1 i x1 5.37177192}}
+  name DilateOUT
+  xpos -132
+  ypos 326
+ }
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge20
+  xpos -187
+  ypos 389
+ }
+set N1b658910 [stack 0]
+ Blur {
+  inputs 1+1
+  size {{_EdgeBlur i x103 0}}
+  maskChannel rgba.red
+  name EdgeBlurAmount
+  xpos -187
+  ypos 466
+ }
+set N1b65b6f0 [stack 0]
+ Merge {
+  inputs 2
+  operation in
+  name Merge6
+  xpos 264
+  ypos 359
+ }
+push $N1b65b6f0
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  alpha alpha2
+  name ShuffleCopy2
+  xpos 264
+  ypos 472
+ }
+set N1b660a30 [stack 0]
+ Input {
+  inputs 0
+  name mask
+  label mattecontrol
+  xpos 494
+  ypos -2114
+  number 2
+ }
+set N1b6638e0 [stack 0]
+ Dot {
+  name Dot9
+  xpos 567
+  ypos 680
+ }
+ Merge {
+  inputs 2
+  operation in
+  name UseControlMask2
+  label "UseControlMask2\n"
+  xpos 402
+  ypos 670
+ }
+push $N1b660a30
+ Switch {
+  inputs 2
+  which {{_useMask i}}
+  name SwitchMask2
+  xpos 402
+  ypos 981
+ }
+push $N1b702940
+push $N1b645990
+ Merge {
+  inputs 2
+  name Merge1
+  xpos -367
+  ypos -258
+ }
+ Dilate {
+  size 2
+  name Dilate2
+  xpos -367
+  ypos -217
+ }
+ Dilate {
+  size -2
+  name Dilate3
+  xpos -367
+  ypos -161
+ }
+ Blur {
+  size {{_BGpreblur i x103 0.06791569}}
+  name BGBlur1
+  xpos -367
+  ypos -107
+ }
+push $N1b645990
+ Blend {
+  inputs 2
+  weight0 {{_LightWrapColor i}}
+  weight1 {{4-weight0 i}}
+  name Blend1
+  xpos -367
+  ypos -8
+ }
+push $N1b639300
+push $N1b639300
+push $N1b658910
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle4
+  xpos -540
+  ypos 389
+ }
+ Dilate {
+  inputs 1+1
+  size 2
+  maskChannel rgba.red
+  name Dilate1
+  xpos -540
+  ypos 791
+ }
+ Blur {
+  inputs 1+1
+  size {{_LightWrapBlur i x103 8.09524}}
+  maskChannel rgba.red
+  name LightWrapBlur1
+  xpos -540
+  ypos 847
+ }
+push $N1b705850
+ Dot {
+  name Dot11
+  xpos -575
+  ypos 289
+ }
+ Merge {
+  inputs 2
+  operation in
+  name Merge3
+  xpos -609
+  ypos 1072
+ }
+ Merge {
+  inputs 2
+  operation in
+  name Merge5
+  xpos -367
+  ypos 1072
+ }
+set N1b627600 [stack 0]
+ Dot {
+  name Dot12
+  xpos -202
+  ypos 610
+ }
+push $N1b6638e0
+ Dot {
+  name Dot13
+  xpos 443
+  ypos 610
+ }
+ Merge {
+  inputs 2
+  operation in
+  name UseControlMask1
+  label "UseControlMask1\n"
+  xpos 159
+  ypos 600
+ }
+push $N1b627600
+ Dot {
+  name Dot14
+  xpos -180
+  ypos 868
+ }
+ Switch {
+  inputs 2
+  which {{_useMask i}}
+  name SwitchMask
+  xpos 159
+  ypos 864
+ }
+push $N1b6488e0
+ Merge {
+  inputs 2
+  operation plus
+  mix {{_LightWrapFade i x103 0}}
+  name LightWrapAmount
+  label LightWrapAmount
+  xpos -96
+  ypos 1104
+ }
+ Merge {
+  inputs 2
+  mix {{_EdgeBlurFade i x103 0}}
+  name Merge9
+  label "EdgeBlurFade\n"
+  xpos 402
+  ypos 1104
+ }
+set N1b614ca0 [stack 0]
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy1
+  xpos 656
+  ypos 1205
+ }
+set N1b617b10 [stack 0]
+ Switch {
+  inputs 2
+  which {{_ShowFineDetailMatte i}}
+  name SwitchfineDetailMattes
+  xpos 942
+  ypos 1299
+ }
+set N1b61aa60 [stack 0]
+ Dot {
+  name Dot7
+  xpos 976
+  ypos 1613
+ }
+ Merge {
+  inputs 2
+  name Merge18
+  xpos 1651
+  ypos 1609
+ }
+push $N1b72ac20
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  blue blue
+  alpha alpha2
+  name ShuffleCopy6
+  xpos 2361
+  ypos 1646
+ }
+push $N1b723ff0
+push $N1b61aa60
+ Blur {
+  inputs 1+1
+  size {{_MoblurAmount i x414 0}}
+  name Blur6
+  xpos 1476
+  ypos 1293
+ }
+push $N1b617b10
+ Switch {
+  inputs 2
+  which {{_UseMoblurSpillSupress i x59 1 x407 1 x414 1}}
+  name SwitchUseMoBlurSpillSupress
+  xpos 656
+  ypos 1591
+ }
+ Switch {
+  inputs 2
+  which {{_ShowControMattes i}}
+  name SwitchMobLurMattes
+  xpos 656
+  ypos 1722
+ }
+ Output {
+  name Output1
+  xpos 656
+  ypos 1883
+ }
+push $N1b614ca0
+ Viewer {
+  name Viewer1
+  xpos 2026
+  ypos 1899
+ }
+end_group

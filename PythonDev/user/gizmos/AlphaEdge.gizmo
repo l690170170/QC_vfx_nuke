@@ -1,0 +1,95 @@
+set cut_paste_input [stack 0]
+version 8.0 v5
+push $cut_paste_input
+Group {
+ name AlphaEdge
+ selected true
+ xpos -427
+ ypos 76
+ addUserKnob {20 settings}
+ addUserKnob {7 InnerBlur l "Inner Blur" R 0 50}
+ addUserKnob {7 InnerWhitePoint l "Inner Gain"}
+ addUserKnob {26 ""}
+ addUserKnob {7 OuterBlur l "Outer Blur" R 0 50}
+ addUserKnob {7 OuterWhitePoint l "Outer Gain"}
+ addUserKnob {26 ""}
+ addUserKnob {7 OverallBlur l "Overall Blur" R 0 50}
+ addUserKnob {7 OverallWhitePoint l "Overall Gain"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -252
+  ypos 510
+ }
+set N131830f0 [stack 0]
+ Blur {
+  channels alpha
+  size {{parent.OuterBlur}}
+  name BlurOuter
+  xpos -302
+  ypos 573
+ }
+ Grade {
+  channels alpha
+  whitepoint {1 1 1 {1-(parent.OuterWhitePoint*.99)}}
+  white_clamp true
+  name GradeOut
+  xpos -302
+  ypos 639
+ }
+push $N131830f0
+ Blur {
+  channels alpha
+  size {{parent.InnerBlur}}
+  name BlurInner
+  xpos -199
+  ypos 570
+ }
+ Grade {
+  channels alpha
+  blackpoint {0 0 0 {parent.InnerWhitePoint*0.99 i}}
+  white_clamp true
+  name Grade3In
+  xpos -199
+  ypos 637
+ }
+ Merge2 {
+  inputs 2
+  operation out
+  name Out2
+  xpos -245
+  ypos 687
+ }
+ Blur {
+  channels alpha
+  size {{parent.OverallBlur i}}
+  name BlurAll
+  xpos -245
+  ypos 714
+ }
+ Grade {
+  channels alpha
+  whitepoint {1 1 1 {1-(parent.OverallWhitePoint*.99) i}}
+  white_clamp true
+  name GradeAll
+  xpos -245
+  ypos 753
+ }
+ Output {
+  name Output1
+  xpos -245
+  ypos 792
+ }
+ Viewer {
+  inputs 0
+  frame 21
+  gl_buffer_depth half-float
+  useGPUForViewer true
+  viewerProcess None
+  input_process false
+  name Viewer1
+  xpos -538
+  ypos 937
+ }
+end_group

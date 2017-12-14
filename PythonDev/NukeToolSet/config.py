@@ -37,11 +37,11 @@ nuke_config = {
                 # 1、AutoComper
                 # 2、PreCompForArnold
                 # 3、RenderLayer
-                #
+                #修改AutoComper快捷键alt+o
                 {
                     "name": "Channel/AutoComper",
                     "command": "command.run_autoComper()",
-                    "shortcut": "",
+                    "shortcut": "alt+o",
                     "icon": "autoComper.png",
                     "type": "python"
                 },
@@ -815,13 +815,7 @@ nuke_config = {
                     "type": "toolbar"
                 },
                 # Release Notes icon
-                {
-                    "name": "Release Notes",
-                    "command": "command.run_releaseNotes()",
-                    "shortcut": "",
-                    "icon": "icon_toolbar_release.png",
-                    "type": "python"
-                }
+               
             ]
         }
     },

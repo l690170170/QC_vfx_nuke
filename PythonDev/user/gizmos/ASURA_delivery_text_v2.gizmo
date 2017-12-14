@@ -1,0 +1,1002 @@
+#! C:/Program Files/Nuke9.0v8/nuke-9.0.8.dll -nx
+version 9.0 v8
+Gizmo {
+label 任何数据都不允许改
+note_font Verdana
+note_font_color 0xff0000ff
+lock_connections true
+addUserKnob {20 User t "current_time\nModify_time\ndate\nframe"}
+addUserKnob {4 topl l top_left M {"Vendor Name" Modify_time date frame project_path project_name version_num project_range project_framenum fps read_name read_framerange timecode material_bit "" ""}}
+addUserKnob {4 topr l top_right M {current_time Modify_time date frame project_path project_name version_num project_range project_framenum fps read_name read_framerange timecode material_bit "" "" "" ""}}
+topr date
+addUserKnob {4 bottoml l bottom_left M {current_time Modify_time date frame project_path project_name version_num project_range project_framenum fps read_name read_framerange timecode material_bit}}
+bottoml read_name
+addUserKnob {4 bottomr l bottom_right M {current_time Modify_time date frame project_path project_name version_num project_range project_framenum fps read_name read_framerange timecode material_bit}}
+bottomr frame
+addUserKnob {41 size l font_size T font_size_control.size}
+addUserKnob {41 message l "Artist Name" T Artist_Name.message}
+addUserKnob {41 message_1 l "Title Name" T title_Name.message}
+addUserKnob {26 unname l "" +STARTLINE}
+addUserKnob {41 which l "default size 0/1" T Switch_Reformat_ASURA.which}
+}
+BackdropNode {
+inputs 0
+name BackdropNode1
+tile_color 0x71c67100
+label clock
+note_font_size 42
+xpos -814
+ypos -594
+bdwidth 509
+bdheight 246
+}
+BackdropNode {
+inputs 0
+name BackdropNode2
+tile_color 0x7171c600
+label project
+note_font_size 42
+xpos -218
+ypos -583
+bdwidth 880
+bdheight 243
+}
+BackdropNode {
+inputs 0
+name BackdropNode3
+tile_color 0x7171c600
+label "Read material"
+note_font_size 42
+xpos 3298
+ypos -544
+bdwidth 724
+bdheight 243
+}
+BackdropNode {
+inputs 0
+name BackdropNode4
+tile_color 0x71c67100
+label clock
+note_font_size 42
+xpos 1743
+ypos -554
+bdwidth 509
+bdheight 246
+}
+BackdropNode {
+inputs 0
+name BackdropNode5
+tile_color 0x7171c600
+label project
+note_font_size 42
+xpos 2337
+ypos -551
+bdwidth 880
+bdheight 243
+}
+BackdropNode {
+inputs 0
+name BackdropNode6
+tile_color 0x7171c600
+label "Read material"
+note_font_size 42
+xpos 757
+ypos -583
+bdwidth 724
+bdheight 243
+}
+BackdropNode {
+inputs 0
+name BackdropNode7
+tile_color 0x2f303fff
+note_font_size 48
+xpos 3657
+ypos -545
+bdwidth 140
+bdheight 170
+addUserKnob {20 mainTabTK l backdropTK}
+addUserKnob {41 label_1 l label T BackdropNode7.label}
+addUserKnob {22 rndClrs0 l "<font style=\"background-color:#3e4f5a\"> <img size=\"8\" src=\"Shaders.png\"> CG </font>" T "import colorsys\nn=nuke.thisNode()\nlist=\[u' CG ', u' FX ', u' 3D ', u' Key ', u'Cleanup', u' Ref ', u' Pub ', u'Important!']\nn\['icon'].setValue('Shaders.png')\nR,G,B= \[0.567, 0.301, 0.353]\nR,G,B=colorsys.hsv_to_rgb(R,G,B)\nn\['tile_color'].setValue( int('%02x%02x%02x%02x' % (R*255,G*255,B*255,255), 16 ))\nif ((n\['label'].getValue()=='') or (n\['label'].getValue() in list)):\n   n\['label'].setValue(' CG ')\n\nallnodes=nuke.allNodes()\nlist=\[]\nnd_name='%s_backdrop' % ' CG '\ncurName=n\['name'].getValue().split(nd_name)\n\nif ((len(curName)>0) and (not curName\[0]=='')):\n    for nd in allnodes:\n        splt=nd.name().split(nd_name)\n        if (len(splt)>1):\n            num=splt\[1]\n            if num.isdigit():\n                list.append(int(num))\n    if len(list)>0:\n        next=int(sorted(list)\[-1])+1 \n    else: next=1\n    n\['name'].setValue('%s%s' % (nd_name,next))" +STARTLINE}
+addUserKnob {22 rndClrs1 l "<font style=\"background-color:#3d3228\"> <img size=\"8\" src=\"Light.png\"> FX </font>" -STARTLINE T "import colorsys\nn=nuke.thisNode()\nlist=\[u' CG ', u' FX ', u' 3D ', u' Key ', u'Cleanup', u' Ref ', u' Pub ', u'Important!']\nn\['icon'].setValue('Light.png')\nR,G,B= \[0.079, 0.34, 0.242]\nR,G,B=colorsys.hsv_to_rgb(R,G,B)\nn\['tile_color'].setValue( int('%02x%02x%02x%02x' % (R*255,G*255,B*255,255), 16 ))\nif ((n\['label'].getValue()=='') or (n\['label'].getValue() in list)):\n   n\['label'].setValue(' FX ')\n\nallnodes=nuke.allNodes()\nlist=\[]\nnd_name='%s_backdrop' % ' FX '\ncurName=n\['name'].getValue().split(nd_name)\n\nif ((len(curName)>0) and (not curName\[0]=='')):\n    for nd in allnodes:\n        splt=nd.name().split(nd_name)\n        if (len(splt)>1):\n            num=splt\[1]\n            if num.isdigit():\n                list.append(int(num))\n    if len(list)>0:\n        next=int(sorted(list)\[-1])+1 \n    else: next=1\n    n\['name'].setValue('%s%s' % (nd_name,next))"}
+addUserKnob {22 rndClrs2 l "<font style=\"background-color:#2e202f\"> <img size=\"8\" src=\"Geometry.png\"> 3D </font>" -STARTLINE T "import colorsys\nn=nuke.thisNode()\nlist=\[u' CG ', u' FX ', u' 3D ', u' Key ', u'Cleanup', u' Ref ', u' Pub ', u'Important!']\nn\['icon'].setValue('Geometry.png')\nR,G,B= \[0.822, 0.312, 0.188]\nR,G,B=colorsys.hsv_to_rgb(R,G,B)\nn\['tile_color'].setValue( int('%02x%02x%02x%02x' % (R*255,G*255,B*255,255), 16 ))\nif ((n\['label'].getValue()=='') or (n\['label'].getValue() in list)):\n   n\['label'].setValue(' 3D ')\n\nallnodes=nuke.allNodes()\nlist=\[]\nnd_name='%s_backdrop' % ' 3D '\ncurName=n\['name'].getValue().split(nd_name)\n\nif ((len(curName)>0) and (not curName\[0]=='')):\n    for nd in allnodes:\n        splt=nd.name().split(nd_name)\n        if (len(splt)>1):\n            num=splt\[1]\n            if num.isdigit():\n                list.append(int(num))\n    if len(list)>0:\n        next=int(sorted(list)\[-1])+1 \n    else: next=1\n    n\['name'].setValue('%s%s' % (nd_name,next))"}
+addUserKnob {22 rndClrs3 l "<font style=\"background-color:#384937\"> <img size=\"8\" src=\"Keyer.png\"> Key </font>" -STARTLINE T "import colorsys\nn=nuke.thisNode()\nlist=\[u' CG ', u' FX ', u' 3D ', u' Key ', u'Cleanup', u' Ref ', u' Pub ', u'Important!']\nn\['icon'].setValue('Keyer.png')\nR,G,B= \[0.333, 0.243, 0.29]\nR,G,B=colorsys.hsv_to_rgb(R,G,B)\nn\['tile_color'].setValue( int('%02x%02x%02x%02x' % (R*255,G*255,B*255,255), 16 ))\nif ((n\['label'].getValue()=='') or (n\['label'].getValue() in list)):\n   n\['label'].setValue(' Key ')\n\nallnodes=nuke.allNodes()\nlist=\[]\nnd_name='%s_backdrop' % ' Key '\ncurName=n\['name'].getValue().split(nd_name)\n\nif ((len(curName)>0) and (not curName\[0]=='')):\n    for nd in allnodes:\n        splt=nd.name().split(nd_name)\n        if (len(splt)>1):\n            num=splt\[1]\n            if num.isdigit():\n                list.append(int(num))\n    if len(list)>0:\n        next=int(sorted(list)\[-1])+1 \n    else: next=1\n    n\['name'].setValue('%s%s' % (nd_name,next))"}
+addUserKnob {22 rndClrs4 l "<font style=\"background-color:#403b52\"> <img size=\"8\" src=\"FloodFill.png\">Cleanup</font>" -STARTLINE T "import colorsys\nn=nuke.thisNode()\nlist=\[u' CG ', u' FX ', u' 3D ', u' Key ', u'Cleanup', u' Ref ', u' Pub ', u'Important!']\nn\['icon'].setValue('FloodFill.png')\nR,G,B= \[0.703, 0.28, 0.322]\nR,G,B=colorsys.hsv_to_rgb(R,G,B)\nn\['tile_color'].setValue( int('%02x%02x%02x%02x' % (R*255,G*255,B*255,255), 16 ))\nif ((n\['label'].getValue()=='') or (n\['label'].getValue() in list)):\n   n\['label'].setValue('Cleanup')\n\nallnodes=nuke.allNodes()\nlist=\[]\nnd_name='%s_backdrop' % 'Cleanup'\ncurName=n\['name'].getValue().split(nd_name)\n\nif ((len(curName)>0) and (not curName\[0]=='')):\n    for nd in allnodes:\n        splt=nd.name().split(nd_name)\n        if (len(splt)>1):\n            num=splt\[1]\n            if num.isdigit():\n                list.append(int(num))\n    if len(list)>0:\n        next=int(sorted(list)\[-1])+1 \n    else: next=1\n    n\['name'].setValue('%s%s' % (nd_name,next))"}
+addUserKnob {22 rndClrs5 l "<font style=\"background-color:#787048\"> <img size=\"8\" src=\"Read.png\"> Ref </font>" -STARTLINE T "import colorsys\nn=nuke.thisNode()\nlist=\[u' CG ', u' FX ', u' 3D ', u' Key ', u'Cleanup', u' Ref ', u' Pub ', u'Important!']\nn\['icon'].setValue('Read.png')\nR,G,B= \[0.138, 0.404, 0.474]\nR,G,B=colorsys.hsv_to_rgb(R,G,B)\nn\['tile_color'].setValue( int('%02x%02x%02x%02x' % (R*255,G*255,B*255,255), 16 ))\nif ((n\['label'].getValue()=='') or (n\['label'].getValue() in list)):\n   n\['label'].setValue(' Ref ')\n\nallnodes=nuke.allNodes()\nlist=\[]\nnd_name='%s_backdrop' % ' Ref '\ncurName=n\['name'].getValue().split(nd_name)\n\nif ((len(curName)>0) and (not curName\[0]=='')):\n    for nd in allnodes:\n        splt=nd.name().split(nd_name)\n        if (len(splt)>1):\n            num=splt\[1]\n            if num.isdigit():\n                list.append(int(num))\n    if len(list)>0:\n        next=int(sorted(list)\[-1])+1 \n    else: next=1\n    n\['name'].setValue('%s%s' % (nd_name,next))"}
+addUserKnob {22 rndClrs6 l "<font style=\"background-color:#67754a\"> <img size=\"8\" src=\"Vectorfield.png\"> Pub </font>" -STARTLINE T "import colorsys\nn=nuke.thisNode()\nlist=\[u' CG ', u' FX ', u' 3D ', u' Key ', u'Cleanup', u' Ref ', u' Pub ', u'Important!']\nn\['icon'].setValue('Vectorfield.png')\nR,G,B= \[0.221, 0.368, 0.46]\nR,G,B=colorsys.hsv_to_rgb(R,G,B)\nn\['tile_color'].setValue( int('%02x%02x%02x%02x' % (R*255,G*255,B*255,255), 16 ))\nif ((n\['label'].getValue()=='') or (n\['label'].getValue() in list)):\n   n\['label'].setValue(' Pub ')\n\nallnodes=nuke.allNodes()\nlist=\[]\nnd_name='%s_backdrop' % ' Pub '\ncurName=n\['name'].getValue().split(nd_name)\n\nif ((len(curName)>0) and (not curName\[0]=='')):\n    for nd in allnodes:\n        splt=nd.name().split(nd_name)\n        if (len(splt)>1):\n            num=splt\[1]\n            if num.isdigit():\n                list.append(int(num))\n    if len(list)>0:\n        next=int(sorted(list)\[-1])+1 \n    else: next=1\n    n\['name'].setValue('%s%s' % (nd_name,next))"}
+addUserKnob {22 rndClrs7 l "<font style=\"background-color:#a65fcc\"> <img size=\"8\" src=\"Glow.png\">Important!</font>" T "import colorsys\nn=nuke.thisNode()\nlist=\[u' CG ', u' FX ', u' 3D ', u' Key ', u'Cleanup', u' Ref ', u' Pub ', u'Important!']\nn\['icon'].setValue('Glow.png')\nR,G,B= \[0.776, 0.533, 0.8]\nR,G,B=colorsys.hsv_to_rgb(R,G,B)\nn\['tile_color'].setValue( int('%02x%02x%02x%02x' % (R*255,G*255,B*255,255), 16 ))\nif ((n\['label'].getValue()=='') or (n\['label'].getValue() in list)):\n   n\['label'].setValue('Important!')\n\nallnodes=nuke.allNodes()\nlist=\[]\nnd_name='%s_backdrop' % 'Important!'\ncurName=n\['name'].getValue().split(nd_name)\n\nif ((len(curName)>0) and (not curName\[0]=='')):\n    for nd in allnodes:\n        splt=nd.name().split(nd_name)\n        if (len(splt)>1):\n            num=splt\[1]\n            if num.isdigit():\n                list.append(int(num))\n    if len(list)>0:\n        next=int(sorted(list)\[-1])+1 \n    else: next=1\n    n\['name'].setValue('%s%s' % (nd_name,next))" +STARTLINE}
+addUserKnob {22 rndColors l " <img src=\"ColorBars.png\">Randomize color " T "import colorsys, random\nn=nuke.thisNode()\nR,G,B= colorsys.hsv_to_rgb(random.random(),.1+random.random()*.15,.15+random.random()*.15)\nn\['tile_color'].setValue( int('%02x%02x%02x%02x' % (R*255,G*255,B*255,255), 16 ) )" +STARTLINE}
+addUserKnob {22 rndTint l " <img src=\"HueShift.png\">Randomize tint " -STARTLINE T "import colorsys, random\nn=nuke.thisNode()\nV=int(n\['tile_color'].getValue())\nR = (0xFF & V >> 24) / 255.0\nG = (0xFF & V >> 16) / 255.0\nB = (0xFF & V >> 8) / 255.0\n\nR,G,B= colorsys.rgb_to_hsv(R,G,B)\n\nR,G,B= colorsys.hsv_to_rgb(R,.1+random.random()*.15,.15+random.random()*.15)\nn\['tile_color'].setValue( int('%02x%02x%02x%02x' % (R*255,G*255,B*255,255), 16 ) )"}
+addUserKnob {22 grow l " <img src=\"MergeMin.png\">" -STARTLINE T "n=nuke.thisNode()\nautoBackdrop.Grow(n,50)"}
+addUserKnob {22 shrink l " <img src=\"MergeMax.png\">" -STARTLINE T "n=nuke.thisNode()\nautoBackdrop.Shrink(n,50)"}
+addUserKnob {20 version}
+addUserKnob {26 nodeClass l Class: T backdropTK}
+addUserKnob {26 nodeVersion l Version: T "v 2.1"}
+addUserKnob {22 chHelp l "<img src=\":qrc/images/Help.png\"> HELP" t "Opens web page with tool's manual" -STARTLINE T "nukescripts.openurl.start (tk.getHelpUrl(nuke.thisNode()))"}
+}
+StickyNote {
+inputs 0
+name font_size_control
+label font_size_control
+note_font PMingLiU
+xpos 132
+ypos 350
+addUserKnob {20 User}
+addUserKnob {12 position l text_position}
+position {{root.format.w-20} {root.format.h}}
+addUserKnob {7 size l font_size R 12 200}
+size 40
+}
+Text2 {
+inputs 0
+font_size_toolbar 100
+font_width_toolbar 100
+font_height_toolbar 100
+message "\[date %Y/%m/%d]"
+old_message {{50 48 49 55 47 48 56 47 48 57}
+  }
+old_expression_markers {{0 9}
+  }
+box {0 979 517 1080}
+transforms {{0 2}
+  }
+cursor_position 15
+center {1440 540}
+cursor_initialised true
+initial_cursor_position {{0 1080}
+  }
+group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
+animation_layers {{1 11 1440 540 0 0 1 1 0 0 0 0}
+  }
+name Text1
+xpos -657
+ypos -761
+}
+Read {
+inputs 0
+file S:/019_axl/cmpout/exr/axl_022_VTL_0030_01/axl_022_VTL_0030_01_cmp_smz_paint_v037/axl_022_VTL_0030_01_cmp_smz_paint_v037.%04d.exr
+format "2880 1080 0 0 2880 1080 1 ssssss"
+first 1001
+last 1088
+origfirst 1001
+origlast 1088
+origset true
+name Read11
+label "<font size=\"3\" color =#548DD4><b> Frame range :</b></font> <font color = red>\[value first] - \[value last] </font>"
+xpos 1477
+ypos -1452
+}
+Input {
+inputs 0
+name Source
+xpos 1354
+ypos -1428
+addUserKnob {20 User}
+addUserKnob {14 framerange l framerange_input R 0 100}
+framerange {{input.first} {input.last}}
+}
+Shuffle {
+alpha black
+name Shuffle5
+xpos 1354
+ypos -1210
+}
+set Ndc36f800 [stack 0]
+Text {
+message "\[metadata input/bitsperchannel]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name material_bit
+tile_color 0xff00ff
+xpos 1274
+ypos -452
+}
+set Ndc36f400 [stack 0]
+push $Ndc36f800
+Text {
+message "\[metadata input/timecode]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name timecode
+tile_color 0xff00ff
+xpos 1132
+ypos -447
+}
+set Ndc36ec00 [stack 0]
+push $Ndc36f800
+Text {
+message "\[value src.framerange.w]-\[value src.framerange.h]   \[expr \[value src.framerange.h]-\[value src.framerange.w]+1]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name read_framerange
+tile_color 0xff00ff
+xpos 982
+ypos -450
+}
+set Ndc36e400 [stack 0]
+push $Ndc36f800
+Text {
+message "\[basename \[metadata input/filename]]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name read_name
+tile_color 0xff00ff
+xpos 831
+ypos -457
+}
+set Ndc3a1c00 [stack 0]
+push $Ndc36f800
+Text {
+message "\[value root.fps]fps"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name fps
+tile_color 0xff00ff
+xpos 517
+ypos -482
+}
+set Ndc3a1400 [stack 0]
+push $Ndc36f800
+Text {
+message "\[expr \[value root.last_frame]-\[value root.first_frame]+1]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name project_framenum
+tile_color 0xff00ff
+xpos 385
+ypos -481
+}
+set Ndc3a0c00 [stack 0]
+push $Ndc36f800
+Text {
+message "\[value root.first_frame]-\[value root.last_frame] "
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name project_range
+tile_color 0xff00ff
+xpos 257
+ypos -481
+}
+set Ndc3a0400 [stack 0]
+push $Ndc36f800
+Text {
+message "\[regexp -inline \"v\\\[0-9]+\" \[value root.name]]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name version_num
+tile_color 0xff00ff
+xpos 132
+ypos -482
+}
+set Ndc3d7c00 [stack 0]
+push $Ndc36f800
+Text {
+message "\[file tail \[file rootname \[value root.name]]]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name project_name
+tile_color 0xff00ff
+xpos -7
+ypos -481
+}
+set Ndc3d7400 [stack 0]
+push $Ndc36f800
+Text {
+message "\[value root.name]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name project_path
+tile_color 0xff00ff
+xpos -150
+ypos -484
+}
+set Ndc3d6c00 [stack 0]
+push $Ndc36f800
+Text {
+message "\[frame]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name frame
+tile_color 0xff00ff
+xpos -424
+ypos -479
+}
+set Ndc3d6400 [stack 0]
+push $Ndc36f800
+Text {
+message "\[date %m/%d/%Y]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name date
+tile_color 0xff00ff
+xpos -546
+ypos -480
+}
+set Ndc407c00 [stack 0]
+push $Ndc36f800
+Text {
+message "\[clock format \[file mtime  \[value root.name]] -format \{%x %H:%M:%S\}]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name Modify_time
+tile_color 0xff00ff
+xpos -666
+ypos -481
+}
+set Ndc407400 [stack 0]
+push $Ndc36f800
+Text {
+message "BLUE  CASTLE"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify center
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name Corporate
+tile_color 0xff00ff
+xpos -795
+ypos -482
+}
+set Ndc406c00 [stack 0]
+Switch {
+inputs 14
+which {{parent.bottoml}}
+name bottom_left
+tile_color 0xffff00ff
+xpos -988
+ypos 214
+}
+Shuffle {
+red alpha
+green alpha
+blue alpha
+name Shuffle3
+xpos -988
+ypos 367
+}
+Reformat {
+format "1920 1080 0 0 1920 1080 1 HD_1080"
+name Reformat5
+xpos -988
+ypos 422
+disable true
+}
+set Cdc43fc00 [stack 0]
+Transform {
+translate {75 35}
+scale 1.5
+center {454 12}
+name Transform5
+xpos -988
+ypos 580
+}
+Dot {
+name Dot1
+xpos -954
+ypos 904
+}
+Text {
+inputs 0
+message "\[basename \[metadata input/filename]]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name read_name2
+tile_color 0xff00ff
+xpos 4048
+ypos -426
+}
+Text2 {
+inputs 0
+font_size_toolbar 93
+font_width_toolbar 100
+font_height_toolbar 89
+baseline_toolbar -12
+message "BCT_022_VTL_0030_01_CNUP_v037\n"
+old_message {{66 67 84 95 48 50 50 95 86 84 76 95 48 48 51 48 95 48 49 95 67 78 85 80 95 118 48 51 55 10}
+  }
+box {20 -4 {parent.font_size_control.position.x x1 2860 x1033 2860} {parent.font_size_control.position.y x1 1079 x1033 1080}}
+xjustify justify
+transforms {{0 2}
+  }
+font_size_values {{29 93 4 93 5 93 6 93 7 93 8 93 9 93 10 93 11 93 12 93 13 93 14 93 15 93 16 93 17 93 18 93 19 93 20 93 21 93 22 93 23 93 24 93 24 93 25 93 26 93 27 93 28 93 0 93 1 93 2 93 3 93}
+  }
+font_height_values {{29 89 4 89 5 89 6 89 7 89 8 89 9 89 10 89 11 89 12 89 13 89 14 89 15 89 16 89 17 89 18 89 19 89 20 89 21 89 22 89 23 89 24 89 24 89 25 89 26 89 27 89 28 89 0 89 1 89 2 89 3 89}
+  }
+baseline_values {{29 -12 4 -12 5 -12 6 -12 7 -12 8 -12 9 -12 10 -12 11 -12 12 -12 13 -12 14 -12 15 -12 16 -12 17 -12 18 -12 19 -12 20 -12 21 -12 22 -12 23 -12 24 -12 24 -12 25 -12 26 -12 27 -12 28 -12 0 -12 1 -12 2 -12 3 -12}
+  }
+cursor_position 4
+font {{ KaiTi : Regular : simkai.ttf : 0 }}
+global_font_scale 0.57
+font_size 93
+font_height 89
+baseline_shift -12
+translate {0 -6}
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 1080}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1440 540 0 0 1 1 0 0 0 0}
+  }
+name title_Name
+xpos 248
+ypos 1137
+}
+Transform {
+translate {60 -982}
+scale 1.2
+center {48 1042}
+name Transform7
+xpos 386
+ypos 1137
+}
+Text2 {
+inputs 0
+font_size_toolbar 93
+font_width_toolbar 100
+font_height_toolbar 89
+baseline_toolbar -12
+message smz
+old_message {{115 109 122}
+  }
+box {20 -4 {parent.font_size_control.position.x x1 2860 x1033 2860} {parent.font_size_control.position.y x1 1079 x1033 1080}}
+xjustify justify
+transforms {{0 2}
+  }
+font_size_values {{0 93 1 93 2 93}
+  }
+font_height_values {{0 89 1 89 2 89}
+  }
+baseline_values {{0 -12 1 -12 2 -12}
+  }
+cursor_position 3
+font {{ Arial : Regular : arial.ttf : 0 }}
+global_font_scale 0.57
+font_size 93
+font_height 89
+baseline_shift -12
+translate {0 -6}
+scale {1 1}
+cursor_initialised true
+autofit_bbox false
+initial_cursor_position {{0 1080}
+  }
+group_animations {{0} imported: 0 selected: items: "root transform/"}
+animation_layers {{1 11 1440 540 0 0 1 1 0 0 0 0}
+  }
+name Artist_Name
+xpos 248
+ypos 1026
+}
+Transform {
+translate {60 -10}
+scale 1.2
+center {48 1042}
+name Transform3
+xpos 385
+ypos 1026
+}
+push $Ndc36f800
+Text {
+message "\[metadata input/bitsperchannel]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name material_bit1
+tile_color 0xff00ff
+xpos 3834
+ypos -419
+}
+set Ndc470c00 [stack 0]
+push $Ndc36f800
+Text {
+message "\[metadata input/timecode]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name timecode1
+tile_color 0xff00ff
+xpos 3690
+ypos -420
+}
+set Ndc470400 [stack 0]
+push $Ndc36f800
+Text {
+message "\[value src.framerange.w]-\[value src.framerange.h]   \[expr \[value src.framerange.h]-\[value src.framerange.w]+1]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name read_framerange1
+tile_color 0xff00ff
+xpos 3542
+ypos -413
+}
+set Ndc4b5c00 [stack 0]
+push $Ndc36f800
+Text {
+message "\[basename \[metadata input/filename]]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name read_name1
+tile_color 0xff00ff
+xpos 3387
+ypos -415
+}
+set Ndc4b5400 [stack 0]
+push $Ndc36f800
+Text {
+message "\[value root.fps]fps"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name fps1
+tile_color 0xff00ff
+xpos 3081
+ypos -429
+}
+set Ndc4b4c00 [stack 0]
+push $Ndc36f800
+Text {
+message "\[expr \[value root.last_frame]-\[value root.first_frame]+1]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name project_framenum1
+tile_color 0xff00ff
+xpos 2949
+ypos -428
+}
+set Ndc4b4400 [stack 0]
+push $Ndc36f800
+Text {
+message "\[value root.first_frame]-\[value root.last_frame] "
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name project_range1
+tile_color 0xff00ff
+xpos 2822
+ypos -428
+}
+set Ndc4e5c00 [stack 0]
+push $Ndc36f800
+Text {
+message "\[regexp -inline \"v\\\[0-9]+\" \[value root.name]]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name version_num1
+tile_color 0xff00ff
+xpos 2696
+ypos -429
+}
+set Ndc4e5400 [stack 0]
+push $Ndc36f800
+Text {
+message "\[file tail \[file rootname \[value root.name]]]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name project_name1
+tile_color 0xff00ff
+xpos 2557
+ypos -428
+}
+set Ndc4e4c00 [stack 0]
+push $Ndc36f800
+Text {
+message "\[value root.name]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name project_path1
+tile_color 0xff00ff
+xpos 2414
+ypos -431
+}
+set Ndc4e4400 [stack 0]
+push $Ndc36f800
+Reformat {
+name Reformat4
+xpos 1910
+ypos -662
+}
+Text {
+message "\[frame]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name frame1
+tile_color 0xff00ff
+xpos 2140
+ypos -426
+}
+set Ndc51d400 [stack 0]
+push $Ndc36f800
+Reformat {
+name Reformat3
+xpos 1859
+ypos -623
+}
+Text {
+message "\[date %m/%d/%Y]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name date1
+tile_color 0xff00ff
+xpos 2018
+ypos -427
+}
+set Ndc51c400 [stack 0]
+push $Ndc36f800
+Text {
+message "\[clock format \[file mtime  \[value root.name]] -format \{%x %H:%M:%S\}]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name Modify_time1
+tile_color 0xff00ff
+xpos 1898
+ypos -431
+}
+set Ndc547c00 [stack 0]
+push $Ndc36f800
+Text {
+message "\[date %H:%M:%S]"
+font C:/Windows/Fonts/arial.ttf
+size {{parent.font_size_control.size}}
+xjustify right
+yjustify bottom
+Transform 1
+box {20 0 {parent.font_size_control.position.x} {parent.font_size_control.position.y}}
+center {1024 778}
+name current_time1
+tile_color 0xff00ff
+xpos 1764
+ypos -430
+}
+set Ndc547400 [stack 0]
+Switch {
+inputs 14
+which {{parent.topr}}
+name top_right
+tile_color 0xffff00ff
+xpos 2582
+ypos 199
+}
+Shuffle {
+red alpha
+green alpha
+blue alpha
+name Shuffle4
+xpos 2582
+ypos 290
+}
+Transform {
+translate {0 {root.format.h-font_size_control.size-20}}
+name top_right_t1
+tile_color 0xffff
+xpos 2582
+ypos 375
+}
+clone $Cdc43fc00 {
+xpos 2582
+ypos 440
+selected false
+}
+Transform {
+translate {-38 131}
+scale 2
+center {1830 876}
+name Transform4
+xpos 2582
+ypos 499
+disable true
+}
+Transform {
+translate {-71 -13}
+scale 1.2
+center {2770 1036}
+name Transform8
+xpos 2582
+ypos 609
+}
+Dot {
+name Dot3
+xpos 2616
+ypos 904
+}
+push $Ndc470c00
+push $Ndc470400
+push $Ndc4b5c00
+push $Ndc4b5400
+push $Ndc4b4c00
+push $Ndc4b4400
+push $Ndc4e5c00
+push $Ndc4e5400
+push $Ndc4e4c00
+push $Ndc4e4400
+push $Ndc51d400
+push $Ndc51c400
+push $Ndc547c00
+push $Ndc547400
+Switch {
+inputs 14
+which {{parent.bottomr}}
+name bottom_right
+tile_color 0xffff00ff
+xpos 2255
+ypos 196
+}
+Shuffle {
+red alpha
+green alpha
+blue alpha
+name Shuffle2
+xpos 2255
+ypos 242
+}
+clone $Cdc43fc00 {
+xpos 2255
+ypos 312
+selected false
+}
+Transform {
+translate {-4 -128}
+scale 2
+center {1878.400024 193.3999939}
+name Transform6
+xpos 2255
+ypos 397
+disable true
+}
+Transform {
+translate {-80 40}
+scale 1.2
+center {2814 24}
+name Transform9
+xpos 2253
+ypos 487
+}
+Dot {
+name Dot4
+xpos 2289
+ypos 639
+}
+push 0
+push 0
+push $Ndc36f400
+push $Ndc36ec00
+push $Ndc36e400
+push $Ndc3a1c00
+push $Ndc3a1400
+push $Ndc3a0c00
+push $Ndc3a0400
+push $Ndc3d7c00
+push $Ndc3d7400
+push $Ndc3d6c00
+push $Ndc3d6400
+push $Ndc407c00
+push $Ndc407400
+push $Ndc406c00
+Switch {
+inputs 14
+which {{parent.topl}}
+name top_left
+tile_color 0xffff00ff
+xpos -661
+ypos 198
+}
+Shuffle {
+red alpha
+green alpha
+blue alpha
+name Shuffle1
+xpos -661
+ypos 289
+}
+Transform {
+translate {0 {root.format.h-font_size_control.size-20}}
+name top_right_t
+tile_color 0xffff
+xpos -661
+ypos 374
+}
+clone $Cdc43fc00 {
+xpos -661
+ypos 421
+selected false
+}
+Transform {
+translate {-490 -40}
+scale 1.5
+center {1436 1044}
+name Transform2
+xpos -662
+ypos 501
+disable true
+}
+Transform {
+translate {2 -12}
+scale 1.2
+center {1438 1044}
+name Transform10
+xpos -661
+ypos 588
+}
+Dot {
+name Dot2
+xpos -627
+ypos 718
+}
+Merge2 {
+inputs 4+1
+name Merge1
+xpos 558
+ypos 901
+}
+Merge2 {
+inputs 2
+name Merge4
+xpos 558
+ypos 1026
+}
+Merge2 {
+inputs 2
+name Merge3
+xpos 558
+ypos 1137
+}
+Transform {
+translate {0 6}
+scale {0.9 1}
+center {1440 540}
+name Transform1
+xpos 558
+ypos 1269
+disable true
+}
+Dot {
+name Dot5
+xpos 592
+ypos 1439
+}
+push $Ndc36f800
+Merge2 {
+inputs 2
+name Merge2
+xpos 1398
+ypos 1436
+}
+Reformat {
+name Reformat6
+xpos 1175
+ypos 1508
+}
+Output {
+name Output1
+xpos 1175
+ypos 1775
+}
+Viewer {
+frame 1021
+frame_range 1001-1088
+colour_sample_bbox {0.200000003 0.112499997 0.2010416687 0.1135416701}
+name Viewer1
+xpos 1398
+ypos 1837
+}
+end_group

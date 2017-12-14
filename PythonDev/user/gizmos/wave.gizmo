@@ -1,0 +1,39 @@
+#! C:/Program Files (x86)/Nuke6.0v1/Nuke6.0.exe -nx
+version 6.0 v1
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {12 center l 发射源 t 请设定波纹的中心点（发射源）}
+ addUserKnob {7 wavelength l 波长 t 输入波长 R 0 400}
+ wavelength 200
+ addUserKnob {7 length l 宽度 t 设定波纹宽度 R -1 1}
+ addUserKnob {41 size l 模糊尺寸 t 调节模糊尺寸 T Blur1.size}
+ addUserKnob {7 velocity l 速率系数 t 该系数越大，传播速度越慢 R 0 2}
+ velocity 1
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 309
+  ypos -587
+ }
+ Expression {
+  expr0 "sin(sqrt((x-parent.center.x)*(x-parent.center.x)/parent.wavelength + (y-parent.center.y)* (y-parent.center.y)/parent.wavelength)-frame/parent.velocity) < parent.length?1:0"
+  expr1 "sin(sqrt((x-parent.center.x)*(x-parent.center.x)/parent.wavelength + (y-parent.center.y)* (y-parent.center.y)/parent.wavelength)-frame/parent.velocity) < parent.length?1:0"
+  expr2 "sin(sqrt((x-parent.center.x)*(x-parent.center.x)/parent.wavelength + (y-parent.center.y)* (y-parent.center.y)/parent.wavelength)-frame/parent.velocity) < parent.length?1:0"
+  expr3 "sin(sqrt((x-parent.center.x)*(x-parent.center.x)/parent.wavelength + (y-parent.center.y)* (y-parent.center.y)/parent.wavelength)-frame/parent.velocity) < parent.length?1:0"
+  name Expression2
+  xpos 309
+  ypos -539
+ }
+ Blur {
+  name Blur1
+  selected true
+  xpos 309
+  ypos -513
+ }
+ Output {
+  name Output1
+  xpos 309
+  ypos -348
+ }
+end_group

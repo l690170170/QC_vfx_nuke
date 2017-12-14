@@ -1,0 +1,79 @@
+{
+    "TK_BACKDROP_FONTSIZE": 48,
+    "TK_BACKDROP_COLUMNS": 7,
+    "TK_BACKDROP_STEP": 50,
+    "presetList": [
+        [
+            " CG ",
+            "Shaders.png",
+            [
+                0.567,
+                0.301,
+                0.353
+            ]
+        ],
+        [
+            " FX ",
+            "Light.png",
+            [
+                0.079,
+                0.34,
+                0.242
+            ]
+        ],
+        [
+            " 3D ",
+            "Geometry.png",
+            [
+                0.822,
+                0.312,
+                0.188
+            ]
+        ],
+        [
+            " Key ",
+            "Keyer.png",
+            [
+                0.333,
+                0.243,
+                0.29
+            ]
+        ],
+        [
+            "Cleanup",
+            "FloodFill.png",
+            [
+                0.703,
+                0.28,
+                0.322
+            ]
+        ],
+        [
+            " Ref ",
+            "Read.png",
+            [
+                0.138,
+                0.404,
+                0.474
+            ]
+        ],
+        [
+            " Pub ",
+            "Vectorfield.png",
+            [
+                0.221,
+                0.368,
+                0.46
+            ]
+        ],
+        [
+            "Important!",
+            "Glow.png",
+            [
+                0.776,
+                0.533,
+                0.8
+            ]
+        ]
+    ]
+}

@@ -1,0 +1,248 @@
+Gizmo {
+ help "Pulls a key on zdepth.  The output, is alpha.\n\nTip:  ZDefocus set math far=1 & focus plane 0.  shuffle the alpha into depth channel to use."
+ knobChanged "n = nuke.thisNode()\nk = nuke.thisKnob()\n\nif k.name() in ('choice', 'showPanel'):\n\n   choice = n\['choice'].value()\n\n   if choice == 'two directions':\n\n       n\['bV'].setVisible(False)\n\n       n\['wV'].setVisible(False)\n\n       n\['onef'].setVisible(False)\n\n       n\['ochoice'].setVisible(False)\n\n       n\['closestBW'].setVisible(True)\n\n       n\['black2'].setVisible(True)\n\n       n\['f2'].setVisible(True)\n\n       n\['choice2'].setVisible(True)\n\n       n\['line1'].setVisible(True)\n\n       n\['wCv'].setVisible(True)\n\n       n\['wR'].setVisible(True)\n\n       n\['line2'].setVisible(True)\n\n       n\['black1'].setVisible(True)\n\n       n\['f1'].setVisible(True)\n\n       n\['choice1'].setVisible(True)\n\n   else:\n\n       n\['bV'].setVisible(True)\n\n       n\['wV'].setVisible(True)\n\n       n\['onef'].setVisible(True)\n\n       n\['ochoice'].setVisible(True)\n\n       n\['closestBW'].setVisible(False)\n\n       n\['black2'].setVisible(False)\n\n       n\['f2'].setVisible(False)\n\n       n\['choice2'].setVisible(False)\n\n       n\['line1'].setVisible(False)\n\n       n\['wCv'].setVisible(False)\n\n       n\['wR'].setVisible(False)\n\n       n\['line2'].setVisible(False)\n\n       n\['black1'].setVisible(False)\n\n       n\['f1'].setVisible(False)\n\n       n\['choice1'].setVisible(False)"
+ tile_color 0xff00ff
+ name DepthKeyer_CB
+ note_font Verdana
+ mapsize {0.15 0.15}
+ addUserKnob {20 Buehler l DepthKeyer_CB t "pulls a key\non\nzdepth.\nThe output, is RGBA"}
+ addUserKnob {6 UnDepthAlpha l "Unpremult depth by alpha" t "recommended for 3D premulitplied images" +STARTLINE}
+ addUserKnob {41 in l "      in" t "select channel to shuffle to alpha" -STARTLINE T Shuffle.in}
+ addUserKnob {26 ""}
+ addUserKnob {4 choice l "<font size=\"3\"><font color=\"Goldenrod\">select to activate" t "This selects which controls are activated. " M {"single direction" "two directions" "no color correction"}}
+ addUserKnob {6 pDepth l "preview depth" t "Shows depth channel in alpha channel" +STARTLINE}
+ addUserKnob {19 bV l "black value" t "whatever value you enter here will become black, whether it's higher or lower then the white value." R 0 10}
+ bV 0.2
+ addUserKnob {19 wV l "white value" t "whatever value you enter here will become white, whether it's higher or lower then the black value." R 0 10}
+ wV 0.5
+ addUserKnob {19 onef l feather t "0 is no falloff and 1 is the natural falloff" R 0 2}
+ onef 1
+ addUserKnob {4 ochoice l choice t "Falloff profile of the Feathered edge" M {linear smooth smooth1 smooth0 plinear "ease in"}}
+ addUserKnob {4 closestBW l "<font size=\"3\"><font color=\"Goldenrod\">depth pass" +HIDDEN M {"white is closer" "black is closer"}}
+ closestBW "black is closer"
+ addUserKnob {19 black2 l "close black adjust" t "whatever value you enter here will become black.\nThis value is in direct relationship with white center value and white range." +HIDDEN R -1 1}
+ black2 0.3
+ addUserKnob {19 f2 l "close feather adjust" t "gamma\n0 is no falloff and 1 is the natural falloff" +HIDDEN R 0 5}
+ f2 1
+ addUserKnob {4 choice2 l choice t "Falloff profile of the Feathered edge" +HIDDEN M {linear smooth smooth1 smooth0 plinear "ease in"}}
+ addUserKnob {26 line1 l " " +HIDDEN}
+ addUserKnob {19 wCv l "White Center Value" t "whatever value you enter here will become white.  The close and far black adjusts are all in relation to this value." +HIDDEN R 0 100}
+ wCv 0.6
+ addUserKnob {19 wR l "White Range" t "This is the range of the selected area (White).  It spreads equally from the White Center Value." +HIDDEN R 0 10}
+ wR 0.1
+ addUserKnob {26 line2 l " " +HIDDEN}
+ addUserKnob {19 black1 l "far black adjust" t "whatever value you enter here will become black.\nThis value is in direct relationship with white center value and white range." +HIDDEN R -1 1}
+ black1 0.3
+ addUserKnob {19 f1 l "far feather adjust" t "gamma\n0 is no falloff and 1 is the natural falloff" +HIDDEN R 0 5}
+ f1 1
+ addUserKnob {4 choice1 l choice t "Falloff profile of the Feathered edge" +HIDDEN M {linear smooth smooth1 smooth0 plinear "ease in"}}
+ addUserKnob {26 ""}
+ addUserKnob {6 gD l "Grow Depth" t "When activated this allows you to grow the edges of the depth pass." +STARTLINE}
+ addUserKnob {41 size l "          Amount" t "the amount it will grow the edges" -STARTLINE T Dilate1.size}
+ addUserKnob {41 edgeMult t "cc grown edges" T MergeExpression4.edgeMult}
+ addUserKnob {26 ""}
+ addUserKnob {6 keep0 l "keep 0" t "Anything that is the value of zero, will remain zero, even if you invert result" +STARTLINE}
+ addUserKnob {6 mFilter l "median filter" t "applied before key" -STARTLINE}
+ addUserKnob {6 cRes l "clamp result" +STARTLINE}
+ cRes true
+ addUserKnob {6 pR l "premult result" -STARTLINE}
+ addUserKnob {6 iRes l "invert result" -STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {32 Chad l ChadB t "Go to nukepedia.com to download the latest version, leave a comment/request or a bug." T "start http://www.vfxconnection.com/profile/Buehler" +STARTLINE}
+ addUserKnob {26 version l "" -STARTLINE T "              - by Chad Buehler  v1.7"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -198
+  ypos -352
+ }
+ Unpremult {
+  channels all
+  name Unpremult1
+  xpos -198
+  ypos -309
+  disable {{!UnDepthAlpha i x75 1}}
+ }
+set N233ad040 [stack 0]
+ Invert {
+  channels rgba
+  name Invert1
+  xpos -76
+  ypos -223
+ }
+ Grade {
+  channels alpha
+  whitepoint 0.01
+  white_clamp true
+  name Grade2
+  xpos -76
+  ypos -195
+ }
+push $N233ad040
+ Shuffle {
+  in depth
+  in2 rgba
+  red red2
+  green green2
+  blue blue2
+  alpha red
+  black alpha2
+  out2 mask
+  name Shuffle
+  selected true
+  xpos -198
+  ypos -250
+ }
+set N233c0a60 [stack 0]
+ Median {
+  inputs 1+1
+  channels alpha
+  size 2
+  name Median2
+  xpos -198
+  ypos -195
+  disable {{!mFilter i}}
+ }
+set N233ca200 [stack 0]
+ Dilate {
+  channels alpha
+  size 2
+  name Dilate1
+  xpos -121
+  ypos -145
+  disable {{"parent.gD == 1 && keep0 == 0 ? 0 : 1" i}}
+ }
+push $N233ca200
+add_layer {rgb rgb.red rgb.green rgb.blue}
+ MergeExpression {
+  inputs 2
+  expr3 "Bmask.a < 1 ? max(Ba,Aa*edgeMult.b) : Ba"
+  name MergeExpression4
+  xpos -198
+  ypos -101
+  disable {{"parent.gD == 1 && keep0 == 0 ? 0 : 1" i}}
+  addUserKnob {20 Buehler l User}
+  addUserKnob {18 edgeMult t "cc grown edges" R 0.95 1.05}
+  edgeMult 1
+ }
+set N233d7220 [stack 0]
+ Dot {
+  name Dot2
+  xpos 31
+  ypos 203
+ }
+push $N233c0a60
+ Dot {
+  name Dot1
+  xpos -274
+  ypos 114
+ }
+set N233e20e0 [stack 0]
+push $N233e20e0
+push $N233d7220
+ Expression {
+  temp_name0 pto
+  temp_expr0 clamp((((clamp(a,lowF,low))-(lowF))*(1/abs(low-lowF))))
+  temp_name1 ptt
+  temp_expr1 clamp(((((clamp(a,high,(high+highF)))-(high+highF)))*-1)*(1/abs(highF)))
+  temp_name2 whl
+  temp_expr2 "bV > wV ?\nclamp(((((clamp(a,high,(high+low)))-(high+low)))*-1)*(1/abs(low))) :\n(clamp((a-low)*(1/(abs(high-low)))))"
+  expr3 "choice == 0 ? (pow((och == 1 ? whl*whl*(3 - 2*whl) : och == 2 ? whl*(1 + whl*(1 - whl)) : och == 3 ? whl*whl*(2 - whl) :  och == 4 ? pow(whl, 3) : och == 5 ? 1 - exp(-4 * whl) : whl), 1.0 / lg)) : (min(pow((lch == 1 ? pto*pto*(3 - 2*pto) : lch == 2 ? pto*(1 + pto*(1 - pto)) : lch == 3 ? pto*pto*(2 - pto) :  lch == 4 ? pow(pto, 3) : lch == 5 ? 1 - exp(-4 * pto) : pto), 1.0 / lg),pow((hch == 1 ? ptt*ptt*(3 - 2*ptt) : hch == 2 ? ptt*(1 + ptt*(1 - ptt)) : hch == 3 ? ptt*ptt*(2 - ptt) :  hch == 4 ? pow(ptt, 3) : hch == 5 ? 1 - exp(-4 * ptt) : ptt), 1.0 / hg)))"
+  name Expression
+  xpos -198
+  ypos -61
+  addUserKnob {20 User}
+  addUserKnob {7 och}
+  och {{ochoice i}}
+  addUserKnob {7 lch}
+  lch {{"closestBW==1 ? choice2 : choice1" i}}
+  addUserKnob {7 hch}
+  hch {{"closestBW==1 ? choice1 : choice2" i}}
+  addUserKnob {7 lowF}
+  lowF {{"(closestBW==1 ? black2 : black1) >= \[value low] ? low - 0.00001 : (closestBW==1 ? black2 : black1)" i}}
+  addUserKnob {7 lg}
+  lg {{"choice == 1 ? (closestBW==1 ? f2 : f1) : onef" i}}
+  addUserKnob {7 low}
+  low {{"choice == 1 ? wCv-(wR/2) : bV" i}}
+  addUserKnob {7 high}
+  high {{"choice == 1 ? wCv+(wR/2) : wV" i}}
+  addUserKnob {7 hg}
+  hg {{"closestBW==1 ? f1 : f2" i}}
+  addUserKnob {7 highF}
+  highF {{"(closestBW==1 ? black1 : black2) >= \[value high] ? high + 0.00001 : (closestBW==1 ? black1 : black2)" i}}
+ }
+ Clamp {
+  channels alpha
+  name Clamp
+  xpos -198
+  ypos -28
+  disable {{!cRes i}}
+ }
+ Invert {
+  channels alpha
+  maskChannelMask none
+  name Invert
+  xpos -198
+  ypos 19
+  disable {{"iRes ==1  && keep0 == 0 ? 0 : 1" i}}
+ }
+ Premult {
+  channels rgba
+  alpha mask.a
+  name Premult1
+  xpos -198
+  ypos 65
+  disable {{!pR i}}
+ }
+ MergeExpression {
+  inputs 2
+  expr3 "Amask.a == 0 ? 0 : iRes ==1 ? 1-Ba : Ba"
+  name MergeExpression3
+  xpos -198
+  ypos 121
+  disable {{"keep0 == 1 ? 0 : 1" i}}
+ }
+set N23406160 [stack 0]
+ Dilate {
+  channels alpha
+  size {{parent.Dilate1.size}}
+  name Dilate2
+  xpos -121
+  ypos 181
+  disable {{"parent.gD == 1 && keep0 == 1 ? 0 : 1"}}
+ }
+push $N23406160
+ MergeExpression {
+  inputs 2
+  expr3 "Bmask.a < 0.9999 ? max(Ba,Aa*edgeMult.b) : Ba"
+  name MergeExpression1
+  xpos -198
+  ypos 225
+  disable {{"parent.gD == 1 && keep0 == 1 ? 0 : 1" i}}
+  addUserKnob {20 Buehler l User}
+  addUserKnob {18 edgeMult t "cc grown edges" R 0.95 1.05}
+  edgeMult 1
+ }
+ Switch {
+  inputs 3
+  which {{"choice == 2 ? 2 : pDepth" i}}
+  name Switch1
+  xpos -198
+  ypos 332
+  disable {{"which == 2 ? 0 : !\$gui" i}}
+ }
+ ModifyMetaData {
+  metadata {
+   {set version "DepthKeyer_CB 1.7"}
+  }
+  name MetaDataVersion
+  xpos -198
+  ypos 384
+ }
+ Output {
+  name Output1
+  xpos -198
+  ypos 439
+ }
+end_group

@@ -1,0 +1,188 @@
+set cut_paste_input [stack 0]
+push $cut_paste_input
+Group {
+ name color_del
+ selected true
+ xpos 1712
+ ypos -409
+ addUserKnob {20 User}
+ addUserKnob {41 screenColour l "Screen Colour" T Keylight2.screenColour}
+}
+ Roto {
+  inputs 0
+  curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097664}
+    {t x44800000 x44428000}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Bezier1 512 bezier
+     {{cc
+       {f 8192}
+       {px 1
+        {x4335999a x41cc9fc0}
+        {x43920c43 x4438a62a}
+        {xc3359999 xc1cc9fc0}
+        {xc2d9eb86 x41cc9fc0}
+        {x43273ee5 x43d610ed}
+        {x42d9eb84 xc1cc9fc0}
+        {xc21a5c20 xc2861064}
+        {x446d0805 x43e90777}
+        {x421a5c40 x42861060}
+        {x4160da00 xc0387000}
+        {x446638ad x443987f6}
+        {xc2a37090 x41861040}}}     idem}
+     {tx 1 x44196000 x4417e000}
+     {a b x3d8a71de osw x41200000 osf 0 str 1 spx x44800000 spy x44428000 sb 1 tt x40800000}}}}}}
+  toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+  toolbar_brush_hardness 0.200000003
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {1024 778}
+  color {1 1 0.06759999692 1}
+  colorOverlay {0 0 0 0}
+  lifetime_type "all frames"
+  view {}
+  motionblur_on true
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name Roto1
+  xpos 921
+  ypos -27
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos 697
+  ypos -87
+  number 1
+ }
+set Nb5ebe000 [stack 0]
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos 702
+  ypos -4
+ }
+set N98d2dc00 [stack 0]
+ Input {
+  inputs 0
+  name Input1
+  xpos 376
+  ypos -112
+ }
+ Dot {
+  name Dot2
+  xpos 410
+  ypos 89
+ }
+set Na6069800 [stack 0]
+ Multiply {
+  inputs 1+1
+  value 0
+  invert_mask true
+  name Multiply1
+  xpos 697
+  ypos 79
+ }
+ OFXuk.co.thefoundry.keylight.keylight_v201 {
+  show "Final Result"
+  unPreMultiply false
+  screenColour {0 1 0}
+  screenGain 1
+  screenBalance 0.5
+  alphaBias {0.5 0.5 0.5}
+  despillBias {0.5 0.5 0.5}
+  gangBiases true
+  preBlur 0
+  "Screen Matte" 0
+  screenClipMin 0
+  screenClipMax 1
+  screenClipRollback 0
+  screenGrowShrink 0
+  screenSoftness 0
+  screenDespotBlack 0
+  screenDespotWhite 0
+  screenReplaceMethod "Soft Colour"
+  screenReplaceColour {0.5 0.5 0.5}
+  Tuning 0
+  midPoint 0.5
+  lowGain 1
+  midGain 1
+  highGain 1
+  "Inside Mask" 0
+  sourceAlphaHandling Ignore
+  insideReplaceMethod "Soft Colour"
+  insideReplaceColour {0.5 0.5 0.5}
+  Crops 0
+  SourceXMethod Colour
+  SourceYMethod Colour
+  SourceEdgeColour 0
+  SourceCropL 0
+  SourceCropR 1
+  SourceCropB 0
+  SourceCropT 1
+  balanceSet false
+  insideComponent Alpha
+  outsideComponent Alpha
+  cacheBreaker true
+  name Keylight2
+  xpos 639
+  ypos 195
+ }
+set Nb977d800 [stack 0]
+push $Nb5ebe000
+push $Na6069800
+push $Nb977d800
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge3
+  xpos 375
+  ypos 195
+ }
+ Saturation {
+  inputs 1+1
+  saturation 0
+  name Saturation2
+  xpos 375
+  ypos 298
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge4
+  xpos 639
+  ypos 298
+ }
+ Output {
+  name Output1
+  xpos 639
+  ypos 400
+ }
+push $N98d2dc00
+ Viewer {
+  frame_range 1-100
+  name Viewer1
+  selected true
+  xpos 639
+  ypos 500
+ }
+end_group

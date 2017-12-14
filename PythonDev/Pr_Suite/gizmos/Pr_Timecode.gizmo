@@ -1,0 +1,94 @@
+# Tool Name: Pr_Timecode
+# Version: 1.1
+# Created For: Pr_Suite v1.1
+# Developer: Parimal Desai
+# Website: www.parimalvfx.com
+
+Gizmo {
+ help "Tool Name: <b>Pr_Timecode</b>\nVersion: <b>1.1</b>\nCreated For: <b>Pr_Suite v1.1</b> \nDeveloper: <b>Parimal Desai</b>\nWebsite: <b>www.parimalvfx.com</b>"
+ tile_color 0x7f7f7fff
+ lock_connections true
+ addUserKnob {20 Pr_Timecode_tab l Pr_Timecode}
+ addUserKnob {41 startcode l "start code" T AddTimeCode1.startcode}
+ addUserKnob {78 fps n 1}
+ fps 24
+ addUserKnob {41 frame l "start frame" T AddTimeCode1.frame}
+ addUserKnob {41 useFrame l "use start frame?" -STARTLINE T AddTimeCode1.useFrame}
+ addUserKnob {20 group_text l Text n 1}
+ addUserKnob {41 font T Text1.font}
+ addUserKnob {41 index l "" -STARTLINE T Text1.index}
+ addUserKnob {41 size T Text1.size}
+ addUserKnob {41 translate T Text1.translate}
+ addUserKnob {41 rotate T Text1.rotate}
+ addUserKnob {41 scale T Text1.scale}
+ addUserKnob {41 opacity T Text1.opacity}
+ addUserKnob {41 color T Text1.color}
+ addUserKnob {20 group_text_end l endGroup n -1}
+ addUserKnob {26 support l "@b;Support"}
+ addUserKnob {22 documentation l Documentation T "import os\nimport webbrowser\nimport nuke\n\ndoc = False\nfor search in nuke.pluginPath():\n    docPath = os.path.dirname(search) + \"/documentation/Pr_Timecodev11.html\"\n    if os.path.exists(docPath):\n        webbrowser.open(\"file:///\" + docPath)\n        doc = True\n        break\n\nif doc is False:\n    if nuke.ask(\"Pr_Suite documentation not found in expected installation directory. Click on 'Yes' to access online \"\n                \"Pr_Suite documentation.\"):\n        webbrowser.open(\"http://bit.ly/PrSuiteDocumentation\")\n" +STARTLINE}
+ addUserKnob {22 tutorial l Tutorial -STARTLINE T "import webbrowser\nwebbrowser.open(\"http://bit.ly/PrTimecodev1_0Tut\")"}
+ addUserKnob {22 report_bug l "Report Bug" -STARTLINE T "import webbrowser\nwebbrowser.open(\"http://bit.ly/PrSuiteReportBug\")"}
+ addUserKnob {22 check_updates l "Check for Updates" -STARTLINE T "import webbrowser\nwebbrowser.open(\"http://www.parimalvfx.com/rnd/pr_suite/pr_timecode/\")"}
+ addUserKnob {20 Help_tab l Help}
+ addUserKnob {26 h1 l "" +STARTLINE T "<font color='grey' size='7'><b>Pr_</b>Timecode</font><font color='grey' size='4'> v1.1</font>"}
+ addUserKnob {26 gp1 l "" +STARTLINE T " "}
+ addUserKnob {26 h2 l "" +STARTLINE T "<font color='white'><b>Timecode with manual controls.</b></font>"}
+ addUserKnob {26 gp2 l "" +STARTLINE T " "}
+ addUserKnob {20 h3 l "Getting Started" n 1}
+ h3 0
+ addUserKnob {26 h4 l "" +STARTLINE T "<font color='grey' size='7'><b>Step</b>By<b>Step</b></font>"}
+ addUserKnob {26 h5 l "" +STARTLINE T "<p></p><font color='lightgreen'>\n<p><b>#Step 1:</b> Change fps and start frame as per need.</p>\n<p><b>#Step 2:</b> Transform timecode text as per need.</p></font>\n<p></p>\n<font color='yellow'><b><i>For more information and help follow support on main tab.</i></b></font>"}
+ addUserKnob {20 h3_end l endGroup n -1}
+ addUserKnob {26 gp3 l "" +STARTLINE T "\n\n"}
+}
+ Input {
+  inputs 0
+  name Input
+  xpos -40
+  ypos 39
+ }
+set N120bb070 [stack 0]
+ Dot {
+  name Dot1
+  xpos 104
+  ypos 42
+ }
+ Dot {
+  name Dot2
+  xpos 104
+  ypos 234
+ }
+push $N120bb070
+ AddTimeCode {
+  startcode 00:00:00:00
+  fps {{parent.fps}}
+  metafps false
+  name AddTimeCode1
+  xpos -40
+  ypos 135
+ }
+ Text {
+  message "\[metadata input/timecode]"
+  font "\[python nuke.defaultFontPathname()]"
+  xjustify center
+  yjustify center
+  Transform 1
+  box {{center/2} {center/2} {format.w-box.x} {format.h-box.y}}
+  center {{format.w/2} {format.h/2}}
+  name Text1
+  xpos -40
+  ypos 183
+ }
+ CopyMetaData {
+  inputs 2
+  mergeMode "Meta only"
+  name CopyMetaData1
+  xpos -40
+  ypos 231
+ }
+ Output {
+  name Output1
+  xpos -40
+  ypos 327
+ }
+end_group

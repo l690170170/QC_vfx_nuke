@@ -1,0 +1,84 @@
+#! C:/Program Files/Nuke8.0v4/nuke-8.0.v4.dll -nx
+version 8.0 v4
+Gizmo {
+ note_font Verdana
+ mapsize {0.15 0.15}
+ addUserKnob {20 User}
+ addUserKnob {41 format l "output format" T Reformat1.format}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -210
+  ypos 56
+ }
+set N12370730 [stack 0]
+ FieldSelect {
+  name FieldSelect2
+  xpos -90
+  ypos 126
+ }
+ Reformat {
+  format "720 576 0 0 720 576 1 "
+  resize distort
+  name Reformat1
+  xpos -90
+  ypos 162
+ }
+ set C1214a8a0 [stack 0]
+ Transform {
+  translate {0 -1}
+  center {360 240}
+  black_outside false
+  name Transform1
+  selected true
+  xpos -90
+  ypos 226
+ }
+ set C123a9230 [stack 0]
+push $N12370730
+ FieldSelect {
+  field Even
+  name FieldSelect3
+  xpos -210
+  ypos 123
+ }
+clone $C1214a8a0 {
+  xpos -210
+  ypos 165
+  selected false
+ }
+clone $C123a9230 {
+  xpos -210
+  ypos 224
+  selected false
+ }
+ Dissolve {
+  inputs 2
+  which 0.5
+  name Dissolve1
+  xpos -210
+  ypos 277
+ }
+ Crop {
+  box {0 0 {"\[value input.width]" i} {"\[value input.height]" i}}
+  intersect true
+  crop false
+  name Crop1
+  xpos -210
+  ypos 342
+ }
+set N12403930 [stack 0]
+ Output {
+  name Output1
+  xpos -210
+  ypos 410
+ }
+push $N12403930
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos -87
+  ypos 386
+ }
+end_group

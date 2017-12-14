@@ -1,0 +1,548 @@
+#! C:/Program Files/Nuke9.0v8/nuke-9.0.8.dll -nx
+version 9.0 v8
+Gizmo {
+ label 尺寸大小2880*1080
+ lifetimeStart 1001
+ lifetimeEnd 1088
+ lock_connections true
+ addUserKnob {20 User}
+ addUserKnob {41 message T Director_.message}
+ addUserKnob {41 message_1 l message T Sequence_.message}
+ addUserKnob {41 message_2 l message T Length_.message}
+ addUserKnob {41 message_3 l message T Artist_.message}
+ addUserKnob {41 message_6 l message T Handle_frame_.message}
+ addUserKnob {41 message_4 l message T Comment_.message}
+ addUserKnob {41 message_5 l message T Date_.message}
+ addUserKnob {41 message_7 l message T Color_1.message}
+}
+ Read {
+  inputs 0
+  file S:/019_axl/cmpout/BCT/exr/022_VTL/BCT_022_VTL_0030_01/BCT_022_VTL_0030_01_comp_v037/BCT_022_VTL_0030_01_comp_v037.%04d.exr
+  format "2048 858 0 0 2048 858 1 sss"
+  first 1000
+  last 1088
+  origfirst 1000
+  origlast 1088
+  origset true
+  name Read4
+  label "<font size=\"3\" color =#548DD4><b> Frame range :</b></font> <font color = red>\[value first] - \[value last] </font>"
+  xpos -645
+  ypos -416
+ }
+ Reformat {
+  inputs 0
+  format "2048 858 0 0 2048 858 1 2048*858"
+  resize none
+  filter Lanczos4
+  name Reformat2
+  xpos 335
+  ypos -691
+ }
+ Input {
+  inputs 0
+  name Source
+  xpos 158
+  ypos 129
+ }
+ Crop {
+  box {0 0 2048 860}
+  reformat true
+  crop false
+  name Crop1
+  xpos 158
+  ypos 180
+  disable true
+ }
+ Transform {
+  translate {-434 -174}
+  scale {0.2049999982 0.2560000122}
+  center {1024 429}
+  name Transform10
+  xpos 158
+  ypos 232
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Color_   linear"
+  old_message {{67 111 108 111 114 95 32 32 32 108 105 110 101 97 114}
+    }
+  box {790.5 1029 901.5 1067}
+  transforms {{0 2}
+    }
+  cursor_position 5
+  global_font_scale 0.37
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{790.5 1067}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 540 0 0 1 1 0 0 0 0}
+    }
+  name Color_1
+  xpos -42
+  ypos 104
+ }
+ Transform {
+  translate {1310 -598}
+  scale 1.2
+  center {900 1031}
+  name Transform9
+  selected true
+  xpos -152
+  ypos 104
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Date_   2017/09/26"
+  old_message {{68 97 116 101 95 32 32 32 50 48 49 55 47 48 57 47 50 54}
+    }
+  box {790.5 1029 890.5 1067}
+  transforms {{0 2}
+    }
+  cursor_position 18
+  global_font_scale 0.37
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{790.5 1067}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 540 0 0 1 1 0 0 0 0}
+    }
+  name Date_
+  xpos -43
+  ypos 30
+ }
+ Transform {
+  translate {1310 -456}
+  scale 1.2
+  center {900 1031}
+  name Transform6
+  xpos -153
+  ypos 30
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Comment_   Remove wranglers "
+  old_message {{67 111 109 109 101 110 116 95 32 32 32 82 101 109 111 118 101 32 119 114 97 110 103 108 101 114 115 32}
+    }
+  box {50 1028 239 1066}
+  transforms {{0 2}
+    }
+  global_font_scale 0.37
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{50 1066}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 540 0 0 1 1 0 0 0 0}
+    }
+  name Comment_
+  xpos -45
+  ypos -88
+ }
+ Transform {
+  translate {1170 -603}
+  scale 1.2
+  center {172 1024}
+  name Transform5
+  xpos -130
+  ypos -86
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Handle frame_   8+9"
+  old_message {{72 97 110 100 108 101 32 102 114 97 109 101 95 32 32 32 56 43 57}
+    }
+  box {59.5 1020 307.5 1058}
+  transforms {{0 2}
+    }
+  cursor_position 12
+  global_font_scale 0.37
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{59.5 1058}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 540 0 0 1 1 0 0 0 0}
+    }
+  name Handle_frame_
+  xpos -45
+  ypos -148
+ }
+ Transform {
+  translate {1160 -456}
+  scale 1.2
+  center {172 1024}
+  name Transform8
+  xpos -138
+  ypos -148
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Artist_   Shaoming Zhou"
+  old_message {{65 114 116 105 115 116 95 32 32 32 83 104 97 111 109 105 110 103 32 90 104 111 117}
+    }
+  box {59.5 1020 170.5 1058}
+  transforms {{0 2}
+    }
+  cursor_position 7
+  global_font_scale 0.37
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{59.5 1058}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 540 0 0 1 1 0 0 0 0}
+    }
+  name Artist_
+  xpos -42
+  ypos -203
+ }
+ Transform {
+  translate {340 -466}
+  scale 1.2
+  center {172 1024}
+  name Transform4
+  xpos -136
+  ypos -203
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Length_   88"
+  old_message {{76 101 110 103 116 104 95 32 32 32 56 56}
+    }
+  box {790.5 1029 927.5 1067}
+  transforms {{0 2}
+    }
+  cursor_position 7
+  global_font_scale 0.37
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{790.5 1067}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 540 0 0 1 1 0 0 0 0}
+    }
+  name Length_
+  xpos -43
+  ypos -341
+ }
+ Transform {
+  translate {1310 -324}
+  scale 1.2
+  center {900 1031}
+  name Transform3
+  xpos -144
+  ypos -341
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Sequence_  022_VTL_0030_01"
+  old_message {{83 101 113 117 101 110 99 101 95 32 32 48 50 50 95 86 84 76 95 48 48 51 48 95 48 49}
+    }
+  box {50 1028 232 1066}
+  transforms {{0 2}
+    }
+  cursor_position 26
+  global_font_scale 0.37
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{50 1066}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 540 0 0 1 1 0 0 0 0}
+    }
+  name Sequence_
+  xpos -45
+  ypos -453
+ }
+ Transform {
+  translate {1170 -324}
+  scale 1.2
+  center {172 1024}
+  name Transform2
+  xpos -155
+  ypos -453
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Director_   Peng Zhang"
+  old_message {{68 105 114 101 99 116 111 114 95 32 32 32 80 101 110 103 32 90 104 97 110 103}
+    }
+  box {59.5 1020 217.5 1058}
+  transforms {{0 2}
+    }
+  cursor_position 22
+  global_font_scale 0.37
+  scale {1 1}
+  cursor_initialised true
+  initial_cursor_position {{59.5 1058}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 540 0 0 1 1 0 0 0 0}
+    }
+  name Director_
+  xpos -40
+  ypos -568
+ }
+ Transform {
+  translate {340 -316}
+  scale 1.2
+  center {172 1024}
+  name Transform1
+  xpos -136
+  ypos -568
+ }
+ Read {
+  inputs 0
+  file V:/axlmb.png
+  format "616 342 0 0 616 342 1 "
+  origset true
+  name Read2
+  label "<font size=\"3\" color =#548DD4><b> Frame range :</b></font> <font color = red>\[value first] - \[value last] </font>"
+  xpos 169
+  ypos -935
+ }
+ Reformat {
+  format "2880 1080 0 0 2880 1080 1 ssssss"
+  name Reformat1
+  xpos 169
+  ypos -792
+ }
+ Transform {
+  translate {-50 22}
+  scale {0.79100001 0.74100001}
+  center {1440 540}
+  name Transform7
+  xpos 169
+  ypos -733
+ }
+ Roto {
+  output none
+  premultiply rgba
+  curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097664}
+    {t x44800000 x44070000}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Rectangle2 512 bezier
+     {{cc
+       {f 8192}
+       {px
+        {1 x447a0000}
+        {{{0 -}}
+      {{xc28d5555 -}}}
+        {{{xc29c0000 0 1 xbdc3b3d4 1}
+       {xc3034658 xbdc3b3d4 1 0 1}}
+      {{x42e00000 0 1 x3c92111b 1}
+       {x42f2c00d x3c92111b 1 0 1}}}
+        {{{x44360000 -}}
+      {{0 -}}}
+        {{{xc435fffc 0 1 x34833405 1}
+       {xc435fff8 x34833405 1 0 1}}
+      {{0 -}}}
+        {{{x453e1001 0 1 xbdc3b3c4 1}
+       {x453abb9c xbdc3b3c4 1 0 1}}
+      {{x42f46662 0 1 x3c921123 1}
+       {x43039338 x3c921123 1 0 1}}}
+        {{{0 -}}
+      {{xc28d5555 -}}}
+        {{{0 -}}
+      {{x428d5555 -}}}
+        {{{x453e1001 0 1 xbdc3b3c4 1}
+       {x453abb9c xbdc3b3c4 1 0 1}}
+      {{xc2b399a0 0 1 x3c921106 1}
+       {xc2a0d999 x3c921106 1 0 1}}}
+        {{{xc435fffc 0 1 x34833405 1}
+       {xc435fff8 x34833405 1 0 1}}
+      {{0 -}}}
+        {{{x44360000 -}}
+      {{0 -}}}
+        {{{xc29c0000 0 1 xbdc3b3d4 1}
+       {xc3034658 xbdc3b3d4 1 0 1}}
+      {{xc2c80000 0 1 x3c921102 1}
+       {xc2b53ffa x3c921102 1 0 1}}}
+        {{{0 -}}
+      {{x428d5555 -}}}}}     idem}
+     {tx 1 x447d8000 x40c00000}
+     {a osw x41200000 osf 0 str 1 spx x44800000 spy x44070000 sb 1 tt x41000000}}
+    {curvegroup Rectangle1 512 bezier
+     {{cc
+       {f 8192}
+       {px
+        {1 x447a0000}
+        {{{0 -}}
+      {{xc30eaaa8 0 1 xb3833405 1}
+       {xc30eaaac xb3833405 1 0 1}}}
+        {{{xc2d40000 0 1 x3e052007 1}
+       {xc289dff2 x3e052007 1 0 1}}
+      {{x44978000 0 1 x3cd54eac 1}
+       {x449b7467 x3cd54eac 1 0 1}}}
+        {{{x443a0000 -}}
+      {{0 -}}}
+        {{{xc43a0000 -}}
+      {{0 -}}}
+        {{{x45366333 0 1 x3e052019 1}
+       {x4538b435 x3e052019 1 0 1}}
+      {{x44977fff 0 1 x3cd54e6a 1}
+       {x449b7465 x3cd54e6a 1 0 1}}}
+        {{{0 -}}
+      {{xc30eaaa8 0 1 x33833405 1}
+       {xc30eaaa4 x33833405 1 0 1}}}
+        {{{0 -}}
+      {{x430eaaac -}}}
+        {{{x45366333 0 1 x3e052019 1}
+       {x4538b435 x3e052019 1 0 1}}
+      {{x44440000 0 1 x3cd54e8b 1}
+       {x444be8cd x3cd54e8b 1 0 1}}}
+        {{{xc43a0000 -}}
+      {{0 -}}}
+        {{{x443a0000 -}}
+      {{0 -}}}
+        {{{xc2d40000 0 1 x3e052007 1}
+       {xc289dff2 x3e052007 1 0 1}}
+      {{x44440000 0 1 x3cd54e8b 1}
+       {x444be8cd x3cd54e8b 1 0 1}}}
+        {{{0 -}}
+      {{x430eaaac -}}}}}     idem}
+     {tx 1 x447c8000 x44798000}
+     {a osw x41200000 osf 0 str 1 spx x44800000 spy x44070000 sb 1 tt x41000000}}}}}}
+  toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 tt 5 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 tt 8 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+  toolbar_brush_hardness 0.200000003
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {1024 540}
+  colorOverlay {0 0 0 0}
+  lifetime_type "all frames"
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name Roto2
+  xpos -1
+  ypos -710
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.0742135644 0.0742135644 0.0742135644 1}
+  format "2880 1080 0 0 2880 1080 1 ssssss"
+  name Constant1
+  xpos -240
+  ypos -932
+ }
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos -240
+  ypos -704
+ }
+ Merge2 {
+  inputs 2
+  name Merge3
+  xpos -240
+  ypos -568
+ }
+ Merge2 {
+  inputs 2
+  name Merge4
+  xpos -240
+  ypos -451
+ }
+ Merge2 {
+  inputs 2
+  name Merge5
+  xpos -240
+  ypos -341
+ }
+ Merge2 {
+  inputs 2
+  name Merge6
+  xpos -240
+  ypos -203
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos -240
+  ypos -148
+ }
+ Merge2 {
+  inputs 2
+  name Merge7
+  xpos -240
+  ypos -86
+ }
+ Merge2 {
+  inputs 2
+  name Merge8
+  xpos -240
+  ypos 30
+ }
+ Merge2 {
+  inputs 2
+  name Merge10
+  xpos -240
+  ypos 104
+ }
+ Merge2 {
+  inputs 2
+  name Merge9
+  xpos -240
+  ypos 232
+ }
+set N533e1000 [stack 0]
+push $N533e1000
+ Output {
+  name Output1
+  xpos -240
+  ypos 306
+ }
+ Viewer {
+  inputs 2
+  frame_range 1001-1001
+  name Viewer1
+  xpos -33
+  ypos -627
+ }
+end_group

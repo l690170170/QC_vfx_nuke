@@ -1,0 +1,110 @@
+#! D:/Program Files/Nuke9.0v8/nuke-9.0.8.dll -nx
+version 9.0 v8
+Gizmo {
+ inputs 2
+ tile_color 0xff
+ note_font "Adobe Arabic"
+ note_font_color 0xffffffff
+ lock_connections true
+ addUserKnob {20 CopyMetaData}
+ addUserKnob {41 mergeMode l "metadata from" T CopyMetaData1.mergeMode}
+ addUserKnob {26 "" l "Meta filtering"}
+ addUserKnob {41 metadatafilter l "copy only" T CopyMetaData1.metadatafilter}
+ addUserKnob {41 metadatafilterMode l within T CopyMetaData1.metadatafilterMode}
+ addUserKnob {26 "" l "Image filtering"}
+ addUserKnob {41 imageMetadatafilter l "copy only" T CopyMetaData1.imageMetadatafilter}
+ addUserKnob {41 imageMetadatafilterMode l within T CopyMetaData1.imageMetadatafilterMode}
+ addUserKnob {26 unname l "" +STARTLINE}
+ addUserKnob {26 unname_2 l ViewMetaData}
+ addUserKnob {41 shownmetadata l "" -STARTLINE T ViewMetaData1.shownmetadata}
+ addUserKnob {41 metadatafilter_1 l "search metadata for" T ViewMetaData1.metadatafilter}
+ addUserKnob {41 metadatafiltermode l within T ViewMetaData1.metadatafiltermode}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  label 此处放原始素材
+  note_font_size 20
+  note_font_color 0xffff
+  xpos 48
+  ypos -266
+  bdwidth 167
+  bdheight 200
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  label 连接制作工程
+  note_font_size 20
+  note_font_color 0xffff
+  xpos 258
+  ypos -382
+  bdwidth 120
+  bdheight 104
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  tile_color 0x71c67100
+  label 连接渲染节点
+  note_font_size 20
+  note_font_color 0xffff
+  xpos 259
+  ypos -49
+  bdwidth 133
+  bdheight 152
+ }
+ Input {
+  inputs 0
+  name Original_Source
+  xpos 90
+  ypos -183
+  number 1
+ }
+ Dot {
+  name Dot2
+  xpos 124
+  ypos -116
+ }
+ Input {
+  inputs 0
+  name Scenes
+  xpos 288
+  ypos -333
+ }
+ Dot {
+  name Dot3
+  xpos 322
+  ypos -307
+ }
+ CopyMetaData {
+  inputs 2
+  name CopyMetaData1
+  selected true
+  xpos 288
+  ypos -120
+ }
+ Dot {
+  name Dot1
+  xpos 322
+  ypos 46
+ }
+ ViewMetaData {
+  name ViewMetaData1
+  xpos 288
+  ypos 102
+ }
+set N6caef000 [stack 0]
+ Output {
+  name Output1
+  xpos 288
+  ypos 161
+ }
+push $N6caef000
+ Viewer {
+  frame_range 1-44
+  name Viewer1
+  xpos 288
+  ypos 149
+ }
+end_group

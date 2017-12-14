@@ -1,0 +1,3 @@
+
+nuke.pluginAddPath("./python/ToolSet")
+
