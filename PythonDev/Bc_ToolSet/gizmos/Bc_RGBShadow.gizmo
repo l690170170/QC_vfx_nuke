@@ -1,0 +1,377 @@
+# Tool Name: Bc_RGBShadow
+# Version: 1.1
+# Created For: Bc_ToolSet v1.1
+# Developer: Parimal Desai
+# Website: www.parimalvfx.com
+
+Gizmo {
+ inputs 3
+ help "Tool Name: <b>Bc_RGBShadow</b>\nVersion: <b>1.1</b>\nCreated For: <b>Bc_ToolSet v1.1</b> \nDeveloper: <b>Parimal Desai</b>\nWebsite: <b>www.parimalvfx.com</b>"
+ tile_color 0x7f7f7fff
+ lock_connections true
+ addUserKnob {20 Bc_RGBShadow_tab l Bc_RGBShadow}
+ addUserKnob {26 active_shadows l "" +STARTLINE T "<b>Active Shadows"}
+ addUserKnob {6 red_as l red t "Enable/Disable red shadow" +STARTLINE}
+ red_as true
+ addUserKnob {6 green_as l green t "Enable/Disable green shadow" -STARTLINE}
+ green_as true
+ addUserKnob {6 blue_as l blue t "Enable/Disable blue shadow" -STARTLINE}
+ blue_as true
+ addUserKnob {26 shadow_controls l "@b;Shadow Controls"}
+ addUserKnob {20 group_red l red n 1}
+ group_red 0
+ addUserKnob {19 red_intensity l intensity t "Red shadow intensity" R -1 1}
+ addUserKnob {18 red_clr l color t "Red shadow color"}
+ red_clr {1 1 1}
+ addUserKnob {20 group_red_end l endGroup n -1}
+ addUserKnob {20 group_green l green n 1}
+ group_green 0
+ addUserKnob {19 green_intensity l intensity t "Green shadow intensity" R -1 1}
+ addUserKnob {18 green_clr l color t "Green shadow color"}
+ green_clr {1 1 1}
+ addUserKnob {20 group_green_end l endGroup n -1}
+ addUserKnob {20 group_blue l blue n 1}
+ group_blue 0
+ addUserKnob {19 blue_intensity l intensity t "Blue shadow intensity" R -1 1}
+ addUserKnob {18 blue_clr l color t "Blue shadow color"}
+ blue_clr {1 1 1}
+ addUserKnob {20 group_blue_end l endGroup n -1}
+ addUserKnob {26 output_alpha l "@b;Output Alpha"}
+ addUserKnob {4 alpha_out l "output alpha from" M {bg "rgb shadow" "no alpha"}}
+ addUserKnob {26 mask l "@b;Mask"}
+ addUserKnob {41 maskChannel l "mask channel" T Keymix1.maskChannel}
+ addUserKnob {6 invert_mask l invert t "Invert the use of the mask channel." -STARTLINE}
+ addUserKnob {7 mix t "Dissolve between the original image at 0 and the effect at 1."}
+ mix 1
+ addUserKnob {26 support l "@b;Support"}
+ addUserKnob {22 documentation l Documentation T "import os\nimport webbrowser\nimport nuke\n\ndoc = False\nfor search in nuke.pluginPath():\n    docPath = os.path.dirname(search) + \"/documentation/Bc_RGBShadowv11.html\"\n    if os.path.exists(docPath):\n        webbrowser.open(\"file:///\" + docPath)\n        doc = True\n        break\n\nif doc is False:\n    if nuke.ask(\"Bc_ToolSet documentation not found in expected installation directory. Click on 'Yes' to access online \"\n                \"Bc_ToolSet documentation.\"):\n        webbrowser.open(\"http://bit.ly/PrSuiteDocumentation\")\n" +STARTLINE}
+ addUserKnob {22 tutorial l Tutorial -STARTLINE T "import webbrowser\nwebbrowser.open(\"http://bit.ly/PrRGBShadowv1_0Tut\")"}
+ addUserKnob {22 report_bug l "Report Bug" -STARTLINE T "import webbrowser\nwebbrowser.open(\"http://bit.ly/PrSuiteReportBug\")"}
+ addUserKnob {22 check_updates l "Check for Updates" -STARTLINE T "import webbrowser\nwebbrowser.open(\"http://www.parimalvfx.com/rnd/Bc_ToolSet/Bc_RGBShadow/\")"}
+ addUserKnob {20 Help_tab l Help}
+ addUserKnob {26 h1 l "" +STARTLINE T "<font color='grey' size='7'><b>Pr_</b>RGBShadow</font><font color='grey' size='4'> v1.1</font>"}
+ addUserKnob {26 gp1 l "" +STARTLINE T " "}
+ addUserKnob {26 h2 l "" +STARTLINE T "<font color='white'><b>Extract and control shadow from rgb shadow pass.</b></font>"}
+ addUserKnob {26 gp2 l "" +STARTLINE T " "}
+ addUserKnob {20 h3 l "Getting Started" n 1}
+ h3 0
+ addUserKnob {26 h4 l "" +STARTLINE T "<font color='grey' size='7'><b>Step</b>By<b>Step</b></font>"}
+ addUserKnob {26 h5 l "" +STARTLINE T "<p></p><font color='lightgreen'>\n<p><b>#Step 1:</b> Disable unused shadows from active shadows, if any.</p>\n<p><b>#Step 2:</b> Adjust shadow intensity and color.</p>\n<p><b>#Step 3 (optional):</b> Use mask input for limiting process to</p>\n<p>non-black areas.</p></font>\n<p></p>\n<font color='yellow'><b><i>For more information and help follow support on main tab.</i></b></font>"}
+ addUserKnob {20 h3_end l endGroup n -1}
+ addUserKnob {26 gp3 l "" +STARTLINE T "\n\n"}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos -428
+  ypos -57
+  number 2
+ }
+ Dot {
+  name Dot5
+  xpos -394
+  ypos 498
+ }
+ Input {
+  inputs 0
+  name rgb_shadow
+  xpos -40
+  ypos -57
+ }
+set N12221e50 [stack 0]
+ Dot {
+  name Dot1
+  xpos 144
+  ypos -54
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name blue_active
+  xpos 110
+  ypos 39
+  disable {{parent.blue_as}}
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha blue
+  name blue_shuffle
+  xpos 110
+  ypos 87
+ }
+ Invert {
+  name blue_invert
+  xpos 110
+  ypos 129
+ }
+ Grade {
+  blackpoint {{parent.blue_intensity}}
+  name blue_intensity
+  xpos 110
+  ypos 183
+ }
+set N12222f80 [stack 0]
+ Dot {
+  name Dot8
+  xpos 231
+  ypos 258
+ }
+push $N12222f80
+ Grade {
+  inputs 1+1
+  white {{parent.blue_clr} {parent.blue_clr} {parent.blue_clr} {parent.blue_clr}}
+  invert_mask true
+  name blue_color
+  xpos 110
+  ypos 255
+ }
+ Dot {
+  name Dot13
+  xpos 144
+  ypos 330
+ }
+push 0
+push $N12221e50
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name green_active
+  xpos -40
+  ypos 39
+  disable {{parent.green_as}}
+ }
+ Shuffle {
+  red green
+  blue green
+  alpha green
+  name green_shuffle
+  xpos -40
+  ypos 87
+ }
+ Invert {
+  name green_invert
+  xpos -40
+  ypos 129
+ }
+ Grade {
+  blackpoint {{parent.green_intensity}}
+  name green_intensity
+  xpos -40
+  ypos 183
+ }
+set N1b185b00 [stack 0]
+ Dot {
+  name Dot7
+  xpos 81
+  ypos 258
+ }
+push $N1b185b00
+ Grade {
+  inputs 1+1
+  white {{parent.green_clr} {parent.green_clr} {parent.green_clr} {parent.green_clr}}
+  invert_mask true
+  name green_color
+  xpos -40
+  ypos 255
+ }
+push $N12221e50
+ Dot {
+  name Dot2
+  xpos -156
+  ypos -54
+ }
+set N1b186550 [stack 0]
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name red_active
+  xpos -190
+  ypos 39
+  disable {{parent.red_as}}
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name red_shuffle
+  xpos -190
+  ypos 87
+ }
+ Invert {
+  name red_invert
+  xpos -190
+  ypos 129
+ }
+ Grade {
+  blackpoint {{parent.red_intensity}}
+  name red_intensity
+  xpos -190
+  ypos 183
+ }
+set N1b187310 [stack 0]
+ Dot {
+  name Dot6
+  xpos -69
+  ypos 258
+ }
+push $N1b187310
+ Grade {
+  inputs 1+1
+  white {{parent.red_clr} {parent.red_clr} {parent.red_clr} {parent.red_clr}}
+  invert_mask true
+  name red_color
+  xpos -190
+  ypos 255
+ }
+ Dot {
+  name Dot14
+  xpos -156
+  ypos 330
+ }
+ Merge2 {
+  inputs 3+1
+  operation multiply
+  name Merge1
+  xpos -40
+  ypos 327
+ }
+ Input {
+  inputs 0
+  name bg
+  xpos 249
+  ypos -56
+  number 1
+ }
+ Dot {
+  name Dot4
+  xpos 283
+  ypos 402
+ }
+set N1b1887b0 [stack 0]
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge2
+  xpos -40
+  ypos 399
+ }
+set N1b25cd40 [stack 0]
+ Dot {
+  name Dot16
+  xpos -155
+  ypos 402
+ }
+push $N1b1887b0
+ Dot {
+  name Dot3
+  xpos 283
+  ypos 498
+ }
+set N1b25d420 [stack 0]
+ Keymix {
+  inputs 3
+  invertMask {{parent.invert_mask}}
+  mix {{parent.mix}}
+  name Keymix1
+  xpos -189
+  ypos 489
+  disable {{"\[exists parent.input2]?0:1"}}
+ }
+push $N1b25cd40
+ Switch {
+  inputs 2
+  which {{1-parent.Keymix1.disable}}
+  name Switch2
+  xpos -40
+  ypos 567
+ }
+set N1a9169c0 [stack 0]
+ Shuffle {
+  alpha black
+  name no_alpha
+  xpos -40
+  ypos 639
+ }
+push $N1b186550
+ Dot {
+  name Dot10
+  xpos -287
+  ypos -54
+ }
+ Dot {
+  name Dot11
+  xpos -287
+  ypos 642
+ }
+push $N1a9169c0
+ Dot {
+  name Dot25
+  xpos -143
+  ypos 570
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name rgb_shadow_alpha
+  xpos -177
+  ypos 633
+  disable {{"\[string first \".a\" \[channels \[input this 1]]]<0"}}
+ }
+ Dot {
+  name Dot15
+  xpos -143
+  ypos 714
+ }
+push $N1b25d420
+ Dot {
+  name Dot9
+  xpos 283
+  ypos 642
+ }
+push $N1a9169c0
+ Dot {
+  name Dot26
+  xpos 138
+  ypos 570
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name bg_alpha
+  xpos 104
+  ypos 633
+  disable {{"\[string first \".a\" \[channels \[input this 1]]]<0"}}
+ }
+ Dot {
+  name Dot12
+  xpos 138
+  ypos 714
+ }
+ Switch {
+  inputs 3
+  which {{alpha_out}}
+  name Switch1
+  xpos -40
+  ypos 711
+ }
+ Output {
+  name Output1
+  xpos -40
+  ypos 783
+ }
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos -40
+  ypos 855
+ }
+end_group

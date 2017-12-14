@@ -1,0 +1,98 @@
+#! C:/Program Files/Nuke9.0v5/nuke-9.0.5.dll -nx
+version 9.0 v5
+Gizmo {
+ inputs 2
+}
+ BackdropNode {
+  inputs 0
+  name StereoVerticalBackdropNode
+  xpos 363
+  ypos -148
+  bdwidth 220
+  bdheight 348
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos 375
+  ypos -80
+ }
+ Dot {
+  name Dot2
+  label "Left\n"
+  note_font_size 30
+  xpos 409
+  ypos -40
+ }
+ Reformat {
+  type "to box"
+  box_width 2048
+  box_height 858
+  box_fixed true
+  resize fit
+  name L_Reformat1
+  xpos 375
+  ypos 5
+ }
+ Reformat {
+  resize none
+  name L_Reformat2
+  xpos 375
+  ypos 31
+ }
+ Transform {
+  translate {{curve} {-height/4}}
+  center {640 720}
+  name L_Transform
+  xpos 375
+  ypos 58
+ }
+ Input {
+  inputs 0
+  name Input2
+  xpos 482
+  ypos -81
+  number 1
+ }
+ Dot {
+  name Dot1
+  label "Right\n"
+  note_font_size 30
+  xpos 516
+  ypos -41
+ }
+ Reformat {
+  type "to box"
+  box_width 2048
+  box_height 858
+  box_fixed true
+  resize fit
+  name R_Reformat1
+  xpos 482
+  ypos 1
+ }
+ Reformat {
+  resize none
+  name R_Reformat2
+  xpos 482
+  ypos 28
+ }
+ Transform {
+  translate {{curve} {height/4}}
+  center {640 720}
+  name R_Transform
+  xpos 482
+  ypos 55
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 426
+  ypos 123
+ }
+ Output {
+  name Output1
+  xpos 426
+  ypos 223
+ }
+end_group

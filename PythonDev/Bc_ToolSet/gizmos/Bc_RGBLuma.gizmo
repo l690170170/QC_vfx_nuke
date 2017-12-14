@@ -1,0 +1,390 @@
+# Tool Name: Bc_RGBLuma
+# Version: 1.1
+# Created For: Bc_ToolSet v1.1
+# Developer: Parimal Desai
+# Website: www.parimalvfx.com
+
+Gizmo {
+ inputs 3
+ help "Tool Name: <b>Bc_RGBLuma</b>\nVersion: <b>1.1</b>\nCreated For: <b>Bc_ToolSet v1.1</b> \nDeveloper: <b>Parimal Desai</b>\nWebsite: <b>www.parimalvfx.com</b>"
+ tile_color 0x7f7f7fff
+ lock_connections true
+ addUserKnob {20 Bc_RGBLuma_tab l Bc_RGBLuma}
+ addUserKnob {26 active_lumas l "" +STARTLINE T "<b>Active Lumas"}
+ addUserKnob {6 red_al l red t "Enable/Disable red luma" +STARTLINE}
+ red_al true
+ addUserKnob {6 green_al l green t "Enable/Disable green luma" -STARTLINE}
+ green_al true
+ addUserKnob {6 blue_al l blue t "Enable/Disable blue luma" -STARTLINE}
+ blue_al true
+ addUserKnob {26 luma_controls l "@b;Luma Controls"}
+ addUserKnob {20 group_red l red n 1}
+ group_red 0
+ addUserKnob {41 mode l "Adjust in" T red_EXPTool.mode}
+ addUserKnob {41 red l intensity T red_EXPTool.red}
+ addUserKnob {19 red_clr l color t "Red luma color"}
+ red_clr {1 1 1 1}
+ addUserKnob {20 group_red_end l endGroup n -1}
+ addUserKnob {20 group_green l green n 1}
+ group_green 0
+ addUserKnob {41 mode_1 l "Adjust in" T green_EXPTool.mode}
+ addUserKnob {41 green l intensity T green_EXPTool.green}
+ addUserKnob {19 green_clr l color t "Green luma color"}
+ green_clr {1 1 1 1}
+ addUserKnob {20 group_green_end l endGroup n -1}
+ addUserKnob {20 group_blue l blue n 1}
+ group_blue 0
+ addUserKnob {41 mode_2 l "Adjust in" T blue_EXPTool.mode}
+ addUserKnob {41 blue l intensity T blue_EXPTool.blue}
+ addUserKnob {19 blue_clr l color t "Blue luma color"}
+ blue_clr {1 1 1 1}
+ addUserKnob {20 group_blue_end l endGroup n -1}
+ addUserKnob {26 output_alpha l "@b;Output Alpha"}
+ addUserKnob {4 alpha_out l "output alpha from" t "Output alpha from color input \nor luma input or no alpha." M {color "rgb luma" "no alpha" "" "" "" ""}}
+ addUserKnob {26 mask l "@b;Mask"}
+ addUserKnob {41 maskChannel l "mask channel" T Keymix1.maskChannel}
+ addUserKnob {6 invert_mask l invert t "Invert the use of the mask channel." -STARTLINE}
+ addUserKnob {7 mix t "Dissolve between the original image at 0 and the effect at 1."}
+ mix 1
+ addUserKnob {26 support l "@b;Support"}
+ addUserKnob {22 documentation l Documentation T "import os\nimport webbrowser\nimport nuke\n\ndoc = False\nfor search in nuke.pluginPath():\n    docPath = os.path.dirname(search) + \"/documentation/Bc_RGBLumav11.html\"\n    if os.path.exists(docPath):\n        webbrowser.open(\"file:///\" + docPath)\n        doc = True\n        break\n\nif doc is False:\n    if nuke.ask(\"Bc_ToolSet documentation not found in expected installation directory. Click on 'Yes' to access online \"\n                \"Bc_ToolSet documentation.\"):\n        webbrowser.open(\"http://bit.ly/PrSuiteDocumentation\")\n" +STARTLINE}
+ addUserKnob {22 tutorial l Tutorial -STARTLINE T "import webbrowser\nwebbrowser.open(\"http://bit.ly/PrRGBLumav1_0Tut\")"}
+ addUserKnob {22 report_bug l "Report Bug" -STARTLINE T "import webbrowser\nwebbrowser.open(\"http://bit.ly/PrSuiteReportBug\")"}
+ addUserKnob {22 check_updates l "Check for Updates" -STARTLINE T "import webbrowser\nwebbrowser.open(\"http://www.parimalvfx.com/rnd/Bc_ToolSet/Bc_RGBLuma/\")"}
+ addUserKnob {20 Help_tab l Help}
+ addUserKnob {26 h1 l "" +STARTLINE T "<font color='grey' size='7'><b>Pr_</b>RGBLuma</font><font color='grey' size='4'> v1.1</font>"}
+ addUserKnob {26 gp1 l "" +STARTLINE T " "}
+ addUserKnob {26 h2 l "" +STARTLINE T "<font color='white'><b>Extract and control luma from rgb luma pass.</b></font>"}
+ addUserKnob {26 gp2 l "" +STARTLINE T " "}
+ addUserKnob {20 h3 l "Getting Started" n 1}
+ h3 0
+ addUserKnob {26 h4 l "" +STARTLINE T "<font color='grey' size='7'><b>Step</b>By<b>Step</b></font>"}
+ addUserKnob {26 h5 l "" +STARTLINE T "<p></p><font color='lightgreen'>\n<p><b>#Step 1:</b> Disable unused luma from active lumas, if any.</p>\n<p><b>#Step 2:</b> Adjust luma intensity and color.</p>\n<p><b>#Step 3 (optional):</b> Use mask input for limiting process to</p>\n<p>non-black areas.</p></font>\n<p></p>\n<font color='grey' size='7'><b>Caution</b></font>\n<b><font color='red'><p>#After changing 'Adjust in' pulldown choice for the first</p>\n<p>time intensity knob will get a 'nan' value. It is</p>\n<p>recommended to change 'Adjust in' first and then adjust</p>\n<p>instensity knob.</p></font></b>\n<p></p>\n<font color='yellow'><b><i>For more information and help follow support on main tab.</i></b></font>"}
+ addUserKnob {20 h3_end l endGroup n -1}
+ addUserKnob {26 gp3 l "" +STARTLINE T "\n\n"}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos -260
+  ypos -9
+  number 2
+ }
+ Dot {
+  name Dot10
+  xpos -226
+  ypos 522
+ }
+ Input {
+  inputs 0
+  name rgb_luma
+  xpos 126
+  ypos -9
+ }
+set N15072cb0 [stack 0]
+ Dot {
+  name Dot12
+  xpos 324
+  ypos -6
+ }
+set N15073020 [stack 0]
+ EXPTool {
+  gang false
+  red 1.#QNAN
+  green 1.#QNAN
+  maskChannelMask {{{parent.mask_control.maskChannel}}}
+  name blue_EXPTool
+  xpos 290
+  ypos 63
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha blue
+  name blue_Shuffle
+  xpos 290
+  ypos 111
+ }
+ ColorCorrect {
+  gain {{parent.blue_clr} {parent.blue_clr} {parent.blue_clr} {parent.blue_clr}}
+  maskChannelMask {{{parent.mask_control.maskChannel}}}
+  name blue_ColorCorrect
+  xpos 290
+  ypos 159
+ }
+ Clamp {
+  channels rgba
+  name blue_Clamp
+  xpos 290
+  ypos 207
+ }
+ Input {
+  inputs 0
+  name color
+  xpos -150
+  ypos -9
+  number 1
+ }
+ Dot {
+  name Dot1
+  xpos -116
+  ypos 258
+ }
+set N15153260 [stack 0]
+ Dot {
+  name Dot4
+  xpos -44
+  ypos 258
+ }
+set N151535d0 [stack 0]
+ Dot {
+  name Dot3
+  xpos 122
+  ypos 258
+ }
+set N15153940 [stack 0]
+ Dot {
+  name Dot2
+  xpos 286
+  ypos 258
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge3
+  xpos 290
+  ypos 303
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name blue_active
+  xpos 290
+  ypos 351
+  disable {{parent.blue_al}}
+ }
+ Dot {
+  name Dot6
+  xpos 324
+  ypos 426
+ }
+push 0
+push $N15072cb0
+ EXPTool {
+  gang false
+  red 1.#QNAN
+  blue 1.#QNAN
+  maskChannelMask {{{parent.mask_control.maskChannel}}}
+  name green_EXPTool
+  xpos 126
+  ypos 63
+ }
+ Shuffle {
+  red green
+  blue green
+  alpha green
+  name green_Shuffle
+  xpos 126
+  ypos 111
+ }
+ ColorCorrect {
+  gain {{parent.green_clr} {parent.green_clr} {parent.green_clr} {parent.green_clr}}
+  maskChannelMask {{{parent.mask_control.maskChannel}}}
+  name green_ColorCorrect
+  xpos 126
+  ypos 159
+ }
+ Clamp {
+  channels rgba
+  name green_Clamp
+  xpos 126
+  ypos 207
+ }
+push $N15153940
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge2
+  xpos 126
+  ypos 303
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name green_active
+  xpos 126
+  ypos 351
+  disable {{parent.green_al}}
+ }
+push $N15072cb0
+ Dot {
+  name Dot11
+  xpos -6
+  ypos -6
+ }
+ EXPTool {
+  gang false
+  green 1.#QNAN
+  blue 1.#QNAN
+  maskChannelMask {{{parent.mask_control.maskChannel}}}
+  name red_EXPTool
+  xpos -40
+  ypos 63
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name red_Shuffle
+  xpos -40
+  ypos 111
+ }
+ ColorCorrect {
+  gain {{parent.red_clr} {parent.red_clr} {parent.red_clr} {parent.red_clr}}
+  maskChannelMask {{{parent.mask_control.maskChannel}}}
+  name red_ColorCorrect
+  xpos -40
+  ypos 159
+ }
+ Clamp {
+  channels rgba
+  name red_Clamp
+  xpos -40
+  ypos 207
+ }
+push $N151535d0
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge1
+  xpos -40
+  ypos 303
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name red_active
+  xpos -40
+  ypos 351
+  disable {{parent.red_al}}
+ }
+ Dot {
+  name Dot5
+  xpos -6
+  ypos 426
+ }
+ Merge2 {
+  inputs 3+1
+  operation plus
+  name Merge4
+  xpos 126
+  ypos 423
+ }
+set N1524fcb0 [stack 0]
+push $N15153260
+ Dot {
+  name Dot13
+  xpos -116
+  ypos 474
+ }
+set N15250020 [stack 0]
+ Dot {
+  name Dot14
+  xpos -6
+  ypos 474
+ }
+ Keymix {
+  inputs 3
+  invertMask {{parent.invert_mask}}
+  mix {{parent.mix}}
+  name Keymix1
+  xpos -40
+  ypos 513
+  disable {{"\[exists parent.input2]?0:1"}}
+ }
+push $N1524fcb0
+ Switch {
+  inputs 2
+  which {{1-parent.Keymix1.disable}}
+  name Switch2
+  xpos 126
+  ypos 519
+ }
+set N148bcc80 [stack 0]
+ Shuffle {
+  alpha black
+  name no_alpha
+  xpos 126
+  ypos 591
+ }
+push $N15073020
+ Dot {
+  name Dot8
+  xpos 434
+  ypos -6
+ }
+ Dot {
+  name Dot7
+  xpos 434
+  ypos 594
+ }
+push $N148bcc80
+ Dot {
+  name Dot9
+  xpos 324
+  ypos 522
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name rgb_luma_alpha
+  xpos 290
+  ypos 585
+  disable {{"\[string first \".a\" \[channels \[input this 1]]]<0"}}
+ }
+ Dot {
+  name Dot20
+  xpos 324
+  ypos 666
+ }
+push $N15250020
+ Dot {
+  name Dot15
+  xpos -116
+  ypos 594
+ }
+push $N148bcc80
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name color_alpha
+  xpos -40
+  ypos 585
+  disable {{"\[string first \".a\" \[channels \[input this 1]]]<0"}}
+ }
+ Dot {
+  name Dot21
+  xpos -6
+  ypos 666
+ }
+ Switch {
+  inputs 3
+  which {{parent.alpha_out}}
+  name Switch1
+  xpos 126
+  ypos 663
+ }
+ Output {
+  name Output1
+  xpos 126
+  ypos 735
+ }
+end_group
